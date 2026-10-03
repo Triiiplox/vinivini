@@ -1,0 +1,823 @@
+[
+ {
+  "id": "logic_pat_001",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "heart_blue",
+   "triangle_green",
+   "heart_blue",
+   "triangle_green"
+  ],
+  "answer": "heart_blue",
+  "options": [
+   "triangle_green",
+   "diamond_purple",
+   "heart_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_002",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "star_pink",
+   "square_yellow",
+   "star_pink",
+   "square_yellow"
+  ],
+  "answer": "star_pink",
+  "options": [
+   "triangle_blue",
+   "square_yellow",
+   "star_pink"
+  ]
+ },
+ {
+  "id": "logic_pat_003",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "triangle_yellow",
+   "star_blue",
+   "triangle_yellow",
+   "star_blue",
+   "triangle_yellow",
+   "star_blue"
+  ],
+  "answer": "triangle_yellow",
+  "options": [
+   "star_blue",
+   "triangle_yellow",
+   "heart_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_004",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "star_green",
+   "diamond_purple",
+   "star_green",
+   "diamond_purple",
+   "star_green"
+  ],
+  "answer": "diamond_purple",
+  "options": [
+   "heart_blue",
+   "star_green",
+   "diamond_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_005",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "diamond_pink",
+   "triangle_yellow",
+   "diamond_pink",
+   "triangle_yellow",
+   "diamond_pink"
+  ],
+  "answer": "triangle_yellow",
+  "options": [
+   "triangle_yellow",
+   "square_orange",
+   "diamond_pink"
+  ]
+ },
+ {
+  "id": "logic_pat_006",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "square_red",
+   "triangle_purple",
+   "square_red",
+   "triangle_purple",
+   "square_red",
+   "triangle_purple"
+  ],
+  "answer": "square_red",
+  "options": [
+   "triangle_purple",
+   "square_red",
+   "diamond_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_007",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "square_blue",
+   "diamond_orange",
+   "square_blue",
+   "diamond_orange",
+   "square_blue"
+  ],
+  "answer": "diamond_orange",
+  "options": [
+   "diamond_orange",
+   "square_blue",
+   "circle_green"
+  ]
+ },
+ {
+  "id": "logic_pat_008",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "star_blue",
+   "heart_green",
+   "star_blue",
+   "heart_green"
+  ],
+  "answer": "star_blue",
+  "options": [
+   "heart_green",
+   "square_red",
+   "star_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_009",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "square_orange",
+   "heart_green",
+   "square_orange",
+   "heart_green",
+   "square_orange"
+  ],
+  "answer": "heart_green",
+  "options": [
+   "triangle_red",
+   "heart_green",
+   "square_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_010",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "square_blue",
+   "heart_purple",
+   "square_blue",
+   "heart_purple"
+  ],
+  "answer": "square_blue",
+  "options": [
+   "triangle_pink",
+   "heart_purple",
+   "square_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_011",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "square_yellow",
+   "triangle_green",
+   "square_yellow",
+   "triangle_green",
+   "square_yellow",
+   "triangle_green"
+  ],
+  "answer": "square_yellow",
+  "options": [
+   "triangle_green",
+   "square_yellow",
+   "star_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_012",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "circle_blue",
+   "star_yellow",
+   "circle_blue",
+   "star_yellow",
+   "circle_blue",
+   "star_yellow"
+  ],
+  "answer": "circle_blue",
+  "options": [
+   "heart_orange",
+   "star_yellow",
+   "circle_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_013",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "diamond_yellow",
+   "star_red",
+   "diamond_yellow",
+   "star_red",
+   "diamond_yellow"
+  ],
+  "answer": "star_red",
+  "options": [
+   "triangle_orange",
+   "diamond_yellow",
+   "star_red"
+  ]
+ },
+ {
+  "id": "logic_pat_014",
+  "skill": "logic.patterns",
+  "difficulty": 1,
+  "type": "pattern",
+  "sequence": [
+   "heart_red",
+   "triangle_purple",
+   "heart_red",
+   "triangle_purple",
+   "heart_red",
+   "triangle_purple"
+  ],
+  "answer": "heart_red",
+  "options": [
+   "heart_red",
+   "star_green",
+   "triangle_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_015",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "diamond_orange",
+   "circle_yellow",
+   "heart_purple",
+   "diamond_orange",
+   "circle_yellow",
+   "heart_purple",
+   "diamond_orange"
+  ],
+  "answer": "circle_yellow",
+  "options": [
+   "square_pink",
+   "diamond_orange",
+   "circle_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_016",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "circle_red",
+   "diamond_yellow",
+   "square_green",
+   "circle_red",
+   "diamond_yellow"
+  ],
+  "answer": "square_green",
+  "options": [
+   "heart_pink",
+   "square_green",
+   "circle_red"
+  ]
+ },
+ {
+  "id": "logic_pat_017",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "star_purple",
+   "star_purple",
+   "heart_yellow",
+   "star_purple",
+   "star_purple"
+  ],
+  "answer": "heart_yellow",
+  "options": [
+   "circle_pink",
+   "heart_yellow",
+   "star_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_018",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "circle_orange",
+   "diamond_yellow",
+   "heart_pink",
+   "circle_orange",
+   "diamond_yellow"
+  ],
+  "answer": "heart_pink",
+  "options": [
+   "heart_pink",
+   "triangle_purple",
+   "circle_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_019",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "triangle_yellow",
+   "circle_orange",
+   "diamond_blue",
+   "triangle_yellow",
+   "circle_orange"
+  ],
+  "answer": "diamond_blue",
+  "options": [
+   "circle_orange",
+   "square_purple",
+   "diamond_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_020",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "triangle_pink",
+   "triangle_pink",
+   "diamond_orange",
+   "triangle_pink",
+   "triangle_pink"
+  ],
+  "answer": "diamond_orange",
+  "options": [
+   "triangle_pink",
+   "circle_purple",
+   "diamond_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_021",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "triangle_red",
+   "heart_yellow",
+   "diamond_blue",
+   "triangle_red",
+   "heart_yellow"
+  ],
+  "answer": "diamond_blue",
+  "options": [
+   "circle_purple",
+   "diamond_blue",
+   "heart_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_022",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "diamond_purple",
+   "diamond_purple",
+   "star_yellow",
+   "diamond_purple",
+   "diamond_purple"
+  ],
+  "answer": "star_yellow",
+  "options": [
+   "star_yellow",
+   "heart_red",
+   "diamond_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_023",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "square_yellow",
+   "triangle_orange",
+   "star_purple",
+   "square_yellow",
+   "triangle_orange",
+   "star_purple",
+   "square_yellow"
+  ],
+  "answer": "triangle_orange",
+  "options": [
+   "triangle_orange",
+   "diamond_red",
+   "square_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_024",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "diamond_purple",
+   "star_yellow",
+   "triangle_green",
+   "diamond_purple",
+   "star_yellow"
+  ],
+  "answer": "triangle_green",
+  "options": [
+   "square_blue",
+   "triangle_green",
+   "diamond_purple"
+  ]
+ },
+ {
+  "id": "logic_pat_025",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "triangle_pink",
+   "star_green",
+   "circle_blue",
+   "triangle_pink",
+   "star_green",
+   "circle_blue",
+   "triangle_pink"
+  ],
+  "answer": "star_green",
+  "options": [
+   "diamond_yellow",
+   "circle_blue",
+   "star_green"
+  ]
+ },
+ {
+  "id": "logic_pat_026",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "circle_green",
+   "circle_green",
+   "square_yellow",
+   "circle_green",
+   "circle_green",
+   "square_yellow"
+  ],
+  "answer": "circle_green",
+  "options": [
+   "circle_green",
+   "triangle_red",
+   "square_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_027",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "star_orange",
+   "star_orange",
+   "diamond_yellow",
+   "star_orange",
+   "star_orange"
+  ],
+  "answer": "diamond_yellow",
+  "options": [
+   "star_orange",
+   "circle_blue",
+   "diamond_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_028",
+  "skill": "logic.patterns",
+  "difficulty": 2,
+  "type": "pattern",
+  "sequence": [
+   "heart_blue",
+   "heart_blue",
+   "circle_orange",
+   "heart_blue",
+   "heart_blue",
+   "circle_orange"
+  ],
+  "answer": "heart_blue",
+  "options": [
+   "heart_blue",
+   "triangle_red",
+   "circle_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_029",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "star_orange",
+   "square_purple",
+   "square_purple",
+   "star_orange",
+   "square_purple",
+   "square_purple",
+   "star_orange"
+  ],
+  "answer": "square_purple",
+  "options": [
+   "star_orange",
+   "square_purple",
+   "diamond_red"
+  ]
+ },
+ {
+  "id": "logic_pat_030",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "diamond_pink",
+   "triangle_red",
+   "circle_blue",
+   "heart_yellow",
+   "diamond_pink",
+   "triangle_red",
+   "circle_blue"
+  ],
+  "answer": "heart_yellow",
+  "options": [
+   "heart_yellow",
+   "square_orange",
+   "circle_blue"
+  ]
+ },
+ {
+  "id": "logic_pat_031",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "circle_pink",
+   "triangle_purple",
+   "triangle_purple",
+   "circle_pink",
+   "triangle_purple",
+   "triangle_purple",
+   "circle_pink"
+  ],
+  "answer": "triangle_purple",
+  "options": [
+   "triangle_purple",
+   "square_yellow",
+   "circle_pink"
+  ]
+ },
+ {
+  "id": "logic_pat_032",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "diamond_green",
+   "star_pink",
+   "star_pink",
+   "diamond_green",
+   "star_pink"
+  ],
+  "answer": "star_pink",
+  "options": [
+   "triangle_purple",
+   "diamond_green",
+   "star_pink"
+  ]
+ },
+ {
+  "id": "logic_pat_033",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "triangle_yellow",
+   "triangle_yellow",
+   "star_red",
+   "star_red",
+   "triangle_yellow"
+  ],
+  "answer": "triangle_yellow",
+  "options": [
+   "star_red",
+   "heart_blue",
+   "triangle_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_034",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "triangle_blue",
+   "triangle_blue",
+   "heart_orange",
+   "heart_orange",
+   "triangle_blue"
+  ],
+  "answer": "triangle_blue",
+  "options": [
+   "heart_orange",
+   "triangle_blue",
+   "diamond_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_035",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "diamond_purple",
+   "diamond_purple",
+   "star_red",
+   "star_red",
+   "diamond_purple"
+  ],
+  "answer": "diamond_purple",
+  "options": [
+   "diamond_purple",
+   "heart_green",
+   "star_red"
+  ]
+ },
+ {
+  "id": "logic_pat_036",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "heart_purple",
+   "star_orange",
+   "circle_yellow",
+   "square_pink",
+   "heart_purple",
+   "star_orange",
+   "circle_yellow"
+  ],
+  "answer": "square_pink",
+  "options": [
+   "square_pink",
+   "triangle_blue",
+   "circle_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_037",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "triangle_yellow",
+   "triangle_pink",
+   "triangle_pink",
+   "triangle_yellow",
+   "triangle_pink",
+   "triangle_pink",
+   "triangle_yellow"
+  ],
+  "answer": "triangle_pink",
+  "options": [
+   "triangle_purple",
+   "triangle_yellow",
+   "triangle_pink"
+  ]
+ },
+ {
+  "id": "logic_pat_038",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "heart_orange",
+   "heart_green",
+   "heart_green",
+   "heart_orange",
+   "heart_green",
+   "heart_green",
+   "heart_orange"
+  ],
+  "answer": "heart_green",
+  "options": [
+   "heart_purple",
+   "heart_green",
+   "heart_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_039",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "square_yellow",
+   "square_pink",
+   "square_pink",
+   "square_yellow",
+   "square_pink"
+  ],
+  "answer": "square_pink",
+  "options": [
+   "square_purple",
+   "square_pink",
+   "square_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_040",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "heart_orange",
+   "square_yellow",
+   "square_yellow",
+   "heart_orange",
+   "square_yellow",
+   "square_yellow",
+   "heart_orange"
+  ],
+  "answer": "square_yellow",
+  "options": [
+   "heart_orange",
+   "star_red",
+   "square_yellow"
+  ]
+ },
+ {
+  "id": "logic_pat_041",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "circle_green",
+   "circle_blue",
+   "circle_blue",
+   "circle_green",
+   "circle_blue"
+  ],
+  "answer": "circle_blue",
+  "options": [
+   "circle_green",
+   "circle_blue",
+   "circle_orange"
+  ]
+ },
+ {
+  "id": "logic_pat_042",
+  "skill": "logic.patterns",
+  "difficulty": 3,
+  "type": "pattern",
+  "sequence": [
+   "star_yellow",
+   "star_yellow",
+   "triangle_purple",
+   "triangle_purple",
+   "star_yellow"
+  ],
+  "answer": "star_yellow",
+  "options": [
+   "star_yellow",
+   "circle_red",
+   "triangle_purple"
+  ]
+ }
+]

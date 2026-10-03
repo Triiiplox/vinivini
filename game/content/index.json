@@ -1,0 +1,23 @@
+{
+ "skills": "skills.json",
+ "activities": [
+  "activities/reading_syllables.json",
+  "activities/reading_build_word.json",
+  "activities/math_counting.json",
+  "activities/math_addition.json",
+  "activities/math_compare.json",
+  "activities/logic_patterns.json",
+  "activities/logic_memory.json",
+  "activities/science_quiz.json",
+  "activities/emotion_recognition.json"
+ ],
+ "stories": [
+  "stories/story_robot_lost.json",
+  "stories/story_star_light.json"
+ ],
+ "planets": "world/planets.json",
+ "facts": "world/facts.json",
+ "items": "rewards/items.json",
+ "praise": "feedback/praise.json",
+ "avatar": "world/avatar_options.json"
+}

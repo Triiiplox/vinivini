@@ -1,0 +1,592 @@
+[
+ {
+  "id": "math_cmp_001",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 1,
+  "right": 4,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_002",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 5,
+  "right": 1,
+  "question": "more",
+  "object": "rocket"
+ },
+ {
+  "id": "math_cmp_003",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 1,
+  "right": 6,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_004",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 2,
+  "right": 5,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_005",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 2,
+  "right": 6,
+  "question": "more",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_006",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 7,
+  "right": 2,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_007",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 6,
+  "right": 3,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_008",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 7,
+  "right": 3,
+  "question": "more",
+  "object": "rocket"
+ },
+ {
+  "id": "math_cmp_009",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 3,
+  "right": 8,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_010",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 4,
+  "right": 7,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_011",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 4,
+  "right": 8,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_012",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 4,
+  "right": 9,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_013",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 8,
+  "right": 5,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_014",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 9,
+  "right": 5,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_015",
+  "skill": "math.compare",
+  "difficulty": 1,
+  "type": "compare",
+  "left": 6,
+  "right": 9,
+  "question": "more",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_016",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 2,
+  "right": 4,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_017",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 2,
+  "right": 4,
+  "question": "less",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_018",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 2,
+  "right": 5,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_019",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 2,
+  "right": 5,
+  "question": "less",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_020",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 3,
+  "right": 5,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_021",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 3,
+  "right": 5,
+  "question": "less",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_022",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 3,
+  "right": 6,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_023",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 6,
+  "right": 3,
+  "question": "less",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_024",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 6,
+  "right": 4,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_025",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 4,
+  "right": 6,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_026",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 7,
+  "right": 4,
+  "question": "more",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_027",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 4,
+  "right": 7,
+  "question": "less",
+  "object": "rocket"
+ },
+ {
+  "id": "math_cmp_028",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 5,
+  "right": 7,
+  "question": "more",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_029",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 5,
+  "right": 7,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_030",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 8,
+  "right": 5,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_031",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 5,
+  "right": 8,
+  "question": "less",
+  "object": "rocket"
+ },
+ {
+  "id": "math_cmp_032",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 6,
+  "right": 8,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_033",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 8,
+  "right": 6,
+  "question": "less",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_034",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 9,
+  "right": 6,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_035",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 9,
+  "right": 6,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_036",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 7,
+  "right": 9,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_037",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 9,
+  "right": 7,
+  "question": "less",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_038",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 7,
+  "right": 10,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_039",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 10,
+  "right": 7,
+  "question": "less",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_040",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 8,
+  "right": 10,
+  "question": "more",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_041",
+  "skill": "math.compare",
+  "difficulty": 2,
+  "type": "compare",
+  "left": 10,
+  "right": 8,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_042",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 4,
+  "right": 3,
+  "question": "more",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_043",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 4,
+  "right": 3,
+  "question": "less",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_044",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 5,
+  "right": 4,
+  "question": "more",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_045",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 5,
+  "right": 4,
+  "question": "less",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_046",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 6,
+  "right": 5,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_047",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 6,
+  "right": 5,
+  "question": "less",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_048",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 7,
+  "right": 6,
+  "question": "more",
+  "object": "moon"
+ },
+ {
+  "id": "math_cmp_049",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 7,
+  "right": 6,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_050",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 7,
+  "right": 8,
+  "question": "more",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_051",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 8,
+  "right": 7,
+  "question": "less",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_052",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 9,
+  "right": 8,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_053",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 8,
+  "right": 9,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_054",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 9,
+  "right": 10,
+  "question": "more",
+  "object": "planet"
+ },
+ {
+  "id": "math_cmp_055",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 10,
+  "right": 9,
+  "question": "less",
+  "object": "alien"
+ },
+ {
+  "id": "math_cmp_056",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 11,
+  "right": 10,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_057",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 10,
+  "right": 11,
+  "question": "less",
+  "object": "star"
+ },
+ {
+  "id": "math_cmp_058",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 12,
+  "right": 11,
+  "question": "more",
+  "object": "crystal"
+ },
+ {
+  "id": "math_cmp_059",
+  "skill": "math.compare",
+  "difficulty": 3,
+  "type": "compare",
+  "left": 12,
+  "right": 11,
+  "question": "less",
+  "object": "alien"
+ }
+]

@@ -1,0 +1,1243 @@
+[
+ {
+  "id": "math_add_001",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 1,
+  "operation": "+",
+  "answer": 2,
+  "options": [
+   1,
+   2,
+   4
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_002",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 2,
+  "operation": "+",
+  "answer": 3,
+  "options": [
+   3,
+   4,
+   5
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_003",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 3,
+  "operation": "+",
+  "answer": 4,
+  "options": [
+   3,
+   4,
+   6
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_004",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 4,
+  "operation": "+",
+  "answer": 5,
+  "options": [
+   5,
+   6,
+   7
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_005",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 1,
+  "operation": "+",
+  "answer": 3,
+  "options": [
+   3,
+   4,
+   5
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_006",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 2,
+  "operation": "+",
+  "answer": 4,
+  "options": [
+   2,
+   4,
+   5
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_007",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 3,
+  "operation": "+",
+  "answer": 5,
+  "options": [
+   4,
+   5,
+   6
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_008",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 1,
+  "operation": "+",
+  "answer": 4,
+  "options": [
+   3,
+   4,
+   6
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_009",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 2,
+  "operation": "+",
+  "answer": 5,
+  "options": [
+   3,
+   5,
+   7
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_010",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 1,
+  "operation": "+",
+  "answer": 5,
+  "options": [
+   3,
+   5,
+   6
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_011",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 5,
+  "operation": "+",
+  "answer": 6,
+  "options": [
+   4,
+   6,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_012",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 6,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   7,
+   8,
+   9
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_013",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 1,
+  "right": 7,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   6,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_014",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 4,
+  "operation": "+",
+  "answer": 6,
+  "options": [
+   5,
+   6,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_015",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 5,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   5,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_016",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 6,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   8,
+   9,
+   10
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_017",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 2,
+  "right": 7,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   8,
+   9,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_018",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 3,
+  "operation": "+",
+  "answer": 6,
+  "options": [
+   6,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_019",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 4,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   5,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_020",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 5,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   6,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_021",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 6,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   7,
+   8,
+   9
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_022",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 7,
+  "operation": "+",
+  "answer": 10,
+  "options": [
+   8,
+   9,
+   10
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_023",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 2,
+  "operation": "+",
+  "answer": 6,
+  "options": [
+   4,
+   5,
+   6
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_024",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 3,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   5,
+   6,
+   7
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_025",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 4,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   7,
+   8,
+   9
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_026",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 5,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   9,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_027",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 6,
+  "operation": "+",
+  "answer": 10,
+  "options": [
+   9,
+   10,
+   12
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_028",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 1,
+  "operation": "+",
+  "answer": 6,
+  "options": [
+   4,
+   6,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_029",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 2,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   5,
+   6,
+   7
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_030",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 3,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   7,
+   8,
+   9
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_031",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 4,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   9,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_032",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 5,
+  "operation": "+",
+  "answer": 10,
+  "options": [
+   8,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_033",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 1,
+  "operation": "+",
+  "answer": 7,
+  "options": [
+   6,
+   7,
+   9
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_034",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 2,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   6,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_035",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 3,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   9,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_036",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 4,
+  "operation": "+",
+  "answer": 10,
+  "options": [
+   9,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_037",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 1,
+  "operation": "+",
+  "answer": 8,
+  "options": [
+   6,
+   7,
+   8
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_038",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 2,
+  "operation": "+",
+  "answer": 9,
+  "options": [
+   7,
+   9,
+   10
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_039",
+  "skill": "math.addition.concrete",
+  "difficulty": 2,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 3,
+  "operation": "+",
+  "answer": 10,
+  "options": [
+   8,
+   10,
+   12
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_040",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 8,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_041",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 9,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   12,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_042",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 10,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_043",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 7,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_044",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 8,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   10,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_045",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 9,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_046",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 4,
+  "right": 10,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   12,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_047",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 6,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   9,
+   10,
+   11
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_048",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 7,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   10,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_049",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 8,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_050",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 9,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   12,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_051",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 5,
+  "right": 10,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   13,
+   15,
+   17
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_052",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 5,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   9,
+   11,
+   12
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_053",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 6,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_054",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 7,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_055",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 8,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   13,
+   14,
+   15
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_056",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 6,
+  "right": 9,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   14,
+   15,
+   17
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_057",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 4,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   9,
+   11,
+   12
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_058",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 5,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   11,
+   12,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_059",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 6,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_060",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 7,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   12,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_061",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 7,
+  "right": 8,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   13,
+   14,
+   15
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_062",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 8,
+  "right": 3,
+  "operation": "+",
+  "answer": 11,
+  "options": [
+   11,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_063",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 8,
+  "right": 4,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   10,
+   12,
+   13
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_064",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 8,
+  "right": 5,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_065",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 8,
+  "right": 6,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   13,
+   14,
+   15
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_066",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 8,
+  "right": 7,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   14,
+   15,
+   16
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_067",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 9,
+  "right": 3,
+  "operation": "+",
+  "answer": 12,
+  "options": [
+   10,
+   11,
+   12
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_068",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 9,
+  "right": 4,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   11,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_069",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 9,
+  "right": 5,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   13,
+   14,
+   15
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_070",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 9,
+  "right": 6,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   13,
+   14,
+   15
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_071",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 10,
+  "right": 3,
+  "operation": "+",
+  "answer": 13,
+  "options": [
+   12,
+   13,
+   14
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_072",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 10,
+  "right": 4,
+  "operation": "+",
+  "answer": 14,
+  "options": [
+   12,
+   14,
+   16
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ },
+ {
+  "id": "math_add_073",
+  "skill": "math.addition.concrete",
+  "difficulty": 3,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 10,
+  "right": 5,
+  "operation": "+",
+  "answer": 15,
+  "options": [
+   13,
+   15,
+   16
+  ],
+  "instruction": "Quantos cristais ficam juntando os dois grupos?"
+ }
+]

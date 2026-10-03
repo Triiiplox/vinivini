@@ -1,0 +1,8 @@
+README.md                  instalação do APK e visão geral
+PROJECT_STATUS.md          status por step (todos PASS; pendência externa: teste em aparelho)
+CHANGELOG.md
+MASTER_PROMPT.md, steps/, qa/, release/, prompts/, examples/, src_skeleton/   pacote original de especificação
+dist/ViniComandante-v1.0.0.apk (+ .sha256)   APK assinado para instalar
+docs/                      arquitetura, decisões (ADR-001..017), convenções, escopo, QA report, screenshots
+game/                      projeto Godot 4.5 (código, conteúdo JSON, assets, testes, export presets)
+tools/                     setup_env, run_checks, build_apk, screenshots, gen_content, gen_audio, gen_icon

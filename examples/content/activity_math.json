@@ -1,0 +1,12 @@
+{
+  "id": "math_crystals_001",
+  "skill": "math.addition.concrete",
+  "difficulty": 1,
+  "type": "drag_count",
+  "theme": "space_crystals",
+  "left": 3,
+  "right": 2,
+  "operation": "+",
+  "answer": 5,
+  "instruction": "Coloque na nave a quantidade total de cristais."
+}

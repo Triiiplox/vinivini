@@ -1,0 +1,507 @@
+[
+ {
+  "id": "read_build_001",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "LUA",
+  "syllables": [
+   "LU",
+   "A"
+  ]
+ },
+ {
+  "id": "read_build_002",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "NAVE",
+  "syllables": [
+   "NA",
+   "VE"
+  ]
+ },
+ {
+  "id": "read_build_003",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "BOLA",
+  "syllables": [
+   "BO",
+   "LA"
+  ]
+ },
+ {
+  "id": "read_build_004",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "ROBÔ",
+  "syllables": [
+   "RO",
+   "BÔ"
+  ]
+ },
+ {
+  "id": "read_build_005",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "CASA",
+  "syllables": [
+   "CA",
+   "SA"
+  ]
+ },
+ {
+  "id": "read_build_006",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "SAPO",
+  "syllables": [
+   "SA",
+   "PO"
+  ]
+ },
+ {
+  "id": "read_build_007",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "GATO",
+  "syllables": [
+   "GA",
+   "TO"
+  ]
+ },
+ {
+  "id": "read_build_008",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "PATO",
+  "syllables": [
+   "PA",
+   "TO"
+  ]
+ },
+ {
+  "id": "read_build_009",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "MALA",
+  "syllables": [
+   "MA",
+   "LA"
+  ]
+ },
+ {
+  "id": "read_build_010",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "VACA",
+  "syllables": [
+   "VA",
+   "CA"
+  ]
+ },
+ {
+  "id": "read_build_011",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "DADO",
+  "syllables": [
+   "DA",
+   "DO"
+  ]
+ },
+ {
+  "id": "read_build_012",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "SOPA",
+  "syllables": [
+   "SO",
+   "PA"
+  ]
+ },
+ {
+  "id": "read_build_013",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "FOCA",
+  "syllables": [
+   "FO",
+   "CA"
+  ]
+ },
+ {
+  "id": "read_build_014",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "BOLO",
+  "syllables": [
+   "BO",
+   "LO"
+  ]
+ },
+ {
+  "id": "read_build_015",
+  "skill": "reading.build_word",
+  "difficulty": 1,
+  "type": "build_word",
+  "word": "COPO",
+  "syllables": [
+   "CO",
+   "PO"
+  ]
+ },
+ {
+  "id": "read_build_016",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "COMETA",
+  "syllables": [
+   "CO",
+   "ME",
+   "TA"
+  ],
+  "distractors": [
+   "TI"
+  ]
+ },
+ {
+  "id": "read_build_017",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "LUNETA",
+  "syllables": [
+   "LU",
+   "NE",
+   "TA"
+  ],
+  "distractors": [
+   "BI"
+  ]
+ },
+ {
+  "id": "read_build_018",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "PANELA",
+  "syllables": [
+   "PA",
+   "NE",
+   "LA"
+  ],
+  "distractors": [
+   "PE"
+  ]
+ },
+ {
+  "id": "read_build_019",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "MENINO",
+  "syllables": [
+   "ME",
+   "NI",
+   "NO"
+  ],
+  "distractors": [
+   "VO"
+  ]
+ },
+ {
+  "id": "read_build_020",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "SAPATO",
+  "syllables": [
+   "SA",
+   "PA",
+   "TO"
+  ],
+  "distractors": [
+   "MU"
+  ]
+ },
+ {
+  "id": "read_build_021",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "CAVALO",
+  "syllables": [
+   "CA",
+   "VA",
+   "LO"
+  ],
+  "distractors": [
+   "LE"
+  ]
+ },
+ {
+  "id": "read_build_022",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "BONECA",
+  "syllables": [
+   "BO",
+   "NE",
+   "CA"
+  ],
+  "distractors": [
+   "VO"
+  ]
+ },
+ {
+  "id": "read_build_023",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "MACACO",
+  "syllables": [
+   "MA",
+   "CA",
+   "CO"
+  ],
+  "distractors": [
+   "BI"
+  ]
+ },
+ {
+  "id": "read_build_024",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "BANANA",
+  "syllables": [
+   "BA",
+   "NA",
+   "NA"
+  ],
+  "distractors": [
+   "ZO"
+  ]
+ },
+ {
+  "id": "read_build_025",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "TOMATE",
+  "syllables": [
+   "TO",
+   "MA",
+   "TE"
+  ],
+  "distractors": [
+   "LE"
+  ]
+ },
+ {
+  "id": "read_build_026",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "JANELA",
+  "syllables": [
+   "JA",
+   "NE",
+   "LA"
+  ],
+  "distractors": [
+   "VO"
+  ]
+ },
+ {
+  "id": "read_build_027",
+  "skill": "reading.build_word",
+  "difficulty": 2,
+  "type": "build_word",
+  "word": "CAMELO",
+  "syllables": [
+   "CA",
+   "ME",
+   "LO"
+  ],
+  "distractors": [
+   "BI"
+  ]
+ },
+ {
+  "id": "read_build_028",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "PLANETA",
+  "syllables": [
+   "PLA",
+   "NE",
+   "TA"
+  ],
+  "distractors": [
+   "PE",
+   "LE"
+  ]
+ },
+ {
+  "id": "read_build_029",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "ESTRELA",
+  "syllables": [
+   "ES",
+   "TRE",
+   "LA"
+  ],
+  "distractors": [
+   "BI",
+   "XA"
+  ]
+ },
+ {
+  "id": "read_build_030",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "FOGUETE",
+  "syllables": [
+   "FO",
+   "GUE",
+   "TE"
+  ],
+  "distractors": [
+   "MU",
+   "TI"
+  ]
+ },
+ {
+  "id": "read_build_031",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "SATURNO",
+  "syllables": [
+   "SA",
+   "TUR",
+   "NO"
+  ],
+  "distractors": [
+   "MU",
+   "XA"
+  ]
+ },
+ {
+  "id": "read_build_032",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "MARTE",
+  "syllables": [
+   "MAR",
+   "TE"
+  ],
+  "distractors": [
+   "PE",
+   "BI"
+  ]
+ },
+ {
+  "id": "read_build_033",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "TERRA",
+  "syllables": [
+   "TER",
+   "RA"
+  ],
+  "distractors": [
+   "XA",
+   "BI"
+  ]
+ },
+ {
+  "id": "read_build_034",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "GALÁXIA",
+  "syllables": [
+   "GA",
+   "LÁ",
+   "XI",
+   "A"
+  ],
+  "distractors": [
+   "LE",
+   "XA"
+  ]
+ },
+ {
+  "id": "read_build_035",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "ASTRONAUTA",
+  "syllables": [
+   "AS",
+   "TRO",
+   "NAU",
+   "TA"
+  ],
+  "distractors": [
+   "MU",
+   "VO"
+  ]
+ },
+ {
+  "id": "read_build_036",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "CRATERA",
+  "syllables": [
+   "CRA",
+   "TE",
+   "RA"
+  ],
+  "distractors": [
+   "TI",
+   "VO"
+  ]
+ },
+ {
+  "id": "read_build_037",
+  "skill": "reading.build_word",
+  "difficulty": 3,
+  "type": "build_word",
+  "word": "NETUNO",
+  "syllables": [
+   "NE",
+   "TU",
+   "NO"
+  ],
+  "distractors": [
+   "VO",
+   "DU"
+  ]
+ }
+]

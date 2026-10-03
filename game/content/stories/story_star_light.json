@@ -1,0 +1,217 @@
+{
+ "id": "story_star_light_001",
+ "title": "A Estrela que Não Brilhava",
+ "cover": "nebula",
+ "start": "s1",
+ "reward_stars": 3,
+ "nodes": {
+  "s1": {
+   "text": "Lá no céu, uma estrelinha chamada Lumi não conseguia brilhar.",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "sad"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Contar uma piada para ela",
+     "next": "s2",
+     "tags": [
+      "joy"
+     ],
+     "icon": "smile"
+    },
+    {
+     "text": "Perguntar como ela se sente",
+     "next": "s3",
+     "tags": [
+      "empathy"
+     ],
+     "icon": "heart"
+    }
+   ]
+  },
+  "s2": {
+   "text": "Lumi deu uma risadinha! Uma faísca de luz apareceu.",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "s4"
+  },
+  "s3": {
+   "text": "— Estou triste porque acho que não sou especial — disse Lumi. Todo mundo é especial do seu jeito!",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "sad"
+     },
+     {
+      "id": "avatar",
+      "mood": "calm"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Cantar uma música juntos",
+     "next": "s4",
+     "tags": [
+      "joy"
+     ],
+     "icon": "music"
+    },
+    {
+     "text": "Dançar entre os planetas",
+     "next": "s5",
+     "tags": [
+      "imagination"
+     ],
+     "icon": "planet"
+    }
+   ]
+  },
+  "s4": {
+   "text": "Vocês cantam: brilha, brilha, estrelinha! A luz de Lumi cresce!",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "s6"
+  },
+  "s5": {
+   "text": "Vocês dançam no espaço, girando como planetas! Lumi fica cada vez mais brilhante.",
+   "scene": {
+    "bg": "nebula",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "s6"
+  },
+  "s6": {
+   "text": "Lumi quer escolher a cor do seu novo brilho. Qual cor?",
+   "scene": {
+    "bg": "nebula",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "cosmo",
+      "mood": "happy"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Amarelo como o Sol",
+     "next": "end_yellow",
+     "tags": [
+      "imagination"
+     ],
+     "icon": "sun"
+    },
+    {
+     "text": "Azul como Netuno",
+     "next": "end_blue",
+     "tags": [
+      "imagination"
+     ],
+     "icon": "planet"
+    },
+    {
+     "text": "Rosa como uma nebulosa",
+     "next": "end_pink",
+     "tags": [
+      "imagination"
+     ],
+     "icon": "cloud"
+    }
+   ]
+  },
+  "end_yellow": {
+   "text": "Agora Lumi brilha amarelinha e ilumina o caminho da nave. Obrigada, comandante!",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "end": true
+  },
+  "end_blue": {
+   "text": "Agora Lumi brilha azulzinha, como Netuno. Que lindo! Obrigada, comandante!",
+   "scene": {
+    "bg": "space",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "end": true
+  },
+  "end_pink": {
+   "text": "Agora Lumi brilha cor-de-rosa, como uma nebulosa. Obrigada, comandante!",
+   "scene": {
+    "bg": "nebula",
+    "chars": [
+     {
+      "id": "star",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "end": true
+  }
+ }
+}

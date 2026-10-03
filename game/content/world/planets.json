@@ -1,0 +1,133 @@
+[
+ {
+  "id": "moon",
+  "name": "Lua",
+  "title": "Base das Letras",
+  "area": "reading",
+  "map_pos": [
+   0.2,
+   0.32
+  ],
+  "intro": "Na Lua, as letras flutuam! Vamos ler juntos?",
+  "fact": "moon",
+  "visual": {
+   "color": "#D9DCE3",
+   "color2": "#A9AEBB",
+   "style": "craters",
+   "face": true
+  },
+  "games": [
+   {
+    "skill": "reading.simple_syllables",
+    "name": "Sílabas",
+    "icon": "abc"
+   },
+   {
+    "skill": "reading.build_word",
+    "name": "Montar Palavra",
+    "icon": "blocks"
+   }
+  ]
+ },
+ {
+  "id": "mars",
+  "name": "Marte",
+  "title": "Cânions dos Números",
+  "area": "math",
+  "map_pos": [
+   0.45,
+   0.68
+  ],
+  "intro": "Marte tem cristais por todo lado! Vamos contar?",
+  "fact": "mars",
+  "visual": {
+   "color": "#E2673E",
+   "color2": "#B3432A",
+   "style": "spots",
+   "face": true
+  },
+  "games": [
+   {
+    "skill": "math.counting",
+    "name": "Contar",
+    "icon": "123"
+   },
+   {
+    "skill": "math.addition.concrete",
+    "name": "Somar",
+    "icon": "plus"
+   },
+   {
+    "skill": "math.compare",
+    "name": "Comparar",
+    "icon": "scale"
+   }
+  ]
+ },
+ {
+  "id": "saturn",
+  "name": "Saturno",
+  "title": "Anéis dos Enigmas",
+  "area": "logic",
+  "map_pos": [
+   0.72,
+   0.3
+  ],
+  "intro": "Nos anéis de Saturno moram os enigmas. Vamos pensar juntos?",
+  "fact": "saturn",
+  "visual": {
+   "color": "#F2D49B",
+   "color2": "#D9A85F",
+   "style": "bands",
+   "rings": true,
+   "face": true
+  },
+  "games": [
+   {
+    "skill": "logic.patterns",
+    "name": "Padrões",
+    "icon": "puzzle"
+   },
+   {
+    "skill": "logic.memory",
+    "name": "Memória",
+    "icon": "brain"
+   }
+  ]
+ },
+ {
+  "id": "nebula",
+  "name": "Nebulosa da Amizade",
+  "title": "Histórias e Sentimentos",
+  "area": "emotion",
+  "map_pos": [
+   0.86,
+   0.72
+  ],
+  "intro": "Na Nebulosa da Amizade, a gente cuida dos sentimentos.",
+  "fact": "",
+  "visual": {
+   "color": "#C77DFF",
+   "color2": "#FF7EB6",
+   "style": "nebula",
+   "face": false
+  },
+  "games": [
+   {
+    "skill": "emotion.recognition",
+    "name": "Sentimentos",
+    "icon": "heart"
+   },
+   {
+    "story": "story_robot_lost_001",
+    "name": "Robozinho Perdido",
+    "icon": "book"
+   },
+   {
+    "story": "story_star_light_001",
+    "name": "Estrela Lumi",
+    "icon": "book"
+   }
+  ]
+ }
+]

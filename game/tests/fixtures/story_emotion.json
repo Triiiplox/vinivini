@@ -1,0 +1,15 @@
+{
+  "id": "story_robot_lost_001",
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "text": "Um robozinho está sozinho em Marte e parece triste.",
+      "choices": [
+        {"text": "Perguntar o que aconteceu", "next": "n2", "tags": ["empathy"]},
+        {"text": "Chamar o Cosmo para ajudar", "next": "n3", "tags": ["cooperation"]}
+      ]
+    },
+    "n2": {"text": "Ele perdeu o amigo perto de uma cratera.", "end": true},
+    "n3": {"text": "Cosmo agradece por você pensar em ajudar junto.", "end": true}
+  }
+}

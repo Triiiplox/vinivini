@@ -1,0 +1,239 @@
+[
+ {
+  "id": "helmet_none",
+  "name": "Sem capacete",
+  "slot": "helmet",
+  "unlock": {
+   "type": "starter"
+  }
+ },
+ {
+  "id": "helmet_classic",
+  "name": "Capacete Clássico",
+  "slot": "helmet",
+  "unlock": {
+   "type": "starter"
+  },
+  "style": "classic"
+ },
+ {
+  "id": "helmet_bubble",
+  "name": "Capacete Bolha",
+  "slot": "helmet",
+  "unlock": {
+   "type": "starter"
+  },
+  "style": "bubble"
+ },
+ {
+  "id": "helmet_antenna",
+  "name": "Capacete Antena",
+  "slot": "helmet",
+  "unlock": {
+   "type": "stars",
+   "value": 10
+  },
+  "style": "antenna"
+ },
+ {
+  "id": "helmet_cat",
+  "name": "Capacete Gatinho",
+  "slot": "helmet",
+  "unlock": {
+   "type": "stars",
+   "value": 25
+  },
+  "style": "cat"
+ },
+ {
+  "id": "helmet_crown",
+  "name": "Coroa Estelar",
+  "slot": "helmet",
+  "unlock": {
+   "type": "stars",
+   "value": 60
+  },
+  "style": "crown"
+ },
+ {
+  "id": "helmet_gold",
+  "name": "Capacete de Comandante",
+  "slot": "helmet",
+  "unlock": {
+   "type": "commander",
+   "value": 1
+  },
+  "style": "gold"
+ },
+ {
+  "id": "suit_orange",
+  "name": "Traje Laranja",
+  "slot": "suit",
+  "unlock": {
+   "type": "starter"
+  },
+  "color": "#FF8C42"
+ },
+ {
+  "id": "suit_blue",
+  "name": "Traje Azul",
+  "slot": "suit",
+  "unlock": {
+   "type": "starter"
+  },
+  "color": "#3A86FF"
+ },
+ {
+  "id": "suit_green",
+  "name": "Traje Verde",
+  "slot": "suit",
+  "unlock": {
+   "type": "starter"
+  },
+  "color": "#2EC4B6"
+ },
+ {
+  "id": "suit_moon",
+  "name": "Traje Lunar",
+  "slot": "suit",
+  "unlock": {
+   "type": "missions",
+   "area": "reading",
+   "value": 1
+  },
+  "color": "#B8C0FF"
+ },
+ {
+  "id": "suit_mars",
+  "name": "Traje de Marte",
+  "slot": "suit",
+  "unlock": {
+   "type": "missions",
+   "area": "math",
+   "value": 1
+  },
+  "color": "#E2673E"
+ },
+ {
+  "id": "suit_saturn",
+  "name": "Traje dos Anéis",
+  "slot": "suit",
+  "unlock": {
+   "type": "missions",
+   "area": "logic",
+   "value": 1
+  },
+  "color": "#E9C46A"
+ },
+ {
+  "id": "suit_galaxy",
+  "name": "Traje Galáxia",
+  "slot": "suit",
+  "unlock": {
+   "type": "stars",
+   "value": 40
+  },
+  "color": "#5A189A",
+  "pattern": "stars"
+ },
+ {
+  "id": "suit_gold",
+  "name": "Traje Dourado",
+  "slot": "suit",
+  "unlock": {
+   "type": "commander",
+   "value": 3
+  },
+  "color": "#FFC300"
+ },
+ {
+  "id": "acc_none",
+  "name": "Nada",
+  "slot": "accessory",
+  "unlock": {
+   "type": "starter"
+  }
+ },
+ {
+  "id": "acc_star_badge",
+  "name": "Broche de Estrela",
+  "slot": "accessory",
+  "unlock": {
+   "type": "starter"
+  },
+  "style": "star_badge"
+ },
+ {
+  "id": "acc_jetpack",
+  "name": "Mochila a Jato",
+  "slot": "accessory",
+  "unlock": {
+   "type": "missions",
+   "area": "logic",
+   "value": 2
+  },
+  "style": "jetpack"
+ },
+ {
+  "id": "acc_cape",
+  "name": "Capa de Herói",
+  "slot": "accessory",
+  "unlock": {
+   "type": "story_end",
+   "value": 1
+  },
+  "style": "cape"
+ },
+ {
+  "id": "acc_heart_badge",
+  "name": "Broche do Coração",
+  "slot": "accessory",
+  "unlock": {
+   "type": "missions",
+   "area": "emotion",
+   "value": 1
+  },
+  "style": "heart_badge"
+ },
+ {
+  "id": "acc_robot_pet",
+  "name": "Mini Cosmo",
+  "slot": "accessory",
+  "unlock": {
+   "type": "stars",
+   "value": 20
+  },
+  "style": "robot_pet"
+ },
+ {
+  "id": "acc_telescope",
+  "name": "Lunetinha",
+  "slot": "accessory",
+  "unlock": {
+   "type": "missions",
+   "area": "science",
+   "value": 1
+  },
+  "style": "telescope"
+ },
+ {
+  "id": "acc_planet_pet",
+  "name": "Planetinha de Estimação",
+  "slot": "accessory",
+  "unlock": {
+   "type": "creative",
+   "value": 1
+  },
+  "style": "planet_pet"
+ },
+ {
+  "id": "acc_medal",
+  "name": "Medalha da Família",
+  "slot": "accessory",
+  "unlock": {
+   "type": "parent",
+   "value": 1
+  },
+  "style": "medal"
+ }
+]

@@ -1,0 +1,335 @@
+[
+ {
+  "id": "emo_001",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "robot",
+  "scenario": "O robozinho perdeu o brinquedo dele.",
+  "emotion": "triste",
+  "emotion_options": [
+   "triste",
+   "feliz",
+   "bravo"
+  ],
+  "actions": [
+   {
+    "text": "Ajudar a procurar",
+    "kind": true
+   },
+   {
+    "text": "Dar um abraço",
+    "kind": true
+   },
+   {
+    "text": "Rir dele",
+    "kind": false,
+    "feedback": "Rir pode deixar ele mais triste. Vamos escolher outro jeito?"
+   }
+  ]
+ },
+ {
+  "id": "emo_002",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "alien",
+  "scenario": "O alienzinho ganhou um presente!",
+  "emotion": "feliz",
+  "emotion_options": [
+   "feliz",
+   "triste",
+   "medo"
+  ],
+  "actions": [
+   {
+    "text": "Comemorar junto",
+    "kind": true
+   },
+   {
+    "text": "Dizer parabéns",
+    "kind": true
+   },
+   {
+    "text": "Pegar o presente dele",
+    "kind": false,
+    "feedback": "O presente é dele. Vamos comemorar com ele?"
+   }
+  ]
+ },
+ {
+  "id": "emo_003",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "cosmo",
+  "scenario": "Derrubaram a torre de blocos do Cosmo.",
+  "emotion": "bravo",
+  "emotion_options": [
+   "bravo",
+   "feliz",
+   "surpreso"
+  ],
+  "actions": [
+   {
+    "text": "Respirar fundo junto",
+    "kind": true
+   },
+   {
+    "text": "Ajudar a montar de novo",
+    "kind": true
+   },
+   {
+    "text": "Derrubar de novo",
+    "kind": false,
+    "feedback": "Ficar bravo é normal, mas derrubar de novo machuca o sentimento dele. Que tal ajudar?"
+   }
+  ]
+ },
+ {
+  "id": "emo_004",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "star",
+  "scenario": "A estrelinha ouviu um barulho alto no escuro.",
+  "emotion": "medo",
+  "emotion_options": [
+   "medo",
+   "feliz",
+   "bravo"
+  ],
+  "actions": [
+   {
+    "text": "Ficar pertinho dela",
+    "kind": true
+   },
+   {
+    "text": "Acender uma luz",
+    "kind": true
+   },
+   {
+    "text": "Dar um susto",
+    "kind": false,
+    "feedback": "Ela já está com medo. Vamos ajudar ela a se acalmar?"
+   }
+  ]
+ },
+ {
+  "id": "emo_005",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "alien",
+  "scenario": "Um cometa apareceu de repente no céu!",
+  "emotion": "surpreso",
+  "emotion_options": [
+   "surpreso",
+   "triste",
+   "bravo"
+  ],
+  "actions": [
+   {
+    "text": "Olhar o cometa junto",
+    "kind": true
+   },
+   {
+    "text": "Contar para os amigos",
+    "kind": true
+   }
+  ]
+ },
+ {
+  "id": "emo_006",
+  "skill": "emotion.recognition",
+  "difficulty": 1,
+  "type": "emotion",
+  "character": "robot",
+  "scenario": "O robozinho terminou o desenho dele.",
+  "emotion": "feliz",
+  "emotion_options": [
+   "feliz",
+   "medo",
+   "triste"
+  ],
+  "actions": [
+   {
+    "text": "Dizer que ficou bonito",
+    "kind": true
+   },
+   {
+    "text": "Pedir para ver de perto",
+    "kind": true
+   },
+   {
+    "text": "Rabiscar o desenho",
+    "kind": false,
+    "feedback": "Rabiscar estragaria o trabalho dele. Vamos elogiar?"
+   }
+  ]
+ },
+ {
+  "id": "emo_007",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "star",
+  "scenario": "A amiga não quis brincar com a estrelinha hoje.",
+  "emotion": "triste",
+  "emotion_options": [
+   "triste",
+   "bravo",
+   "surpreso"
+  ],
+  "actions": [
+   {
+    "text": "Convidar para brincar com você",
+    "kind": true
+   },
+   {
+    "text": "Perguntar se ela quer conversar",
+    "kind": true
+   },
+   {
+    "text": "Falar que ela é chata",
+    "kind": false,
+    "feedback": "Palavras feias machucam. Que tal convidar ela para brincar?"
+   }
+  ]
+ },
+ {
+  "id": "emo_008",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "alien",
+  "scenario": "O alienzinho esperou muito a vez dele no escorregador.",
+  "emotion": "bravo",
+  "emotion_options": [
+   "bravo",
+   "calmo",
+   "feliz"
+  ],
+  "actions": [
+   {
+    "text": "Combinar a vez de cada um",
+    "kind": true
+   },
+   {
+    "text": "Contar até dez juntos",
+    "kind": true
+   },
+   {
+    "text": "Empurrar quem está na frente",
+    "kind": false,
+    "feedback": "Empurrar pode machucar. Cada um tem sua vez!"
+   }
+  ]
+ },
+ {
+  "id": "emo_009",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "robot",
+  "scenario": "O robozinho respirou fundo e ficou tranquilo.",
+  "emotion": "calmo",
+  "emotion_options": [
+   "calmo",
+   "bravo",
+   "medo"
+  ],
+  "actions": [
+   {
+    "text": "Respirar junto com ele",
+    "kind": true
+   },
+   {
+    "text": "Brincar devagar com ele",
+    "kind": true
+   }
+  ]
+ },
+ {
+  "id": "emo_010",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "cosmo",
+  "scenario": "O Cosmo vai voar sozinho pela primeira vez.",
+  "emotion": "medo",
+  "emotion_options": [
+   "medo",
+   "feliz",
+   "bravo"
+  ],
+  "actions": [
+   {
+    "text": "Dizer: você consegue!",
+    "kind": true
+   },
+   {
+    "text": "Ir junto da primeira vez",
+    "kind": true
+   },
+   {
+    "text": "Dizer que ele é medroso",
+    "kind": false,
+    "feedback": "Todo mundo sente medo às vezes. Vamos encorajar o Cosmo?"
+   }
+  ]
+ },
+ {
+  "id": "emo_011",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "alien",
+  "scenario": "O amigo do alienzinho fala outra língua.",
+  "emotion": "surpreso",
+  "emotion_options": [
+   "surpreso",
+   "triste",
+   "bravo"
+  ],
+  "actions": [
+   {
+    "text": "Aprender uma palavra nova com ele",
+    "kind": true
+   },
+   {
+    "text": "Brincar usando gestos",
+    "kind": true
+   },
+   {
+    "text": "Ignorar o amigo",
+    "kind": false,
+    "feedback": "Ser diferente é legal! Vamos tentar brincar juntos?"
+   }
+  ]
+ },
+ {
+  "id": "emo_012",
+  "skill": "emotion.recognition",
+  "difficulty": 2,
+  "type": "emotion",
+  "character": "star",
+  "scenario": "A estrelinha dividiu o lanche com você.",
+  "emotion": "feliz",
+  "emotion_options": [
+   "feliz",
+   "triste",
+   "medo"
+  ],
+  "actions": [
+   {
+    "text": "Dizer obrigado",
+    "kind": true
+   },
+   {
+    "text": "Dividir algo também",
+    "kind": true
+   }
+  ]
+ }
+]

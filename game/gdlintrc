@@ -1,0 +1,2 @@
+# Convenções GDScript do projeto (gdtoolkit 4). Rodar: gdlint src tests
+max-line-length: 140

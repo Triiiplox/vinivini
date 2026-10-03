@@ -1,0 +1,146 @@
+[
+ {
+  "id": "logic_mem_001",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_002",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_003",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_004",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_005",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_006",
+  "skill": "logic.memory",
+  "difficulty": 1,
+  "type": "memory_sequence",
+  "length": 2,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_007",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_008",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_009",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_010",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_011",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_012",
+  "skill": "logic.memory",
+  "difficulty": 2,
+  "type": "memory_sequence",
+  "length": 3,
+  "pads": 3
+ },
+ {
+  "id": "logic_mem_013",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 4,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_014",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 4,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_015",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 4,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_016",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 5,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_017",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 5,
+  "pads": 4
+ },
+ {
+  "id": "logic_mem_018",
+  "skill": "logic.memory",
+  "difficulty": 3,
+  "type": "memory_sequence",
+  "length": 5,
+  "pads": 4
+ }
+]

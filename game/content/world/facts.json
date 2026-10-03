@@ -1,0 +1,52 @@
+[
+ {
+  "id": "sun",
+  "name": "Sol",
+  "text": "O Sol é uma estrela! Ele dá luz e calor para a Terra."
+ },
+ {
+  "id": "mercury",
+  "name": "Mercúrio",
+  "text": "Mercúrio é o planeta mais perto do Sol e o menor do Sistema Solar."
+ },
+ {
+  "id": "venus",
+  "name": "Vênus",
+  "text": "Vênus é o planeta mais quente, porque suas nuvens grossas prendem o calor."
+ },
+ {
+  "id": "earth",
+  "name": "Terra",
+  "text": "A Terra é a nossa casa. Ela tem muita água, ar e vida."
+ },
+ {
+  "id": "moon",
+  "name": "Lua",
+  "text": "A Lua gira em volta da Terra. Ela não tem luz própria: brilha com a luz do Sol."
+ },
+ {
+  "id": "mars",
+  "name": "Marte",
+  "text": "Marte é o planeta vermelho, por causa da poeira cor de ferrugem."
+ },
+ {
+  "id": "jupiter",
+  "name": "Júpiter",
+  "text": "Júpiter é o maior planeta. Ele tem uma tempestade gigante chamada Grande Mancha Vermelha."
+ },
+ {
+  "id": "saturn",
+  "name": "Saturno",
+  "text": "Saturno tem anéis lindos, feitos de gelo e pedrinhas."
+ },
+ {
+  "id": "uranus",
+  "name": "Urano",
+  "text": "Urano gira deitadinho, de lado! E é bem gelado."
+ },
+ {
+  "id": "neptune",
+  "name": "Netuno",
+  "text": "Netuno é azul, muito frio e fica muito longe do Sol. Lá venta muito forte!"
+ }
+]

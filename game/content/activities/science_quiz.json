@@ -1,0 +1,260 @@
+[
+ {
+  "id": "sci_quiz_001",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Qual é o planeta vermelho?",
+  "options": [
+   {
+    "label": "Marte",
+    "planet": "mars"
+   },
+   {
+    "label": "Terra",
+    "planet": "earth"
+   },
+   {
+    "label": "Netuno",
+    "planet": "neptune"
+   }
+  ],
+  "correct": "Marte"
+ },
+ {
+  "id": "sci_quiz_002",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Qual planeta tem anéis bem grandes?",
+  "options": [
+   {
+    "label": "Saturno",
+    "planet": "saturn"
+   },
+   {
+    "label": "Marte",
+    "planet": "mars"
+   },
+   {
+    "label": "Mercúrio",
+    "planet": "mercury"
+   }
+  ],
+  "correct": "Saturno"
+ },
+ {
+  "id": "sci_quiz_003",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Onde nós moramos?",
+  "options": [
+   {
+    "label": "Terra",
+    "planet": "earth"
+   },
+   {
+    "label": "Lua",
+    "planet": "moon"
+   },
+   {
+    "label": "Júpiter",
+    "planet": "jupiter"
+   }
+  ],
+  "correct": "Terra"
+ },
+ {
+  "id": "sci_quiz_004",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Qual destes é uma estrela?",
+  "options": [
+   {
+    "label": "Sol",
+    "planet": "sun"
+   },
+   {
+    "label": "Lua",
+    "planet": "moon"
+   },
+   {
+    "label": "Terra",
+    "planet": "earth"
+   }
+  ],
+  "correct": "Sol"
+ },
+ {
+  "id": "sci_quiz_005",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Quem gira em volta da Terra?",
+  "options": [
+   {
+    "label": "Lua",
+    "planet": "moon"
+   },
+   {
+    "label": "Sol",
+    "planet": "sun"
+   },
+   {
+    "label": "Saturno",
+    "planet": "saturn"
+   }
+  ],
+  "correct": "Lua"
+ },
+ {
+  "id": "sci_quiz_006",
+  "skill": "science.astronomy",
+  "difficulty": 1,
+  "type": "quiz",
+  "question": "Qual é o maior planeta?",
+  "options": [
+   {
+    "label": "Júpiter",
+    "planet": "jupiter"
+   },
+   {
+    "label": "Mercúrio",
+    "planet": "mercury"
+   },
+   {
+    "label": "Marte",
+    "planet": "mars"
+   }
+  ],
+  "correct": "Júpiter"
+ },
+ {
+  "id": "sci_quiz_007",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "Qual é o planeta mais perto do Sol?",
+  "options": [
+   {
+    "label": "Mercúrio",
+    "planet": "mercury"
+   },
+   {
+    "label": "Netuno",
+    "planet": "neptune"
+   },
+   {
+    "label": "Saturno",
+    "planet": "saturn"
+   }
+  ],
+  "correct": "Mercúrio"
+ },
+ {
+  "id": "sci_quiz_008",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "Qual planeta é azul, gelado e muito longe do Sol?",
+  "options": [
+   {
+    "label": "Netuno",
+    "planet": "neptune"
+   },
+   {
+    "label": "Vênus",
+    "planet": "venus"
+   },
+   {
+    "label": "Marte",
+    "planet": "mars"
+   }
+  ],
+  "correct": "Netuno"
+ },
+ {
+  "id": "sci_quiz_009",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "Qual planeta é o mais quente de todos?",
+  "options": [
+   {
+    "label": "Vênus",
+    "planet": "venus"
+   },
+   {
+    "label": "Netuno",
+    "planet": "neptune"
+   },
+   {
+    "label": "Urano",
+    "planet": "uranus"
+   }
+  ],
+  "correct": "Vênus"
+ },
+ {
+  "id": "sci_quiz_010",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "Qual planeta gira deitado, de lado?",
+  "options": [
+   {
+    "label": "Urano",
+    "planet": "uranus"
+   },
+   {
+    "label": "Terra",
+    "planet": "earth"
+   },
+   {
+    "label": "Júpiter",
+    "planet": "jupiter"
+   }
+  ],
+  "correct": "Urano"
+ },
+ {
+  "id": "sci_quiz_011",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "A Lua tem luz própria?",
+  "options": [
+   {
+    "label": "Não, ela reflete a luz do Sol"
+   },
+   {
+    "label": "Sim, ela é uma lâmpada"
+   }
+  ],
+  "correct": "Não, ela reflete a luz do Sol"
+ },
+ {
+  "id": "sci_quiz_012",
+  "skill": "science.astronomy",
+  "difficulty": 2,
+  "type": "quiz",
+  "question": "Qual planeta tem uma tempestade gigante chamada Grande Mancha Vermelha?",
+  "options": [
+   {
+    "label": "Júpiter",
+    "planet": "jupiter"
+   },
+   {
+    "label": "Terra",
+    "planet": "earth"
+   },
+   {
+    "label": "Mercúrio",
+    "planet": "mercury"
+   }
+  ],
+  "correct": "Júpiter"
+ }
+]

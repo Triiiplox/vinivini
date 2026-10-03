@@ -1,0 +1,974 @@
+[
+ {
+  "id": "read_syl_001",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "MA",
+  "prompt": "Qual palavra começa com MA?",
+  "speak": "Qual palavra começa com ma?",
+  "options": [
+   "PANELA",
+   "NAVE",
+   "MARTE"
+  ],
+  "correct": "MARTE"
+ },
+ {
+  "id": "read_syl_002",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "MA",
+  "prompt": "Qual palavra começa com MA?",
+  "speak": "Qual palavra começa com ma?",
+  "options": [
+   "DENTE",
+   "BONÉ",
+   "MALA"
+  ],
+  "correct": "MALA"
+ },
+ {
+  "id": "read_syl_003",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "LU",
+  "prompt": "Qual palavra começa com LU?",
+  "speak": "Qual palavra começa com lu?",
+  "options": [
+   "DADO",
+   "MARTE",
+   "LUA"
+  ],
+  "correct": "LUA"
+ },
+ {
+  "id": "read_syl_004",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "LU",
+  "prompt": "Qual palavra começa com LU?",
+  "speak": "Qual palavra começa com lu?",
+  "options": [
+   "RODA",
+   "LUVA",
+   "MARTE"
+  ],
+  "correct": "LUVA"
+ },
+ {
+  "id": "read_syl_005",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "SO",
+  "prompt": "Qual palavra começa com SO?",
+  "speak": "Qual palavra começa com so?",
+  "options": [
+   "SOL",
+   "PATO",
+   "NARIZ"
+  ],
+  "correct": "SOL"
+ },
+ {
+  "id": "read_syl_006",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "SO",
+  "prompt": "Qual palavra começa com SO?",
+  "speak": "Qual palavra começa com so?",
+  "options": [
+   "LOBO",
+   "SOPA",
+   "CASA"
+  ],
+  "correct": "SOPA"
+ },
+ {
+  "id": "read_syl_007",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "PA",
+  "prompt": "Qual palavra começa com PA?",
+  "speak": "Qual palavra começa com pa?",
+  "options": [
+   "PATO",
+   "SAPO",
+   "NAVE"
+  ],
+  "correct": "PATO"
+ },
+ {
+  "id": "read_syl_008",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "PA",
+  "prompt": "Qual palavra começa com PA?",
+  "speak": "Qual palavra começa com pa?",
+  "options": [
+   "SOPA",
+   "LAGO",
+   "PANELA"
+  ],
+  "correct": "PANELA"
+ },
+ {
+  "id": "read_syl_009",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "BO",
+  "prompt": "Qual palavra começa com BO?",
+  "speak": "Qual palavra começa com bo?",
+  "options": [
+   "VACA",
+   "BOLA",
+   "LAGO"
+  ],
+  "correct": "BOLA"
+ },
+ {
+  "id": "read_syl_010",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "BO",
+  "prompt": "Qual palavra começa com BO?",
+  "speak": "Qual palavra começa com bo?",
+  "options": [
+   "BOLO",
+   "LUVA",
+   "MOTO"
+  ],
+  "correct": "BOLO"
+ },
+ {
+  "id": "read_syl_011",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "CA",
+  "prompt": "Qual palavra começa com CA?",
+  "speak": "Qual palavra começa com ca?",
+  "options": [
+   "LAGO",
+   "BEBÊ",
+   "CASA"
+  ],
+  "correct": "CASA"
+ },
+ {
+  "id": "read_syl_012",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "CA",
+  "prompt": "Qual palavra começa com CA?",
+  "speak": "Qual palavra começa com ca?",
+  "options": [
+   "NAVE",
+   "CAMA",
+   "FOGO"
+  ],
+  "correct": "CAMA"
+ },
+ {
+  "id": "read_syl_013",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "NA",
+  "prompt": "Qual palavra começa com NA?",
+  "speak": "Qual palavra começa com na?",
+  "options": [
+   "MESA",
+   "NAVE",
+   "PEIXE"
+  ],
+  "correct": "NAVE"
+ },
+ {
+  "id": "read_syl_014",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "NA",
+  "prompt": "Qual palavra começa com NA?",
+  "speak": "Qual palavra começa com na?",
+  "options": [
+   "NARIZ",
+   "COPO",
+   "LOBO"
+  ],
+  "correct": "NARIZ"
+ },
+ {
+  "id": "read_syl_015",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "RO",
+  "prompt": "Qual palavra começa com RO?",
+  "speak": "Qual palavra começa com ro?",
+  "options": [
+   "ROBÔ",
+   "NARIZ",
+   "SONO"
+  ],
+  "correct": "ROBÔ"
+ },
+ {
+  "id": "read_syl_016",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "RO",
+  "prompt": "Qual palavra começa com RO?",
+  "speak": "Qual palavra começa com ro?",
+  "options": [
+   "FOGUETE",
+   "COMETA",
+   "RODA"
+  ],
+  "correct": "RODA"
+ },
+ {
+  "id": "read_syl_017",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "FO",
+  "prompt": "Qual palavra começa com FO?",
+  "speak": "Qual palavra começa com fo?",
+  "options": [
+   "FOGUETE",
+   "POTE",
+   "SAPO"
+  ],
+  "correct": "FOGUETE"
+ },
+ {
+  "id": "read_syl_018",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "FO",
+  "prompt": "Qual palavra começa com FO?",
+  "speak": "Qual palavra começa com fo?",
+  "options": [
+   "FOCA",
+   "SOPA",
+   "MACACO"
+  ],
+  "correct": "FOCA"
+ },
+ {
+  "id": "read_syl_019",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "CO",
+  "prompt": "Qual palavra começa com CO?",
+  "speak": "Qual palavra começa com co?",
+  "options": [
+   "LOBO",
+   "MESA",
+   "COMETA"
+  ],
+  "correct": "COMETA"
+ },
+ {
+  "id": "read_syl_020",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "CO",
+  "prompt": "Qual palavra começa com CO?",
+  "speak": "Qual palavra começa com co?",
+  "options": [
+   "SAPO",
+   "DEDO",
+   "COPO"
+  ],
+  "correct": "COPO"
+ },
+ {
+  "id": "read_syl_021",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "VA",
+  "prompt": "Qual palavra começa com VA?",
+  "speak": "Qual palavra começa com va?",
+  "options": [
+   "VACA",
+   "MOCHILA",
+   "SATURNO"
+  ],
+  "correct": "VACA"
+ },
+ {
+  "id": "read_syl_022",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "VA",
+  "prompt": "Qual palavra começa com VA?",
+  "speak": "Qual palavra começa com va?",
+  "options": [
+   "VASO",
+   "SATURNO",
+   "BOLA"
+  ],
+  "correct": "VASO"
+ },
+ {
+  "id": "read_syl_023",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "GA",
+  "prompt": "Qual palavra começa com GA?",
+  "speak": "Qual palavra começa com ga?",
+  "options": [
+   "GATO",
+   "SOL",
+   "MALA"
+  ],
+  "correct": "GATO"
+ },
+ {
+  "id": "read_syl_024",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "GA",
+  "prompt": "Qual palavra começa com GA?",
+  "speak": "Qual palavra começa com ga?",
+  "options": [
+   "GALÁXIA",
+   "CAMA",
+   "MESA"
+  ],
+  "correct": "GALÁXIA"
+ },
+ {
+  "id": "read_syl_025",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "SA",
+  "prompt": "Qual palavra começa com SA?",
+  "speak": "Qual palavra começa com sa?",
+  "options": [
+   "TETO",
+   "LATA",
+   "SAPO"
+  ],
+  "correct": "SAPO"
+ },
+ {
+  "id": "read_syl_026",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "SA",
+  "prompt": "Qual palavra começa com SA?",
+  "speak": "Qual palavra começa com sa?",
+  "options": [
+   "PANELA",
+   "SATURNO",
+   "BALÃO"
+  ],
+  "correct": "SATURNO"
+ },
+ {
+  "id": "read_syl_027",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "BA",
+  "prompt": "Qual palavra começa com BA?",
+  "speak": "Qual palavra começa com ba?",
+  "options": [
+   "BALÃO",
+   "GALÁXIA",
+   "VASO"
+  ],
+  "correct": "BALÃO"
+ },
+ {
+  "id": "read_syl_028",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "BA",
+  "prompt": "Qual palavra começa com BA?",
+  "speak": "Qual palavra começa com ba?",
+  "options": [
+   "GALÁXIA",
+   "BANANA",
+   "VASO"
+  ],
+  "correct": "BANANA"
+ },
+ {
+  "id": "read_syl_029",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "DA",
+  "prompt": "Qual palavra começa com DA?",
+  "speak": "Qual palavra começa com da?",
+  "options": [
+   "PATO",
+   "DADO",
+   "POTE"
+  ],
+  "correct": "DADO"
+ },
+ {
+  "id": "read_syl_030",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "DA",
+  "prompt": "Qual palavra começa com DA?",
+  "speak": "Qual palavra começa com da?",
+  "options": [
+   "PORTA",
+   "BANANA",
+   "DAMA"
+  ],
+  "correct": "DAMA"
+ },
+ {
+  "id": "read_syl_031",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "LA",
+  "prompt": "Qual palavra começa com LA?",
+  "speak": "Qual palavra começa com la?",
+  "options": [
+   "LATA",
+   "PEIXE",
+   "BOLO"
+  ],
+  "correct": "LATA"
+ },
+ {
+  "id": "read_syl_032",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "target": "LA",
+  "prompt": "Qual palavra começa com LA?",
+  "speak": "Qual palavra começa com la?",
+  "options": [
+   "BOLA",
+   "PATO",
+   "LAGO"
+  ],
+  "correct": "LAGO"
+ },
+ {
+  "id": "read_syl_033",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "MA",
+  "prompt": "Qual palavra começa com MA?",
+  "speak": "Qual palavra começa com ma?",
+  "options": [
+   "MOCHILA",
+   "MESA",
+   "MARTE"
+  ],
+  "correct": "MARTE"
+ },
+ {
+  "id": "read_syl_034",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "MA",
+  "prompt": "Qual palavra começa com MA?",
+  "speak": "Qual palavra começa com ma?",
+  "options": [
+   "MENINO",
+   "MALA",
+   "MOCHILA"
+  ],
+  "correct": "MALA"
+ },
+ {
+  "id": "read_syl_035",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "MA",
+  "prompt": "Qual palavra começa com MA?",
+  "speak": "Qual palavra começa com ma?",
+  "options": [
+   "MENINO",
+   "MOCHILA",
+   "MACACO"
+  ],
+  "correct": "MACACO"
+ },
+ {
+  "id": "read_syl_036",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "PA",
+  "prompt": "Qual palavra começa com PA?",
+  "speak": "Qual palavra começa com pa?",
+  "options": [
+   "PEIXE",
+   "PATO",
+   "POTE"
+  ],
+  "correct": "PATO"
+ },
+ {
+  "id": "read_syl_037",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "PA",
+  "prompt": "Qual palavra começa com PA?",
+  "speak": "Qual palavra começa com pa?",
+  "options": [
+   "PANELA",
+   "POTE",
+   "PEIXE"
+  ],
+  "correct": "PANELA"
+ },
+ {
+  "id": "read_syl_038",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "PA",
+  "prompt": "Qual palavra começa com PA?",
+  "speak": "Qual palavra começa com pa?",
+  "options": [
+   "PORTA",
+   "PAPAI",
+   "PEIXE"
+  ],
+  "correct": "PAPAI"
+ },
+ {
+  "id": "read_syl_039",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "BA",
+  "prompt": "Qual palavra começa com BA?",
+  "speak": "Qual palavra começa com ba?",
+  "options": [
+   "BEIJO",
+   "BALÃO",
+   "BOLO"
+  ],
+  "correct": "BALÃO"
+ },
+ {
+  "id": "read_syl_040",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "BA",
+  "prompt": "Qual palavra começa com BA?",
+  "speak": "Qual palavra começa com ba?",
+  "options": [
+   "BANANA",
+   "BEIJO",
+   "BONÉ"
+  ],
+  "correct": "BANANA"
+ },
+ {
+  "id": "read_syl_041",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "LA",
+  "prompt": "Qual palavra começa com LA?",
+  "speak": "Qual palavra começa com la?",
+  "options": [
+   "LUA",
+   "LOBO",
+   "LATA"
+  ],
+  "correct": "LATA"
+ },
+ {
+  "id": "read_syl_042",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "LA",
+  "prompt": "Qual palavra começa com LA?",
+  "speak": "Qual palavra começa com la?",
+  "options": [
+   "LUVA",
+   "LAGO",
+   "LOJA"
+  ],
+  "correct": "LAGO"
+ },
+ {
+  "id": "read_syl_043",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "MO",
+  "prompt": "Qual palavra começa com MO?",
+  "speak": "Qual palavra começa com mo?",
+  "options": [
+   "MENINO",
+   "MALA",
+   "MOTO"
+  ],
+  "correct": "MOTO"
+ },
+ {
+  "id": "read_syl_044",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "MO",
+  "prompt": "Qual palavra começa com MO?",
+  "speak": "Qual palavra começa com mo?",
+  "options": [
+   "MACACO",
+   "MOCHILA",
+   "MESA"
+  ],
+  "correct": "MOCHILA"
+ },
+ {
+  "id": "read_syl_045",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "PE",
+  "prompt": "Qual palavra começa com PE?",
+  "speak": "Qual palavra começa com pe?",
+  "options": [
+   "PEIXE",
+   "PAPAI",
+   "PORTA"
+  ],
+  "correct": "PEIXE"
+ },
+ {
+  "id": "read_syl_046",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "PE",
+  "prompt": "Qual palavra começa com PE?",
+  "speak": "Qual palavra começa com pe?",
+  "options": [
+   "POTE",
+   "PANELA",
+   "PEDRA"
+  ],
+  "correct": "PEDRA"
+ },
+ {
+  "id": "read_syl_047",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "BO",
+  "prompt": "Qual palavra começa com BO?",
+  "speak": "Qual palavra começa com bo?",
+  "options": [
+   "BALÃO",
+   "BEIJO",
+   "BOLA"
+  ],
+  "correct": "BOLA"
+ },
+ {
+  "id": "read_syl_048",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "BO",
+  "prompt": "Qual palavra começa com BO?",
+  "speak": "Qual palavra começa com bo?",
+  "options": [
+   "BEBÊ",
+   "BOLO",
+   "BALÃO"
+  ],
+  "correct": "BOLO"
+ },
+ {
+  "id": "read_syl_049",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "BO",
+  "prompt": "Qual palavra começa com BO?",
+  "speak": "Qual palavra começa com bo?",
+  "options": [
+   "BEIJO",
+   "BONÉ",
+   "BALÃO"
+  ],
+  "correct": "BONÉ"
+ },
+ {
+  "id": "read_syl_050",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "LU",
+  "prompt": "Qual palavra começa com LU?",
+  "speak": "Qual palavra começa com lu?",
+  "options": [
+   "LOBO",
+   "LUA",
+   "LAGO"
+  ],
+  "correct": "LUA"
+ },
+ {
+  "id": "read_syl_051",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "LU",
+  "prompt": "Qual palavra começa com LU?",
+  "speak": "Qual palavra começa com lu?",
+  "options": [
+   "LOBO",
+   "LUVA",
+   "LAGO"
+  ],
+  "correct": "LUVA"
+ },
+ {
+  "id": "read_syl_052",
+  "skill": "reading.simple_syllables",
+  "difficulty": 2,
+  "type": "select_word",
+  "target": "LU",
+  "prompt": "Qual palavra começa com LU?",
+  "speak": "Qual palavra começa com lu?",
+  "options": [
+   "LATA",
+   "LOJA",
+   "LUZ"
+  ],
+  "correct": "LUZ"
+ },
+ {
+  "id": "read_syl_053",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "FOGUETE",
+  "prompt": "Encontre a palavra FOGUETE",
+  "speak": "Encontre a palavra foguete",
+  "options": [
+   "FOCA",
+   "FOGO",
+   "FOGUETE",
+   "COMETA"
+  ],
+  "correct": "FOGUETE"
+ },
+ {
+  "id": "read_syl_054",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "LUA",
+  "prompt": "Encontre a palavra LUA",
+  "speak": "Encontre a palavra lua",
+  "options": [
+   "LUA",
+   "LUVA",
+   "RUA",
+   "LUZ"
+  ],
+  "correct": "LUA"
+ },
+ {
+  "id": "read_syl_055",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "SOL",
+  "prompt": "Encontre a palavra SOL",
+  "speak": "Encontre a palavra sol",
+  "options": [
+   "SONO",
+   "SOL",
+   "SAL",
+   "SOPA"
+  ],
+  "correct": "SOL"
+ },
+ {
+  "id": "read_syl_056",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "NAVE",
+  "prompt": "Encontre a palavra NAVE",
+  "speak": "Encontre a palavra nave",
+  "options": [
+   "NOVE",
+   "NAVE",
+   "NAVIO",
+   "NEVE"
+  ],
+  "correct": "NAVE"
+ },
+ {
+  "id": "read_syl_057",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "ROBÔ",
+  "prompt": "Encontre a palavra ROBÔ",
+  "speak": "Encontre a palavra robô",
+  "options": [
+   "ROSA",
+   "RODA",
+   "BOLO",
+   "ROBÔ"
+  ],
+  "correct": "ROBÔ"
+ },
+ {
+  "id": "read_syl_058",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "MARTE",
+  "prompt": "Encontre a palavra MARTE",
+  "speak": "Encontre a palavra marte",
+  "options": [
+   "MAR",
+   "MARTE",
+   "MATE",
+   "MALA"
+  ],
+  "correct": "MARTE"
+ },
+ {
+  "id": "read_syl_059",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "COMETA",
+  "prompt": "Encontre a palavra COMETA",
+  "speak": "Encontre a palavra cometa",
+  "options": [
+   "COMETA",
+   "CORUJA",
+   "COMIDA",
+   "CANETA"
+  ],
+  "correct": "COMETA"
+ },
+ {
+  "id": "read_syl_060",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "TERRA",
+  "prompt": "Encontre a palavra TERRA",
+  "speak": "Encontre a palavra terra",
+  "options": [
+   "TORRE",
+   "TERÇA",
+   "TELA",
+   "TERRA"
+  ],
+  "correct": "TERRA"
+ },
+ {
+  "id": "read_syl_061",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "ESTRELA",
+  "prompt": "Encontre a palavra ESTRELA",
+  "speak": "Encontre a palavra estrela",
+  "options": [
+   "ESCOLA",
+   "ESTRADA",
+   "ESTRELA",
+   "JANELA"
+  ],
+  "correct": "ESTRELA"
+ },
+ {
+  "id": "read_syl_062",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "PLANETA",
+  "prompt": "Encontre a palavra PLANETA",
+  "speak": "Encontre a palavra planeta",
+  "options": [
+   "PLACA",
+   "PLANTA",
+   "PLANETA",
+   "PANELA"
+  ],
+  "correct": "PLANETA"
+ },
+ {
+  "id": "read_syl_063",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "GALÁXIA",
+  "prompt": "Encontre a palavra GALÁXIA",
+  "speak": "Encontre a palavra galáxia",
+  "options": [
+   "GALÁXIA",
+   "GARRAFA",
+   "GAVETA",
+   "GALINHA"
+  ],
+  "correct": "GALÁXIA"
+ },
+ {
+  "id": "read_syl_064",
+  "skill": "reading.simple_syllables",
+  "difficulty": 3,
+  "type": "select_word",
+  "target": "SATURNO",
+  "prompt": "Encontre a palavra SATURNO",
+  "speak": "Encontre a palavra saturno",
+  "options": [
+   "SALADA",
+   "SAPATO",
+   "SATURNO",
+   "SABONETE"
+  ],
+  "correct": "SATURNO"
+ }
+]

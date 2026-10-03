@@ -1,0 +1,78 @@
+{
+ "simple": [
+  "Boa, comandante!",
+  "Isso aí!",
+  "Mandou bem!",
+  "Muito bem, {name}!",
+  "Acertou!",
+  "Você encontrou!",
+  "Show de bola!",
+  "Uau, que legal!"
+ ],
+ "streak_3": [
+  "Três seguidas! Você está voando!",
+  "Que sequência, comandante!",
+  "Você está pegando o jeito!"
+ ],
+ "streak_5": [
+  "Cinco seguidas! A nave está brilhando!",
+  "Sequência de estrelas! Incrível, {name}!",
+  "Nada te para hoje, comandante!"
+ ],
+ "persistence": [
+  "Você tentou de novo e descobriu!",
+  "Não desistiu e conseguiu!",
+  "Isso é persistência de comandante!",
+  "Errar faz parte. E você conseguiu!"
+ ],
+ "hard": [
+  "Essa era difícil e você conseguiu!",
+  "Que coragem, comandante!",
+  "Desafio superado!"
+ ],
+ "strategy_reading": [
+  "Você leu com atenção!",
+  "Você ouviu o som da sílaba!",
+  "Juntou as sílabas certinho!"
+ ],
+ "strategy_math": [
+  "Você contou com cuidado!",
+  "Contou um por um, muito bem!",
+  "Você juntou certinho!"
+ ],
+ "strategy_logic": [
+  "Você percebeu o padrão!",
+  "Que memória de astronauta!",
+  "Você observou bem!"
+ ],
+ "strategy_science": [
+  "Você sabe muito sobre o espaço!",
+  "Cientista espacial!"
+ ],
+ "strategy_emotion": [
+  "Você entendeu como ele se sente!",
+  "Que coração gentil!",
+  "Você foi muito gentil!"
+ ],
+ "retry": [
+  "Quase! Tente de novo.",
+  "Olhe de novo, com calma.",
+  "Vamos tentar outra vez?",
+  "Tudo bem errar. Tente de novo!"
+ ],
+ "hint": [
+  "Vou te dar uma dica!",
+  "Olha a dica brilhando!"
+ ],
+ "mission_complete": [
+  "Missão cumprida, comandante {name}!",
+  "A nave está orgulhosa de você!",
+  "Mais uma missão concluída!"
+ ],
+ "commander_complete": [
+  "DESAFIO DE COMANDANTE CONCLUÍDO!"
+ ],
+ "parent_complete": [
+  "Desafio especial concluído!"
+ ]
+}

@@ -1,0 +1,65 @@
+[
+ {
+  "id": "reading.simple_syllables",
+  "name": "Sílabas",
+  "area": "reading",
+  "max_level": 3,
+  "description": "Reconhecer a sílaba inicial e encontrar palavras."
+ },
+ {
+  "id": "reading.build_word",
+  "name": "Montar Palavras",
+  "area": "reading",
+  "max_level": 3,
+  "description": "Juntar sílabas para formar palavras."
+ },
+ {
+  "id": "math.counting",
+  "name": "Contar",
+  "area": "math",
+  "max_level": 3,
+  "description": "Contar objetos e reconhecer o número."
+ },
+ {
+  "id": "math.addition.concrete",
+  "name": "Somar",
+  "area": "math",
+  "max_level": 3,
+  "description": "Juntar dois grupos de objetos (soma concreta)."
+ },
+ {
+  "id": "math.compare",
+  "name": "Comparar",
+  "area": "math",
+  "max_level": 3,
+  "description": "Perceber onde tem mais e onde tem menos."
+ },
+ {
+  "id": "logic.patterns",
+  "name": "Padrões",
+  "area": "logic",
+  "max_level": 3,
+  "description": "Descobrir o que vem depois numa sequência."
+ },
+ {
+  "id": "logic.memory",
+  "name": "Memória",
+  "area": "logic",
+  "max_level": 3,
+  "description": "Lembrar e repetir sequências de luzes e sons."
+ },
+ {
+  "id": "science.astronomy",
+  "name": "Astronomia",
+  "area": "science",
+  "max_level": 2,
+  "description": "Curiosidades sobre o Sol, a Lua e os planetas."
+ },
+ {
+  "id": "emotion.recognition",
+  "name": "Emoções e Respeito",
+  "area": "emotion",
+  "max_level": 2,
+  "description": "Reconhecer sentimentos e escolher atitudes gentis."
+ }
+]

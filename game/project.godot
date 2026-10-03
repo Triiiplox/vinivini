@@ -1,0 +1,51 @@
+; Engine configuration file.
+; Vini: Comandante das Estrelas — Godot 4.5, GL Compatibility (máxima compatibilidade Android).
+
+config_version=5
+
+[application]
+
+config/name="Vini: Comandante das Estrelas"
+config/description="Jogo educativo infantil offline-first com tema espacial."
+config/version="1.0.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="res://assets/icon/icon.png"
+config/quit_on_go_back=false
+boot_splash/bg_color=Color(0.043, 0.075, 0.25, 1)
+boot_splash/show_image=false
+
+[audio]
+
+general/text_to_speech=true
+
+[autoload]
+
+GameLog="*res://src/core/game_log.gd"
+EventBus="*res://src/core/event_bus.gd"
+SaveService="*res://src/services/save_service.gd"
+ContentService="*res://src/services/content_service.gd"
+LearningService="*res://src/services/learning_service.gd"
+RewardService="*res://src/services/reward_service.gd"
+AudioService="*res://src/services/audio_service.gd"
+AppState="*res://src/services/app_state.gd"
+Router="*res://src/core/router.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.043, 0.075, 0.25, 1)

@@ -1,0 +1,11 @@
+{
+  "id": "reading_space_001",
+  "skill": "reading.simple_syllables",
+  "difficulty": 1,
+  "type": "select_word",
+  "theme": "space",
+  "prompt": "Qual palavra começa com MA?",
+  "options": ["MARTE", "LUA", "SOL"],
+  "correct": "MARTE",
+  "praise": ["Boa, comandante!", "Você encontrou!", "Mandou muito bem!"]
+}

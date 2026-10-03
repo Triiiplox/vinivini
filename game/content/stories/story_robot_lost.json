@@ -1,0 +1,272 @@
+{
+ "id": "story_robot_lost_001",
+ "title": "O Robozinho Perdido",
+ "cover": "mars",
+ "start": "n1",
+ "reward_stars": 3,
+ "nodes": {
+  "n1": {
+   "text": "Em Marte, um robozinho está sozinho. Ele parece triste.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "sad"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Perguntar o que aconteceu",
+     "next": "n2",
+     "tags": [
+      "empathy"
+     ],
+     "icon": "heart"
+    },
+    {
+     "text": "Chamar o Cosmo para ajudar",
+     "next": "n3",
+     "tags": [
+      "cooperation"
+     ],
+     "icon": "cosmo"
+    }
+   ]
+  },
+  "n2": {
+   "text": "— Eu perdi meu amigo, o cachorrinho-robô Bip! — disse o robozinho.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "sad"
+     },
+     {
+      "id": "avatar",
+      "mood": "calm"
+     }
+    ]
+   },
+   "next": "n4"
+  },
+  "n3": {
+   "text": "O Cosmo chegou voando: — Vamos ajudar juntos! O robozinho contou que perdeu o amigo Bip.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "sad"
+     },
+     {
+      "id": "cosmo",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "n4"
+  },
+  "n4": {
+   "text": "Onde vamos procurar o Bip?",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "calm"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Na cratera grande",
+     "next": "n5",
+     "tags": [
+      "courage"
+     ],
+     "icon": "crater"
+    },
+    {
+     "text": "Atrás das pedras vermelhas",
+     "next": "n6",
+     "tags": [
+      "curiosity"
+     ],
+     "icon": "rock"
+    }
+   ]
+  },
+  "n5": {
+   "text": "A cratera é escura... O robozinho está com medo.",
+   "scene": {
+    "bg": "crater",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "scared"
+     },
+     {
+      "id": "avatar",
+      "mood": "calm"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Segurar a mão dele",
+     "next": "n7",
+     "tags": [
+      "empathy"
+     ],
+     "icon": "heart"
+    },
+    {
+     "text": "Acender a lanterna da nave",
+     "next": "n8",
+     "tags": [
+      "problem_solving"
+     ],
+     "icon": "light"
+    }
+   ]
+  },
+  "n6": {
+   "text": "Atrás das pedras tem marquinhas de rodinhas! Vocês seguem as marcas.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "surprised"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "n8"
+  },
+  "n7": {
+   "text": "Juntinhos, o medo fica menor. Lá no fundo, algo pisca: bip, bip!",
+   "scene": {
+    "bg": "crater",
+    "chars": [
+     {
+      "id": "robot",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "next": "n8"
+  },
+  "n8": {
+   "text": "Vocês encontram o Bip! Ele está preso atrás de uma pedra.",
+   "scene": {
+    "bg": "crater",
+    "chars": [
+     {
+      "id": "bip",
+      "mood": "sad"
+     },
+     {
+      "id": "robot",
+      "mood": "surprised"
+     }
+    ]
+   },
+   "next": "n9"
+  },
+  "n9": {
+   "text": "Como vamos ajudar o Bip?",
+   "scene": {
+    "bg": "crater",
+    "chars": [
+     {
+      "id": "bip",
+      "mood": "sad"
+     },
+     {
+      "id": "robot",
+      "mood": "calm"
+     },
+     {
+      "id": "avatar",
+      "mood": "calm"
+     }
+    ]
+   },
+   "choices": [
+    {
+     "text": "Empurrar a pedra todos juntos",
+     "next": "end_team",
+     "tags": [
+      "cooperation"
+     ],
+     "icon": "hands"
+    },
+    {
+     "text": "Pedir com calma para ele andar devagar",
+     "next": "end_calm",
+     "tags": [
+      "calm"
+     ],
+     "icon": "heart"
+    }
+   ]
+  },
+  "end_team": {
+   "text": "Um, dois, três... JÁ! Vocês empurram juntos e o Bip fica livre! O robozinho dá um abraço em todos.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "bip",
+      "mood": "happy"
+     },
+     {
+      "id": "robot",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "end": true
+  },
+  "end_calm": {
+   "text": "Devagarinho, o Bip escapa da pedra. — Obrigado por me ajudar com calma! — diz o robozinho.",
+   "scene": {
+    "bg": "mars",
+    "chars": [
+     {
+      "id": "bip",
+      "mood": "happy"
+     },
+     {
+      "id": "robot",
+      "mood": "happy"
+     },
+     {
+      "id": "avatar",
+      "mood": "happy"
+     }
+    ]
+   },
+   "end": true
+  }
+ }
+}

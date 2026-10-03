@@ -1,0 +1,80 @@
+{
+ "skin": [
+  {
+   "id": "skin_1",
+   "color": "#FFE0C4"
+  },
+  {
+   "id": "skin_2",
+   "color": "#F6C9A0"
+  },
+  {
+   "id": "skin_3",
+   "color": "#E3A877"
+  },
+  {
+   "id": "skin_4",
+   "color": "#C68642"
+  },
+  {
+   "id": "skin_5",
+   "color": "#8D5524"
+  },
+  {
+   "id": "skin_6",
+   "color": "#5C3A21"
+  }
+ ],
+ "hair_style": [
+  {
+   "id": "short",
+   "name": "Curto"
+  },
+  {
+   "id": "curly",
+   "name": "Cacheado"
+  },
+  {
+   "id": "spiky",
+   "name": "Espetado"
+  },
+  {
+   "id": "long",
+   "name": "Comprido"
+  },
+  {
+   "id": "puff",
+   "name": "Black power"
+  },
+  {
+   "id": "bald",
+   "name": "Careca"
+  }
+ ],
+ "hair_color": [
+  {
+   "id": "hair_black",
+   "color": "#2B2B2B"
+  },
+  {
+   "id": "hair_brown",
+   "color": "#6B4226"
+  },
+  {
+   "id": "hair_blonde",
+   "color": "#F2C94C"
+  },
+  {
+   "id": "hair_red",
+   "color": "#C0392B"
+  },
+  {
+   "id": "hair_blue",
+   "color": "#3A86FF"
+  },
+  {
+   "id": "hair_pink",
+   "color": "#FF70A6"
+  }
+ ]
+}
