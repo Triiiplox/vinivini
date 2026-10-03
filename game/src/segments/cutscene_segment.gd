@@ -29,6 +29,9 @@ func build() -> void:
 				node = CosmoRig.new(160.0)
 				node.position = Vector2(float(a.get("x", 900)), 300)
 				cosmo = node
+			"crew":
+				node = CrewActor.new(str(a.get("suit", "suit_orange")), 260.0)
+				node.position = Vector2(float(a.get("x", 900)), 610)
 			_:
 				node = NpcActor.new(id, str(a.get("mood", "happy")), float(a.get("h", 200)))
 				node.position = Vector2(float(a.get("x", 900)), 610)

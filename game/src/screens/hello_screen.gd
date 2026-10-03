@@ -1,5 +1,5 @@
 extends GameScreen
-## Trilha do Planeta Hello: 30 planetas (3 galáxias × 10 unidades, na ordem do currículo).
+## Trilha da Sala de Inglês: 30 paradas (planetas reais como marcadores) (3 galáxias × 10 unidades, na ordem do currículo).
 ## Aberto = jogável e com a unidade anterior feita; pulsa o próximo. Cometas = revisões vencidas hoje
 ## (tocar num cometa abre a lição de revisão). Sem texto: planetas, estrelas e cadeados.
 
@@ -11,7 +11,7 @@ const ROWS_Y := [215.0, 395.0, 575.0]
 var nodes: Dictionary = {}
 var comets: Array[Interactable] = []
 var next_id := ""
-var hoppy: CustomerActor
+var hoppy: CrewActor
 
 
 func build() -> void:
@@ -35,7 +35,7 @@ func build() -> void:
 		tag.position = Vector2(X0 - 110 + (0 if row % 2 == 0 else 9 * DX + 220), ROWS_Y[row])
 		tag.modulate.a = 0.5
 		world.add_child(tag)
-	hoppy = CustomerActor.new(Color("#60A5FA"), 170.0)
+	hoppy = CrewActor.new("suit_saturn", 190.0)
 	hoppy.position = Vector2(95, 690)
 	hoppy.z_index = 20
 	world.add_child(hoppy)

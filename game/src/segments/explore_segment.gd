@@ -4,12 +4,13 @@ extends GameScreen
 ## params: world_theme (moon|mars|ice), screens (largura), collect {item,count}, signs [palavras],
 ##         find_sign (palavra-alvo), door (bool), rescue {kind, mood}, intro (fala)
 
-const ITEM_NAMES := {"moon_rock": "pedras da Lua", "crystal": "cristais", "star_token": "estrelas", "energy_cell": "baterias"}
+const ITEM_NAMES := {"moon_rock": "pedras da Lua", "sample": "amostras de rocha", "ice": "pedaços de gelo",
+	"star_token": "estrelas", "energy_cell": "baterias"}
 
 var world_theme := "moon"
 var width := 3840.0
 var vini: CharacterRig2D
-var collect_item := "crystal"
+var collect_item := "moon_rock"
 var collectibles: Array[Interactable] = []
 var collected := 0
 var bag: Array[Interactable] = []
@@ -51,7 +52,7 @@ func build() -> void:
 	world.add_child(vini)
 	add_cosmo(Vector2(100, 380), 130.0)
 	var col: Dictionary = params.get("collect", {})
-	collect_item = str(col.get("item", "crystal"))
+	collect_item = str(col.get("item", "moon_rock"))
 	var count := int(col.get("count", 0))
 	if bool(params.get("door", false)):
 		door_need = _door_number()
@@ -73,7 +74,7 @@ func build() -> void:
 	# Cenário pintado já traz pedras e cristais; enfeite vetorial só nos temas ainda em SVG.
 	var deco_n := 0 if Scenery.PAINTED.has(world_theme) else int(width / 420.0)
 	for i in deco_n:
-		var deco := ArtSprite.new("props", ["rock_a", "rock_b", "plant_a", "plant_b"][i % 4], randf_range(60, 120),
+		var deco := ArtSprite.new("props", ["rock_a", "rock_b"][i % 2], randf_range(60, 120),
 			SvgArt.tint_colors(_rock_color()))
 		deco.anchor_bottom = true
 		deco.position = Vector2(300 + i * 420 + randf_range(-80, 80), Scenery.GROUND_Y + randf_range(20, 70))
@@ -85,12 +86,9 @@ func build() -> void:
 
 ## Enfeites pintados da Lua: pedras e planta na frente (passam por cima dos pés) e atrás; bandeira no fim.
 func _painted_deco() -> void:
-	# Nada de enfeite parecido com o que se coleta (a criança precisa distinguir o alvo).
-	var kinds: Array = ["rock_big", "plant", "rock_mid", "crystal_big"]
-	if collect_item == "moon_rock":
-		kinds = ["plant", "crystal_big"]
-	elif collect_item == "crystal":
-		kinds = ["rock_big", "plant", "rock_mid"]
+	# Só o que existe na Lua: rochas e crateras (sem plantas nem cristais). Os enfeites são rochas grandes
+	# e escuras; o que se coleta é pequeno e brilha, para a criança distinguir o alvo.
+	var kinds: Array = ["rock_big", "rock_mid"]
 	var x := 420.0
 	var i := 0
 	while x < width - 200.0:
@@ -131,7 +129,7 @@ func _spawn_collectibles(n: int) -> void:
 		var it := Interactable.new()
 		it.radius = 70.0
 		it.tappable = true
-		if Scenery.PAINTED.has(world_theme) and PaintedProp.has_art(collect_item):
+		if PaintedProp.has_art(collect_item):
 			var pp := PaintedProp.new(collect_item, 92.0)
 			it.add_child(pp)
 			var fl := pp.create_tween().set_loops()
@@ -145,7 +143,7 @@ func _spawn_collectibles(n: int) -> void:
 		it.position = Vector2(x, Scenery.GROUND_Y - 70 - (i % 3) * 30)
 		it.z_index = 18
 		world.add_child(it)
-		Fx.glow(it, Vector2.ZERO, 170, Color(0.5, 0.9, 1.0) if collect_item == "crystal" else Color(1, 0.85, 0.4), 1.0).z_index = -1
+		Fx.glow(it, Vector2.ZERO, 170, Color(0.7, 0.9, 1.0) if collect_item == "ice" else Color(1, 0.85, 0.4), 1.0).z_index = -1
 		it.tapped.connect(_on_item_tapped)
 		collectibles.append(it)
 
@@ -302,20 +300,23 @@ func _all_collected() -> void:
 
 
 func _offer_bag() -> void:
-	# Cristais coletados ficam numa bandeja perto do Vini para arrastar até a porta.
+	# O que foi coletado fica numa bandeja perto do Vini para arrastar até a porta.
 	var n := collected
 	for k in n:
 		var it := Interactable.new()
 		it.radius = 56.0
 		it.draggable = true
 		it.tappable = false
-		it.add_child(ArtSprite.new("props", "crystal", 62.0))
+		if PaintedProp.has_art(collect_item):
+			it.add_child(PaintedProp.new(collect_item, 70.0))
+		else:
+			it.add_child(ArtSprite.new("props", collect_item, 62.0))
 		it.position = Vector2(door_x - 520 + (k % 5) * 70, Scenery.GROUND_Y - 300 + (k / 5) * 74)
 		it.z_index = 60
 		world.add_child(it)
 		it.dropped.connect(_on_bag_drop)
 		bag.append(it)
-	hud.set_counter("props", "crystal", n, -1)
+	hud.set_counter("props", "moon_rock", n, -1)
 
 
 func _on_bag_drop(it: Interactable, zone: DropZone) -> void:

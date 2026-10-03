@@ -18,7 +18,7 @@ const SHAPES := ["circle", "square", "triangle", "star", "heart", "diamond"]
 const COLORS := ["red", "blue", "yellow", "green", "purple", "orange", "pink", "white"]
 const EMOTIONS := ["feliz", "triste", "bravo", "medo", "surpreso", "calmo"]
 const CHARACTERS := ["robot", "alien", "star", "cosmo"]
-## Tipos de figura do Planeta Hello (EnPicture).
+## Tipos de figura do Sala de Inglês (EnPicture).
 const EN_PIC_TYPES := ["color", "rainbow", "count", "art", "planet", "vini", "shape", "size", "face", "icon"]
 
 
@@ -241,7 +241,7 @@ static func validate_mission(m: Variant) -> Array[String]:
 	return e
 
 
-## Unidade do Planeta Hello: ≥ 8 palavras (en+pt), ≥ 3 frases, ≥ 3 comandos de corpo, canção, história e
+## Unidade do Sala de Inglês: ≥ 8 palavras (en+pt), ≥ 3 frases, ≥ 3 comandos de corpo, canção, história e
 ## ≥ 2 jogos. A unidade de revisão não tem palavras próprias. Figuras: cada "pic" com tipo conhecido.
 
 

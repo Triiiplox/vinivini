@@ -1,30 +1,22 @@
 {
  "id": "story_star_light_001",
- "title": "A Estrela que Não Brilhava",
- "cover": "nebula",
+ "title": "A Saudade da Astronauta",
+ "cover": "space",
  "start": "s1",
  "reward_stars": 3,
  "nodes": {
   "s1": {
-   "text": "Lá no céu, uma estrelinha chamada Lumi não conseguia brilhar.",
+   "text": "Na estação espacial, a astronauta Ana está quietinha. Faz muitos dias que ela não vê a família.",
    "scene": {
-    "bg": "space",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "sad"
      }
     ]
    },
    "choices": [
-    {
-     "text": "Contar uma piada para ela",
-     "next": "s2",
-     "tags": [
-      "joy"
-     ],
-     "icon": "smile"
-    },
     {
      "text": "Perguntar como ela se sente",
      "next": "s3",
@@ -32,16 +24,24 @@
       "empathy"
      ],
      "icon": "heart"
+    },
+    {
+     "text": "Contar uma piada para ela",
+     "next": "s2",
+     "tags": [
+      "joy"
+     ],
+     "icon": "smile"
     }
    ]
   },
   "s2": {
-   "text": "Lumi deu uma risadinha! Uma faísca de luz apareceu.",
+   "text": "Ana deu uma risadinha. Mas depois disse: — Estou com saudade de casa.",
    "scene": {
-    "bg": "space",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -50,15 +50,15 @@
      }
     ]
    },
-   "next": "s4"
+   "next": "s3"
   },
   "s3": {
-   "text": "— Estou triste porque acho que não sou especial — disse Lumi. Todo mundo é especial do seu jeito!",
+   "text": "— Estou com saudade da minha família — disse Ana. Sentir saudade é normal. Como podemos ajudar?",
    "scene": {
-    "bg": "space",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "sad"
      },
      {
@@ -69,30 +69,30 @@
    },
    "choices": [
     {
-     "text": "Cantar uma música juntos",
+     "text": "Ligar para a família por vídeo",
      "next": "s4",
      "tags": [
-      "joy"
+      "empathy"
      ],
-     "icon": "music"
+     "icon": "heart"
     },
     {
-     "text": "Dançar entre os planetas",
+     "text": "Olhar a Terra pela janela",
      "next": "s5",
      "tags": [
-      "imagination"
+      "curiosity"
      ],
      "icon": "planet"
     }
    ]
   },
   "s4": {
-   "text": "Vocês cantam: brilha, brilha, estrelinha! A luz de Lumi cresce!",
+   "text": "Na tela aparecem os filhos da Ana dando tchau! Ela sorri e manda um beijo.",
    "scene": {
-    "bg": "space",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -104,12 +104,12 @@
    "next": "s6"
   },
   "s5": {
-   "text": "Vocês dançam no espaço, girando como planetas! Lumi fica cada vez mais brilhante.",
+   "text": "Pela janela, a Terra azul gira devagarinho. — Lá embaixo está a minha casa! — diz Ana, sorrindo.",
    "scene": {
-    "bg": "nebula",
+    "bg": "space",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -121,12 +121,12 @@
    "next": "s6"
   },
   "s6": {
-   "text": "Lumi quer escolher a cor do seu novo brilho. Qual cor?",
+   "text": "Ana quer mandar um presente para a família. O que ela manda?",
    "scene": {
-    "bg": "nebula",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -137,38 +137,38 @@
    },
    "choices": [
     {
-     "text": "Amarelo como o Sol",
-     "next": "end_yellow",
-     "tags": [
-      "imagination"
-     ],
-     "icon": "sun"
-    },
-    {
-     "text": "Azul como Netuno",
-     "next": "end_blue",
+     "text": "Uma foto da Terra vista do espaço",
+     "next": "end_photo",
      "tags": [
       "imagination"
      ],
      "icon": "planet"
     },
     {
-     "text": "Rosa como uma nebulosa",
-     "next": "end_pink",
+     "text": "Um desenho da estação",
+     "next": "end_draw",
      "tags": [
       "imagination"
      ],
-     "icon": "cloud"
+     "icon": "palette"
+    },
+    {
+     "text": "Uma música cantada juntos",
+     "next": "end_song",
+     "tags": [
+      "joy"
+     ],
+     "icon": "music"
     }
    ]
   },
-  "end_yellow": {
-   "text": "Agora Lumi brilha amarelinha e ilumina o caminho da nave. Obrigada, comandante!",
+  "end_photo": {
+   "text": "A família recebe a foto da Terra e todo mundo fica feliz. Obrigada pela ajuda, comandante!",
    "scene": {
     "bg": "space",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -179,13 +179,13 @@
    },
    "end": true
   },
-  "end_blue": {
-   "text": "Agora Lumi brilha azulzinha, como Netuno. Que lindo! Obrigada, comandante!",
+  "end_draw": {
+   "text": "Vocês desenham a estação juntos e mandam para a família. Que lindo! Obrigada, comandante!",
    "scene": {
-    "bg": "space",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {
@@ -196,13 +196,13 @@
    },
    "end": true
   },
-  "end_pink": {
-   "text": "Agora Lumi brilha cor-de-rosa, como uma nebulosa. Obrigada, comandante!",
+  "end_song": {
+   "text": "Vocês cantam juntos e a família canta também, lá da Terra. Obrigada, comandante!",
    "scene": {
-    "bg": "nebula",
+    "bg": "ship",
     "chars": [
      {
-      "id": "star",
+      "id": "crew",
       "mood": "happy"
      },
      {

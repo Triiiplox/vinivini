@@ -1,6 +1,6 @@
 class_name EnglishSRS
 extends RefCounted
-## Repetição espaçada do Planeta Hello (Leitner): caixas nova → 1 → 2 → 4 → 7 → 14 → 30 dias.
+## Repetição espaçada do Sala de Inglês (Leitner): caixas nova → 1 → 2 → 4 → 7 → 14 → 30 dias.
 ## Puro (sem save): opera sobre um Dictionary de estado, dia = dias desde 1970 (testável com relógio fixo).
 ## - acerto de primeira: sobe uma caixa (no máximo uma vez por dia) e marca o dia como "acerto";
 ## - erro: desce duas caixas (nunca abaixo da 0) e a palavra volta logo;

@@ -1,6 +1,6 @@
 class_name Hello
 extends RefCounted
-## Planeta Hello: acesso ao conteúdo de inglês e ao estado da repetição espaçada (salvo no progresso do perfil).
+## Sala de Inglês: acesso ao conteúdo de inglês e ao estado da repetição espaçada (salvo no progresso do perfil).
 
 ## Relógio de teste: se >= 0, substitui o dia atual (dias desde 1970).
 static var day_override := -1

@@ -21,7 +21,7 @@ var program_cards: Array[ArrowCard] = []
 var palette_cards: Array[ArrowCard] = []
 var max_len := 6
 var robot: NpcActor
-var crystal: ArtSprite
+var crystal: PaintedProp
 var board: Node2D
 var running := false
 var tries := 0
@@ -48,7 +48,7 @@ func build() -> void:
 
 
 func begin() -> void:
-	narrate(Lines.n("Programe o robô! Toque nas setas para montar o caminho até o cristal. Depois aperte o play."))
+	narrate(Lines.n("Programe o robô! Toque nas setas para montar o caminho até a amostra de rocha. Depois aperte o play."))
 	after(1.0, _next_round)
 
 
@@ -77,9 +77,9 @@ func _next_round() -> void:
 		var rk := ArtSprite.new("props", "rock_a", 84.0)
 		rk.position = _cell_pos(r)
 		board.add_child(rk)
-	crystal = ArtSprite.new("props", "crystal", 70.0)
+	# Amostra de rocha: os robôs de Marte (como o Perseverance) coletam rochas para os cientistas estudarem.
+	crystal = PaintedProp.new("rock_small", 60.0)
 	crystal.position = _cell_pos(goal)
-	crystal.idle = "float"
 	board.add_child(crystal)
 	robot = NpcActor.new("robot", "happy", 96.0)
 	robot.position = _cell_pos(start) + Vector2(0, 40)

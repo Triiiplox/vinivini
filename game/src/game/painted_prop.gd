@@ -3,7 +3,7 @@ extends Sprite2D
 ## Objeto pintado (assets/scenes/props/<id>.png) com largura fixa; origem nos pés (anchor_bottom) ou no centro.
 ## MAP: item do jogo -> pintura (os que não estão aqui continuam em vetor).
 
-const MAP := {"moon_rock": "rock_small", "crystal": "crystal_small"}
+const MAP := {"moon_rock": "rock_small", "sample": "rock_mid"}
 
 
 static func has_art(id: String) -> bool:

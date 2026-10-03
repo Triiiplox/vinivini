@@ -151,7 +151,7 @@ func _run() -> void:
 			t += 0.25
 		check(Router.current_id == str(st["screen"]), "estação %s abre %s (%s)" % [st["id"], st["screen"], Router.current_id])
 		await wait(0.5)
-	# Planeta Hello: trilha → lição → recompensa → volta para a trilha, com a palavra no motor de revisão.
+	# Sala de Inglês: trilha → lição → recompensa → volta para a trilha, com a palavra no motor de revisão.
 	Router.reset_to("hello")
 	await wait(1.0)
 	var first: String = Router.current_screen.next_id

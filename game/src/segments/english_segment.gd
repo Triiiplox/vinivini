@@ -1,5 +1,5 @@
 extends GameScreen
-## Planeta Hello — lição de inglês para quem não lê (params: unit = id da unidade).
+## Sala de Inglês (Hoppy, astronauta americano da tripulação) — lição de inglês para quem não lê (params: unit = id da unidade).
 ## Sequência: CONHECER as palavras novas (figura + voz do Hoppy, normal e devagar) → ACHAR (ouvir e tocar
 ## a figura certa, com revisões vencidas de outras unidades = "cometas") → MEXER O CORPO (comando que o
 ## Vini faz junto). O Hoppy só fala inglês; o Astro traduz na 1ª vez e, depois, só dá dica após 2 erros
@@ -13,7 +13,7 @@ var steps: Array = []
 var step_i := -1
 var step: Dictionary = {}
 var cards: Array[Interactable] = []
-var hoppy: CustomerActor
+var hoppy: CrewActor
 var vini: CharacterRig2D
 var target := ""
 var tries := 0
@@ -31,7 +31,7 @@ func build() -> void:
 	set_sky("space")
 	AudioService.play_music("explore")
 	world.add_child(Scenery.new("moon"))
-	hoppy = CustomerActor.new(Color("#60A5FA"), 220.0)
+	hoppy = CrewActor.new("suit_saturn", 250.0)
 	hoppy.position = Vector2(170, 640)
 	hoppy.z_index = 10
 	world.add_child(hoppy)

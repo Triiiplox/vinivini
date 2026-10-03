@@ -1,5 +1,6 @@
 extends GameScreen
-## Restaurante de Marte: o cliente pede por voz e com figuras ("Eu quero três morangos").
+## Cozinha da Estação Espacial: um astronauta da tripulação pede por voz e com figuras ("Eu quero três morangos").
+## (Na Estação Espacial Internacional a comida vem em pacotes e é montada em bandejas; frutas frescas chegam nas naves de carga.)
 ## Arraste da caixa para a tigela; toque num item da tigela para tirar; toque no sino para servir.
 ## Nível 1: um ingrediente (1–5). Nível 2: dois ingredientes (soma até 10). Nível 3: dois pratos iguais
 ## (multiplicação intuitiva: "dois pratos com três cogumelos").
@@ -10,7 +11,7 @@ const FOODS := {
 	"carrot": ["cenoura", "cenouras", "f"], "apple": ["maçã", "maçãs", "f"], "egg": ["ovo", "ovos", "m"],
 	"tomato": ["tomate", "tomates", "m"], "banana": ["banana", "bananas", "f"], "bread": ["pão", "pães", "m"],
 }
-const CUSTOMER_COLORS := ["#6BCB77", "#5EC8FF", "#FF70A6", "#FFB36B", "#9B5DE5"]
+const CREW_SUITS := ["suit_orange", "suit_blue", "suit_green", "suit_moon", "suit_saturn"]
 
 var foods: Array = []
 var customers_total := 3
@@ -18,7 +19,7 @@ var served := 0
 var order: Dictionary = {}
 var plates := 1
 var in_bowl: Array[Interactable] = []
-var customer: CustomerActor
+var customer: CrewActor
 var bubble: Node2D
 var bowl_zone: DropZone
 var tries := 0
@@ -35,9 +36,9 @@ static func food_phrase(n: int, food: String) -> String:
 func build() -> void:
 	customers_total = int(params.get("customers", 3))
 	foods = params.get("foods", ["strawberry", "mushroom", "cheese", "carrot", "apple", "egg"])
-	set_sky("mars")
+	set_sky("space")
 	AudioService.play_music("kitchen")
-	world.add_child(Scenery.new("mars"))
+	world.add_child(Scenery.new("ship"))
 	var counter := Panel.new()
 	counter.add_theme_stylebox_override("panel", UITheme.rounded(Color("#8D5524"), 26, 6, Color("#22204A")))
 	counter.position = Vector2(-20, 470)
@@ -74,17 +75,17 @@ func build() -> void:
 
 
 func begin() -> void:
-	narrate(Lines.n("Bem-vindo ao Restaurante de Marte! Vamos atender os clientes."))
+	narrate(Lines.n("Bem-vindo à cozinha da estação espacial! Os astronautas estão com fome."))
 	after(2.5, _next_customer)
 
 
 func _next_customer() -> void:
 	if served >= customers_total:
-		cosmo_say(Lines.c("Todos os clientes ficaram felizes! Você é um ótimo cozinheiro!"))
+		cosmo_say(Lines.c("A tripulação toda comeu! Você é um ótimo cozinheiro espacial!"))
 		after(2.4, func(): finish({"stars": 3, "skills": ["math.addition.concrete"]}))
 		return
 	_clear_bowl(false)
-	customer = CustomerActor.new(Color(CUSTOMER_COLORS[served % CUSTOMER_COLORS.size()]), 240.0)
+	customer = CrewActor.new(CREW_SUITS[served % CREW_SUITS.size()], 260.0)
 	customer.position = Vector2(-200, 450)
 	customer.z_index = 1
 	world.add_child(customer)

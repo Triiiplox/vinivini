@@ -18,7 +18,7 @@ static func default_avatar() -> Dictionary:
 		"skin": "skin_3",
 		"hair_style": "short",
 		"hair_color": "hair_brown",
-		"suit": "suit_orange",
+		"suit": "suit_blue",
 		"helmet": "helmet_none",
 		"accessory": "acc_none",
 	}

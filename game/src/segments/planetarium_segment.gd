@@ -24,6 +24,8 @@ const QUESTS := [
 	["mars", "Toque no planeta vermelho!"], ["saturn", "Toque no planeta que tem anéis!"], ["earth", "Toque no planeta onde a gente mora!"],
 	["jupiter", "Toque no maior planeta!"], ["sun", "Toque na estrela que esquenta todos os planetas!"], ["neptune",
 		"Toque no planeta azul e gelado!"]]
+## Ordem real, do mais perto ao mais longe do Sol.
+const ORDER := ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
 const CENTER := Vector2(640, 400)
 const SQUASH := 0.36
 
@@ -39,6 +41,9 @@ var orbit_draw: Node2D
 var tries := 0
 var t0 := 0.0
 var explored := {}
+## "order": tocar os planetas na ordem a partir do Sol (params.play).
+var play := ""
+var order_i := 0
 
 
 func build() -> void:
@@ -67,13 +72,39 @@ func build() -> void:
 		angles[p[0]] = randf() * TAU
 	quest_list = QUESTS.duplicate()
 	quest_list.shuffle()
+	var focus := str(params.get("focus", ""))
+	if focus != "":
+		quest_list.sort_custom(func(a, b): return a[0] == focus and b[0] != focus)
+	play = str(params.get("play", ""))
+	if play == "order":
+		exploring = false
+		quests = ORDER.size()
 	add_cosmo(Vector2(120, 140), 110.0)
 	hint_fn = _hint
 
 
 func begin() -> void:
+	if play == "order":
+		hud.set_counter("props", "star_token", 0, quests)
+		var d := narrate(Lines.n("Vamos tocar nos planetas na ordem, do mais pertinho do Sol até o mais longe!"))
+		after(d + 0.3, _next_order)
+		return
 	narrate(Lines.n("Bem-vindo ao planetário! Toque nos planetas para conhecer cada um."))
 	after(9.0, _auto_quests)
+
+
+func _next_order() -> void:
+	if order_i >= ORDER.size():
+		cosmo_say(Lines.c("Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno! Você sabe a ordem dos planetas!"))
+		after(5.5, func(): finish({"stars": 3, "skills": [SKILL]}))
+		return
+	tries = 0
+	t0 = Time.get_ticks_msec() / 1000.0
+	target = ORDER[order_i]
+	if order_i == 0:
+		narrate_seq([Lines.n("O primeiro, mais pertinho do Sol, é"), NAMES[target]])
+	else:
+		narrate_seq([Lines.n("Agora o próximo:"), NAMES[target]])
 
 
 func _auto_quests() -> void:
@@ -121,6 +152,9 @@ func _on_tap(it: Interactable) -> void:
 	if target == "":
 		return
 	tries += 1
+	if play == "order":
+		_order_tap(id, it)
+		return
 	if id == target:
 		record(SKILL, "planet_" + target, tries == 1, tries, Time.get_ticks_msec() / 1000.0 - t0)
 		AudioService.play_sfx("correct")
@@ -134,6 +168,21 @@ func _on_tap(it: Interactable) -> void:
 	else:
 		AudioService.play_sfx("retry")
 		narrate_seq([Lines.n("Esse é"), NAMES[id], str(quest_list[quest_i][1])])
+
+
+func _order_tap(id: String, it: Interactable) -> void:
+	if id == target:
+		record(SKILL, "order_" + target, tries == 1, tries, Time.get_ticks_msec() / 1000.0 - t0)
+		AudioService.play_sfx("correct")
+		Fx.sparkle(world, it.global_position, 24)
+		target = ""
+		order_i += 1
+		hud.set_counter("props", "star_token", order_i, quests)
+		var d := Voice.say(Lines.number(order_i))
+		after(d + 0.2, _next_order)
+	else:
+		AudioService.play_sfx("retry")
+		narrate_seq([Lines.n("Esse é"), NAMES[id], Lines.n("Agora procure:"), NAMES[target]])
 
 
 func _start_quests() -> void:

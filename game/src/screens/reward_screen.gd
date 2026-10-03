@@ -98,6 +98,7 @@ func _show_items() -> void:
 			av[str(item["slot"])] = item["id"]
 	# Veste o item novo na hora (a criança vê, não lê).
 	AppState.save_avatar(av)
+	avatar.dress_up(av)
 	avatar.play("jump")
 	Fx.sparkle(world, avatar.position + Vector2(0, -150), 40, Palette.PINK)
 	cosmo_say(Lines.c("Olha só! Você ganhou um presente novo!"))

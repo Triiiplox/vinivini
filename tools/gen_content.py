@@ -350,20 +350,22 @@ robot = {"id": "story_robot_lost_001", "title": "O Robozinho Perdido", "cover": 
     "end_team": node("Um, dois, três... JÁ! Vocês empurram juntos e o Bip fica livre! O robozinho dá um abraço em todos.", sc("mars", "bip:happy", "robot:happy", "avatar:happy"), end=True),
     "end_calm": node("Devagarinho, o Bip escapa da pedra. — Obrigado por me ajudar com calma! — diz o robozinho.", sc("mars", "bip:happy", "robot:happy", "avatar:happy"), end=True),
 }}
-star = {"id": "story_star_light_001", "title": "A Estrela que Não Brilhava", "cover": "nebula", "start": "s1",
+# História real: astronautas passam meses na Estação Espacial e sentem saudade; eles conversam com a família
+# por vídeo e veem a Terra pela janela (a estação dá uma volta na Terra a cada 90 minutos).
+star = {"id": "story_star_light_001", "title": "A Saudade da Astronauta", "cover": "space", "start": "s1",
         "reward_stars": 3, "nodes": {
-    "s1": node("Lá no céu, uma estrelinha chamada Lumi não conseguia brilhar.", sc("space", "star:sad"),
-               [ch("Contar uma piada para ela", "s2", ["joy"], "smile"), ch("Perguntar como ela se sente", "s3", ["empathy"], "heart")]),
-    "s2": node("Lumi deu uma risadinha! Uma faísca de luz apareceu.", sc("space", "star:happy", "avatar:happy"), nxt="s4"),
-    "s3": node("— Estou triste porque acho que não sou especial — disse Lumi. Todo mundo é especial do seu jeito!", sc("space", "star:sad", "avatar:calm"),
-               [ch("Cantar uma música juntos", "s4", ["joy"], "music"), ch("Dançar entre os planetas", "s5", ["imagination"], "planet")]),
-    "s4": node("Vocês cantam: brilha, brilha, estrelinha! A luz de Lumi cresce!", sc("space", "star:happy", "avatar:happy"), nxt="s6"),
-    "s5": node("Vocês dançam no espaço, girando como planetas! Lumi fica cada vez mais brilhante.", sc("nebula", "star:happy", "avatar:happy"), nxt="s6"),
-    "s6": node("Lumi quer escolher a cor do seu novo brilho. Qual cor?", sc("nebula", "star:happy", "cosmo:happy"),
-               [ch("Amarelo como o Sol", "end_yellow", ["imagination"], "sun"), ch("Azul como Netuno", "end_blue", ["imagination"], "planet"), ch("Rosa como uma nebulosa", "end_pink", ["imagination"], "cloud")]),
-    "end_yellow": node("Agora Lumi brilha amarelinha e ilumina o caminho da nave. Obrigada, comandante!", sc("space", "star:happy", "avatar:happy"), end=True),
-    "end_blue": node("Agora Lumi brilha azulzinha, como Netuno. Que lindo! Obrigada, comandante!", sc("space", "star:happy", "avatar:happy"), end=True),
-    "end_pink": node("Agora Lumi brilha cor-de-rosa, como uma nebulosa. Obrigada, comandante!", sc("nebula", "star:happy", "avatar:happy"), end=True),
+    "s1": node("Na estação espacial, a astronauta Ana está quietinha. Faz muitos dias que ela não vê a família.", sc("ship", "crew:sad"),
+               [ch("Perguntar como ela se sente", "s3", ["empathy"], "heart"), ch("Contar uma piada para ela", "s2", ["joy"], "smile")]),
+    "s2": node("Ana deu uma risadinha. Mas depois disse: — Estou com saudade de casa.", sc("ship", "crew:happy", "avatar:happy"), nxt="s3"),
+    "s3": node("— Estou com saudade da minha família — disse Ana. Sentir saudade é normal. Como podemos ajudar?", sc("ship", "crew:sad", "avatar:calm"),
+               [ch("Ligar para a família por vídeo", "s4", ["empathy"], "heart"), ch("Olhar a Terra pela janela", "s5", ["curiosity"], "planet")]),
+    "s4": node("Na tela aparecem os filhos da Ana dando tchau! Ela sorri e manda um beijo.", sc("ship", "crew:happy", "avatar:happy"), nxt="s6"),
+    "s5": node("Pela janela, a Terra azul gira devagarinho. — Lá embaixo está a minha casa! — diz Ana, sorrindo.", sc("space", "crew:happy", "avatar:happy"), nxt="s6"),
+    "s6": node("Ana quer mandar um presente para a família. O que ela manda?", sc("ship", "crew:happy", "cosmo:happy"),
+               [ch("Uma foto da Terra vista do espaço", "end_photo", ["imagination"], "planet"), ch("Um desenho da estação", "end_draw", ["imagination"], "palette"), ch("Uma música cantada juntos", "end_song", ["joy"], "music")]),
+    "end_photo": node("A família recebe a foto da Terra e todo mundo fica feliz. Obrigada pela ajuda, comandante!", sc("space", "crew:happy", "avatar:happy"), end=True),
+    "end_draw": node("Vocês desenham a estação juntos e mandam para a família. Que lindo! Obrigada, comandante!", sc("ship", "crew:happy", "avatar:happy"), end=True),
+    "end_song": node("Vocês cantam juntos e a família canta também, lá da Terra. Obrigada, comandante!", sc("ship", "crew:happy", "avatar:happy"), end=True),
 }}
 dump("stories/story_robot_lost.json", robot)
 dump("stories/story_star_light.json", star)
@@ -371,27 +373,21 @@ dump("stories/story_star_light.json", star)
 # ---------------------------------------------------------------- mundo
 planets = [
     {"id": "moon", "name": "Lua", "title": "Base das Letras", "area": "reading", "map_pos": [0.2, 0.32],
-     "intro": "Na Lua, as letras flutuam! Vamos ler juntos?", "fact": "moon",
+     "intro": "A Lua gira em volta da Terra. Vamos ler juntos na base lunar?", "fact": "moon",
      "visual": {"color": "#D9DCE3", "color2": "#A9AEBB", "style": "craters", "face": True},
      "games": [{"skill": "reading.simple_syllables", "name": "Sílabas", "icon": "abc"},
                {"skill": "reading.build_word", "name": "Montar Palavra", "icon": "blocks"}]},
     {"id": "mars", "name": "Marte", "title": "Cânions dos Números", "area": "math", "map_pos": [0.45, 0.68],
-     "intro": "Marte tem cristais por todo lado! Vamos contar?", "fact": "mars",
+     "intro": "Marte é vermelho por causa da poeira de ferrugem. Vamos contar as amostras de rocha?", "fact": "mars",
      "visual": {"color": "#E2673E", "color2": "#B3432A", "style": "spots", "face": True},
      "games": [{"skill": "math.counting", "name": "Contar", "icon": "123"},
                {"skill": "math.addition.concrete", "name": "Somar", "icon": "plus"},
                {"skill": "math.compare", "name": "Comparar", "icon": "scale"}]},
     {"id": "saturn", "name": "Saturno", "title": "Anéis dos Enigmas", "area": "logic", "map_pos": [0.72, 0.3],
-     "intro": "Nos anéis de Saturno moram os enigmas. Vamos pensar juntos?", "fact": "saturn",
+     "intro": "Os anéis de Saturno são feitos de gelo e rocha. Vamos pensar juntos?", "fact": "saturn",
      "visual": {"color": "#F2D49B", "color2": "#D9A85F", "style": "bands", "rings": True, "face": True},
      "games": [{"skill": "logic.patterns", "name": "Padrões", "icon": "puzzle"},
                {"skill": "logic.memory", "name": "Memória", "icon": "brain"}]},
-    {"id": "nebula", "name": "Nebulosa da Amizade", "title": "Histórias e Sentimentos", "area": "emotion", "map_pos": [0.86, 0.72],
-     "intro": "Na Nebulosa da Amizade, a gente cuida dos sentimentos.", "fact": "",
-     "visual": {"color": "#C77DFF", "color2": "#FF7EB6", "style": "nebula", "face": False},
-     "games": [{"skill": "emotion.recognition", "name": "Sentimentos", "icon": "heart"},
-               {"story": "story_robot_lost_001", "name": "Robozinho Perdido", "icon": "book"},
-               {"story": "story_star_light_001", "name": "Estrela Lumi", "icon": "book"}]},
 ]
 dump("world/planets.json", planets)
 
@@ -555,6 +551,8 @@ campaigns = [
     {"id": "marte", "name": "Planeta Vermelho", "planet": "mars", "missions": ["m07", "m08", "m09"]},
     {"id": "gigantes", "name": "Gigantes do Espaço", "planet": "saturn", "missions": ["m10", "m11", "m12"]},
 ]
+# Tudo com ciência real (Sistema Solar, missões espaciais de verdade). Personagens: o Vini, o robô Astro,
+# astronautas da tripulação e robôs (robôs ajudantes existem de verdade: Astrobee, Perseverance, Robonaut).
 missions = [
     {"id": "m01", "campaign": "nave", "name": "Ligar os Motores", "area": "math", "requires": "", "reward_item": "",
      "segments": [
@@ -564,66 +562,76 @@ missions = [
          {"type": "build", "blueprint": "reactor"},
          {"type": "flight", "play": "collect", "goal": 5, "theme": "space"},
      ]},
-    {"id": "m02", "campaign": "nave", "name": "Planetas Cantores", "area": "logic", "requires": "m01", "reward_item": "",
+    {"id": "m02", "campaign": "nave", "name": "A Ordem dos Planetas", "area": "logic", "requires": "m01", "reward_item": "",
      "segments": [
+         cut("space", [{"id": "cosmo", "x": 640}], [
+             L("cosmo", "Oito planetas giram em volta do Sol. Do mais perto para o mais longe: Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno!")]),
+         {"type": "planetarium", "play": "order"},
          {"type": "memory", "rounds": 3},
-         {"type": "pattern", "rounds": 3},
      ]},
     {"id": "m03", "campaign": "nave", "name": "Robô Ajudante", "area": "logic", "requires": "m02", "reward_item": "acc_jetpack",
      "segments": [
-         cut("ship", [{"id": "avatar", "x": 360}, {"id": "robot", "x": 860, "mood": "sad"}], [
-             L("robot", "Bip bop! Eu perdi meus cristais. Você me programa para buscar?", mood="sad"),
-             L("narrator", "O comandante vai ajudar o robozinho!", actor="avatar", action="wave")]),
+         cut("ship", [{"id": "avatar", "x": 360}, {"id": "robot", "x": 860, "mood": "happy"}], [
+             L("robot", "Bip bop! Eu sou um robô explorador, como o Perseverance que está em Marte. Você me programa para pegar amostras de rocha?"),
+             L("narrator", "O comandante vai programar o robô!", actor="avatar", action="wave")]),
          {"type": "robot", "rounds": 3, "theme": "mars"},
      ]},
     {"id": "m04", "campaign": "lua", "name": "Pouso na Lua", "area": "math", "requires": "m01", "reward_item": "",
      "segments": [
+         cut("space", [{"id": "cosmo", "x": 640}], [
+             L("cosmo", "Em 1969, os astronautas da Apollo 11 pousaram na Lua pela primeira vez. Agora é a nossa vez!")]),
          {"type": "flight", "play": "portals", "portal_skill": "numbers", "goal": 4, "theme": "space"},
          {"type": "explore", "theme": "moon", "screens": 3, "collect": {"item": "moon_rock", "count": 4}, "door": True,
-          "intro": "Chegamos na Lua! Pegue as pedras lunares para abrir a porta da base."},
+          "intro": "Chegamos na Lua! Os astronautas da Apollo trouxeram pedras lunares para a Terra. Pegue as pedras para abrir a porta da base."},
      ]},
-    {"id": "m05", "campaign": "lua", "name": "Monstro das Sílabas", "area": "reading", "requires": "m04", "reward_item": "suit_moon",
+    {"id": "m05", "campaign": "lua", "name": "Robô Reciclador", "area": "reading", "requires": "m04", "reward_item": "suit_moon",
      "segments": [
-         {"type": "monster", "rounds": 5, "theme": "moon", "color": "#9B5DE5"},
+         {"type": "monster", "rounds": 5, "theme": "moon"},
          {"type": "word", "rounds": 2},
      ]},
     {"id": "m06", "campaign": "lua", "name": "O Jipe Lunar", "area": "math", "requires": "m05", "reward_item": "",
      "segments": [
+         cut("moon", [{"id": "avatar", "x": 360}, {"id": "cosmo", "x": 900}], [
+             L("cosmo", "Os astronautas da Apollo andaram num jipe lunar de verdade! Vamos montar o nosso.")]),
          {"type": "build", "blueprint": "rover", "theme": "moon"},
-         {"type": "explore", "theme": "moon", "screens": 3, "collect": {"item": "crystal", "count": 3},
-          "rescue": {"kind": "robot", "mood": "sad", "say": "Você achou o robô perdido! Ele está feliz de novo!"},
-          "intro": "Um robô está perdido na Lua. Vamos procurar?"},
+         {"type": "explore", "theme": "moon", "screens": 3, "collect": {"item": "moon_rock", "count": 3},
+          "rescue": {"kind": "robot", "mood": "sad", "say": "Você achou o jipinho robô! Ele estava preso numa cratera."},
+          "intro": "Um jipinho robô ficou preso na Lua. Vamos procurar e pegar pedras pelo caminho?"},
      ]},
-    {"id": "m07", "campaign": "marte", "name": "Restaurante de Marte", "area": "math", "requires": "m04", "reward_item": "suit_mars",
+    {"id": "m07", "campaign": "marte", "name": "Cozinha da Estação Espacial", "area": "math", "requires": "m04", "reward_item": "suit_mars",
      "segments": [
-         cut("mars", [{"id": "avatar", "x": 360}, {"id": "alien", "x": 880}], [
-             L("alien", "Socorro! Meu restaurante está cheio e o cozinheiro sumiu!", mood="scared"),
-             L("cosmo", "O comandante pode ajudar! Ele conta muito bem.")]),
+         cut("ship", [{"id": "avatar", "x": 360}, {"id": "crew", "x": 880, "suit": "suit_orange"}], [
+             L("npc", "Olá, comandante! Aqui na estação espacial a tripulação come junto. Você ajuda a preparar as bandejas?", actor="crew"),
+             L("cosmo", "Claro! O comandante conta muito bem.")]),
          {"type": "cook", "customers": 3},
      ]},
     {"id": "m08", "campaign": "marte", "name": "O Robozinho Perdido", "area": "emotion", "requires": "m07", "reward_item": "acc_heart_badge",
      "segments": [
          {"type": "story", "story": "story_robot_lost_001"},
      ]},
-    {"id": "m09", "campaign": "marte", "name": "Cânion dos Cristais", "area": "logic", "requires": "m08", "reward_item": "",
+    {"id": "m09", "campaign": "marte", "name": "O Grande Cânion de Marte", "area": "logic", "requires": "m08", "reward_item": "",
      "segments": [
-         {"type": "explore", "theme": "mars", "screens": 3, "collect": {"item": "crystal", "count": 5}, "door": True,
-          "intro": "O cânion está cheio de cristais! Junte para abrir a caverna."},
+         cut("mars", [{"id": "cosmo", "x": 640}], [
+             L("cosmo", "Esse é o Valles Marineris, o maior cânion do Sistema Solar! Marte é vermelho por causa da poeira de ferrugem.")]),
+         {"type": "explore", "theme": "mars", "screens": 3, "collect": {"item": "sample", "count": 5}, "door": True,
+          "intro": "Vamos coletar amostras de rocha, como os robôs de Marte fazem! Junte as amostras para abrir o laboratório."},
          {"type": "robot", "rounds": 2, "theme": "mars"},
      ]},
     {"id": "m10", "campaign": "gigantes", "name": "Planetário", "area": "science", "requires": "m06", "reward_item": "acc_telescope",
      "segments": [
          {"type": "planetarium", "quests": 3},
      ]},
-    {"id": "m11", "campaign": "gigantes", "name": "Criaturas de Saturno", "area": "math", "requires": "m10", "reward_item": "",
-     "segments": [
-         {"type": "flight", "play": "portals", "portal_skill": "shapes", "goal": 3, "theme": "space"},
-         {"type": "creature"},
-     ]},
-    {"id": "m12", "campaign": "gigantes", "name": "A Nuvem Rabugenta", "area": "reading", "requires": "m11", "reward_item": "suit_saturn",
+    {"id": "m11", "campaign": "gigantes", "name": "Os Anéis de Saturno", "area": "math", "requires": "m10", "reward_item": "",
      "segments": [
          cut("space", [{"id": "cosmo", "x": 640}], [
-             L("cosmo", "Cuidado! Uma nuvem rabugenta está bloqueando o caminho para Saturno!", mood="worry")], music="boss"),
+             L("cosmo", "Os anéis de Saturno são feitos de pedaços de gelo e rocha. Vamos voar perto deles com cuidado!")]),
+         {"type": "flight", "play": "portals", "portal_skill": "shapes", "goal": 3, "theme": "space"},
+         {"type": "planetarium", "quests": 2, "focus": "saturn"},
+     ]},
+    {"id": "m12", "campaign": "gigantes", "name": "O Cinturão de Asteroides", "area": "reading", "requires": "m11", "reward_item": "suit_saturn",
+     "segments": [
+         cut("space", [{"id": "cosmo", "x": 640}], [
+             L("cosmo", "Entre Marte e Júpiter tem milhões de rochas voando: é o cinturão de asteroides! Tem uma grande no caminho.", mood="worry")], music="boss"),
          {"type": "boss", "portal_skill": "syllables", "goal": 3, "theme": "space"},
          {"type": "story", "story": "story_star_light_001"},
      ]},

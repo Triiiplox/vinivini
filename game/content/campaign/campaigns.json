@@ -93,17 +93,34 @@
   {
    "id": "m02",
    "campaign": "nave",
-   "name": "Planetas Cantores",
+   "name": "A Ordem dos Planetas",
    "area": "logic",
    "requires": "m01",
    "reward_item": "",
    "segments": [
     {
-     "type": "memory",
-     "rounds": 3
+     "type": "cutscene",
+     "theme": "space",
+     "actors": [
+      {
+       "id": "cosmo",
+       "x": 640
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Oito planetas giram em volta do Sol. Do mais perto para o mais longe: Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno!"
+      }
+     ],
+     "music": "story"
     },
     {
-     "type": "pattern",
+     "type": "planetarium",
+     "play": "order"
+    },
+    {
+     "type": "memory",
      "rounds": 3
     }
    ]
@@ -127,18 +144,17 @@
       {
        "id": "robot",
        "x": 860,
-       "mood": "sad"
+       "mood": "happy"
       }
      ],
      "lines": [
       {
        "who": "robot",
-       "say": "Bip bop! Eu perdi meus cristais. Você me programa para buscar?",
-       "mood": "sad"
+       "say": "Bip bop! Eu sou um robô explorador, como o Perseverance que está em Marte. Você me programa para pegar amostras de rocha?"
       },
       {
        "who": "narrator",
-       "say": "O comandante vai ajudar o robozinho!",
+       "say": "O comandante vai programar o robô!",
        "actor": "avatar",
        "action": "wave"
       }
@@ -161,6 +177,23 @@
    "reward_item": "",
    "segments": [
     {
+     "type": "cutscene",
+     "theme": "space",
+     "actors": [
+      {
+       "id": "cosmo",
+       "x": 640
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Em 1969, os astronautas da Apollo 11 pousaram na Lua pela primeira vez. Agora é a nossa vez!"
+      }
+     ],
+     "music": "story"
+    },
+    {
      "type": "flight",
      "play": "portals",
      "portal_skill": "numbers",
@@ -176,14 +209,14 @@
       "count": 4
      },
      "door": true,
-     "intro": "Chegamos na Lua! Pegue as pedras lunares para abrir a porta da base."
+     "intro": "Chegamos na Lua! Os astronautas da Apollo trouxeram pedras lunares para a Terra. Pegue as pedras para abrir a porta da base."
     }
    ]
   },
   {
    "id": "m05",
    "campaign": "lua",
-   "name": "Monstro das Sílabas",
+   "name": "Robô Reciclador",
    "area": "reading",
    "requires": "m04",
    "reward_item": "suit_moon",
@@ -191,8 +224,7 @@
     {
      "type": "monster",
      "rounds": 5,
-     "theme": "moon",
-     "color": "#9B5DE5"
+     "theme": "moon"
     },
     {
      "type": "word",
@@ -209,6 +241,27 @@
    "reward_item": "",
    "segments": [
     {
+     "type": "cutscene",
+     "theme": "moon",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 360
+      },
+      {
+       "id": "cosmo",
+       "x": 900
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Os astronautas da Apollo andaram num jipe lunar de verdade! Vamos montar o nosso."
+      }
+     ],
+     "music": "story"
+    },
+    {
      "type": "build",
      "blueprint": "rover",
      "theme": "moon"
@@ -218,48 +271,49 @@
      "theme": "moon",
      "screens": 3,
      "collect": {
-      "item": "crystal",
+      "item": "moon_rock",
       "count": 3
      },
      "rescue": {
       "kind": "robot",
       "mood": "sad",
-      "say": "Você achou o robô perdido! Ele está feliz de novo!"
+      "say": "Você achou o jipinho robô! Ele estava preso numa cratera."
      },
-     "intro": "Um robô está perdido na Lua. Vamos procurar?"
+     "intro": "Um jipinho robô ficou preso na Lua. Vamos procurar e pegar pedras pelo caminho?"
     }
    ]
   },
   {
    "id": "m07",
    "campaign": "marte",
-   "name": "Restaurante de Marte",
+   "name": "Cozinha da Estação Espacial",
    "area": "math",
    "requires": "m04",
    "reward_item": "suit_mars",
    "segments": [
     {
      "type": "cutscene",
-     "theme": "mars",
+     "theme": "ship",
      "actors": [
       {
        "id": "avatar",
        "x": 360
       },
       {
-       "id": "alien",
-       "x": 880
+       "id": "crew",
+       "x": 880,
+       "suit": "suit_orange"
       }
      ],
      "lines": [
       {
-       "who": "alien",
-       "say": "Socorro! Meu restaurante está cheio e o cozinheiro sumiu!",
-       "mood": "scared"
+       "who": "npc",
+       "say": "Olá, comandante! Aqui na estação espacial a tripulação come junto. Você ajuda a preparar as bandejas?",
+       "actor": "crew"
       },
       {
        "who": "cosmo",
-       "say": "O comandante pode ajudar! Ele conta muito bem."
+       "say": "Claro! O comandante conta muito bem."
       }
      ],
      "music": "story"
@@ -287,21 +341,38 @@
   {
    "id": "m09",
    "campaign": "marte",
-   "name": "Cânion dos Cristais",
+   "name": "O Grande Cânion de Marte",
    "area": "logic",
    "requires": "m08",
    "reward_item": "",
    "segments": [
     {
+     "type": "cutscene",
+     "theme": "mars",
+     "actors": [
+      {
+       "id": "cosmo",
+       "x": 640
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Esse é o Valles Marineris, o maior cânion do Sistema Solar! Marte é vermelho por causa da poeira de ferrugem."
+      }
+     ],
+     "music": "story"
+    },
+    {
      "type": "explore",
      "theme": "mars",
      "screens": 3,
      "collect": {
-      "item": "crystal",
+      "item": "sample",
       "count": 5
      },
      "door": true,
-     "intro": "O cânion está cheio de cristais! Junte para abrir a caverna."
+     "intro": "Vamos coletar amostras de rocha, como os robôs de Marte fazem! Junte as amostras para abrir o laboratório."
     },
     {
      "type": "robot",
@@ -327,11 +398,28 @@
   {
    "id": "m11",
    "campaign": "gigantes",
-   "name": "Criaturas de Saturno",
+   "name": "Os Anéis de Saturno",
    "area": "math",
    "requires": "m10",
    "reward_item": "",
    "segments": [
+    {
+     "type": "cutscene",
+     "theme": "space",
+     "actors": [
+      {
+       "id": "cosmo",
+       "x": 640
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Os anéis de Saturno são feitos de pedaços de gelo e rocha. Vamos voar perto deles com cuidado!"
+      }
+     ],
+     "music": "story"
+    },
     {
      "type": "flight",
      "play": "portals",
@@ -340,14 +428,16 @@
      "theme": "space"
     },
     {
-     "type": "creature"
+     "type": "planetarium",
+     "quests": 2,
+     "focus": "saturn"
     }
    ]
   },
   {
    "id": "m12",
    "campaign": "gigantes",
-   "name": "A Nuvem Rabugenta",
+   "name": "O Cinturão de Asteroides",
    "area": "reading",
    "requires": "m11",
    "reward_item": "suit_saturn",
@@ -364,7 +454,7 @@
      "lines": [
       {
        "who": "cosmo",
-       "say": "Cuidado! Uma nuvem rabugenta está bloqueando o caminho para Saturno!",
+       "say": "Entre Marte e Júpiter tem milhões de rochas voando: é o cinturão de asteroides! Tem uma grande no caminho.",
        "mood": "worry"
       }
      ],

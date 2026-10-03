@@ -12,7 +12,7 @@ func test_real_content_loads_without_errors() -> void:
 	eq(r.errors.size(), 0, "erros: %s" % str(r.errors))
 	check(r.activities.size() >= 300, "conteúdo mínimo")
 	eq(r.stories.size(), 2)
-	eq(r.planets.size(), 4)
+	eq(r.planets.size(), 3, "Lua, Marte e Saturno (só lugares reais)")
 	check(r.items.size() >= 20)
 
 

@@ -1,5 +1,5 @@
 extends GameScreen
-## Monstro das Sílabas (leitura por som): o monstrinho pede uma sílaba pela voz; a criança toca
+## Robô Reciclador das Sílabas (leitura por som): o robô pede uma sílaba pela voz; a criança toca
 ## nos cartões para ouvir e arrasta o certo para a boca. Errou? Ele cospe, diz qual era e pede de novo.
 ## Nível 1: 2 cartões de famílias diferentes. Nível 2: 3 cartões da mesma vogal/família (discriminar).
 ## Nível 3: figuras — "me dá algo que começa com BO" (consciência fonológica).
@@ -10,7 +10,7 @@ const SKILL := "reading.simple_syllables"
 var rounds := 5
 var round_i := 0
 var target := ""
-var monster: ArtSprite
+var monster: RecyclerBot
 var mouth: DropZone
 var cards: Array[SyllableCard] = []
 var tries := 0
@@ -25,9 +25,8 @@ func build() -> void:
 	set_sky(str(params.get("sky", "moon")))
 	AudioService.play_music("puzzle")
 	world.add_child(Scenery.new(str(params.get("theme", "moon"))))
-	monster = ArtSprite.new("npcs", "monster_open", 330.0, SvgArt.tint_colors(Color(str(params.get("color", "#9B5DE5")))))
-	monster.position = Vector2(640, 330)
-	monster.idle = "wobble"
+	monster = RecyclerBot.new(330.0)
+	monster.position = Vector2(640, 300)
 	world.add_child(monster)
 	mouth = DropZone.new()
 	mouth.radius = 150.0
@@ -40,14 +39,14 @@ func build() -> void:
 
 
 func begin() -> void:
-	narrate(Lines.n("Esse é o Monstro Comilão. Ele só come sílabas! Toque nos cartões para ouvir."))
+	narrate(Lines.n("Esse é o robô reciclador. Ele guarda as sílabas na escotilha! Toque nos cartões para ouvir."))
 	after(4.2, _next_round)
 
 
 func _next_round() -> void:
 	if round_i >= rounds:
 		monster.set_item("monster_closed")
-		cosmo_say(Lines.c("O monstro está de barriga cheia! Obrigado, comandante!"))
+		cosmo_say(Lines.c("O robô guardou todas as sílabas! Obrigado, comandante!"))
 		after(2.6, func(): finish({"stars": 3, "skills": [SKILL]}))
 		return
 	busy = false

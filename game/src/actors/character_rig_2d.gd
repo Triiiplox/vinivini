@@ -25,6 +25,8 @@ var facing := 1
 var talking := false
 ## Se não vazio, a boca segue o lip-sync quando o Voice estiver falando com esta voz ("narrator", "cosmo", "npc").
 var lipsync_who := ""
+## Veste com o avatar salvo (traje, capacete, acessório) ao entrar na cena.
+var dress := true
 var skeleton: Skeleton2D
 var anim: AnimationPlayer
 var bones: Dictionary = {}
@@ -120,6 +122,8 @@ func _ready() -> void:
 		_show("lids", false)
 		_show("mouth", false)
 	set_mood(mood)
+	if dress and char_id == "vini":
+		ViniOutfit.apply(self, AppState.avatar())
 	anim.play("idle")
 	_prev_x = position.x
 
@@ -130,6 +134,11 @@ func bone_path(bone: String) -> String:
 
 
 ## Escala do personagem em relação a 1000 de altura (para deslocamentos das animações).
+## Reaplica a roupa (ex.: depois de ganhar ou trocar um item).
+func dress_up(av: Dictionary) -> void:
+	ViniOutfit.apply(self, av)
+
+
 func unit() -> float:
 	return float(_rig.get("height", 1000.0)) / 1000.0
 

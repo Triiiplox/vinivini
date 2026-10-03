@@ -57,3 +57,23 @@ func _run() -> void:
 			rigs[i].position = Vector2(140 + i * 250, 1000)
 		await get_tree().process_frame
 		await _shot("faces" if k == 0 else "faces_%d" % k)
+	if char_id == "vini":
+		await outfits(rigs)
+
+
+## Roupas: 5 combinações de traje, capacete e acessório (char "vini").
+func outfits(rigs: Array[CharacterRig2D]) -> void:
+	var looks := [
+		{"suit": "suit_blue", "helmet": "helmet_classic", "accessory": "acc_jetpack"},
+		{"suit": "suit_orange", "helmet": "helmet_antenna", "accessory": "acc_cape"},
+		{"suit": "suit_green", "helmet": "helmet_cat", "accessory": "acc_heart_badge"},
+		{"suit": "suit_galaxy", "helmet": "helmet_crown", "accessory": "acc_robot_pet"},
+		{"suit": "suit_gold", "helmet": "helmet_gold", "accessory": "acc_planet_pet"},
+	]
+	for i in rigs.size():
+		rigs[i].scale = Vector2.ONE
+		rigs[i].position = Vector2(140 + i * 250, 650)
+		rigs[i].set_mood("happy")
+		rigs[i].dress_up(looks[i])
+	await get_tree().process_frame
+	await _shot("outfits")

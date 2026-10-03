@@ -1,6 +1,6 @@
 class_name EnPicture
 extends Node2D
-## Figura de uma palavra do Planeta Hello, desenhada a partir do "pic" do conteúdo (english/units.json).
+## Figura de uma palavra do Sala de Inglês, desenhada a partir do "pic" do conteúdo (english/units.json).
 ## Tipos: color, rainbow, count, art, planet, vini, shape, size, face, icon. Origem = centro; cabe em `box`.
 
 const SHAPE_COLOR := Color("#22D3EE")

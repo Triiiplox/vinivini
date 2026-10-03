@@ -3,7 +3,7 @@ extends GameScreen
 ## de figura. Tocar no cartão = ouvir a opção; tocar de novo (ou no ✓) = escolher. Sem leitura.
 ## params: story (id)
 
-const BG_THEME := {"mars": "mars", "crater": "mars", "moon": "moon", "space": "space", "nebula": "space", "ice": "ice", "ship": "ship"}
+const BG_THEME := {"mars": "mars", "crater": "mars", "moon": "moon", "space": "space", "ice": "ice", "ship": "ship"}
 
 var story: Dictionary = {}
 var node_id := ""
@@ -111,6 +111,10 @@ func _make_actor(cid: String, mood: String) -> Node2D:
 			return av
 		"cosmo":
 			return CosmoRig.new(170.0)
+		"crew":
+			var cr := CrewActor.new("suit_orange", 280.0)
+			cr.set_mood.call_deferred(mood)
+			return cr
 		_:
 			var npc := NpcActor.new(cid, mood, 200.0 if cid != "bip" else 130.0)
 			npc.floating = cid == "star"

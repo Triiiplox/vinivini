@@ -1,12 +1,12 @@
 extends GameScreen
 ## A Nave (hub explorável): o Vini anda pela nave tocando no chão ou nas estações.
 ## Cada estação é um lugar com função (cabine → mapa da galáxia, oficina, cozinha, laboratório...).
-## Mascote dragãozinho acompanha; criaturas criadas passeiam no laboratório. Área dos pais: segurar o cadeado.
+## Robozinho voador (tipo Astrobee) acompanha; criaturas criadas passeiam no laboratório. Área dos pais: segurar o cadeado.
 
 const WIDTH := 5400.0
 const STATIONS := [
 	{"id": "hello", "x": 420.0, "icon": "voice", "color": "#60A5FA", "screen": "hello",
-		"say": "O Planeta Hello! Vamos aprender inglês com o Hoppy?"},
+		"say": "A sala de inglês! O astronauta Hoppy só fala inglês. Vamos aprender com ele?"},
 	{"id": "workshop", "x": 1050.0, "icon": "wrench", "color": "#FF8C42", "screen": "seg_build",
 		"say": "A oficina. Vamos montar um foguete?"},
 	{"id": "kitchen", "x": 1680.0, "icon": "heart", "color": "#EE4266", "screen": "seg_cook",

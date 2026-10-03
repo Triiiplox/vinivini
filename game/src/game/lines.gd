@@ -17,7 +17,7 @@ static func c(text: String) -> String:
 	return text
 
 
-## Fala do Hoppy (inglês, Planeta Hello).
+## Fala do Hoppy (inglês, Sala de Inglês).
 static func en(text: String) -> String:
 	return text
 

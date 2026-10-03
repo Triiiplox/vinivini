@@ -163,7 +163,7 @@ static func _mistake(id: String, s: Node) -> bool:
 	return false
 
 
-## Planeta Hello: conhecer (toca a figura), achar (toca a certa; com mistake, uma errada), corpo (toca o Vini).
+## Sala de Inglês: conhecer (toca a figura), achar (toca a certa; com mistake, uma errada), corpo (toca o Vini).
 static func _english(s: Node, wrong: bool) -> bool:
 	if s.busy or s.step.is_empty() or s.cards.is_empty():
 		return false

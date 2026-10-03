@@ -7,7 +7,7 @@ const SLOTS := ["helmet", "suit", "accessory"]
 const SLOT_ICON := {"helmet": "smile", "suit": "star", "accessory": "heart"}
 
 var av: Dictionary
-var big: AvatarRig
+var big: CharacterRig2D
 var slot := "helmet"
 var cards: Array[Interactable] = []
 var tabs: Array[Interactable] = []
@@ -24,10 +24,12 @@ func build() -> void:
 	mirror.position = Vector2(60, 150)
 	mirror.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	world.add_child(mirror)
-	big = AvatarRig.new(av, 380.0)
-	big.position = Vector2(210, 600)
+	big = CharacterRig2D.new("vini", 400.0)
+	big.dress = false
+	big.position = Vector2(210, 620)
 	big.z_index = 5
 	world.add_child(big)
+	big.dress_up(av)
 	for i in SLOTS.size():
 		var t := Interactable.new()
 		t.radius = 50.0
@@ -38,12 +40,13 @@ func build() -> void:
 		p.position = Vector2(-44, -44)
 		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		t.add_child(p)
-		var mini := AvatarRig.new(_with(SLOTS[i], {"helmet": "helmet_classic", "suit": "suit_blue",
-			"accessory": "acc_star_badge"}[SLOTS[i]]), 74.0)
+		var mini := CharacterRig2D.new("vini", 74.0)
+		mini.dress = false
 		mini.position = Vector2(0, 36)
 		t.add_child(mini)
 		t.position = Vector2(500 + i * 120, 140)
 		world.add_child(t)
+		mini.dress_up(_with(SLOTS[i], {"helmet": "helmet_classic", "suit": "suit_green", "accessory": "acc_cape"}[SLOTS[i]]))
 		t.tapped.connect(_on_tab)
 		tabs.append(t)
 	_show_slot("helmet")
@@ -88,7 +91,8 @@ func _show_slot(s: String) -> void:
 		p.position = Vector2(-65, -75)
 		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		c.add_child(p)
-		var mini := AvatarRig.new(_with(s, str(it["id"])), 128.0)
+		var mini := CharacterRig2D.new("vini", 128.0)
+		mini.dress = false
 		mini.position = Vector2(0, 68)
 		mini.modulate = Color.WHITE if open else Color(0.25, 0.25, 0.35)
 		c.add_child(mini)
@@ -100,6 +104,7 @@ func _show_slot(s: String) -> void:
 		c.position = Vector2(520 + (i % 5) * 150, 320 + (i / 5) * 170)
 		c.scale = Vector2.ZERO
 		world.add_child(c)
+		mini.dress_up(_with(s, str(it["id"])))
 		c.create_tween().tween_property(c, "scale", Vector2.ONE, 0.2).set_delay(i * 0.04)
 		c.tapped.connect(_on_item.bind(open))
 		cards.append(c)
@@ -114,7 +119,7 @@ func _on_item(c: Interactable, open: bool) -> void:
 		return
 	av[slot] = it["id"]
 	AppState.equip(it)
-	big.set_avatar(av)
+	big.dress_up(av)
 	big.play("jump")
 	AudioService.play_sfx("pop")
 	Fx.sparkle(world, big.position + Vector2(0, -200), 20, Palette.YELLOW)

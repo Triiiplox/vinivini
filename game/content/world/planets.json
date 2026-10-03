@@ -8,7 +8,7 @@
    0.2,
    0.32
   ],
-  "intro": "Na Lua, as letras flutuam! Vamos ler juntos?",
+  "intro": "A Lua gira em volta da Terra. Vamos ler juntos na base lunar?",
   "fact": "moon",
   "visual": {
    "color": "#D9DCE3",
@@ -38,7 +38,7 @@
    0.45,
    0.68
   ],
-  "intro": "Marte tem cristais por todo lado! Vamos contar?",
+  "intro": "Marte é vermelho por causa da poeira de ferrugem. Vamos contar as amostras de rocha?",
   "fact": "mars",
   "visual": {
    "color": "#E2673E",
@@ -73,7 +73,7 @@
    0.72,
    0.3
   ],
-  "intro": "Nos anéis de Saturno moram os enigmas. Vamos pensar juntos?",
+  "intro": "Os anéis de Saturno são feitos de gelo e rocha. Vamos pensar juntos?",
   "fact": "saturn",
   "visual": {
    "color": "#F2D49B",
@@ -92,41 +92,6 @@
     "skill": "logic.memory",
     "name": "Memória",
     "icon": "brain"
-   }
-  ]
- },
- {
-  "id": "nebula",
-  "name": "Nebulosa da Amizade",
-  "title": "Histórias e Sentimentos",
-  "area": "emotion",
-  "map_pos": [
-   0.86,
-   0.72
-  ],
-  "intro": "Na Nebulosa da Amizade, a gente cuida dos sentimentos.",
-  "fact": "",
-  "visual": {
-   "color": "#C77DFF",
-   "color2": "#FF7EB6",
-   "style": "nebula",
-   "face": false
-  },
-  "games": [
-   {
-    "skill": "emotion.recognition",
-    "name": "Sentimentos",
-    "icon": "heart"
-   },
-   {
-    "story": "story_robot_lost_001",
-    "name": "Robozinho Perdido",
-    "icon": "book"
-   },
-   {
-    "story": "story_star_light_001",
-    "name": "Estrela Lumi",
-    "icon": "book"
    }
   ]
  }

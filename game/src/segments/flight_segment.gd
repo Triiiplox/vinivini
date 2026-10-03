@@ -24,7 +24,7 @@ var asteroid_t := 2.5
 var turbo_t := 0.0
 var invuln := 0.0
 var done := false
-var boss: ArtSprite
+var boss: PaintedProp
 var boss_hp := 3
 var _pressing := false
 var _trail: GPUParticles2D
@@ -64,21 +64,23 @@ func build() -> void:
 	if mode == "boss":
 		goal = int(params.get("goal", 3))
 		boss_hp = goal
-		boss = ArtSprite.new("npcs", "monster_closed", 250.0, SvgArt.tint_colors(Color("#5A5F80")))
-		boss.position = Vector2(1150, 380)
-		boss.idle = "float"
+		# Asteroide no caminho (cinturão entre Marte e Júpiter). Cada acerto lança uma sonda que empurra a rocha,
+		# como a missão DART da NASA fez em 2022 com o asteroide Dimorphos.
+		boss = PaintedProp.new("rock_big", 300.0)
+		boss.position = Vector2(1120, 380)
 		boss.z_index = -1
 		world.add_child(boss)
 		AudioService.play_music("boss")
-	hud.set_counter("props", "crystal" if mode == "collect" else "star_token", 0, goal)
+	hud.set_counter("props", "energy_cell" if mode == "collect" else "star_token", 0, goal)
 	hint_fn = _hint
 
 
 func begin() -> void:
 	if mode == "collect":
-		narrate(Lines.n("Arraste o dedo para cima e para baixo para pilotar. Pegue os cristais e desvie das pedras!"))
+		narrate(Lines.n("Arraste o dedo para cima e para baixo para pilotar. Pegue as baterias de energia e desvie das pedras!"))
 	elif mode == "boss":
-		narrate(Lines.n("Uma nuvem rabugenta está bloqueando o caminho! Passe pelos portais certos para mandar luz para ela."))
+		narrate(Lines.n(
+			"Um asteroide está no caminho! Passe pelos portais certos para lançar sondas e empurrar a rocha, como a missão DART da NASA."))
 		spawn_t = 5.5
 	else:
 		narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal certo!"))
@@ -166,10 +168,10 @@ func _spawn_crystal() -> void:
 	var c := Node2D.new()
 	c.position = Vector2(1400, randf_range(150, 640))
 	c.set_meta("kind", "crystal")
-	var a := ArtSprite.new("props", "crystal", 70.0)
+	var a := ArtSprite.new("props", "energy_cell", 70.0)
 	a.idle = "spin"
 	c.add_child(a)
-	Fx.glow(c, Vector2.ZERO, 130, Color(0.5, 0.9, 1.0), 1.0).z_index = -1
+	Fx.glow(c, Vector2.ZERO, 130, Color(0.6, 1.0, 0.6), 1.0).z_index = -1
 	world.add_child(c)
 	objects.append(c)
 
@@ -280,7 +282,7 @@ func _check_hit(o: Node2D) -> void:
 		AudioService.play_sfx("collect", 1.0 + progress * 0.04)
 		Fx.sparkle(world, o.position, 16, Color(0.6, 0.95, 1.0))
 		Voice.say(Lines.number(progress))
-		hud.set_counter("props", "crystal", progress, goal)
+		hud.set_counter("props", "energy_cell", progress, goal)
 		o.queue_free()
 		if progress >= goal:
 			_complete()
@@ -340,12 +342,12 @@ func _check_portals() -> void:
 		spawn_t = 1.6
 
 
-## Raio de luz da nave até a nuvem: ela vai clareando e sorri no final.
+## Sonda da nave até o asteroide: cada acerto empurra a rocha um pouco; no fim ela sai do caminho.
 func _boss_light(_from: Vector2) -> void:
 	boss_hp -= 1
 	var beam := Line2D.new()
 	beam.width = 18.0
-	beam.default_color = Color(1, 0.95, 0.5, 0.9)
+	beam.default_color = Color(0.6, 0.9, 1.0, 0.9)
 	beam.points = PackedVector2Array([ship.position, boss.position])
 	beam.z_index = 4
 	world.add_child(beam)
@@ -353,16 +355,16 @@ func _boss_light(_from: Vector2) -> void:
 	tw.tween_property(beam, "width", 0.0, 0.5)
 	tw.tween_callback(beam.queue_free)
 	Fx.sparkle(world, boss.position, 40, Palette.YELLOW)
-	boss.shake(14.0)
-	AudioService.play_sfx("unlock")
-	var k := 1.0 - boss_hp / float(goal)
-	boss.colors = SvgArt.tint_colors(Color("#5A5F80").lerp(Color("#FF9EC7"), k))
-	boss.set_item("monster_closed" if boss_hp > 0 else "monster_open")
+	AudioService.play_sfx("bump")
+	shake_camera(6.0)
+	var push := boss.create_tween()
+	push.tween_property(boss, "position:y", boss.position.y - (90.0 if boss_hp > 0 else 600.0), 0.6 if boss_hp > 0 else 1.4) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	push.parallel().tween_property(boss, "rotation", boss.rotation + 0.5, 0.6)
 	if boss_hp > 0:
-		cosmo_say(Lines.c("Funcionou! Ela está ficando mais clarinha!"))
+		cosmo_say(Lines.c("Funcionou! O asteroide mudou um pouquinho de caminho!"))
 	else:
-		boss.idle = "wobble"
-		cosmo_say(Lines.c("A nuvem ficou feliz! Ela só precisava de luz!"))
+		cosmo_say(Lines.c("Conseguimos! O asteroide saiu do caminho, igualzinho à missão DART!"))
 
 
 func _turbo() -> void:

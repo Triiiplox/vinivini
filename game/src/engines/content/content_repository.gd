@@ -18,10 +18,10 @@ var campaigns: Array = []
 var missions: Dictionary = {}
 ## Bancos dos jogos v2 (sílabas, palavras, pedidos, plantas, robô...).
 var banks: Dictionary = {}
-## Planeta Hello (inglês): unidades validadas, por id, na ordem do currículo.
+## Sala de Inglês (inglês): unidades validadas, por id, na ordem do currículo.
 var english_units: Array = []
 var english_by_id: Dictionary = {}
-## Planeta Eco (fala): banco gerado por tools/build_speech.py (pares mínimos já conferidos lá).
+## Estúdio de Sons (fala): banco gerado por tools/build_speech.py (pares mínimos já conferidos lá).
 var speech: Dictionary = {}
 var errors: Array[String] = []
 

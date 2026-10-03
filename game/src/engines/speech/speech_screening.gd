@@ -1,6 +1,6 @@
 class_name SpeechScreening
 extends RefCounted
-## Triagem de sons para os pais (Planeta Eco). NÃO é avaliação nem diagnóstico: organiza o que o adulto
+## Triagem de sons para os pais (Estúdio de Sons). NÃO é avaliação nem diagnóstico: organiza o que o adulto
 ## ouviu e compara com a faixa de idade em que cada som costuma firmar (v3/fala/REFERENCIAS_FALA.md).
 ## Marcas do adulto por palavra: ok (falou certo), swap (trocou), none (não falou), regional (jeito da região).
 ## Regras:
