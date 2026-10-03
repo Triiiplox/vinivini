@@ -19,10 +19,8 @@ sem loja) mandam no **comportamento**. Quando colidem, mantém-se o visual e ada
 | "Nível 12", XP, barra de XP | Números não são lidos | Pode ficar como visual (barra enchendo, estrela de nível). Nunca exigir leitura do número |
 
 ## Decisões que dependem do Andro
-1. **Spine**: Essential US$ 69 (sem meshes) ou Professional US$ 379. O runtime é gratuito, mas quem usa o
-   editor precisa de licença. Sem compra, o caminho é Skeleton2D/Bone2D no Godot (sem custo, pipeline mais
-   manual). Recomendação: Essential se o agente for animar sem deformação de malha; Professional se quiser
-   cabelo e roupa deformando.
+1. ~~Spine~~ **Decidido:** rig 100% Godot 4 (Skeleton2D/Bone2D/Polygon2D/AnimationTree), custo R$ 0 —
+   `RIG_GODOT.md`.
 2. **Renomear o Cosmo para Astro** em todo o jogo e nas vozes (recomendado, porque o design system é
    obrigatório).
 3. **Geração de imagem**: ligar a Weave/Figma (pendente) ou o Andro gera e envia os concepts.

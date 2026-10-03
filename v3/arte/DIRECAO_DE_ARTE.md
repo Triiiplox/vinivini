@@ -39,7 +39,7 @@ Tokens: `DESIGN_TOKENS.json`. Conflitos das pranchas com as regras do produto: `
 3. QUEBRA EM ASSETS
 4. LIMPEZA / REDESENHO
 5. CAMADAS
-6. RIG (Spine ou Skeleton2D)
+6. RIG (Godot Skeleton2D — ver `RIG_GODOT.md`)
 7. ANIMAÇÃO
 8. EXPORT (atlas + PNG/WebP/SVG)
 9. GODOT
@@ -129,9 +129,9 @@ ui/
 - **Lip-sync simplificado** (A, E, O, M/B/P, REST) por markers JSON por fala, gerados no build a partir dos
   fonemas do texto + envelope de amplitude do áudio. O personagem que fala move a boca, pisca e reage com a
   sobrancelha.
-- **Rig**: preferência por **Spine** (runtime oficial para Godot 4 por GDExtension, skins mix-and-match,
-  atlas). Exige licença do Andro (ver conflitos). Alternativa sem custo: **Skeleton2D + Bone2D +
-  AnimationPlayer**.
+- **Rig (decisão oficial)**: 100% Godot 4 — Skeleton2D + Bone2D + Polygon2D com pesos + AnimationPlayer/AnimationTree,
+  IK nativo e movimento secundário (Jiggle ou mola procedural). Sem Spine; custo de software R$ 0. Detalhes:
+  `RIG_GODOT.md`. Não reduzir a qualidade por causa disso.
 
 ## 5. Cenários (nunca uma imagem única)
 - Toda imagem gerada por IA é **desmontada** em camadas com transparência. Exemplo para Marte: sky, mountains_far,

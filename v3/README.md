@@ -24,7 +24,6 @@ produzem (playtest, aparelho real, opinião da fonoaudióloga). Isso está expl�
 | 3–5 gravações curtas do Vini falando (ou a lista das trocas que você ouve: "sapéu", "dato"…) | 28 | define os sons-alvo reais em vez de chutar |
 | Se existe fonoaudióloga acompanhando | 28–31 | ela valida banco de palavras e alvos; o app vira "lição de casa" dela |
 | Concepts: Weave ligado na conta **ou** imagens geradas por você | 22–23 | a arte segue as pranchas de `arte/referencias/` |
-| Licença Spine (Essential US$ 69 / Pro US$ 379) ou seguir com Skeleton2D | 22, 24 | rig dos personagens |
 | Renomear Cosmo → Astro (elenco da marca) | 22, 24 | o design system manda |
 | Vídeos de referência de movimento (`arte/PEDIDO_DE_VIDEOS.md`) | 24 | timing das animações |
 | Voz: manter voz neural ou gravar voz humana (você/atriz) | 31 | voz humana é o teto de qualidade |
@@ -37,7 +36,7 @@ produzem (playtest, aparelho real, opinião da fonoaudióloga). Isso está expl�
 | 22B | Biblioteca de UI real (9-slice, estados, motion, SFX, haptics) | agente |
 | 23 | Pipeline de assets: concept → camadas → atlas → Godot | agente (+ concepts do Andro/Weave) |
 | 23B | Cenários vivos, partículas, shaders, níveis de qualidade | agente |
-| 24 | Personagens: rig (Spine ou Skeleton2D), expressões, lip-sync, animações | agente + vídeos de referência do Andro |
+| 24 | Personagens: rig 100% Godot (Skeleton2D/Bone2D/Polygon2D/AnimationTree, R$ 0), expressões, lip-sync, animações | agente + vídeos de referência do Andro |
 | 24B | Câmera, cinemáticas, transições com warp, recompensa proporcional | agente |
 | 25 | Profundidade: 3 jogos-âncora excelentes | agente + playtest |
 | 26 | Nave 2.0 (salas de verdade + customização) | agente |

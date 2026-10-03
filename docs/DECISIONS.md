@@ -137,3 +137,12 @@ sem módulos (fora do escopo agora).
 Haptics leves (encaixe, portal certo, estrelas) pedem `android.permission.VIBRATE` (permissão "normal",
 sem diálogo para o usuário). Continua sem INTERNET; `build_apk.sh` falha se aparecer qualquer outra.
 Vibração desligável em Ajustes (área dos pais).
+
+## ADR-025 - Rig e animação de personagens 100% Godot (sem Spine), custo R$ 0
+Decisão do responsável (Andro). Personagens montados por partes em Skeleton2D + Bone2D, deformação por
+Polygon2D com pesos, AnimationPlayer + AnimationTree (state machine, BlendSpace1D), IK nativo (TwoBoneIK/LookAt),
+movimento secundário por SkeletonModification2DJiggle (experimental no Godot 4) com fallback de mola procedural,
+rosto em slots e lip-sync por markers. Skins por slot + recolor por shader. Synfig só para cinemática especial,
+se precisar. Spine e DragonBones descartados. Classes conferidas no Godot 4.5.1 do projeto.
+Trade-off: mais trabalho manual de rig; a qualidade visual exigida pelas pranchas não muda.
+Detalhes: `v3/arte/RIG_GODOT.md`.

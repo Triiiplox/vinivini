@@ -18,13 +18,13 @@ Leitura obrigatória: `v3/arte/DIRECAO_DE_ARTE.md`, `DESIGN_TOKENS.json`, `CONFL
    - teste que falha se aparecer cor literal fora do token nos scripts de UI.
 3. Fontes OFL: Orbitron, Nunito e Andika (alfabetização), com licenças em `game/assets/fonts/LICENSES`.
 4. Character reference sheets aprovados de Vini, Astro, Luna, Apolo, Hoppy e Eco:
-   - frente, 3/4, perfil, costas;
+   - frente, 3/4, perfil, costas, **e a versão em partes separadas para rig** (requisitos em `RIG_GODOT.md`);
    - 6 expressões, proporções e paleta;
    - gerados via Weave/IA **ou** enviados pelo Andro.
 5. 3 telas-chave recompostas para **16:9**, em concept estático fiel às pranchas: nave/hub, mapa galáctico e
    Restaurante de Marte. Aplicam os 3 layouts-base e os conflitos (sem texto obrigatório, sem vidas, sem loja).
 6. Decisões registradas em `docs/DECISIONS.md`:
-   - Spine × Skeleton2D;
+   - rig 100% Godot (já decidido, `v3/arte/RIG_GODOT.md`);
    - renomear Cosmo → Astro;
    - Mobile × Compatibility (decisão provisória até o STEP 32).
 
@@ -36,4 +36,4 @@ Leitura obrigatória: `v3/arte/DIRECAO_DE_ARTE.md`, `DESIGN_TOKENS.json`, `CONFL
 ## Prompt pronto
 > Execute o STEP 22. As pranchas são direção de arte obrigatória e o mínimo visual. Congele a Art Bible,
 > implemente os tokens, produza os character sheets e as 3 telas-chave em 16:9 e peça aprovação ao Andro. Peça
-> também as decisões de Spine e do nome Astro.
+> também a decisão do nome Astro. O rig é Godot puro (decidido).
