@@ -1,0 +1,403 @@
+{
+ "char": "vini",
+ "height": 1033,
+ "bones": [
+  {
+   "name": "hip",
+   "parent": "root",
+   "pos": [
+    0,
+    -378
+   ]
+  },
+  {
+   "name": "torso",
+   "parent": "hip",
+   "pos": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "neck",
+   "parent": "torso",
+   "pos": [
+    0,
+    -220
+   ]
+  },
+  {
+   "name": "head",
+   "parent": "neck",
+   "pos": [
+    0,
+    -15
+   ]
+  },
+  {
+   "name": "upper_arm_r",
+   "parent": "torso",
+   "pos": [
+    -126,
+    -220
+   ]
+  },
+  {
+   "name": "forearm_r",
+   "parent": "upper_arm_r",
+   "pos": [
+    -10,
+    128
+   ]
+  },
+  {
+   "name": "hand_r",
+   "parent": "forearm_r",
+   "pos": [
+    2,
+    124
+   ]
+  },
+  {
+   "name": "upper_arm_l",
+   "parent": "torso",
+   "pos": [
+    130,
+    -220
+   ]
+  },
+  {
+   "name": "forearm_l",
+   "parent": "upper_arm_l",
+   "pos": [
+    10,
+    128
+   ]
+  },
+  {
+   "name": "hand_l",
+   "parent": "forearm_l",
+   "pos": [
+    2,
+    124
+   ]
+  },
+  {
+   "name": "thigh_r",
+   "parent": "hip",
+   "pos": [
+    -46,
+    0
+   ]
+  },
+  {
+   "name": "shin_r",
+   "parent": "thigh_r",
+   "pos": [
+    -4,
+    162
+   ]
+  },
+  {
+   "name": "foot_r",
+   "parent": "shin_r",
+   "pos": [
+    -8,
+    133
+   ]
+  },
+  {
+   "name": "thigh_l",
+   "parent": "hip",
+   "pos": [
+    52,
+    0
+   ]
+  },
+  {
+   "name": "shin_l",
+   "parent": "thigh_l",
+   "pos": [
+    5,
+    162
+   ]
+  },
+  {
+   "name": "foot_l",
+   "parent": "shin_l",
+   "pos": [
+    12,
+    133
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "name": "backpack",
+   "bone": "torso",
+   "tex": "parts/backpack.png",
+   "z": 0,
+   "offset": [
+    12,
+    -170
+   ]
+  },
+  {
+   "name": "hair_back",
+   "bone": "head",
+   "tex": "parts/hair_back.png",
+   "z": 1,
+   "offset": [
+    -3,
+    -225
+   ]
+  },
+  {
+   "name": "arm_r_up",
+   "bone": "upper_arm_r",
+   "tex": "parts/arm_r_up.png",
+   "z": 2,
+   "offset": [
+    -2,
+    50
+   ]
+  },
+  {
+   "name": "arm_r_lo",
+   "bone": "forearm_r",
+   "tex": "parts/arm_r_lo.png",
+   "z": 2,
+   "offset": [
+    0,
+    62
+   ]
+  },
+  {
+   "name": "glove_r",
+   "bone": "hand_r",
+   "tex": "parts/glove_r.png",
+   "z": 3,
+   "offset": [
+    2,
+    38
+   ]
+  },
+  {
+   "name": "boot_r",
+   "bone": "foot_r",
+   "tex": "parts/boot_r.png",
+   "z": 3,
+   "offset": [
+    -10,
+    40
+   ]
+  },
+  {
+   "name": "shin_r",
+   "bone": "shin_r",
+   "tex": "parts/shin_r.png",
+   "z": 4,
+   "offset": [
+    -1,
+    73
+   ]
+  },
+  {
+   "name": "thigh_r",
+   "bone": "thigh_r",
+   "tex": "parts/thigh_r.png",
+   "z": 5,
+   "offset": [
+    0,
+    78
+   ]
+  },
+  {
+   "name": "boot_l",
+   "bone": "foot_l",
+   "tex": "parts/boot_l.png",
+   "z": 3,
+   "offset": [
+    8,
+    40
+   ]
+  },
+  {
+   "name": "shin_l",
+   "bone": "shin_l",
+   "tex": "parts/shin_l.png",
+   "z": 4,
+   "offset": [
+    0,
+    73
+   ]
+  },
+  {
+   "name": "thigh_l",
+   "bone": "thigh_l",
+   "tex": "parts/thigh_l.png",
+   "z": 5,
+   "offset": [
+    0,
+    78
+   ]
+  },
+  {
+   "name": "torso",
+   "bone": "torso",
+   "tex": "parts/torso.png",
+   "z": 6,
+   "offset": [
+    0,
+    -125
+   ]
+  },
+  {
+   "name": "arm_l_up",
+   "bone": "upper_arm_l",
+   "tex": "parts/arm_l_up.png",
+   "z": 7,
+   "offset": [
+    0,
+    50
+   ]
+  },
+  {
+   "name": "arm_l_lo",
+   "bone": "forearm_l",
+   "tex": "parts/arm_l_lo.png",
+   "z": 7,
+   "offset": [
+    0,
+    62
+   ]
+  },
+  {
+   "name": "glove_l",
+   "bone": "hand_l",
+   "tex": "parts/glove_l.png",
+   "z": 8,
+   "offset": [
+    -4,
+    38
+   ]
+  },
+  {
+   "name": "head",
+   "bone": "head",
+   "tex": "parts/head.png",
+   "z": 9,
+   "offset": [
+    0,
+    -170
+   ]
+  },
+  {
+   "name": "eye_a",
+   "bone": "head",
+   "tex": "parts/eye_a.png",
+   "z": 10,
+   "offset": [
+    -33,
+    -150
+   ]
+  },
+  {
+   "name": "eye_b",
+   "bone": "head",
+   "tex": "parts/eye_b.png",
+   "z": 10,
+   "offset": [
+    67,
+    -150
+   ]
+  },
+  {
+   "name": "brow_a",
+   "bone": "head",
+   "tex": "parts/brow_a.png",
+   "z": 11,
+   "offset": [
+    -38,
+    -215
+   ]
+  },
+  {
+   "name": "brow_b",
+   "bone": "head",
+   "tex": "parts/brow_b.png",
+   "z": 11,
+   "offset": [
+    72,
+    -215
+   ]
+  },
+  {
+   "name": "mouth",
+   "bone": "head",
+   "tex": "parts/mouth.png",
+   "z": 11,
+   "offset": [
+    27,
+    -63
+   ]
+  },
+  {
+   "name": "hair_front",
+   "bone": "head",
+   "tex": "parts/hair_front.png",
+   "z": 12,
+   "offset": [
+    0,
+    -275
+   ]
+  }
+ ],
+ "slots": {
+  "eye_a": {
+   "open": "parts/eye_a__open.png",
+   "blink": "parts/eye_a__blink.png",
+   "half": "parts/eye_a__half.png",
+   "happy": "parts/eye_a__happy.png",
+   "surprised": "parts/eye_a__surprised.png",
+   "sad": "parts/eye_a__sad.png",
+   "right": "parts/eye_a__right.png",
+   "left": "parts/eye_a__left.png"
+  },
+  "eye_b": {
+   "open": "parts/eye_b__open.png",
+   "blink": "parts/eye_b__blink.png",
+   "half": "parts/eye_b__half.png",
+   "happy": "parts/eye_b__happy.png",
+   "surprised": "parts/eye_b__surprised.png",
+   "sad": "parts/eye_b__sad.png",
+   "right": "parts/eye_b__right.png",
+   "left": "parts/eye_b__left.png"
+  },
+  "brow_a": {
+   "normal": "parts/brow_a__normal.png",
+   "curious": "parts/brow_a__curious.png",
+   "angry": "parts/brow_a__angry.png",
+   "sad": "parts/brow_a__sad.png",
+   "surprised": "parts/brow_a__surprised.png"
+  },
+  "brow_b": {
+   "normal": "parts/brow_b__normal.png",
+   "curious": "parts/brow_b__curious.png",
+   "angry": "parts/brow_b__angry.png",
+   "sad": "parts/brow_b__sad.png",
+   "surprised": "parts/brow_b__surprised.png"
+  },
+  "mouth": {
+   "neutral": "parts/mouth__neutral.png",
+   "smile": "parts/mouth__smile.png",
+   "big_smile": "parts/mouth__big_smile.png",
+   "o": "parts/mouth__o.png",
+   "a": "parts/mouth__a.png",
+   "e": "parts/mouth__e.png",
+   "mbp": "parts/mouth__mbp.png",
+   "sad": "parts/mouth__sad.png",
+   "talk": "parts/mouth__talk.png"
+  }
+ }
+}

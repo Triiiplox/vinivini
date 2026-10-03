@@ -38,7 +38,7 @@ const SENDER_LINES := {
 	"Titia": "A titia mandou um desafio especial para você!", "Titio": "O titio mandou um desafio especial para você!",
 }
 
-var vini: AvatarRig
+var vini: CharacterRig2D
 var pet: PetActor
 var stations: Dictionary = {}
 var trophies: Interactable
@@ -53,10 +53,12 @@ func build() -> void:
 	AudioService.play_ambience("ship")
 	world.add_child(Scenery.new("ship"))
 	for st in STATIONS:
+		if str(st["id"]) == "room":
+			continue  # guarda-roupa volta quando houver skins da arte nova
 		_make_station(st)
 	trophies = _make_trophy_wall(Vector2(3220, 250))
-	vini = AvatarRig.new(AppState.avatar(), 250.0)
-	vini.position = Vector2(float(params.get("x", 760)), Scenery.GROUND_Y + 20)
+	vini = CharacterRig2D.new("vini", 270.0)
+	vini.position = Vector2(float(params.get("x", 760)), Scenery.GROUND_Y + 30)
 	vini.z_index = 20
 	world.add_child(vini)
 	pet = PetActor.new(110.0)

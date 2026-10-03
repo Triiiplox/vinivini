@@ -106,7 +106,7 @@ func _actor_y(cid: String) -> float:
 func _make_actor(cid: String, mood: String) -> Node2D:
 	match cid:
 		"avatar":
-			var av := AvatarRig.new(AppState.avatar(), 260.0)
+			var av := CharacterRig2D.new("vini", 280.0)
 			av.set_mood(mood)
 			return av
 		"cosmo":

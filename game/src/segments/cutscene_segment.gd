@@ -23,7 +23,7 @@ func build() -> void:
 		var node: Node2D
 		match id:
 			"avatar":
-				node = AvatarRig.new(AppState.avatar(), 260.0)
+				node = CharacterRig2D.new("vini", 280.0)
 				node.position = Vector2(float(a.get("x", 360)), 610)
 			"cosmo":
 				node = CosmoRig.new(160.0)
@@ -73,18 +73,18 @@ func _next() -> void:
 		a.set_mood(str(l["mood"]))
 	match str(l.get("action", "")):
 		"jump":
-			if a is AvatarRig:
-				(a as AvatarRig).play("jump")
+			if a is CharacterRig2D:
+				(a as CharacterRig2D).play("jump")
 			elif a is NpcActor:
 				(a as NpcActor).hop(2)
 		"celebrate":
-			if a is AvatarRig:
-				(a as AvatarRig).play("celebrate")
+			if a is CharacterRig2D:
+				(a as CharacterRig2D).play("celebrate")
 			Fx.sparkle(world, Vector2(640, 300), 40)
 			AudioService.play_sfx("celebrate")
 		"wave":
-			if a is AvatarRig:
-				(a as AvatarRig).play("wave")
+			if a is CharacterRig2D:
+				(a as CharacterRig2D).play("wave")
 		"shake":
 			shake_camera(12.0)
 			AudioService.play_sfx("bump")

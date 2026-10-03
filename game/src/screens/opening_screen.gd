@@ -1,13 +1,13 @@
 extends GameScreen
-## Abertura (primeiro minuto): nave chega, Cosmo se apresenta pelo nome do Vini, monta o astronauta
-## tocando em cores (sem leitura) e já parte para a primeira missão (ligar o motor da nave).
+## Abertura (primeiro minuto): nave chega, Cosmo se apresenta pelo nome do Vini, o Vini (arte oficial)
+## entra, a criança toca nele para dar oi, e já parte para a primeira missão (ligar o motor da nave).
+## A customização do astronauta volta quando existirem skins da arte nova (v3/arte/RIG_GODOT.md).
 
-var vini: AvatarRig
+var vini: CharacterRig2D
 var av: Dictionary
 var ship: Node2D
 var step := ""
 var options: Array[Interactable] = []
-var ok_btn: ArtButton
 
 
 func build() -> void:
@@ -26,12 +26,6 @@ func build() -> void:
 	tr.emitting = true
 	world.add_child(ship)
 	hud.root.get_node("HomeButton").visible = false
-	ok_btn = ArtButton.new("check", 130.0)
-	ok_btn.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	ok_btn.position = Vector2(-160, -160)
-	ok_btn.visible = false
-	ok_btn.pressed.connect(_next_step)
-	hud.root.add_child(ok_btn)
 
 
 func begin() -> void:
@@ -50,136 +44,44 @@ func begin() -> void:
 
 
 func _show_avatar() -> void:
-	vini = AvatarRig.new(av, 340.0)
-	vini.position = Vector2(560, 560)
-	vini.scale = Vector2.ZERO
+	# Vini (arte oficial, rig Godot) entra andando, acena e espera um toque.
+	vini = CharacterRig2D.new("vini", 380.0)
+	vini.position = Vector2(-150, 660)
 	vini.z_index = 5
 	world.add_child(vini)
-	vini.create_tween().tween_property(vini, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	AudioService.play_sfx("pop")
-	var d := cosmo_say(Lines.c("Vamos preparar o seu astronauta? Toque nas cores!"))
-	after(d + 0.2, _step_skin)
-
-
-func _clear() -> void:
-	for o in options:
-		o.queue_free()
-	options.clear()
-
-
-func _row(values: Array, make: Callable, on_tap: Callable) -> void:
-	_clear()
-	var n := values.size()
-	for i in n:
-		var it := Interactable.new()
-		it.radius = 62.0
-		it.payload = values[i]
-		it.position = Vector2(640 - (n - 1) * 70 + i * 140, 670) if n > 4 else Vector2(640 - (n - 1) * 100 + i * 200, 660)
-		it.z_index = 20
-		make.call(it, values[i])
-		it.scale = Vector2.ZERO
-		world.add_child(it)
-		it.create_tween().tween_property(it, "scale", Vector2.ONE, 0.25).set_delay(i * 0.06).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		it.tapped.connect(on_tap)
-		options.append(it)
-	ok_btn.visible = true
-
-
-func _swatch(it: Interactable, col: Color) -> void:
-	var p := Panel.new()
-	p.add_theme_stylebox_override("panel", UITheme.rounded(col, 50, 6, Color("#22204A")))
-	p.size = Vector2(100, 100)
-	p.position = Vector2(-50, -50)
-	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	it.add_child(p)
-
-
-func _step_skin() -> void:
-	step = "skin"
-	narrate(Lines.n("Escolha a cor da pele."))
-	_row(ContentService.repo.avatar_options.get("skin", []), _make_swatch, _tap_option.bind("skin"))
+	var tw := vini.walk_to(520.0, 300.0)
+	tw.tween_callback(func(): vini.play("wave"))
+	step = "tap_vini"
+	var d := cosmo_say(Lines.c("Esse é você, comandante! Toque no Vini para dar oi!"))
+	var it := Interactable.new()
+	it.name = "ViniTap"
+	it.radius = 170.0
+	it.position = Vector2(520, 470)
+	it.tapped.connect(func(_i): _tap_vini())
+	world.add_child(it)
+	options.append(it)
 	hint_fn = _hint
+	after(d + 4.0, _hint)
 
 
-func _step_hair() -> void:
-	step = "hair"
-	narrate(Lines.n("Agora o cabelo!"))
-	_row(ContentService.repo.avatar_options.get("hair_style", []), _make_hair, _tap_option.bind("hair_style"))
-
-
-func _step_hair_color() -> void:
-	step = "hair_color"
-	narrate(Lines.n("Qual a cor do cabelo?"))
-	_row(ContentService.repo.avatar_options.get("hair_color", []), _make_swatch, _tap_option.bind("hair_color"))
-
-
-func _step_suit() -> void:
-	step = "suit"
-	narrate(Lines.n("E a roupa espacial?"))
-	var suits: Array = []
-	for id in ["suit_orange", "suit_blue", "suit_green"]:
-		suits.append(ContentService.repo.get_item(id))
-	_row(suits, _make_swatch, _tap_option.bind("suit"))
-
-
-func _make_swatch(it: Interactable, o: Dictionary) -> void:
-	_swatch(it, Color(str(o.get("color", "#FF8C42"))))
-
-
-func _make_hair(it: Interactable, o: Dictionary) -> void:
-	var a2 := av.duplicate()
-	a2["hair_style"] = o["id"]
-	a2["helmet"] = "helmet_none"
-	var mini := AvatarRig.new(a2, 120.0)
-	mini.position = Vector2(0, 55)
-	it.add_child(mini)
-
-
-func _tap_option(it: Interactable, field: String) -> void:
-	av[field] = it.payload["id"]
-	_apply(it)
+func _tap_vini() -> void:
+	if step != "tap_vini":
+		return
+	step = "done"
+	_finish_avatar()
 
 
 func _hint() -> void:
-	if step in ["skin", "hair", "hair_color", "suit"]:
-		if not options.is_empty() and idle_time < 12.0:
-			hand.show_tap(options[0].global_position)
-		else:
-			hand.show_tap(ok_btn.global_position + ok_btn.size / 2.0)
-
-
-func _apply(it: Interactable) -> void:
-	if av.get("helmet", "") != "helmet_none" and step in ["hair", "hair_color"]:
-		av["helmet"] = "helmet_none"
-	vini.set_avatar(av)
-	vini.play("jump")
-	AudioService.play_sfx("pop")
-	Fx.sparkle(world, vini.position + Vector2(0, -170), 14)
-	it.wiggle()
-
-
-func _next_step() -> void:
-	AudioService.play_sfx("tap")
-	match step:
-		"skin":
-			_step_hair()
-		"hair":
-			_step_hair_color()
-		"hair_color":
-			_step_suit()
-		"suit":
-			_finish_avatar()
+	if step == "tap_vini":
+		hand.show_tap(Vector2(520, 470))
 
 
 func _finish_avatar() -> void:
-	step = "done"
-	_clear()
-	ok_btn.visible = false
-	av["helmet"] = "helmet_bubble"
-	AppState.save_avatar(av)
-	vini.set_avatar(av)
+	for o in options:
+		o.queue_free()
+	options.clear()
 	vini.play("celebrate")
-	Fx.sparkle(world, vini.position + Vector2(0, -170), 50, Palette.YELLOW)
+	Fx.sparkle(world, vini.position + Vector2(0, -200), 50, Palette.YELLOW)
 	AudioService.play_sfx("fanfare")
 	var p := AppState.profile()
 	p["intro_seen"] = true

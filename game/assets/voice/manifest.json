@@ -677,6 +677,48 @@
 "t": "A cabine de comando! Vamos escolher uma missão?",
 "w": "narrator"
 },
+"4a23e6bd3d56": {
+"f": "4a23e6bd3d56.ogg",
+"d": 2.82,
+"t": "O papai mandou um desafio especial para você!",
+"w": "narrator"
+},
+"e41f68cc7a42": {
+"f": "e41f68cc7a42.ogg",
+"d": 2.74,
+"t": "A mamãe mandou um desafio especial para você!",
+"w": "narrator"
+},
+"76c8ee73e028": {
+"f": "76c8ee73e028.ogg",
+"d": 2.67,
+"t": "A vovó mandou um desafio especial para você!",
+"w": "narrator"
+},
+"286989f0634e": {
+"f": "286989f0634e.ogg",
+"d": 2.72,
+"t": "O vovô mandou um desafio especial para você!",
+"w": "narrator"
+},
+"3e4d4c17f7a1": {
+"f": "3e4d4c17f7a1.ogg",
+"d": 2.85,
+"t": "A titia mandou um desafio especial para você!",
+"w": "narrator"
+},
+"3f26715b697b": {
+"f": "3f26715b697b.ogg",
+"d": 2.85,
+"t": "O titio mandou um desafio especial para você!",
+"w": "narrator"
+},
+"c6498771818e": {
+"f": "c6498771818e.ogg",
+"d": 2.32,
+"t": "Chegou um desafio especial para você!",
+"w": "narrator"
+},
 "861b2aaa41d8": {
 "f": "861b2aaa41d8.ogg",
 "d": 2.17,
@@ -701,40 +743,16 @@
 "t": "Essa missão ainda está trancada. Termine a missão anterior primeiro!",
 "w": "narrator"
 },
-"0836123a30f9": {
-"f": "0836123a30f9.ogg",
-"d": 1.54,
-"t": "Escolha a cor da pele.",
-"w": "narrator"
-},
-"4452b3b3d468": {
-"f": "4452b3b3d468.ogg",
-"d": 1.13,
-"t": "Agora o cabelo!",
-"w": "narrator"
-},
-"fb9d9dfb9984": {
-"f": "fb9d9dfb9984.ogg",
-"d": 1.38,
-"t": "Qual a cor do cabelo?",
-"w": "narrator"
-},
-"c494ab53b179": {
-"f": "c494ab53b179.ogg",
-"d": 1.45,
-"t": "E a roupa espacial?",
+"bef207451422": {
+"f": "bef207451422.ogg",
+"d": 4.1,
+"t": "Desafio de comandante! A mesma missão, só que mais difícil. Vamos?",
 "w": "narrator"
 },
 "a56f85d39716": {
 "f": "a56f85d39716.ogg",
 "d": 2.61,
 "t": "Olá, {name}! Eu sou o Cosmo, o robô da sua nave.",
-"w": "cosmo"
-},
-"6cec62953af5": {
-"f": "6cec62953af5.ogg",
-"d": 2.79,
-"t": "Vamos preparar o seu astronauta? Toque nas cores!",
 "w": "cosmo"
 },
 "9824079b2b41": {
@@ -761,82 +779,10 @@
 "t": "Que obra de arte! Vou pendurar na nave.",
 "w": "cosmo"
 },
-"2220246b9656": {
-"f": "2220246b9656.ogg",
-"d": 0.62,
-"t": "três",
-"w": "narrator"
-},
-"9c97e83554f7": {
-"f": "9c97e83554f7.ogg",
-"d": 0.64,
-"t": "duas",
-"w": "narrator"
-},
-"b2e5a3836553": {
-"f": "b2e5a3836553.ogg",
-"d": 0.65,
-"t": "cinco",
-"w": "narrator"
-},
-"c7e268cb3730": {
-"f": "c7e268cb3730.ogg",
-"d": 0.57,
-"t": "zero",
-"w": "narrator"
-},
 "5e7765e73985": {
 "f": "5e7765e73985.ogg",
 "d": 0.55,
 "t": "dez",
-"w": "narrator"
-},
-"d164b9c31be2": {
-"f": "d164b9c31be2.ogg",
-"d": 0.68,
-"t": "vinte",
-"w": "narrator"
-},
-"eea31a2875e2": {
-"f": "eea31a2875e2.ogg",
-"d": 0.63,
-"t": "oito",
-"w": "narrator"
-},
-"2eb0b7385b29": {
-"f": "2eb0b7385b29.ogg",
-"d": 0.64,
-"t": "sete",
-"w": "narrator"
-},
-"68fce19f79e0": {
-"f": "68fce19f79e0.ogg",
-"d": 0.61,
-"t": "nove",
-"w": "narrator"
-},
-"39accb4dfe34": {
-"f": "39accb4dfe34.ogg",
-"d": 0.66,
-"t": "quinze",
-"w": "narrator"
-},
-"76eb0c0fa8cf": {
-"f": "76eb0c0fa8cf.ogg",
-"d": 0.91,
-"t": "dezesseis",
-"w": "narrator"
-},
-"0870d0f085d6": {
-"f": "0870d0f085d6.ogg",
-"d": 0.68,
-"t": "quatro",
-"w": "narrator"
-},
-"1c6bb139fc2b": {
-"f": "1c6bb139fc2b.ogg",
-"d": 1.02,
-"t": "dezessete",
 "w": "narrator"
 },
 "94209b526908": {
@@ -845,16 +791,40 @@
 "t": "uma",
 "w": "narrator"
 },
+"6e5bc7c334c1": {
+"f": "6e5bc7c334c1.ogg",
+"d": 0.82,
+"t": "dezoito",
+"w": "narrator"
+},
+"c7e268cb3730": {
+"f": "c7e268cb3730.ogg",
+"d": 0.57,
+"t": "zero",
+"w": "narrator"
+},
+"7ba3c2849447": {
+"f": "7ba3c2849447.ogg",
+"d": 0.55,
+"t": "seis",
+"w": "narrator"
+},
+"2eb0b7385b29": {
+"f": "2eb0b7385b29.ogg",
+"d": 0.64,
+"t": "sete",
+"w": "narrator"
+},
+"b2e5a3836553": {
+"f": "b2e5a3836553.ogg",
+"d": 0.65,
+"t": "cinco",
+"w": "narrator"
+},
 "648b46cabe67": {
 "f": "648b46cabe67.ogg",
 "d": 0.65,
 "t": "treze",
-"w": "narrator"
-},
-"8b7fd81e32d7": {
-"f": "8b7fd81e32d7.ogg",
-"d": 0.93,
-"t": "dezenove",
 "w": "narrator"
 },
 "b22af9958ca8": {
@@ -863,28 +833,28 @@
 "t": "onze",
 "w": "narrator"
 },
+"1c6bb139fc2b": {
+"f": "1c6bb139fc2b.ogg",
+"d": 1.02,
+"t": "dezessete",
+"w": "narrator"
+},
 "59ab21cdfe18": {
 "f": "59ab21cdfe18.ogg",
 "d": 0.62,
 "t": "doze",
 "w": "narrator"
 },
+"68fce19f79e0": {
+"f": "68fce19f79e0.ogg",
+"d": 0.61,
+"t": "nove",
+"w": "narrator"
+},
 "3a7721b9cc80": {
 "f": "3a7721b9cc80.ogg",
 "d": 0.51,
 "t": "um",
-"w": "narrator"
-},
-"6e5bc7c334c1": {
-"f": "6e5bc7c334c1.ogg",
-"d": 0.82,
-"t": "dezoito",
-"w": "narrator"
-},
-"7ba3c2849447": {
-"f": "7ba3c2849447.ogg",
-"d": 0.55,
-"t": "seis",
 "w": "narrator"
 },
 "357cb8978f40": {
@@ -897,6 +867,54 @@
 "f": "1693d052b5b3.ogg",
 "d": 0.91,
 "t": "catorze",
+"w": "narrator"
+},
+"d164b9c31be2": {
+"f": "d164b9c31be2.ogg",
+"d": 0.68,
+"t": "vinte",
+"w": "narrator"
+},
+"2220246b9656": {
+"f": "2220246b9656.ogg",
+"d": 0.62,
+"t": "três",
+"w": "narrator"
+},
+"39accb4dfe34": {
+"f": "39accb4dfe34.ogg",
+"d": 0.66,
+"t": "quinze",
+"w": "narrator"
+},
+"8b7fd81e32d7": {
+"f": "8b7fd81e32d7.ogg",
+"d": 0.93,
+"t": "dezenove",
+"w": "narrator"
+},
+"9c97e83554f7": {
+"f": "9c97e83554f7.ogg",
+"d": 0.64,
+"t": "duas",
+"w": "narrator"
+},
+"76eb0c0fa8cf": {
+"f": "76eb0c0fa8cf.ogg",
+"d": 0.91,
+"t": "dezesseis",
+"w": "narrator"
+},
+"eea31a2875e2": {
+"f": "eea31a2875e2.ogg",
+"d": 0.63,
+"t": "oito",
+"w": "narrator"
+},
+"0870d0f085d6": {
+"f": "0870d0f085d6.ogg",
+"d": 0.68,
+"t": "quatro",
 "w": "narrator"
 },
 "823472766ada": {
@@ -3125,52 +3143,10 @@
 "t": "Agora Lumi brilha cor-de-rosa, como uma nebulosa. Obrigada, comandante!",
 "w": "narrator"
 },
-"4a23e6bd3d56": {
-"f": "4a23e6bd3d56.ogg",
-"d": 2.82,
-"t": "O papai mandou um desafio especial para você!",
-"w": "narrator"
-},
-"e41f68cc7a42": {
-"f": "e41f68cc7a42.ogg",
-"d": 2.74,
-"t": "A mamãe mandou um desafio especial para você!",
-"w": "narrator"
-},
-"76c8ee73e028": {
-"f": "76c8ee73e028.ogg",
-"d": 2.67,
-"t": "A vovó mandou um desafio especial para você!",
-"w": "narrator"
-},
-"286989f0634e": {
-"f": "286989f0634e.ogg",
-"d": 2.72,
-"t": "O vovô mandou um desafio especial para você!",
-"w": "narrator"
-},
-"3e4d4c17f7a1": {
-"f": "3e4d4c17f7a1.ogg",
+"1741bb3523ab": {
+"f": "1741bb3523ab.ogg",
 "d": 2.85,
-"t": "A titia mandou um desafio especial para você!",
-"w": "narrator"
-},
-"3f26715b697b": {
-"f": "3f26715b697b.ogg",
-"d": 2.85,
-"t": "O titio mandou um desafio especial para você!",
-"w": "narrator"
-},
-"c6498771818e": {
-"f": "c6498771818e.ogg",
-"d": 2.32,
-"t": "Chegou um desafio especial para você!",
-"w": "narrator"
-},
-"bef207451422": {
-"f": "bef207451422.ogg",
-"d": 4.1,
-"t": "Desafio de comandante! A mesma missão, só que mais difícil. Vamos?",
-"w": "narrator"
+"t": "Esse é você, comandante! Toque no Vini para dar oi!",
+"w": "cosmo"
 }
 }

@@ -6,7 +6,7 @@ var stars := 3
 var chest: ArtSprite
 var opened := false
 var unlocked: Array = []
-var avatar: AvatarRig
+var avatar: CharacterRig2D
 var cont: ArtButton
 
 
@@ -19,7 +19,7 @@ func build() -> void:
 	else:
 		stars = clampi(int(params.get("result", {}).get("stars", 3)), 1, 3)
 		RewardService.add_bonus_stars(stars)
-	avatar = AvatarRig.new(AppState.avatar(), 300.0)
+	avatar = CharacterRig2D.new("vini", 330.0)
 	avatar.position = Vector2(300, 640)
 	avatar.z_index = 5
 	world.add_child(avatar)
@@ -98,7 +98,6 @@ func _show_items() -> void:
 			av[str(item["slot"])] = item["id"]
 	# Veste o item novo na hora (a criança vê, não lê).
 	AppState.save_avatar(av)
-	avatar.set_avatar(av)
 	avatar.play("jump")
 	Fx.sparkle(world, avatar.position + Vector2(0, -150), 40, Palette.PINK)
 	cosmo_say(Lines.c("Olha só! Você ganhou um presente novo!"))

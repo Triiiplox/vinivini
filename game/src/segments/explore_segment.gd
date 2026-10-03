@@ -8,7 +8,7 @@ const ITEM_NAMES := {"moon_rock": "pedras da Lua", "crystal": "cristais", "star_
 
 var world_theme := "moon"
 var width := 3840.0
-var vini: AvatarRig
+var vini: CharacterRig2D
 var collect_item := "crystal"
 var collectibles: Array[Interactable] = []
 var collected := 0
@@ -45,7 +45,7 @@ func build() -> void:
 	camera.limit_right = int(width)
 	camera.limit_top = 0
 	camera.limit_bottom = 720
-	vini = AvatarRig.new(AppState.avatar(), 230.0)
+	vini = CharacterRig2D.new("vini", 250.0)
 	vini.position = Vector2(220, Scenery.GROUND_Y)
 	vini.z_index = 20
 	world.add_child(vini)

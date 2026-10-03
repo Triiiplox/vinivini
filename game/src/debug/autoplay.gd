@@ -88,10 +88,8 @@ static func step(id: String, s: Node) -> void:
 			if s.cont.visible:
 				s._continue()
 		"opening":
-			if s.step in ["skin", "hair", "hair_color", "suit"] and not s.options.is_empty():
-				s._tap_option(s.options[randi() % s.options.size()], {"skin": "skin", "hair": "hair_style", "hair_color": "hair_color",
-					"suit": "suit"}[s.step])
-				s._next_step()
+			if s.step == "tap_vini":
+				s._tap_vini()
 
 
 ## Uma ação errada plausível (a criança erra). Retorna true se errou.

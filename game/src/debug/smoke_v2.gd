@@ -142,6 +142,8 @@ func _run() -> void:
 			check(AppState.parent_challenge().is_empty(), "desafio da família concluído")
 	# Nave: cada estação abre sua tela.
 	for st in load("res://src/screens/ship_screen.gd").STATIONS:
+		if str(st["id"]) == "room":
+			continue
 		Router.reset_to("ship", {"quiet": true})
 		await wait(0.3)
 		Router.current_screen._go_to(st)

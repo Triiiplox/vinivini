@@ -175,8 +175,10 @@ func _diary() -> void:
 		body.add_child(_txt("Ainda não há registros. Jogue um pouco e volte aqui.", 24))
 	for r in rows:
 		var name := str(GAME_NAMES.get(r["id"], r["id"]))
-		body.add_child(_txt("%s — %d vezes · terminou %d · saiu no meio %d · voltou sozinho %d · dicas %d · toques sem alvo %d · %.0f s até o 1º acerto · %.0f min" % [
-			name, r["plays"], r["completes"], r["abandons"], r["voluntary"], r["hints"], r["missed"], r["first_ok"], r["minutes"]], 22))
+		var fmt := "%s — %d vezes · terminou %d · saiu no meio %d · voltou sozinho %d · dicas %d" \
+			+ " · toques sem alvo %d · %.0f s até o 1º acerto · %.0f min"
+		body.add_child(_txt(fmt % [name, r["plays"], r["completes"], r["abandons"], r["voluntary"], r["hints"],
+			r["missed"], r["first_ok"], r["minutes"]], 22))
 	var copy := UI.button("Copiar diário", Palette.TEAL, "book", Vector2(320, 70), false, 24)
 	copy.name = "CopyDiary"
 	copy.tapped.connect(func():
