@@ -25,7 +25,7 @@ var _dragging := false
 func build() -> void:
 	world_taps_meaningful = true
 	set_sky("space")
-	AudioService.play_music("map")
+	AudioService.play_music("rocket")  # mesma trilha da nave: continuidade nave ↔ mapa
 	var repo := ContentService.repo
 	var x := 260.0
 	path_node = Node2D.new()

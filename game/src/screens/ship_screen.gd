@@ -57,7 +57,7 @@ var _going := ""
 func build() -> void:
 	world_taps_meaningful = true
 	set_sky("space")
-	AudioService.play_music("hub")
+	AudioService.play_music("rocket")  # instrumental "Rocket to the Moon"
 	AudioService.play_ambience("ship")
 	world.add_child(Scenery.new("ship"))
 	for i in STATIONS.size():
