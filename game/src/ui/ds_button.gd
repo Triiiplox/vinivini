@@ -22,7 +22,8 @@ var label: Label
 var _down := false
 
 
-func _init(v: String = "primary", icon_id: String = "", min_size: Vector2 = Vector2(200, 96), t: String = "normal", text_value: String = "") -> void:
+func _init(v: String = "primary", icon_id: String = "", min_size: Vector2 = Vector2(200, 96), t: String = "normal",
+		text_value: String = "") -> void:
 	variant = v
 	icon_name = icon_id
 	tone = t

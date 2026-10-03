@@ -118,7 +118,9 @@ for path in glob.glob(os.path.join(CONTENT, "stories", "*.json")):
 
 # ---------------------------------------------------------------- síntese
 def key_for(who, text):
-    return hashlib.md5(("%s|%s" % (who, text.strip())).encode("utf-8")).hexdigest()[:12]
+    # Igual a VoiceService.key_for: o nome da criança no texto vira "{name}" (normalize).
+    t = re.sub(r"\bVini\b", "{name}", text.strip())
+    return hashlib.md5(("%s|%s" % (who, t)).encode("utf-8")).hexdigest()[:12]
 
 
 def spoken(text):
