@@ -572,6 +572,10 @@ func _settings() -> void:
 	body.add_child(_choice_row("Lembrete de pausa (min):", ["0", "15", "20", "30"], cur, _set_break_reminder))
 	body.add_child(_txt("0 = desligado. O lembrete é gentil e nunca bloqueia o jogo.", 20, Palette.TEXT_SOFT))
 	_backups()
+	var replay := UI.button("Ver a abertura (vídeo)", Palette.PANEL_LIGHT, "play", Vector2(420, 64), false, 22)
+	replay.name = "ReplayIntro"
+	replay.tapped.connect(func(): Router.reset_to("intro_video", {"next": "parent"}))
+	body.add_child(replay)
 	var reset_text := "Toque de novo para confirmar" if _confirm_reset else "Apagar progresso"
 	var reset := UI.button(reset_text, Palette.RED, "close", Vector2(420, 70), false, 24)
 	reset.name = "ResetProgress"

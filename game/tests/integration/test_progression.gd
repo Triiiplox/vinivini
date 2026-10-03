@@ -187,3 +187,4 @@ func test_journey_bar_counts_missions() -> void:
 	await frames(2)
 	check(bar.shown <= 2.0 / float(st["total"]) + 0.001, "foguete anda até o progresso atual")
 	bar.queue_free()
+

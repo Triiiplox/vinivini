@@ -47,6 +47,7 @@ const SCREENS := {
 	"ship": "res://src/screens/ship_screen.gd",
 	"galaxy": "res://src/screens/galaxy_screen.gd",
 	"opening": "res://src/screens/opening_screen.gd",
+	"intro_video": "res://src/screens/intro_video_screen.gd",
 	"draw": "res://src/screens/draw_screen.gd",
 	"wardrobe": "res://src/screens/wardrobe_screen.gd",
 	"gallery": "res://src/screens/gallery_screen.gd",
@@ -107,7 +108,7 @@ func back() -> void:
 	if current_screen and current_screen.has_method("on_back") and current_screen.on_back():
 		return
 	if _stack.is_empty():
-		if current_id != "ship" and current_id != "splash" and current_id != "opening":
+		if current_id != "ship" and current_id != "splash" and current_id != "opening" and current_id != "intro_video":
 			_show("ship", {})
 		return
 	var prev: Dictionary = _stack.pop_back()

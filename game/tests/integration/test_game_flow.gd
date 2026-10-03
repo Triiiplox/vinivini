@@ -148,7 +148,8 @@ func test_every_screen_opens_without_errors() -> void:
 			params = {"result": {"mode": "mission", "rounds": 1, "level_ups": ["Contar"]}, "reward": {"stars": 2, "unlocked": ["suit_mars"]}}
 		Router.reset_to(id, params)
 		await frames(2)
-		eq(Router.current_id, id, "tela %s abriu" % id)
+		# A abertura em vídeo, sem tela (testes), segue direto para a próxima rota.
+		eq(Router.current_id, "opening" if id == "intro_video" else id, "tela %s abriu" % id)
 		check(is_instance_valid(Router.current_screen) and Router.current_screen.get_child_count() > 0, "tela %s tem conteúdo" % id)
 	for t in ["summary", "skills", "history", "speech", "english", "challenge", "settings"]:
 		Router.reset_to("parent", {"tab": t})
@@ -186,3 +187,13 @@ func test_boss_segment_runs_flight_in_boss_mode() -> void:
 	MissionFlow.abort()
 	await frames(2)
 	eq(Router.current_id, "ship")
+
+
+func test_intro_video_asset_and_flow() -> void:
+	var v: Variant = load("res://assets/video/abertura.ogv")
+	check(v is VideoStream, "vídeo de abertura carrega como VideoStream")
+	eq(bool(SaveService.settings.get_value("intro_video_seen")), false, "abertura ainda não vista")
+	Router.reset_to("intro_video", {"next": "splash"})
+	await frames(3)
+	eq(Router.current_id, "splash", "sem tela (testes), a abertura segue direto para a próxima")
+	check(bool(SaveService.settings.get_value("intro_video_seen")), "marcada como vista: não repete sozinha")

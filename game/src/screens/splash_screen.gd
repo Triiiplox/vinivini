@@ -56,7 +56,9 @@ func on_enter() -> void:
 
 func _on_play() -> void:
 	AudioService.play_sfx("whoosh")
-	if not AppState.has_profile() or not bool(AppState.profile().get("intro_seen", false)):
+	if not bool(SaveService.settings.get_value("intro_video_seen")):
+		Router.reset_to("intro_video", {"next": "opening"})
+	elif not AppState.has_profile() or not bool(AppState.profile().get("intro_seen", false)):
 		Router.reset_to("opening")
 	else:
 		Router.reset_to("ship")
