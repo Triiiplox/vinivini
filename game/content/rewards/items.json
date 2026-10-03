@@ -235,5 +235,31 @@
    "value": 1
   },
   "style": "medal"
+ },
+ {
+  "id": "pet_bip",
+  "name": "Robozinho Bip",
+  "slot": "pet",
+  "unlock": {
+   "type": "starter"
+  }
+ },
+ {
+  "id": "pet_robot",
+  "name": "Robô Ajudante",
+  "slot": "pet",
+  "unlock": {
+   "type": "stars",
+   "value": 15
+  }
+ },
+ {
+  "id": "pet_cat",
+  "name": "Gato da Tripulação",
+  "slot": "pet",
+  "unlock": {
+   "type": "stars",
+   "value": 30
+  }
  }
 ]

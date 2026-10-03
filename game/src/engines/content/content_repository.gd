@@ -23,6 +23,9 @@ var english_units: Array = []
 var english_by_id: Dictionary = {}
 ## Estúdio de Sons (fala): banco gerado por tools/build_speech.py (pares mínimos já conferidos lá).
 var speech: Dictionary = {}
+## Lições do motor seg_lesson (tools/build_lessons.py), por id, na ordem do arquivo.
+var lessons: Dictionary = {}
+var lesson_order: Array = []
 var errors: Array[String] = []
 
 
@@ -105,6 +108,19 @@ func load_index(index_path: String) -> bool:
 		var b: Variant = _read(base.path_join(str(idx["banks"][bank_name])))
 		if b != null:
 			banks[bank_name] = b
+	if idx.has("lessons"):
+		var ls: Variant = _read(base.path_join(str(idx["lessons"])))
+		if ls is Dictionary:
+			for lsk in ls.get("skills", []):
+				if lsk is Dictionary and lsk.get("id") is String and not skills.has(lsk["id"]):
+					skills[lsk["id"]] = lsk
+			for l in ls.get("lessons", []):
+				var le := ContentValidator.validate_lesson(l)
+				if le.is_empty():
+					lessons[l["id"]] = l
+					lesson_order.append(l["id"])
+				else:
+					errors.append("lesson %s: %s" % [str(l.get("id", "?")) if l is Dictionary else "?", ", ".join(le)])
 	if idx.has("speech"):
 		var sp: Variant = _read(base.path_join(str(idx["speech"])))
 		if sp is Dictionary and (sp.get("sounds", []) as Array).size() > 0 and (sp.get("screening", []) as Array).size() > 0:

@@ -66,6 +66,8 @@ func record_outcome(skill_id: String, activity_id: String, outcome: Dictionary) 
 	EventBus.skill_mastery_changed.emit(skill_id, p.level, p.mastery)
 	if p.level != old_level:
 		EventBus.skill_level_changed.emit(skill_id, old_level, p.level)
+		Areas.observe(skill_id, old_level, p.level)
+	Areas.snapshot()
 	return events
 
 

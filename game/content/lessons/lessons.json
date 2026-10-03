@@ -1,0 +1,9320 @@
+{
+ "lessons": [
+  {
+   "id": "vogais",
+   "name": "As vogais",
+   "skill": "reading.letters",
+   "theme": "ship",
+   "intro": "Vamos conhecer as vogais: A, E, I, O, U!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Essa é a letra A. A de abelha!",
+     "fig": {
+      "t": "text",
+      "s": "A",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra E. E de elefante!",
+     "fig": {
+      "t": "text",
+      "s": "E",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra I. I de igreja!",
+     "fig": {
+      "t": "text",
+      "s": "I",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra O. O de ovo!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "O",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "ovo"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra U. U de uva!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "U",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque na letra A!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra E!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra I!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "I",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra O!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra U!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra A!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra E!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 3,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra I!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "I",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 3,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra O!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "I",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra U!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "I",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra O?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "ovo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra U?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    }
+   ],
+   "n": 5,
+   "icon": "abc",
+   "group": "reading"
+  },
+  {
+   "id": "consoantes",
+   "name": "Letras e figuras",
+   "skill": "reading.letters",
+   "theme": "ship",
+   "intro": "Cada letra tem um nome e um som. Vamos conhecer mais letras!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Essa é a letra B. B de bola!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "B",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra M. M de mala!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "M",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essa é a letra S. S de sol!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "S",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "sol"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque na letra B!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "M",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "B",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra M!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "M",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "F",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra S!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "N",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra P!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra V!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "M",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra L!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra C!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra D!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 3,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra G!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "B",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra N!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "M",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "N",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 3,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra R!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque na letra F!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "F",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    }
+   ],
+   "n": 5,
+   "icon": "abc",
+   "group": "reading"
+  },
+  {
+   "id": "som_das_letras",
+   "name": "O som das letras",
+   "skill": "reading.letter_sounds",
+   "theme": "ship",
+   "intro": "Toda palavra começa com um som. Escute bem o comecinho!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Bola começa com B. Bbbb, bola!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "B",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Sapo começa com S. Ssss, sapo!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "S",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Mala começa com M. Mmmm, mala!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "M",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra B?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "B de bola!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra S?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "S de sol!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra M?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "M de mala!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra P?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "ovo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "P de pato!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra G?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "G de gato!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra V?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "V de vaca!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra L?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "nave"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "L de lua!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual figura começa com a letra C?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "C de casa!"
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa pato?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "A",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa dado?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "O",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa nave?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "M",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "N",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "E",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa robô?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa casa?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "N",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Com que letra começa uva?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "U",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    }
+   ],
+   "n": 5,
+   "icon": "voice",
+   "group": "reading"
+  },
+  {
+   "id": "ler_palavras",
+   "name": "Ler palavras",
+   "skill": "reading.words",
+   "theme": "moon",
+   "intro": "Vamos ler palavras inteiras!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Aqui está escrito BOLA. Bo, la: bola!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "BOLA",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Aqui está escrito GATO. Ga, to: gato!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "GATO",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque na palavra bola!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "BOLO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "BOLA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "CASA",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra gato!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "COPO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "GATO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "UVA",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra pato!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "PATO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "PEIXE",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "FOGUETE",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra casa!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "CASA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "NAVE",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "COPO",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra sol!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "COPO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "SAPO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "SOL",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra lua!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "LUA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "SAPO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "ROBÔ",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra uva!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "DADO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "CASA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "UVA",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na palavra vaca!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "LUA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "VACA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "ROBÔ",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "SAPO",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "MALA",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "DADO",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "ovo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "PEIXE",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "ovo"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "OVO",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a palavra e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pipa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "PIPA",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia e toque na figura.",
+     "lvl": 3,
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "show": {
+      "t": "text",
+      "s": "bolo",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia e toque na figura.",
+     "lvl": 3,
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "copo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      }
+     ],
+     "ok": 0,
+     "show": {
+      "t": "text",
+      "s": "copo",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia e toque na figura.",
+     "lvl": 3,
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "nave"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 0,
+     "show": {
+      "t": "text",
+      "s": "nave",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia e toque na figura.",
+     "lvl": 3,
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "ovo"
+      }
+     ],
+     "ok": 0,
+     "show": {
+      "t": "text",
+      "s": "robo",
+      "c": "#FFFFFF"
+     }
+    }
+   ],
+   "n": 5,
+   "icon": "book",
+   "group": "reading"
+  },
+  {
+   "id": "ler_frases",
+   "name": "Ler frases curtas",
+   "skill": "reading.sentences",
+   "theme": "moon",
+   "intro": "Agora vamos ler frases curtinhas!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Aqui está escrito: DUAS UVAS. Duas uvas!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "DUAS UVAS",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "count",
+        "n": 2,
+        "set": "words",
+        "id": "uva"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "sol"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "UM SOL",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "uva"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "DUAS UVAS",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "bolo"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "TRÊS BOLAS",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "A LUA",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       }
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "O GATO E O PATO",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "UMA ESTRELA",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "DOIS PEIXES",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "lua"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "nave"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "lua"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       },
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "sol"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "O FOGUETE E A LUA",
+      "c": "#FFFFFF"
+     }
+    }
+   ],
+   "n": 4,
+   "icon": "book",
+   "group": "reading"
+  },
+  {
+   "id": "completar_palavras",
+   "name": "Completar palavras",
+   "skill": "reading.words",
+   "theme": "ship",
+   "intro": "Falta uma letra na palavra. Qual é?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "BO_A: falta o L. BOLA!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "BO_A",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra bola?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "BO_A",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra gato?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "T",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "GA_O",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra pato?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "N",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "_ATO",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra casa?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "T",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "S",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "CA_A",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra dado?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "DA_O",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra mala?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "L",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "MA_A",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra vaca?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "C",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "G",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "VA_A",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra sapo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "SA_O",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra nave?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "B",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "R",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "NA_E",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Qual letra completa a palavra pipa?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "P",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "V",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "PI_A",
+      "c": "#FFFFFF"
+     }
+    }
+   ],
+   "n": 4,
+   "icon": "blocks",
+   "group": "reading"
+  },
+  {
+   "id": "rimas",
+   "name": "Rimas e sons",
+   "skill": "reading.phonological",
+   "theme": "ship",
+   "intro": "Rima é quando o finalzinho das palavras soa parecido!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Gato e pato rimam: gaTO, paTO!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      "b": {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Bola tem duas partes: bo, la. Bate palma em cada parte!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       },
+       {
+        "t": "icon",
+        "id": "hands",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "icon",
+        "id": "hands",
+        "c": "#FFFFFF"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O que rima com gato?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "uva"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "read": [
+      "sol",
+      "uva",
+      "pato"
+     ]
+    },
+    {
+     "k": "pick",
+     "say": "O que rima com bolo?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "lua",
+      "robô",
+      "casa"
+     ]
+    },
+    {
+     "k": "pick",
+     "say": "O que rima com mala?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "sol",
+      "bola",
+      "peixe"
+     ]
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra sol? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "sol tem 1 partes!"
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra bola? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "bola tem 2 partes!"
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra gato? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "after": "gato tem 2 partes!"
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra foguete? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "foguete tem 3 partes!"
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra estrela? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "estrela tem 3 partes!"
+    },
+    {
+     "k": "pick",
+     "say": "Quantas partes tem a palavra peixe? Bata palmas!",
+     "opts": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "peixe tem 2 partes!"
+    }
+   ],
+   "n": 5,
+   "icon": "music",
+   "group": "reading"
+  },
+  {
+   "id": "entender_historias",
+   "name": "Entender histórias",
+   "skill": "reading.comprehension",
+   "theme": "ship",
+   "intro": "Escute a historinha com atenção e depois responda!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O Vini foi ao espaço no foguete. Lá de cima, ele viu a Lua bem grandona. O que o Vini viu lá de cima?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A astronauta Ana comeu três morangos e tomou leite. Quantos morangos a Ana comeu?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O gato estava triste porque perdeu a bola. O Vini achou a bola e o gato ficou feliz. Como o gato ficou no final?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "angry"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O robô Astro pegou uma pedra na Lua e guardou na mala. Onde o Astro guardou a pedra?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "mala"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "copo"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "De manhã o Sol nasceu. De noite apareceram a Lua e as estrelas. O que aparece de noite?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O pato nadou no lago e encontrou um peixe amigo. Quem o pato encontrou?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    }
+   ],
+   "n": 4,
+   "icon": "book",
+   "group": "reading"
+  },
+  {
+   "id": "recontar",
+   "name": "Recontar a história",
+   "skill": "reading.comprehension",
+   "theme": "ship",
+   "intro": "Vamos contar a história do robozinho perdido na ordem certa!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "order",
+     "say": "O que aconteceu primeiro? Toque na ordem: o robô triste, procurando, achou o amigo!",
+     "items": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      },
+      {
+       "t": "art",
+       "set": "props",
+       "id": "rock_a"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "Ponha a história da plantinha em ordem: semente, brotinho, planta com flor!",
+     "items": [
+      {
+       "t": "plant",
+       "stage": 0
+      },
+      {
+       "t": "plant",
+       "stage": 1
+      },
+      {
+       "t": "plant",
+       "stage": 3
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "O dia do Vini: o Sol nasce, ele brinca, a Lua aparece e ele dorme!",
+     "items": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "book",
+   "group": "reading"
+  },
+  {
+   "id": "ordem_numeros",
+   "name": "Ordem dos números",
+   "skill": "math.order",
+   "theme": "space",
+   "intro": "Os números têm uma ordem: um, dois, três...",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Contando em ordem: um, dois, três, quatro, cinco!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "1",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "text",
+        "s": "2",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "text",
+        "s": "3",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "text",
+        "s": "4",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "text",
+        "s": "5",
+        "c": "#FFFFFF"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 3
+    },
+    {
+     "k": "order",
+     "say": "Toque nos números do menor para o maior!",
+     "items": [
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 3
+    },
+    {
+     "k": "order",
+     "say": "Agora ao contrário, como a contagem do foguete: do maior para o menor!",
+     "items": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 1,
+     "after": "Decolar!"
+    },
+    {
+     "k": "order",
+     "say": "Agora ao contrário, como a contagem do foguete: do maior para o menor!",
+     "items": [
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 2,
+     "after": "Decolar!"
+    },
+    {
+     "k": "order",
+     "say": "Agora ao contrário, como a contagem do foguete: do maior para o menor!",
+     "items": [
+      {
+       "t": "text",
+       "s": "10",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "lvl": 3
+    },
+    {
+     "k": "order",
+     "say": "Ponha em ordem: do grupo com menos para o grupo com mais!",
+     "items": [
+      {
+       "t": "count",
+       "n": 1,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "Ponha em ordem: do grupo com menos para o grupo com mais!",
+     "items": [
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 4,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 6,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "lvl": 2
+    }
+   ],
+   "n": 4,
+   "icon": "123",
+   "group": "math"
+  },
+  {
+   "id": "maior_menor",
+   "name": "Maior e menor",
+   "skill": "math.compare",
+   "theme": "space",
+   "intro": "Vamos descobrir onde tem mais e onde tem menos!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Aqui tem três estrelas e aqui tem uma. Três é mais que um!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      },
+      "b": {
+       "t": "count",
+       "n": 1,
+       "set": "words",
+       "id": "estrela"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Onde tem mais?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 1,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Onde tem mais?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 4,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Onde tem mais?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 5,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Onde tem menos?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 1,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 4,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Onde tem menos?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual número é maior?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual número é maior?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual número é maior?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual número é menor?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual número é menor?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
+    }
+   ],
+   "n": 5,
+   "icon": "scale",
+   "group": "math"
+  },
+  {
+   "id": "igual_diferente",
+   "name": "Igual e diferente",
+   "skill": "math.equal",
+   "theme": "ship",
+   "intro": "Vamos achar o que é igual e o que é diferente!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Esses dois grupos são iguais: dois e dois!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "apple"
+      },
+      "b": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "apple"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual grupo tem a mesma quantidade que este?",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "apple"
+       },
+       "b": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "apple"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "apple"
+       },
+       "b": {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "apple"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "apple"
+       },
+       "b": {
+        "t": "count",
+        "n": 1,
+        "set": "foods",
+        "id": "apple"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual grupo tem a mesma quantidade que este?",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "carrot"
+       },
+       "b": {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "carrot"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "carrot"
+       },
+       "b": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "carrot"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "carrot"
+       },
+       "b": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "carrot"
+       }
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual grupo tem a mesma quantidade que este?",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "strawberry"
+       },
+       "b": {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "strawberry"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "strawberry"
+       },
+       "b": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "strawberry"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "strawberry"
+       },
+       "b": {
+        "t": "count",
+        "n": 5,
+        "set": "foods",
+        "id": "strawberry"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual grupo tem a mesma quantidade que este?",
+     "opts": [
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 5,
+        "set": "foods",
+        "id": "egg"
+       },
+       "b": {
+        "t": "count",
+        "n": 5,
+        "set": "foods",
+        "id": "egg"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 5,
+        "set": "foods",
+        "id": "egg"
+       },
+       "b": {
+        "t": "count",
+        "n": 6,
+        "set": "foods",
+        "id": "egg"
+       }
+      },
+      {
+       "t": "pair",
+       "a": {
+        "t": "count",
+        "n": 5,
+        "set": "foods",
+        "id": "egg"
+       },
+       "b": {
+        "t": "count",
+        "n": 4,
+        "set": "foods",
+        "id": "egg"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "triangle",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "circle",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "circle",
+       "c": "#FB923C",
+       "k": 1.0
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "square",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "star",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "square",
+       "c": "#FB923C",
+       "k": 1.0
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "circle",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "heart",
+       "c": "#FB923C",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "heart",
+       "c": "#FB923C",
+       "k": 1.0
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual cor é diferente?",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#2563FF"
+      },
+      {
+       "t": "color",
+       "c": "#EF4444"
+      },
+      {
+       "t": "color",
+       "c": "#2563FF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual cor é diferente?",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#22C55E"
+      },
+      {
+       "t": "color",
+       "c": "#FACC15"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    }
+   ],
+   "n": 4,
+   "icon": "scale",
+   "group": "math"
+  },
+  {
+   "id": "tirar",
+   "name": "Tirar (subtração)",
+   "skill": "math.subtraction",
+   "theme": "ship",
+   "intro": "Tirar é quando alguma coisa vai embora!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Tinha três morangos. O Vini comeu um. Sobraram dois!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "count",
+        "n": 3,
+        "set": "foods",
+        "id": "strawberry"
+       },
+       {
+        "t": "text",
+        "s": "−1",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "strawberry"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Tinha 3 maçãs. O Vini comeu uma. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Sobraram 2!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha 4 estrelas. Uma estrela sumiu. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "Sobraram 3!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha 5 bolas. Duas rolaram para longe. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "Sobraram 3!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha 4 peixes. Dois foram nadar. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "Sobraram 2!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha 6 foguetes. Três decolaram. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "after": "Sobraram 3!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha 7 ovos. A astronauta usou dois. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3,
+     "after": "Sobraram 5!"
+    }
+   ],
+   "n": 4,
+   "icon": "123",
+   "group": "math"
+  },
+  {
+   "id": "dobro_metade",
+   "name": "Dobro e metade",
+   "skill": "math.double_half",
+   "theme": "ship",
+   "intro": "Dobro é ter duas vezes. Metade é dividir em duas partes iguais!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Dois é o dobro de um: um e mais um!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "count",
+       "n": 1,
+       "set": "foods",
+       "id": "apple"
+      },
+      "b": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "apple"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quatro bananas para dois amigos: cada um fica com duas. Duas é a metade de quatro!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "banana"
+      },
+      "b": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "banana"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual é o dobro de 1 estrelas?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 1,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o dobro de 2 estrelas?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 4,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 5,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o dobro de 3 estrelas?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 7,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 6,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Dividindo 2 morangos entre dois amigos, cada um fica com quantos?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 1,
+       "set": "foods",
+       "id": "strawberry"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Dividindo 4 morangos entre dois amigos, cada um fica com quantos?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 4,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "strawberry"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Dividindo 6 morangos entre dois amigos, cada um fica com quantos?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 3,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 4,
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "count",
+       "n": 6,
+       "set": "foods",
+       "id": "strawberry"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    }
+   ],
+   "n": 4,
+   "icon": "plus",
+   "group": "math"
+  },
+  {
+   "id": "grupos_iguais",
+   "name": "Grupos iguais",
+   "skill": "math.multiply",
+   "theme": "ship",
+   "intro": "Quando temos grupos iguais, dá para contar por grupos!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Dois pratos com dois ovos cada: dois, quatro! Quatro ovos.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "egg"
+      },
+      "b": {
+       "t": "count",
+       "n": 2,
+       "set": "foods",
+       "id": "egg"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Dois grupos com 1 maçãs em cada. Quantos são ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "São 2 ao todo!"
+    },
+    {
+     "k": "pick",
+     "say": "Dois grupos com 2 ovos em cada. Quantos são ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "São 4 ao todo!"
+    },
+    {
+     "k": "pick",
+     "say": "Dois grupos com 3 cenouras em cada. Quantos são ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "São 6 ao todo!"
+    },
+    {
+     "k": "pick",
+     "say": "Três grupos com 2 bananas em cada. Quantos são ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "São 6 ao todo!"
+    },
+    {
+     "k": "pick",
+     "say": "Três grupos com 3 morangos em cada. Quantos são ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "10",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3,
+     "after": "São 9 ao todo!"
+    }
+   ],
+   "n": 3,
+   "icon": "plus",
+   "group": "math"
+  },
+  {
+   "id": "problemas",
+   "name": "Probleminhas",
+   "skill": "math.problems",
+   "theme": "ship",
+   "intro": "Vamos resolver probleminhas da nave!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O Vini tem duas bolas e ganhou mais uma. Quantas bolas ele tem?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "A resposta é 3!"
+    },
+    {
+     "k": "pick",
+     "say": "Na nave tem três astronautas. Chegou mais um. Quantos astronautas tem agora?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "A resposta é 4!"
+    },
+    {
+     "k": "pick",
+     "say": "O foguete tem duas janelas de cada lado. Quantas janelas ao todo?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "after": "A resposta é 4!"
+    },
+    {
+     "k": "pick",
+     "say": "Tinha cinco biscoitos e a tripulação comeu dois. Quantos sobraram?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "A resposta é 3!"
+    },
+    {
+     "k": "pick",
+     "say": "Cada astronauta precisa de um capacete. São quatro astronautas. Quantos capacetes?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "A resposta é 4!"
+    },
+    {
+     "k": "pick",
+     "say": "O robô pegou três pedras de manhã e três de tarde. Quantas pedras ele pegou?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "after": "A resposta é 6!"
+    }
+   ],
+   "n": 4,
+   "icon": "puzzle",
+   "group": "math"
+  },
+  {
+   "id": "medidas",
+   "name": "Tamanho, peso e distância",
+   "skill": "math.measure",
+   "theme": "ship",
+   "intro": "Vamos comparar tamanhos, pesos e distâncias!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "O Sol é muito maior que a Terra. Caberiam mais de um milhão de Terras dentro do Sol!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "sun",
+       "r": 0.45
+      },
+      "b": {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.08
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A vaca é mais pesada que o pato. Na balança, o lado mais pesado desce!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      "b": {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A Lua está mais perto da Terra do que o Sol. Por isso a viagem até a Lua é mais curta!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "planet",
+        "id": "earth",
+        "r": 0.3
+       },
+       {
+        "t": "planet",
+        "id": "moon",
+        "r": 0.2
+       },
+       {
+        "t": "planet",
+        "id": "sun",
+        "r": 0.4
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual é maior?",
+     "opts": [
+      {
+       "t": "size",
+       "s": "big"
+      },
+      {
+       "t": "size",
+       "s": "small"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual planeta é o maior de todos?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.2
+      },
+      {
+       "t": "planet",
+       "id": "jupiter",
+       "r": 0.45
+      },
+      {
+       "t": "planet",
+       "id": "mars",
+       "r": 0.15
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é mais pesado?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "A vaca é bem mais pesada!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual é mais leve?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pipa"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é mais pesado?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pipa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Ponha do menor para o maior: Lua, Terra, Júpiter!",
+     "items": [
+      {
+       "t": "planet",
+       "id": "moon",
+       "r": 0.12
+      },
+      {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.22
+      },
+      {
+       "t": "planet",
+       "id": "jupiter",
+       "r": 0.42
+      }
+     ],
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Do menor para o maior: Mercúrio, Terra, Saturno, Sol!",
+     "items": [
+      {
+       "t": "planet",
+       "id": "mercury",
+       "r": 0.1
+      },
+      {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.18
+      },
+      {
+       "t": "planet",
+       "id": "saturn",
+       "r": 0.22
+      },
+      {
+       "t": "planet",
+       "id": "sun",
+       "r": 0.42
+      }
+     ],
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "O que está mais perto da Terra?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "A Lua! Ela está muito mais perto do que o Sol."
+    },
+    {
+     "k": "pick",
+     "say": "Qual planeta fica mais longe do Sol?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "neptune"
+      },
+      {
+       "t": "planet",
+       "id": "mercury"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    }
+   ],
+   "n": 5,
+   "icon": "scale",
+   "group": "math"
+  },
+  {
+   "id": "classificar",
+   "name": "Classificar",
+   "skill": "logic.classify",
+   "theme": "ship",
+   "intro": "Vamos separar as coisas em grupos!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Frutas de um lado, brinquedos do outro. Cada coisa no seu grupo!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "art",
+       "set": "foods",
+       "id": "apple"
+      },
+      "b": {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "sort",
+     "say": "Arraste: frutas para a esquerda, brinquedos para a direita!",
+     "bins": [
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "banana"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "apple"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "strawberry"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "pipa"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "dado"
+       },
+       1
+      ]
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "sort",
+     "say": "Bichos que vivem na água para a esquerda, bichos da fazenda para a direita!",
+     "bins": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       0
+      ]
+     ],
+     "lvl": 2,
+     "after": "O sapo vive na água e na terra. O pato nada, mas vive na fazenda!"
+    },
+    {
+     "k": "sort",
+     "say": "Planetas para a esquerda, estrelas para a direita!",
+     "bins": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "planet",
+        "id": "mars"
+       },
+       0
+      ],
+      [
+       {
+        "t": "planet",
+        "id": "saturn"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "sol"
+       },
+       1
+      ]
+     ],
+     "lvl": 2,
+     "after": "O Sol também é uma estrela!"
+    },
+    {
+     "k": "sort",
+     "say": "Separe pelas cores: vermelho para a esquerda, amarelo para a direita!",
+     "bins": [
+      {
+       "t": "color",
+       "c": "#EF4444"
+      },
+      {
+       "t": "color",
+       "c": "#FACC15"
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "strawberry"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "tomato"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "banana"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "foods",
+        "id": "cheese"
+       },
+       1
+      ]
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "sort",
+     "say": "Separe pelas formas: círculos para a esquerda, triângulos para a direita!",
+     "bins": [
+      {
+       "t": "shape",
+       "s": "circle",
+       "c": "#22D3EE",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "triangle",
+       "c": "#22D3EE",
+       "k": 1.0
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "shape",
+        "s": "circle",
+        "c": "#F472B6",
+        "k": 0.6
+       },
+       0
+      ],
+      [
+       {
+        "t": "shape",
+        "s": "triangle",
+        "c": "#4ADE80",
+        "k": 0.6
+       },
+       1
+      ],
+      [
+       {
+        "t": "shape",
+        "s": "circle",
+        "c": "#FACC15",
+        "k": 0.9
+       },
+       0
+      ],
+      [
+       {
+        "t": "shape",
+        "s": "triangle",
+        "c": "#FB923C",
+        "k": 0.8
+       },
+       1
+      ]
+     ],
+     "lvl": 1
+    }
+   ],
+   "n": 3,
+   "icon": "blocks",
+   "group": "logic"
+  },
+  {
+   "id": "diferencas",
+   "name": "Encontrar diferenças",
+   "skill": "logic.differences",
+   "theme": "ship",
+   "intro": "Olhe bem: um deles é diferente!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 3,
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "count",
+       "n": 2,
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "star",
+       "c": "#FACC15",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "star",
+       "c": "#22D3EE",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "star",
+       "c": "#22D3EE",
+       "k": 1.0
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "B",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "D",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual é diferente dos outros?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual não é uma fruta?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "apple"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "strawberry"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "banana"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 3,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual não é um planeta?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "planet",
+       "id": "saturn"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3,
+     "after": "É uma estrela, como o Sol!"
+    }
+   ],
+   "n": 4,
+   "icon": "puzzle",
+   "group": "logic"
+  },
+  {
+   "id": "causa_efeito",
+   "name": "O que acontece depois?",
+   "skill": "logic.cause",
+   "theme": "ship",
+   "intro": "Tudo que acontece tem uma consequência. O que acontece depois?",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "A plantinha recebeu água e luz do Sol. O que acontece?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 0
+      },
+      {
+       "t": "plant",
+       "stage": 3
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Ela cresce e dá flor!"
+    },
+    {
+     "k": "pick",
+     "say": "Choveu muito. O que aparece no céu quando o Sol volta?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "rainbow"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "O arco-íris! A luz do Sol passa pelas gotinhas de chuva."
+    },
+    {
+     "k": "pick",
+     "say": "O gelo ficou no Sol quente. O que acontece com ele?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "O gelo derrete e vira água!"
+    },
+    {
+     "k": "pick",
+     "say": "A água ferveu na panela. O que sai dela?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "water",
+       "state": "steam"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "Sai vapor, a água virando ar quentinho!"
+    },
+    {
+     "k": "pick",
+     "say": "O Vini soltou a bola lá do alto. Para onde ela vai?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "back",
+       "c": "#94A3B8"
+      },
+      {
+       "t": "icon",
+       "id": "next",
+       "c": "#FACC15"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "Ela cai para baixo! Isso é a gravidade."
+    },
+    {
+     "k": "pick",
+     "say": "O motor do foguete empurrou o fogo para baixo. Para onde o foguete vai?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "after": "Para cima! O fogo empurra para baixo e o foguete sobe."
+    }
+   ],
+   "n": 4,
+   "icon": "light",
+   "group": "logic"
+  },
+  {
+   "id": "quebra_cabeca",
+   "name": "Qual peça falta?",
+   "skill": "logic.patterns",
+   "theme": "ship",
+   "intro": "Descubra qual peça completa a sequência!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O que vem depois? Sol, Lua, Sol, Lua...",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O que vem depois? Um, dois, três...",
+     "opts": [
+      {
+       "t": "text",
+       "s": "6",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O que vem depois? Círculo, quadrado, círculo, quadrado...",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "circle",
+       "c": "#22D3EE",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "triangle",
+       "c": "#22D3EE",
+       "k": 1.0
+      },
+      {
+       "t": "shape",
+       "s": "square",
+       "c": "#22D3EE",
+       "k": 1.0
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O que vem depois? Dois, quatro, seis...",
+     "opts": [
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "O que vem depois? Lua nova, quarto crescente, lua cheia...",
+     "opts": [
+      {
+       "t": "moon",
+       "phase": 0
+      },
+      {
+       "t": "moon",
+       "phase": 2
+      },
+      {
+       "t": "moon",
+       "phase": 6
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "puzzle",
+   "group": "logic"
+  },
+  {
+   "id": "sol",
+   "name": "O Sol",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Vamos conhecer o Sol!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "O Sol é uma estrela! É a estrela mais perto da Terra.",
+     "fig": {
+      "t": "planet",
+      "id": "sun",
+      "r": 0.42
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O Sol dá luz e calor. Sem o Sol, não teria vida na Terra.",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "planet",
+        "id": "sun",
+        "r": 0.35
+       },
+       {
+        "t": "plant",
+        "stage": 3
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Nunca olhe direto para o Sol: ele é tão forte que machuca os olhos!",
+     "fig": {
+      "t": "planet",
+      "id": "sun",
+      "r": 0.42
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O Sol é um planeta ou uma estrela?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "planeta",
+      "estrela"
+     ],
+     "after": "Uma estrela!"
+    },
+    {
+     "k": "pick",
+     "say": "O que o Sol dá para a Terra?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "snow"
+      },
+      {
+       "t": "weather",
+       "w": "sun"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Luz e calor!"
+    },
+    {
+     "k": "pick",
+     "say": "Toque no Sol!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    }
+   ],
+   "n": 3,
+   "icon": "sun",
+   "group": "astronomy"
+  },
+  {
+   "id": "lua",
+   "name": "A Lua",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Vamos conhecer a Lua!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A Lua gira em volta da Terra. Ela leva mais ou menos um mês para dar uma volta.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.3
+      },
+      "b": {
+       "t": "planet",
+       "id": "moon",
+       "r": 0.15
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A Lua não tem luz própria. Ela brilha porque o Sol ilumina ela!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "sun",
+       "r": 0.3
+      },
+      "b": {
+       "t": "planet",
+       "id": "moon",
+       "r": 0.2
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Na Lua não tem ar nem água para beber. Os astronautas usam roupa especial.",
+     "fig": {
+      "t": "vini"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "A Lua gira em volta de quem?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "saturn"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "Da Terra!"
+    },
+    {
+     "k": "pick",
+     "say": "Quem ilumina a Lua?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "O Sol!"
+    },
+    {
+     "k": "pick",
+     "say": "Toque na Lua!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    }
+   ],
+   "n": 3,
+   "icon": "moon",
+   "group": "astronomy"
+  },
+  {
+   "id": "fases_da_lua",
+   "name": "As fases da Lua",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "A Lua parece mudar de forma! Isso são as fases da Lua.",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Lua nova: quase não dá para ver a Lua.",
+     "fig": {
+      "t": "moon",
+      "phase": 0
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quarto crescente: aparece metade da Lua, e ela vai crescendo.",
+     "fig": {
+      "t": "moon",
+      "phase": 2
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Lua cheia: a Lua inteira, redondinha e brilhante!",
+     "fig": {
+      "t": "moon",
+      "phase": 4
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quarto minguante: a Lua vai diminuindo até ficar nova de novo.",
+     "fig": {
+      "t": "moon",
+      "phase": 6
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A Lua não muda de verdade: a gente vê partes diferentes iluminadas pelo Sol.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "sun",
+       "r": 0.3
+      },
+      "b": {
+       "t": "moon",
+       "phase": 2
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque na lua cheia!",
+     "opts": [
+      {
+       "t": "moon",
+       "phase": 4
+      },
+      {
+       "t": "moon",
+       "phase": 0
+      },
+      {
+       "t": "moon",
+       "phase": 2
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque na lua nova!",
+     "opts": [
+      {
+       "t": "moon",
+       "phase": 4
+      },
+      {
+       "t": "moon",
+       "phase": 0
+      },
+      {
+       "t": "moon",
+       "phase": 6
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Ponha as fases na ordem: nova, crescente, cheia, minguante!",
+     "items": [
+      {
+       "t": "moon",
+       "phase": 0
+      },
+      {
+       "t": "moon",
+       "phase": 2
+      },
+      {
+       "t": "moon",
+       "phase": 4
+      },
+      {
+       "t": "moon",
+       "phase": 6
+      }
+     ],
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "moon",
+   "group": "astronomy"
+  },
+  {
+   "id": "terra",
+   "name": "A Terra",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Vamos conhecer a Terra, a nossa casa!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A Terra é o planeta onde a gente mora. Ela tem água, ar e muita vida!",
+     "fig": {
+      "t": "planet",
+      "id": "earth",
+      "r": 0.42
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Vista do espaço, a Terra é azul por causa dos oceanos.",
+     "fig": {
+      "t": "planet",
+      "id": "earth",
+      "r": 0.42
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no planeta onde a gente mora!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Por que a Terra é azul vista do espaço?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "por causa do Sol",
+      "por causa da água"
+     ],
+     "after": "Por causa dos oceanos!"
+    }
+   ],
+   "n": 2,
+   "icon": "planet",
+   "group": "astronomy"
+  },
+  {
+   "id": "dia_e_noite",
+   "name": "Dia e noite",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Por que existe dia e noite?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A Terra gira como um pião. O lado virado para o Sol fica de dia.",
+     "fig": {
+      "t": "daynight",
+      "side": "day"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O lado do outro lado fica de noite. A Terra leva um dia inteiro para dar uma volta.",
+     "fig": {
+      "t": "daynight",
+      "side": "night"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O pontinho rosa é você. Aí é dia ou noite?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "read": [
+      "dia",
+      "noite"
+     ],
+     "show": {
+      "t": "daynight",
+      "side": "day"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Onde é dia: no lado virado para o Sol ou no outro lado?",
+     "opts": [
+      {
+       "t": "daynight",
+       "side": "night"
+      },
+      {
+       "t": "daynight",
+       "side": "day"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Por que existe dia e noite?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "daynight",
+       "side": "day"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3,
+     "read": [
+      "porque a Lua apaga o Sol",
+      "porque o Sol desliga",
+      "porque a Terra gira"
+     ],
+     "after": "Porque a Terra gira!"
+    }
+   ],
+   "n": 3,
+   "icon": "sun",
+   "group": "astronomy"
+  },
+  {
+   "id": "planetas",
+   "name": "Os planetas",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Oito planetas giram em volta do Sol!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Mercúrio é o menor planeta e o mais pertinho do Sol.",
+     "fig": {
+      "t": "planet",
+      "id": "mercury",
+      "r": 0.3
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Vênus é o planeta mais quente.",
+     "fig": {
+      "t": "planet",
+      "id": "venus",
+      "r": 0.38
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Marte é o planeta vermelho, por causa da poeira de ferrugem.",
+     "fig": {
+      "t": "planet",
+      "id": "mars",
+      "r": 0.36
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Júpiter é o maior planeta. Ele tem uma tempestade gigante!",
+     "fig": {
+      "t": "planet",
+      "id": "jupiter",
+      "r": 0.44
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Saturno tem anéis de gelo e pedrinhas.",
+     "fig": {
+      "t": "planet",
+      "id": "saturn"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Urano e Netuno são gigantes azuis e muito gelados.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "uranus",
+       "r": 0.35
+      },
+      "b": {
+       "t": "planet",
+       "id": "neptune",
+       "r": 0.35
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no planeta vermelho!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "neptune"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque no planeta com anéis!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "saturn"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "venus"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o maior planeta?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars",
+       "r": 0.25
+      },
+      {
+       "t": "planet",
+       "id": "mercury",
+       "r": 0.2
+      },
+      {
+       "t": "planet",
+       "id": "jupiter",
+       "r": 0.44
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o planeta mais quente?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "uranus"
+      },
+      {
+       "t": "planet",
+       "id": "neptune"
+      },
+      {
+       "t": "planet",
+       "id": "venus"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "planet",
+   "group": "astronomy"
+  },
+  {
+   "id": "sistema_solar",
+   "name": "O Sistema Solar",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "O Sistema Solar é o Sol e tudo que gira em volta dele!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "No meio está o Sol. Em volta, oito planetas, as luas, os asteroides e os cometas.",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "planet",
+        "id": "sun",
+        "r": 0.4
+       },
+       {
+        "t": "planet",
+        "id": "mercury",
+        "r": 0.12
+       },
+       {
+        "t": "planet",
+        "id": "earth",
+        "r": 0.18
+       },
+       {
+        "t": "planet",
+        "id": "jupiter",
+        "r": 0.3
+       },
+       {
+        "t": "planet",
+        "id": "saturn",
+        "r": 0.2
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A ordem é: Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno.",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "planet",
+        "id": "mercury",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "venus",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "earth",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "mars",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "jupiter",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "saturn",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "uranus",
+        "r": 0.22
+       },
+       {
+        "t": "planet",
+        "id": "neptune",
+        "r": 0.22
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "order",
+     "say": "Toque na ordem a partir do Sol: Mercúrio, Vênus, Terra!",
+     "items": [
+      {
+       "t": "planet",
+       "id": "mercury"
+      },
+      {
+       "t": "planet",
+       "id": "venus"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "order",
+     "say": "Continue a ordem: Terra, Marte, Júpiter!",
+     "items": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      }
+     ],
+     "lvl": 2
+    },
+    {
+     "k": "order",
+     "say": "Os últimos: Saturno, Urano, Netuno!",
+     "items": [
+      {
+       "t": "planet",
+       "id": "saturn"
+      },
+      {
+       "t": "planet",
+       "id": "uranus"
+      },
+      {
+       "t": "planet",
+       "id": "neptune"
+      }
+     ],
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "O que fica no meio do Sistema Solar?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    }
+   ],
+   "n": 3,
+   "icon": "planet",
+   "group": "astronomy"
+  },
+  {
+   "id": "estrelas",
+   "name": "Estrelas e constelações",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "As estrelas são sóis muito, muito distantes!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Cada estrela do céu é um sol, só que tão longe que parece um pontinho.",
+     "fig": {
+      "t": "count",
+      "n": 6,
+      "set": "words",
+      "id": "estrela"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Constelação é um desenho que as pessoas imaginam ligando as estrelas.",
+     "fig": {
+      "t": "constellation",
+      "id": "cruzeiro"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Esse é o Cruzeiro do Sul. Ele está na bandeira do Brasil!",
+     "fig": {
+      "t": "constellation",
+      "id": "cruzeiro"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Essas são as Três Marias, três estrelas em fila.",
+     "fig": {
+      "t": "constellation",
+      "id": "tres_marias"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no Cruzeiro do Sul!",
+     "opts": [
+      {
+       "t": "constellation",
+       "id": "cruzeiro"
+      },
+      {
+       "t": "constellation",
+       "id": "tres_marias"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toque nas Três Marias!",
+     "opts": [
+      {
+       "t": "constellation",
+       "id": "tres_marias"
+      },
+      {
+       "t": "constellation",
+       "id": "cruzeiro"
+      },
+      {
+       "t": "constellation",
+       "id": "escorpiao"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual destes também é uma estrela?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "O Sol!"
+    }
+   ],
+   "n": 3,
+   "icon": "star",
+   "group": "astronomy"
+  },
+  {
+   "id": "galaxias",
+   "name": "Galáxias",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Uma galáxia é uma família gigante de estrelas!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A nossa galáxia se chama Via Láctea. O Sol é uma das estrelas dela.",
+     "fig": {
+      "t": "galaxy"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Existem bilhões de galáxias no Universo!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "galaxy"
+       },
+       {
+        "t": "galaxy"
+       },
+       {
+        "t": "galaxy"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque na galáxia!",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "galaxy"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Como se chama a nossa galáxia?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "galaxy"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "read": [
+      "Sol",
+      "Terra",
+      "Via Láctea"
+     ],
+     "after": "Via Láctea!"
+    }
+   ],
+   "n": 2,
+   "icon": "star",
+   "group": "astronomy"
+  },
+  {
+   "id": "asteroides_cometas",
+   "name": "Asteroides e cometas",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Pedras e bolas de gelo viajam pelo espaço!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Asteroides são rochas que giram em volta do Sol. Muitos ficam entre Marte e Júpiter.",
+     "fig": {
+      "t": "painted",
+      "id": "rock_big"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Cometas são bolas de gelo e poeira. Perto do Sol, eles soltam uma cauda brilhante!",
+     "fig": {
+      "t": "comet"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Qual é o cometa?",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "painted",
+       "id": "rock_big"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o asteroide?",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "painted",
+       "id": "rock_mid"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Do que é feito um cometa?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      },
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "after": "De gelo e poeira!"
+    }
+   ],
+   "n": 3,
+   "icon": "rock",
+   "group": "astronomy"
+  },
+  {
+   "id": "buraco_negro",
+   "name": "Buracos negros",
+   "skill": "science.astronomy",
+   "theme": "space",
+   "intro": "Vamos conhecer um mistério do espaço!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Um buraco negro puxa tudo com tanta força que nem a luz consegue escapar.",
+     "fig": {
+      "t": "blackhole"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Ele fica muito, muito longe da Terra. Não precisa ter medo!",
+     "fig": {
+      "t": "blackhole"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no buraco negro!",
+     "opts": [
+      {
+       "t": "blackhole"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "galaxy"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O buraco negro puxa até a...",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "luz",
+      "bola de futebol"
+     ],
+     "after": "Até a luz!"
+    }
+   ],
+   "n": 2,
+   "icon": "star",
+   "group": "astronomy"
+  },
+  {
+   "id": "gravidade",
+   "name": "Gravidade",
+   "skill": "science.space",
+   "theme": "moon",
+   "intro": "Por que as coisas caem?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A Terra puxa tudo para baixo. Essa força se chama gravidade.",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Na Lua a gravidade é mais fraquinha: dá para pular seis vezes mais alto!",
+     "fig": {
+      "t": "vini"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Na estação espacial, os astronautas flutuam, porque estão caindo em volta da Terra o tempo todo!",
+     "fig": {
+      "t": "crew"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Onde dá para pular mais alto?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Na Lua!"
+    },
+    {
+     "k": "pick",
+     "say": "Quando você solta a bola, ela cai por causa da...",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sol"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "read": [
+      "Lua",
+      "Sol",
+      "gravidade da Terra"
+     ]
+    }
+   ],
+   "n": 2,
+   "icon": "planet",
+   "group": "astronomy"
+  },
+  {
+   "id": "astronautas",
+   "name": "Astronautas",
+   "skill": "science.space",
+   "theme": "ship",
+   "intro": "Vamos conhecer o trabalho dos astronautas!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Astronautas viajam ao espaço. Eles treinam muito antes de ir!",
+     "fig": {
+      "t": "crew"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Na Estação Espacial, eles moram meses, fazem experimentos e cuidam da nave.",
+     "fig": {
+      "t": "crew",
+      "suit": "suit_blue"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O traje espacial protege do frio, do calor e dá ar para respirar.",
+     "fig": {
+      "t": "vini"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O primeiro astronauta brasileiro foi Marcos Pontes, em 2006!",
+     "fig": {
+      "t": "crew",
+      "suit": "suit_green"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O que protege o astronauta no espaço?",
+     "opts": [
+      {
+       "t": "vini"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pipa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "O traje espacial!"
+    },
+    {
+     "k": "pick",
+     "say": "Onde os astronautas moram no espaço?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "nave"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "na estação espacial",
+      "numa casa na Terra",
+      "na Lua"
+     ],
+     "after": "Na Estação Espacial!"
+    }
+   ],
+   "n": 2,
+   "icon": "rocket",
+   "group": "astronomy"
+  },
+  {
+   "id": "foguetes",
+   "name": "Foguetes e satélites",
+   "skill": "science.space",
+   "theme": "space",
+   "intro": "Como o foguete chega ao espaço?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "O foguete queima combustível e empurra o fogo para baixo. Por isso ele sobe!",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "foguete"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Satélites são máquinas que giram em volta da Terra. Eles ajudam com o GPS, a TV e a previsão do tempo.",
+     "fig": {
+      "t": "satellite"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A Lua é o satélite natural da Terra!",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "earth",
+       "r": 0.3
+      },
+      "b": {
+       "t": "planet",
+       "id": "moon",
+       "r": 0.15
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no satélite!",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "satellite"
+      },
+      {
+       "t": "comet"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o satélite natural da Terra?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "A Lua!"
+    },
+    {
+     "k": "pick",
+     "say": "O foguete empurra o fogo para baixo. Ele vai para...",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "drop",
+       "c": "#3B82F6"
+      },
+      {
+       "t": "icon",
+       "id": "rocket",
+       "c": "#FACC15"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "baixo",
+      "cima"
+     ]
+    }
+   ],
+   "n": 3,
+   "icon": "rocket",
+   "group": "astronomy"
+  },
+  {
+   "id": "missoes_reais",
+   "name": "Missões de verdade",
+   "skill": "science.space",
+   "theme": "space",
+   "intro": "Vamos conhecer missões espaciais de verdade!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Em 1957, o primeiro satélite foi lançado. Ele se chamava Sputnik.",
+     "fig": {
+      "t": "satellite"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Em 1961, Iúri Gagárin foi a primeira pessoa a ir para o espaço.",
+     "fig": {
+      "t": "crew",
+      "suit": "suit_orange"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Em 1969, a Apollo 11 levou os primeiros astronautas a pisar na Lua!",
+     "fig": {
+      "t": "planet",
+      "id": "moon",
+      "r": 0.4
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Hoje, robôs como o Perseverance exploram Marte e pegam amostras de rocha.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "planet",
+       "id": "mars",
+       "r": 0.3
+      },
+      "b": {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O telescópio James Webb tira fotos de galáxias muito distantes.",
+     "fig": {
+      "t": "galaxy"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "A Apollo 11 levou astronautas para onde?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Para a Lua!"
+    },
+    {
+     "k": "pick",
+     "say": "Quem explora Marte hoje?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "robo"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "Robôs exploradores!"
+    },
+    {
+     "k": "pick",
+     "say": "O que o telescópio James Webb fotografa?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "galaxy"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "rocket",
+   "group": "astronomy"
+  },
+  {
+   "id": "plantas",
+   "name": "Como a planta cresce",
+   "skill": "science.nature",
+   "theme": "ship",
+   "intro": "Na horta da nave a gente aprende como as plantas crescem!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Tudo começa com uma semente.",
+     "fig": {
+      "t": "plant",
+      "stage": 0
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Com água, terra e luz, a semente vira um brotinho.",
+     "fig": {
+      "t": "plant",
+      "stage": 1
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O brotinho cresce, ganha folhas e depois flores e frutos!",
+     "fig": {
+      "t": "plant",
+      "stage": 4
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Na Estação Espacial, os astronautas já plantaram alface e flores!",
+     "fig": {
+      "t": "plant",
+      "stage": 3
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "order",
+     "say": "Ponha na ordem: semente, brotinho, planta, planta com flor!",
+     "items": [
+      {
+       "t": "plant",
+       "stage": 0
+      },
+      {
+       "t": "plant",
+       "stage": 1
+      },
+      {
+       "t": "plant",
+       "stage": 2
+      },
+      {
+       "t": "plant",
+       "stage": 3
+      }
+     ],
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Do que a planta precisa para crescer?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "Água, luz e terra!"
+    },
+    {
+     "k": "pick",
+     "say": "O que a planta usa para fazer seu alimento?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "after": "A luz do Sol!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual planta tem frutos?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 4
+      },
+      {
+       "t": "plant",
+       "stage": 1
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "flask",
+   "group": "science"
+  },
+  {
+   "id": "animais",
+   "name": "Animais",
+   "skill": "science.nature",
+   "theme": "ship",
+   "intro": "Vamos conhecer os animais!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "O peixe vive na água e respira pelas brânquias.",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "peixe"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A vaca come capim e dá leite.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      "b": {
+       "t": "art",
+       "set": "foods",
+       "id": "milk"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O sapo começa a vida na água, como girino, e depois vive na terra também.",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "sapo"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Quem vive na água?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Quem dá leite?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Quem tem penas?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "after": "O pato! As aves têm penas."
+    },
+    {
+     "k": "pick",
+     "say": "Quem bota ovos?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "sort",
+     "say": "Animais com pelos para a esquerda, sem pelos para a direita!",
+     "bins": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       1
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       1
+      ]
+     ],
+     "lvl": 3
+    }
+   ],
+   "n": 4,
+   "icon": "heart",
+   "group": "science"
+  },
+  {
+   "id": "corpo",
+   "name": "O corpo humano",
+   "skill": "science.body",
+   "theme": "ship",
+   "intro": "Vamos conhecer o nosso corpo!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Com os olhos a gente vê.",
+     "fig": {
+      "t": "vini_part",
+      "part": "eyes"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Com as mãos a gente pega e abraça.",
+     "fig": {
+      "t": "vini_part",
+      "part": "hand"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Com os pés a gente anda, corre e pula.",
+     "fig": {
+      "t": "vini_part",
+      "part": "foot"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O coração bate o tempo todo e leva o sangue pelo corpo.",
+     "fig": {
+      "t": "shape",
+      "s": "heart",
+      "c": "#EF4444",
+      "k": 1.0
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Onde está a cabeça do Vini?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "hand"
+      },
+      {
+       "t": "vini_part",
+       "part": "head"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Com o que a gente vê?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "eyes"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Com o que a gente anda?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "hand"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      },
+      {
+       "t": "vini_part",
+       "part": "eyes"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O que é bom para o corpo crescer forte?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "apple"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "não comer nada",
+      "comer frutas"
+     ]
+    }
+   ],
+   "n": 3,
+   "icon": "smile",
+   "group": "science"
+  },
+  {
+   "id": "agua",
+   "name": "A água",
+   "skill": "science.nature",
+   "theme": "ship",
+   "intro": "A água muda de jeito!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Quando esfria muito, a água vira gelo.",
+     "fig": {
+      "t": "water",
+      "state": "ice"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quando esquenta, o gelo derrete e vira água.",
+     "fig": {
+      "t": "water",
+      "state": "liquid"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quando ferve, a água vira vapor e sobe.",
+     "fig": {
+      "t": "water",
+      "state": "steam"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A chuva vem das nuvens, que são feitas de gotinhas de água!",
+     "fig": {
+      "t": "weather",
+      "w": "rain"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no gelo!",
+     "opts": [
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "water",
+       "state": "steam"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "De onde vem a chuva?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "weather",
+       "w": "rain"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "Das nuvens!"
+    },
+    {
+     "k": "order",
+     "say": "Gelo esquentando: gelo, água, vapor!",
+     "items": [
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "steam"
+      }
+     ],
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "drop",
+   "group": "science"
+  },
+  {
+   "id": "clima",
+   "name": "O tempo e o clima",
+   "skill": "science.nature",
+   "theme": "ship",
+   "intro": "Como está o tempo lá fora?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Dia de sol: céu claro e quentinho.",
+     "fig": {
+      "t": "weather",
+      "w": "sun"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Dia de chuva: as nuvens soltam água.",
+     "fig": {
+      "t": "weather",
+      "w": "rain"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Tempestade: chuva forte com raios e trovões.",
+     "fig": {
+      "t": "weather",
+      "w": "storm"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Em lugares muito frios cai neve.",
+     "fig": {
+      "t": "weather",
+      "w": "snow"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no dia de chuva!",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "weather",
+       "w": "snow"
+      },
+      {
+       "t": "weather",
+       "w": "rain"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Em que tempo a gente precisa de guarda-chuva?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "rain"
+      },
+      {
+       "t": "weather",
+       "w": "sun"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Onde tem raios e trovões?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "weather",
+       "w": "storm"
+      },
+      {
+       "t": "weather",
+       "w": "snow"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "cloud",
+   "group": "science"
+  },
+  {
+   "id": "cores",
+   "name": "Cores",
+   "skill": "science.physics",
+   "theme": "ship",
+   "intro": "Vamos brincar com as cores!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Azul e amarelo misturados viram verde!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "color",
+        "c": "#2563FF"
+       },
+       {
+        "t": "color",
+        "c": "#FACC15"
+       },
+       {
+        "t": "color",
+        "c": "#22C55E"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Vermelho e amarelo misturados viram laranja!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "color",
+        "c": "#EF4444"
+       },
+       {
+        "t": "color",
+        "c": "#FACC15"
+       },
+       {
+        "t": "color",
+        "c": "#FB923C"
+       }
+      ]
+     }
+    },
+    {
+     "k": "teach",
+     "say": "O arco-íris aparece quando a luz do Sol passa pelas gotas de chuva.",
+     "fig": {
+      "t": "rainbow"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Toque no vermelho!",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#EF4444"
+      },
+      {
+       "t": "color",
+       "c": "#2563FF"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque no azul!",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#FACC15"
+      },
+      {
+       "t": "color",
+       "c": "#2563FF"
+      },
+      {
+       "t": "color",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque no amarelo!",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#FACC15"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      },
+      {
+       "t": "color",
+       "c": "#A855F7"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Toque no verde!",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#2563FF"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      },
+      {
+       "t": "color",
+       "c": "#FACC15"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Azul com amarelo vira...",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#A855F7"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Vermelho com amarelo vira...",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#22C55E"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      },
+      {
+       "t": "color",
+       "c": "#2563FF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    }
+   ],
+   "n": 4,
+   "icon": "palette",
+   "group": "science"
+  },
+  {
+   "id": "materiais",
+   "name": "Materiais: flutua ou afunda?",
+   "skill": "science.physics",
+   "theme": "ship",
+   "intro": "Vamos testar o que flutua e o que afunda na água!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A pedra é pesada para o tamanho dela: ela afunda!",
+     "fig": {
+      "t": "float",
+      "obj": {
+       "t": "painted",
+       "id": "rock_small"
+      },
+      "sinks": true
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A bola tem ar dentro: ela flutua!",
+     "fig": {
+      "t": "float",
+      "obj": {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "sort",
+     "say": "Arraste: o que flutua para a esquerda, o que afunda para a direita!",
+     "bins": [
+      {
+       "t": "float",
+       "obj": {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      },
+      {
+       "t": "float",
+       "obj": {
+        "t": "painted",
+        "id": "rock_small"
+       },
+       "sinks": true
+      }
+     ],
+     "items": [
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       },
+       0
+      ],
+      [
+       {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       0
+      ],
+      [
+       {
+        "t": "painted",
+        "id": "rock_small"
+       },
+       1
+      ],
+      [
+       {
+        "t": "painted",
+        "id": "rock_mid"
+       },
+       1
+      ]
+     ],
+     "lvl": 1,
+     "after": "A bola e o pato flutuam. As pedras afundam!"
+    },
+    {
+     "k": "pick",
+     "say": "O que afunda na água?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "painted",
+       "id": "rock_small"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    }
+   ],
+   "n": 2,
+   "icon": "drop",
+   "group": "science"
+  },
+  {
+   "id": "luz_sombra",
+   "name": "Luz e sombra",
+   "skill": "science.physics",
+   "theme": "ship",
+   "intro": "Para onde vai a sombra?",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "A sombra aparece quando alguma coisa tapa a luz.",
+     "fig": {
+      "t": "shadow",
+      "light": "left"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "A sombra fica sempre do lado contrário da luz!",
+     "fig": {
+      "t": "shadow",
+      "light": "right"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "A luz está do lado esquerdo. Onde fica a sombra?",
+     "opts": [
+      {
+       "t": "shadow",
+       "light": "right"
+      },
+      {
+       "t": "shadow",
+       "light": "left"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A luz está do lado direito. Qual desenho está certo?",
+     "opts": [
+      {
+       "t": "shadow",
+       "light": "left"
+      },
+      {
+       "t": "shadow",
+       "light": "right"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    }
+   ],
+   "n": 2,
+   "icon": "light",
+   "group": "science"
+  },
+  {
+   "id": "movimento",
+   "name": "Movimento",
+   "skill": "science.physics",
+   "theme": "space",
+   "intro": "Vamos falar de rápido e devagar, empurrar e puxar!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "O foguete é muito rápido!",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "foguete"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Para a bola andar, a gente empurra ou chuta. Sem força, ela fica parada.",
+     "fig": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Quem é mais rápido?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "O foguete!"
+    },
+    {
+     "k": "pick",
+     "say": "Quem é mais devagar?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "nave"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O que faz a bola andar?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "hands",
+       "c": "#FACC15"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "um empurrão",
+      "nada"
+     ]
+    }
+   ],
+   "n": 3,
+   "icon": "rocket",
+   "group": "science"
+  },
+  {
+   "id": "emocoes",
+   "name": "Como ele se sente?",
+   "skill": "emotion.recognition",
+   "theme": "ship",
+   "intro": "Vamos descobrir o que cada um está sentindo!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Feliz: sorriso no rosto!",
+     "fig": {
+      "t": "face",
+      "mood": "big_smile"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Triste: a boquinha para baixo.",
+     "fig": {
+      "t": "face",
+      "mood": "sad"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Surpreso: olhos bem abertos e a boca em O!",
+     "fig": {
+      "t": "face",
+      "mood": "surprised"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Bravo: a testa franzida.",
+     "fig": {
+      "t": "npc",
+      "kind": "robot",
+      "mood": "angry"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Com medo: a gente quer se esconder.",
+     "fig": {
+      "t": "npc",
+      "kind": "robot",
+      "mood": "scared"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Quem está feliz?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "surprised"
+      },
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Quem está triste?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "proud"
+      },
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Quem está surpreso?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "surprised"
+      },
+      {
+       "t": "face",
+       "mood": "happy"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual robô está bravo?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "angry"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual robô está com medo?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "scared"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "angry"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O amigo ganhou um presente. Como ele fica?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O sorvete caiu no chão. Como a criança fica?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Escuro e um barulho estranho. Como o robô fica?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "scared"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    }
+   ],
+   "n": 5,
+   "icon": "heart",
+   "group": "emotion"
+  },
+  {
+   "id": "sentimentos_dificeis",
+   "name": "Sentimentos difíceis",
+   "skill": "emotion.regulation",
+   "theme": "ship",
+   "intro": "Às vezes a gente sente coisas difíceis. Todo mundo sente! Vamos aprender o que ajuda.",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Frustrado é quando a gente tenta e não consegue. Respirar fundo e tentar de novo ajuda!",
+     "fig": {
+      "t": "face",
+      "mood": "thinking"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Ansioso é quando a gente fica preocupado esperando alguma coisa. Um abraço e conversar ajudam.",
+     "fig": {
+      "t": "face",
+      "mood": "curious"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Envergonhado é quando a gente fica sem graça. Tudo bem! Isso passa.",
+     "fig": {
+      "t": "face",
+      "mood": "calm"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Errar faz parte de aprender. Os astronautas também erram e treinam de novo!",
+     "fig": {
+      "t": "crew"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "A torre de blocos caiu. O que ajuda?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "jogar tudo longe",
+      "respirar fundo e tentar de novo"
+     ],
+     "after": "Respirar fundo e tentar de novo!"
+    },
+    {
+     "k": "pick",
+     "say": "Você errou o jogo. O que você pode fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "refresh",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "desistir chorando",
+      "tentar de novo"
+     ],
+     "after": "Tentar de novo!"
+    },
+    {
+     "k": "pick",
+     "say": "Você está com medo do escuro. O que ajuda?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "parent",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "chamar um adulto",
+      "ficar sozinho com medo"
+     ],
+     "after": "Chamar um adulto e acender a luz!"
+    },
+    {
+     "k": "pick",
+     "say": "Você está bravo. O que é melhor fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "hands",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "respirar e contar até cinco",
+      "bater no amigo"
+     ],
+     "after": "Respirar e contar até cinco!"
+    },
+    {
+     "k": "pick",
+     "say": "Você precisa de ajuda para abrir a caixa. O que fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "voice",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "ficar quieto e bravo",
+      "pedir ajuda"
+     ],
+     "after": "Pedir ajuda! Pedir ajuda é coisa de quem é esperto."
+    },
+    {
+     "k": "pick",
+     "say": "Está todo mundo brincando com o brinquedo. O que fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "clock",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "read": [
+      "esperar a vez",
+      "pegar da mão do amigo"
+     ],
+     "after": "Esperar a vez!"
+    },
+    {
+     "k": "pick",
+     "say": "Como contar o que você está sentindo?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "voice",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "read": [
+      "guardar tudo",
+      "falar: estou triste"
+     ],
+     "after": "Falar o que sente ajuda muito!"
+    },
+    {
+     "k": "pick",
+     "say": "Amanhã é o primeiro dia na escola nova e você está ansioso. O que ajuda?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "ficar quieto preocupado",
+      "conversar com a mamãe ou o papai"
+     ],
+     "after": "Conversar com quem a gente ama ajuda!"
+    },
+    {
+     "k": "pick",
+     "say": "Você tropeçou e todo mundo viu. Você ficou envergonhado. O que fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "smile",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "read": [
+      "nunca mais sair de casa",
+      "levantar e sorrir, todo mundo tropeça"
+     ],
+     "after": "Todo mundo tropeça! Levanta e segue."
+    }
+   ],
+   "n": 4,
+   "icon": "heart",
+   "group": "emotion"
+  },
+  {
+   "id": "convivencia",
+   "name": "Respeito e convivência",
+   "skill": "social.respect",
+   "theme": "ship",
+   "intro": "Vamos aprender a conviver bem com todo mundo!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Compartilhar é deixar o amigo brincar junto.",
+     "fig": {
+      "t": "pair",
+      "a": {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      "b": {
+       "t": "vini"
+      }
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quando a gente machuca alguém sem querer, pede desculpas.",
+     "fig": {
+      "t": "face",
+      "mood": "sad"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Quando alguém ajuda a gente, a gente agradece: obrigado!",
+     "fig": {
+      "t": "face",
+      "mood": "big_smile"
+     }
+    },
+    {
+     "k": "teach",
+     "say": "Cada pessoa é de um jeito. Ser diferente é bom!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "crew",
+        "suit": "suit_orange"
+       },
+       {
+        "t": "crew",
+        "suit": "suit_green"
+       },
+       {
+        "t": "crew",
+        "suit": "suit_galaxy"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "O amigo não tem brinquedo. O que você faz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "hands",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "read": [
+      "compartilhar",
+      "esconder o brinquedo"
+     ],
+     "after": "Compartilhar!"
+    },
+    {
+     "k": "pick",
+     "say": "Você esbarrou no amigo e ele caiu. O que você diz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "read": [
+      "desculpa",
+      "nada"
+     ],
+     "after": "Desculpa! E ajuda ele a levantar."
+    },
+    {
+     "k": "pick",
+     "say": "A astronauta te deu um lanche. O que você diz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "read": [
+      "obrigado",
+      "nada"
+     ],
+     "after": "Obrigado!"
+    },
+    {
+     "k": "pick",
+     "say": "Um amigo está falando. O que você faz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "voice",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "gritar junto",
+      "ouvir com atenção"
+     ],
+     "after": "Ouvir com atenção!"
+    },
+    {
+     "k": "pick",
+     "say": "O colega errou a resposta. O que fazer?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "ajudar com carinho",
+      "dar risada dele"
+     ],
+     "after": "Ajudar! A gente não zomba de ninguém."
+    },
+    {
+     "k": "pick",
+     "say": "Dois amigos querem o mesmo brinquedo. Como resolver?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "clock",
+       "c": "#4ADE80"
+      },
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "um de cada vez",
+      "puxar até rasgar"
+     ],
+     "after": "Um de cada vez!"
+    },
+    {
+     "k": "pick",
+     "say": "A menina fala outra língua. O que você faz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "smile",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "read": [
+      "deixar ela sozinha",
+      "brincar junto"
+     ],
+     "after": "Brincar junto! Ser diferente é bom."
+    },
+    {
+     "k": "pick",
+     "say": "Para montar o foguete grande, o que é melhor?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "hands",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "read": [
+      "cada um sozinho brigando",
+      "trabalhar em equipe"
+     ],
+     "after": "Trabalhar em equipe!"
+    },
+    {
+     "k": "pick",
+     "say": "O amigo está triste. O que você faz?",
+     "opts": [
+      {
+       "t": "icon",
+       "id": "close",
+       "c": "#EF4444"
+      },
+      {
+       "t": "icon",
+       "id": "heart",
+       "c": "#4ADE80"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "read": [
+      "rir dele",
+      "perguntar o que aconteceu"
+     ],
+     "after": "Perguntar e dar carinho. Isso é empatia!"
+    }
+   ],
+   "n": 4,
+   "icon": "hands",
+   "group": "emotion"
+  },
+  {
+   "id": "quiz_story_robot_lost_001",
+   "name": "O Robozinho Perdido: perguntas",
+   "skill": "reading.comprehension",
+   "theme": "mars",
+   "intro": "Vamos ver o que você lembra da história!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Quem o robozinho tinha perdido?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "npc",
+       "kind": "bip",
+       "mood": "happy"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "O Bip, o cachorrinho-robô!"
+    },
+    {
+     "k": "pick",
+     "say": "Como o robozinho estava no começo da história?",
+     "opts": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      },
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "happy"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "after": "Triste!"
+    },
+    {
+     "k": "pick",
+     "say": "Onde estava o Bip?",
+     "opts": [
+      {
+       "t": "painted",
+       "id": "rock_mid"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "lua"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "read": [
+      "preso atrás de uma pedra",
+      "na Lua",
+      "dentro de casa"
+     ],
+     "after": "Preso atrás de uma pedra!"
+    },
+    {
+     "k": "order",
+     "say": "Conte a história na ordem: o robô triste, a procura, o amigo encontrado!",
+     "items": [
+      {
+       "t": "npc",
+       "kind": "robot",
+       "mood": "sad"
+      },
+      {
+       "t": "painted",
+       "id": "rock_mid"
+      },
+      {
+       "t": "npc",
+       "kind": "bip",
+       "mood": "happy"
+      }
+     ],
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "book",
+   "group": "reading"
+  },
+  {
+   "id": "quiz_story_star_light_001",
+   "name": "A Saudade da Astronauta: perguntas",
+   "skill": "reading.comprehension",
+   "theme": "ship",
+   "intro": "Vamos ver o que você lembra da história!",
+   "teach": [],
+   "ask": [
+    {
+     "k": "pick",
+     "say": "Do que a astronauta Ana sentia saudade?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "icon",
+       "id": "parent",
+       "c": "#F472B6"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "read": [
+      "de uma bola",
+      "da família",
+      "de bolo"
+     ],
+     "after": "Da família!"
+    },
+    {
+     "k": "pick",
+     "say": "O que dava para ver pela janela da estação?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1,
+     "after": "A Terra!"
+    },
+    {
+     "k": "pick",
+     "say": "Como a Ana ficou no final?",
+     "opts": [
+      {
+       "t": "face",
+       "mood": "sad"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1,
+     "after": "Feliz!"
+    },
+    {
+     "k": "order",
+     "say": "Conte a história na ordem: Ana com saudade, a conversa, Ana feliz!",
+     "items": [
+      {
+       "t": "crew",
+       "suit": "suit_orange"
+      },
+      {
+       "t": "icon",
+       "id": "voice",
+       "c": "#60A5FA"
+      },
+      {
+       "t": "face",
+       "mood": "big_smile"
+      }
+     ],
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "book",
+   "group": "reading"
+  }
+ ],
+ "skills": [
+  {
+   "id": "reading.letters",
+   "name": "Letras",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Letras"
+  },
+  {
+   "id": "reading.letter_sounds",
+   "name": "Som das letras",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Som das letras"
+  },
+  {
+   "id": "reading.words",
+   "name": "Ler palavras",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Ler palavras"
+  },
+  {
+   "id": "reading.sentences",
+   "name": "Ler frases",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Ler frases"
+  },
+  {
+   "id": "reading.comprehension",
+   "name": "Entender histórias",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Entender histórias"
+  },
+  {
+   "id": "reading.phonological",
+   "name": "Rimas e sons",
+   "area": "reading",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Rimas e sons"
+  },
+  {
+   "id": "math.order",
+   "name": "Ordem dos números",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Ordem dos números"
+  },
+  {
+   "id": "math.equal",
+   "name": "Igual e diferente",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Igual e diferente"
+  },
+  {
+   "id": "math.subtraction",
+   "name": "Tirar",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Tirar"
+  },
+  {
+   "id": "math.double_half",
+   "name": "Dobro e metade",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Dobro e metade"
+  },
+  {
+   "id": "math.multiply",
+   "name": "Grupos iguais",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Grupos iguais"
+  },
+  {
+   "id": "math.problems",
+   "name": "Probleminhas",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Probleminhas"
+  },
+  {
+   "id": "math.measure",
+   "name": "Tamanho, peso e distância",
+   "area": "math",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Tamanho, peso e distância"
+  },
+  {
+   "id": "logic.classify",
+   "name": "Classificar",
+   "area": "logic",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Classificar"
+  },
+  {
+   "id": "logic.differences",
+   "name": "Diferenças",
+   "area": "logic",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Diferenças"
+  },
+  {
+   "id": "logic.cause",
+   "name": "Causa e consequência",
+   "area": "logic",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Causa e consequência"
+  },
+  {
+   "id": "science.space",
+   "name": "Espaço e missões",
+   "area": "science",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Espaço e missões"
+  },
+  {
+   "id": "science.nature",
+   "name": "Natureza",
+   "area": "science",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Natureza"
+  },
+  {
+   "id": "science.body",
+   "name": "Corpo humano",
+   "area": "science",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Corpo humano"
+  },
+  {
+   "id": "science.physics",
+   "name": "Luz, cores e materiais",
+   "area": "science",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Luz, cores e materiais"
+  },
+  {
+   "id": "emotion.regulation",
+   "name": "Lidar com sentimentos",
+   "area": "emotion",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Lidar com sentimentos"
+  },
+  {
+   "id": "social.respect",
+   "name": "Convivência",
+   "area": "emotion",
+   "max_level": 3,
+   "generated": true,
+   "description": "Lições: Convivência"
+  }
+ ]
+}

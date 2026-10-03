@@ -188,6 +188,26 @@ func _run() -> void:
 		for t in ["speech", "english"]:
 			Router.reset_to("parent", {"tab": t})
 			await shot("parent_%s" % t, 1.0)
+	if _want("academy"):
+		Router.reset_to("academy", {})
+		await shot("academy_1", 2.0)
+	if _want("lesson"):
+		for id in ["vogais", "ler_frases", "fases_da_lua", "classificar", "ordem_numeros", "dia_e_noite", "emocoes",
+				"convivencia", "plantas", "medidas", "estrelas", "agua"]:
+			Router.reset_to("seg_lesson", {"lesson": id})
+			await shot("lesson_%s_1" % id, 5.0)
+			var s: Node = Router.current_screen
+			for k in 40:
+				if s.rd.get("k", "") != "teach":
+					break
+				s._advance()
+				await get_tree().process_frame
+			await shot("lesson_%s_2" % id, 3.0)
+	if _want("extra"):
+		for sc in [["books", {}], ["diary", {}], ["studio", {}], ["maker", {"mode": "planet"}], ["maker", {"mode": "scene"}],
+				["story_maker", {}], ["rest", {}], ["parent", {"tab": "summary"}], ["parent", {"tab": "settings"}], ["wardrobe", {}]]:
+			Router.reset_to(str(sc[0]), sc[1])
+			await shot("extra_%s_%s" % [sc[0], str(sc[1].get("mode", sc[1].get("tab", "")))], 3.0)
 	if _want("gallery"):
 		var pd2: Dictionary = SaveService.progress.data(SaveService.profile_id)
 		pd2["missions_done"] = {"m01": 3, "m02": 3, "m03": 3, "m04": 2}

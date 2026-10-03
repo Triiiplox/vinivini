@@ -87,7 +87,6 @@ func _ready() -> void:
 		s.texture = load("res://assets/characters/%s/%s" % [char_id, p["tex"]])
 		s.position = Vector2(p["offset"][0], p["offset"][1])
 		s.z_index = int(p["z"])
-		s.z_as_relative = false
 		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		bones[str(p["bone"])].add_child(s)
 		sprites[s.name] = s

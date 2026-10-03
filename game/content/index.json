@@ -26,5 +26,6 @@
   "words": "banks/words.json"
  },
  "english": "english/units.json",
- "speech": "speech/words.json"
+ "speech": "speech/words.json",
+ "lessons": "lessons/lessons.json"
 }

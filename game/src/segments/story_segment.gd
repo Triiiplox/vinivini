@@ -206,7 +206,17 @@ func _end() -> void:
 	if tags.has("empathy") or tags.has("cooperation"):
 		record("emotion.recognition", "story_" + str(story.get("id", "")), true, 1, minf(rt, 20.0))
 	cosmo_say(Lines.c("Que história bonita! Você fez ótimas escolhas."))
-	after(2.6, func(): finish({"stars": int(story.get("reward_stars", 3)), "skills": ["emotion.recognition"], "tags": tags}))
+	after(2.6, _done.bind(tags))
+
+
+## Fim da história: na biblioteca, vem a pergunta de interpretação e o recontar (lição quiz_<id>).
+func _done(tags: Array) -> void:
+	var quiz := "quiz_" + str(story.get("id", ""))
+	if bool(params.get("quiz", false)) and ContentService.repo.lessons.has(quiz):
+		finished = true
+		Router.replace("seg_lesson", {"lesson": quiz, "back": str(params.get("back", "books"))})
+		return
+	finish({"stars": int(story.get("reward_stars", 3)), "skills": ["emotion.recognition"], "tags": tags})
 
 
 func _hint() -> void:

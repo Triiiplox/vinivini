@@ -34,6 +34,7 @@ func _ready() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), MUSIC_DB)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Ambience"), -14.0)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("UI"), -6.0)
+	apply_volumes.call_deferred()
 	_music_a = _player("Music")
 	_music_b = _player("Music")
 	_ambience = _player("Ambience")
@@ -138,9 +139,21 @@ func _duck(on: bool) -> void:
 	_duck_tween = create_tween().set_parallel()
 	var mi := AudioServer.get_bus_index("Music")
 	var ai := AudioServer.get_bus_index("Ambience")
-	_duck_tween.tween_method(func(v): AudioServer.set_bus_volume_db(mi, v), AudioServer.get_bus_volume_db(mi), DUCK_DB if on else MUSIC_DB,
-		0.35)
+	var vol := linear_to_db(maxf(float(SaveService.settings.get_value("vol_music")), 0.001))
+	_duck_tween.tween_method(func(v): AudioServer.set_bus_volume_db(mi, v), AudioServer.get_bus_volume_db(mi),
+		(DUCK_DB if on else MUSIC_DB) + vol, 0.35)
 	_duck_tween.tween_method(func(v): AudioServer.set_bus_volume_db(ai, v), AudioServer.get_bus_volume_db(ai), -22.0 if on else -14.0, 0.35)
+
+
+## Volumes da área dos pais (0–1): Música; Efeitos (SFX + UI); Voz (narrador + personagens).
+func apply_volumes() -> void:
+	var m := float(SaveService.settings.get_value("vol_music"))
+	var f := float(SaveService.settings.get_value("vol_sfx"))
+	var v := float(SaveService.settings.get_value("vol_voice"))
+	for pair in [["Music", m, MUSIC_DB], ["SFX", f, 0.0], ["UI", f, -6.0], ["Narrator", v, 0.0], ["Character", v, 0.0]]:
+		var idx := AudioServer.get_bus_index(str(pair[0]))
+		if idx >= 0:
+			AudioServer.set_bus_volume_db(idx, float(pair[2]) + linear_to_db(maxf(float(pair[1]), 0.001)))
 
 
 func set_music_enabled(on: bool) -> void:

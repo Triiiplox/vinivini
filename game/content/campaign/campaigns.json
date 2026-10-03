@@ -39,6 +39,26 @@
     "m11",
     "m12"
    ]
+  },
+  {
+   "id": "terra",
+   "name": "Planeta Terra",
+   "planet": "earth",
+   "missions": [
+    "m13",
+    "m14",
+    "m15"
+   ]
+  },
+  {
+   "id": "escola",
+   "name": "Escola de Astronautas",
+   "planet": "jupiter",
+   "missions": [
+    "m16",
+    "m17",
+    "m18"
+   ]
   }
  ],
  "missions": [
@@ -229,6 +249,11 @@
     {
      "type": "word",
      "rounds": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "som_das_letras",
+     "n": 3
     }
    ]
   },
@@ -335,6 +360,11 @@
     {
      "type": "story",
      "story": "story_robot_lost_001"
+    },
+    {
+     "type": "lesson",
+     "lesson": "recontar",
+     "n": 2
     }
    ]
   },
@@ -392,6 +422,11 @@
     {
      "type": "planetarium",
      "quests": 3
+    },
+    {
+     "type": "lesson",
+     "lesson": "planetas",
+     "n": 3
     }
    ]
   },
@@ -469,6 +504,169 @@
     {
      "type": "story",
      "story": "story_star_light_001"
+    },
+    {
+     "type": "lesson",
+     "lesson": "sentimentos_dificeis",
+     "n": 3
+    }
+   ]
+  },
+  {
+   "id": "m13",
+   "campaign": "terra",
+   "name": "A Horta da Nave",
+   "area": "science",
+   "requires": "m04",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "ship",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 360
+      },
+      {
+       "id": "crew",
+       "x": 880,
+       "suit": "suit_green"
+      }
+     ],
+     "lines": [
+      {
+       "who": "npc",
+       "say": "Na estação espacial a gente planta alface de verdade! Vamos cuidar da horta?",
+       "actor": "crew"
+      }
+     ],
+     "music": "story"
+    },
+    {
+     "type": "lesson",
+     "lesson": "plantas",
+     "n": 3
+    },
+    {
+     "type": "lesson",
+     "lesson": "agua",
+     "n": 2
+    }
+   ]
+  },
+  {
+   "id": "m14",
+   "campaign": "terra",
+   "name": "Dia e Noite",
+   "area": "science",
+   "requires": "m13",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "lesson",
+     "lesson": "dia_e_noite",
+     "n": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "fases_da_lua",
+     "n": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "terra",
+     "n": 2
+    }
+   ]
+  },
+  {
+   "id": "m15",
+   "campaign": "terra",
+   "name": "Os Bichos e o Tempo",
+   "area": "science",
+   "requires": "m14",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "lesson",
+     "lesson": "animais",
+     "n": 3
+    },
+    {
+     "type": "lesson",
+     "lesson": "clima",
+     "n": 2
+    }
+   ]
+  },
+  {
+   "id": "m16",
+   "campaign": "escola",
+   "name": "Treino de Astronauta",
+   "area": "science",
+   "requires": "m10",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "lesson",
+     "lesson": "astronautas",
+     "n": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "gravidade",
+     "n": 2
+    },
+    {
+     "type": "flight",
+     "play": "collect",
+     "goal": 6,
+     "theme": "space"
+    }
+   ]
+  },
+  {
+   "id": "m17",
+   "campaign": "escola",
+   "name": "Foguetes e Satélites",
+   "area": "science",
+   "requires": "m16",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "lesson",
+     "lesson": "foguetes",
+     "n": 3
+    },
+    {
+     "type": "build",
+     "blueprint": "rocket"
+    }
+   ]
+  },
+  {
+   "id": "m18",
+   "campaign": "escola",
+   "name": "Missões de Verdade",
+   "area": "science",
+   "requires": "m17",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "lesson",
+     "lesson": "missoes_reais",
+     "n": 3
+    },
+    {
+     "type": "lesson",
+     "lesson": "asteroides_cometas",
+     "n": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "galaxias",
+     "n": 2
     }
    ]
   }

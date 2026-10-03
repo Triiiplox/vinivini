@@ -66,7 +66,7 @@ static func _helmet(rig: CharacterRig2D, id: String, suit: String) -> void:
 		sp.scale = Vector2(k, k)
 		sp.position = pos
 		sp.z_index = 13
-		sp.z_as_relative = false
+		sp.z_as_relative = true
 		sp.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		if part == "helmet_collar":
 			if id == "helmet_gold":
@@ -87,7 +87,7 @@ static func _helmet(rig: CharacterRig2D, id: String, suit: String) -> void:
 			ant.width = 7.0
 			ant.default_color = Color("#CBD5E1")
 			ant.z_index = 14
-			ant.z_as_relative = false
+			ant.z_as_relative = true
 			head.add_child(_tag(ant))
 			var ball := _disc(Vector2(80, top - 56), 16.0, Color("#F472B6"))
 			head.add_child(_tag(ball))
@@ -112,7 +112,7 @@ static func _helmet(rig: CharacterRig2D, id: String, suit: String) -> void:
 static func _shaded(pts: Array, top_col: Color, bottom_col: Color) -> Node2D:
 	var root := Node2D.new()
 	root.z_index = 14
-	root.z_as_relative = false
+	root.z_as_relative = true
 	var poly := Polygon2D.new()
 	var arr := PackedVector2Array(pts)
 	poly.polygon = arr
@@ -141,7 +141,7 @@ static func _disc(c: Vector2, r: float, col: Color) -> Polygon2D:
 	p.polygon = pts
 	p.color = col
 	p.z_index = 14
-	p.z_as_relative = false
+	p.z_as_relative = true
 	return p
 
 
@@ -158,7 +158,7 @@ static func _accessory(rig: CharacterRig2D, id: String) -> void:
 				bp.position = Vector2(sx * 178, -110)
 				bp.flip_h = sx > 0
 				bp.z_index = 3
-				bp.z_as_relative = false
+				bp.z_as_relative = true
 				torso.add_child(_tag(bp))
 		"acc_cape":
 			var cape := _shaded([Vector2(-150, -210), Vector2(150, -210), Vector2(215, 40), Vector2(0, 75), Vector2(-215, 40)],
@@ -175,13 +175,13 @@ static func _accessory(rig: CharacterRig2D, id: String) -> void:
 			hb.color = Color("#F43F5E")
 			hb.position = Vector2(-62, -150)
 			hb.z_index = 8
-			hb.z_as_relative = false
+			hb.z_as_relative = true
 			torso.add_child(_tag(hb))
 		"acc_medal", "acc_telescope":
 			var md := ArtSprite.new("ui", "medal", 70.0)
 			md.position = Vector2(-62, -145)
 			md.z_index = 8
-			md.z_as_relative = false
+			md.z_as_relative = true
 			torso.add_child(_tag(md))
 		"acc_robot_pet":
 			var rb := NpcActor.new("robot", "happy", 120.0)

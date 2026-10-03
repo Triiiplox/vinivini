@@ -33,3 +33,14 @@
 | `scenes/ship_interior.png` | Aprovado para tela fixa da nave (está em perspectiva) |
 | `scenes/props_v2.png` | Aprovado: pedras sem musgo, cristais, planta e bandeira; recortados em `game/assets/scenes/props/` |
 | `cast/cast_alien_astro_food.png` | Referência. É cartoon com contorno, fora do estilo 3D do Vini; pedida a versão 3D |
+
+## Arte que falta para o visual ficar 100% coerente (tudo funciona hoje com arte provisória)
+
+| Prioridade | O quê | Onde aparece |
+|---|---|---|
+| 1 | Astro em 3D (corpo + 9 rostos de tela) | Em todas as telas |
+| 2 | Robôs (explorador, reciclador, robozinho voador) em 3D | Missões, sílabas, mascote |
+| 3 | Comidas em 3D (maçã, banana, morango, cenoura, queijo, ovo, leite, pão, tomate, cogumelo) e tigela | Cozinha da estação, lições |
+| 4 | Figuras das lições em 3D: animais (gato, pato, vaca, peixe, sapo), objetos (bola, casa, copo, dado, mala, pipa, bolo, ovo, uva), foguete, nave, estrela | Escola de astronautas, leitura |
+| 5 | Chão e céu de Marte (Valles Marineris), em camadas emendáveis | Missões de Marte |
+| 6 | Corredor da nave emendável | Nave (hoje a pintura é espelhada) |

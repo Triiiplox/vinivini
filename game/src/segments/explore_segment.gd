@@ -48,7 +48,7 @@ func build() -> void:
 	camera.limit_bottom = 720
 	vini = CharacterRig2D.new("vini", 250.0)
 	vini.position = Vector2(220, Scenery.GROUND_Y)
-	vini.z_index = 20
+	vini.z_index = 8
 	world.add_child(vini)
 	add_cosmo(Vector2(100, 380), 130.0)
 	var col: Dictionary = params.get("collect", {})

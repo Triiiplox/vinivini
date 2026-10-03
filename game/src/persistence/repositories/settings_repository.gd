@@ -12,7 +12,8 @@ func _init(store: VersionedStore) -> void:
 
 
 static func defaults() -> Dictionary:
-	return {"music": true, "sfx": true, "voice": true, "haptics": true, "reduced_effects": false, "break_reminder_min": 0}
+	return {"music": true, "sfx": true, "voice": true, "haptics": true, "reduced_effects": false, "break_reminder_min": 0,
+		"daily_limit_min": 0, "vol_music": 0.8, "vol_sfx": 0.9, "vol_voice": 1.0, "disabled_areas": []}
 
 
 func get_value(key: String) -> Variant:

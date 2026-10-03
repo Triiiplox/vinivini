@@ -109,6 +109,33 @@ func _summary() -> void:
 		v.add_child(UI.label(tile[0], 22, Palette.TEXT_SOFT))
 		v.add_child(UI.label(tile[1], 36, Palette.YELLOW, true))
 		grid.add_child(p)
+	# Progresso por área (0–10), com gráfico de evolução e observações.
+	body.add_child(_txt("Progresso por área (0 a 10, só o que foi jogado):", 26, Palette.YELLOW))
+	var lv := Areas.levels()
+	var ag := GridContainer.new()
+	ag.columns = 4
+	body.add_child(ag)
+	for a in Areas.ORDER:
+		var p2 := UI.panel(Palette.PANEL_LIGHT, 18)
+		p2.custom_minimum_size = Vector2(270, 84)
+		var v2 := UI.vbox(2)
+		p2.add_child(v2)
+		var bar := ColorRect.new()
+		bar.color = Color(str(AreaChart.COLORS[a]))
+		bar.custom_minimum_size = Vector2(60, 6)
+		v2.add_child(bar)
+		v2.add_child(UI.label(str(Areas.NAMES[a]), 22, Palette.TEXT_SOFT))
+		v2.add_child(UI.label(str(lv[a]), 34, Palette.WHITE, true))
+		ag.add_child(p2)
+	body.add_child(_txt("Evolução (últimos 14 dias):", 24, Palette.TEXT_SOFT))
+	body.add_child(AreaChart.new(SaveService.progress.data(pid).get("area_history", {})))
+	var obs: Array = SaveService.progress.data(pid).get("observations", [])
+	for i in range(obs.size() - 1, maxi(-1, obs.size() - 6), -1):
+		body.add_child(_txt(Areas.observation_text(obs[i]), 22, Palette.GREEN))
+	var due := Areas.pending_reviews()
+	body.add_child(_txt("Revisões pendentes: %s" % (", ".join(due) if not due.is_empty() else "nenhuma"), 22, Palette.TEXT_SOFT))
+	var fav: Array = Areas.favorites().map(func(id): return str(GAME_NAMES.get(id, id)))
+	body.add_child(_txt("Conteúdos preferidos: %s" % (", ".join(fav) if not fav.is_empty() else "—"), 22, Palette.TEXT_SOFT))
 	var dev: Array[String] = []
 	var good: Array[String] = []
 	var progress := LearningService.all_progress()
@@ -395,6 +422,25 @@ func _pick_skill(v: String, skill_ids: Array, names: Array) -> void:
 	ch_level = mini(ch_level, ContentService.repo.max_level(ch_skill))
 
 
+func _set_volume(v: float, key: String) -> void:
+	SaveService.settings.set_value(key, v)
+	AudioService.apply_volumes()
+
+
+func _set_limit(v: String) -> void:
+	SaveService.settings.set_value("daily_limit_min", int(v))
+
+
+func _toggle_area(a: String) -> void:
+	var d: Array = (SaveService.settings.get_value("disabled_areas") as Array).duplicate()
+	if d.has(a):
+		d.erase(a)
+	elif d.size() < 5:
+		d.append(a)
+	SaveService.settings.set_value("disabled_areas", d)
+	_show("settings")
+
+
 func _set_break_reminder(v: String) -> void:
 	SaveService.settings.set_value("break_reminder_min", int(v))
 
@@ -435,6 +481,35 @@ func _settings() -> void:
 		AppState.set_child_name(le.text)
 		fx().toast("Nome salvo", Palette.GREEN))
 	nh.add_child(sb)
+	for vol in [["Volume da música", "vol_music"], ["Volume dos efeitos", "vol_sfx"], ["Volume da voz", "vol_voice"]]:
+		var vh := UI.hbox(12, BoxContainer.ALIGNMENT_BEGIN)
+		vh.add_child(UI.label(str(vol[0]), 24, Palette.TEXT_SOFT))
+		var sl := HSlider.new()
+		sl.name = "Slider_%s" % vol[1]
+		sl.min_value = 0.0
+		sl.max_value = 1.0
+		sl.step = 0.05
+		sl.value = float(SaveService.settings.get_value(str(vol[1])))
+		sl.custom_minimum_size = Vector2(420, 50)
+		sl.value_changed.connect(_set_volume.bind(str(vol[1])))
+		vh.add_child(sl)
+		body.add_child(vh)
+	var lim := str(SaveService.settings.get_value("daily_limit_min"))
+	body.add_child(_choice_row("Limite de tempo por dia (min):", ["0", "20", "30", "45", "60"], lim, _set_limit))
+	var lim_note := "0 = sem limite. Ao chegar no limite, o Vini vai descansar e só um adulto libera mais tempo."
+	body.add_child(_txt(lim_note, 20, Palette.TEXT_SOFT))
+	var disabled: Array = SaveService.settings.get_value("disabled_areas")
+	body.add_child(_txt("Conteúdos na escola de astronautas (toque para ligar ou desligar):", 22, Palette.TEXT_SOFT))
+	var ah := HFlowContainer.new()
+	ah.add_theme_constant_override("h_separation", 8)
+	for a in ["reading", "math", "logic", "astronomy", "science", "emotion"]:
+		var on := not disabled.has(a)
+		var col := Palette.TEAL if on else Palette.PANEL_LIGHT
+		var b := UI.button(str(Areas.NAMES[a]), col, "check" if on else "close", Vector2(260, 60), false, 20)
+		b.name = "AreaToggle_%s" % a
+		b.tapped.connect(_toggle_area.bind(a))
+		ah.add_child(b)
+	body.add_child(ah)
 	var cur := str(SaveService.settings.get_value("break_reminder_min"))
 	body.add_child(_choice_row("Lembrete de pausa (min):", ["0", "15", "20", "30"], cur, _set_break_reminder))
 	body.add_child(_txt("0 = desligado. O lembrete é gentil e nunca bloqueia o jogo.", 20, Palette.TEXT_SOFT))

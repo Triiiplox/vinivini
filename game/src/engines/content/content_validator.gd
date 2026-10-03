@@ -18,12 +18,12 @@ const SHAPES := ["circle", "square", "triangle", "star", "heart", "diamond"]
 const COLORS := ["red", "blue", "yellow", "green", "purple", "orange", "pink", "white"]
 const EMOTIONS := ["feliz", "triste", "bravo", "medo", "surpreso", "calmo"]
 const CHARACTERS := ["robot", "alien", "star", "cosmo"]
-## Tipos de figura do Sala de Inglês (EnPicture).
+## Tipos de figura do Sala de Inglês (Figure).
 const EN_PIC_TYPES := ["color", "rainbow", "count", "art", "planet", "vini", "shape", "size", "face", "icon"]
 
 
 const SEGMENT_TYPES := ["cutscene", "flight", "explore", "build", "cook", "monster", "word", "robot", "memory",
-	"story", "planetarium", "creature", "pattern", "boss"]
+	"story", "planetarium", "creature", "pattern", "boss", "lesson"]
 static func validate_activity(a: Variant, known_skills: Dictionary = {}) -> Array[String]:
 	var e: Array[String] = []
 	if not a is Dictionary:
@@ -274,6 +274,49 @@ static func validate_english_unit(u: Variant) -> Array[String]:
 	return e
 
 
+## Lição do seg_lesson: id, skill, rodadas com tipo conhecido e respostas coerentes.
+static func validate_lesson(l: Variant) -> Array[String]:
+	var e: Array[String] = []
+	if not l is Dictionary:
+		e.append("lição não é um objeto")
+		return e
+	var d: Dictionary = l
+	_req_str(d, "id", e)
+	_req_str(d, "skill", e)
+	var asks: Array = d.get("ask", [])
+	if asks.is_empty():
+		e.append("sem perguntas")
+	for r in (d.get("teach", []) as Array) + asks:
+		if not r is Dictionary:
+			e.append("rodada inválida")
+			continue
+		var k := str(r.get("k", ""))
+		if str(r.get("say", "")) == "":
+			e.append("rodada sem fala")
+		match k:
+			"teach":
+				if not r.get("fig") is Dictionary:
+					e.append("explicação sem figura")
+			"pick":
+				var opts: Array = r.get("opts", [])
+				var ok := int(r.get("ok", -1))
+				if opts.size() < 2 or ok < 0 or ok >= opts.size():
+					e.append("escolha com resposta inválida: %s" % str(r.get("say", "")))
+				if r.has("read") and (r["read"] as Array).size() != opts.size():
+					e.append("opções lidas não batem: %s" % str(r.get("say", "")))
+			"order":
+				if (r.get("items", []) as Array).size() < 2:
+					e.append("ordem com menos de 2 itens")
+			"sort":
+				var nb := (r.get("bins", []) as Array).size()
+				for it in r.get("items", []):
+					if int(it[1]) < 0 or int(it[1]) >= nb:
+						e.append("item fora dos grupos")
+			_:
+				e.append("tipo de rodada desconhecido: %s" % k)
+	return e
+
+
 static func validate_item(it: Variant) -> Array[String]:
 	var e: Array[String] = []
 	if not it is Dictionary:
@@ -281,7 +324,7 @@ static func validate_item(it: Variant) -> Array[String]:
 		return e
 	_req_str(it, "id", e)
 	_req_str(it, "name", e)
-	_req_enum(it, "slot", ["helmet", "suit", "accessory"], e)
+	_req_enum(it, "slot", ["helmet", "suit", "accessory", "pet"], e)
 	if not it.get("unlock") is Dictionary:
 		e.append("item sem regra 'unlock'")
 	else:

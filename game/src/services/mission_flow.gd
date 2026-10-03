@@ -6,7 +6,7 @@ const SEGMENT_SCREENS := {
 	"cutscene": "seg_cutscene", "flight": "seg_flight", "explore": "seg_explore", "build": "seg_build",
 	"cook": "seg_cook", "monster": "seg_monster", "word": "seg_word", "robot": "seg_robot", "memory": "seg_memory",
 	"story": "seg_story", "planetarium": "seg_planetarium", "creature": "seg_creature", "pattern": "seg_pattern",
-	"boss": "seg_flight",
+	"boss": "seg_flight", "lesson": "seg_lesson",
 }
 
 var mission: Dictionary = {}

@@ -151,6 +151,40 @@ func _run() -> void:
 			t += 0.25
 		check(Router.current_id == str(st["screen"]), "estação %s abre %s (%s)" % [st["id"], st["screen"], Router.current_id])
 		await wait(0.5)
+	# Escola de astronautas: recomendação → lição → recompensa → volta para a escola.
+	Router.reset_to("academy")
+	await wait(1.0)
+	check(Router.current_screen.recommended != "", "escola recomenda uma lição")
+	if await play_until("reward", MISSION_TIMEOUT):
+		check(not (SaveService.progress.data(SaveService.profile_id).get("lessons_done", {}) as Dictionary).is_empty(), "lição registrada")
+		Router.current_screen._continue()
+		await wait(1.0)
+		check(Router.current_id == "academy", "recompensa volta para a escola (%s)" % Router.current_id)
+	# Todas as lições abrem e chegam ao fim (robô jogador).
+	for lid in ContentService.repo.lesson_order:
+		Router.reset_to("seg_lesson", {"lesson": lid, "n": 2})
+		await wait(0.3)
+		if not await play_until("reward", 90.0):
+			failures.append("lição %s não terminou" % lid)
+	# Biblioteca: história → perguntas de interpretação → recompensa.
+	Router.reset_to("books")
+	await wait(0.8)
+	if await play_until("reward", MISSION_TIMEOUT):
+		check(true, "história da biblioteca com perguntas")
+	# Ateliê: planeta, nave, cenário e história inventados ficam salvos.
+	for mode in ["planet", "ship", "scene"]:
+		Router.reset_to("maker", {"mode": mode})
+		await wait(0.5)
+		await play_until("reward", 30.0)
+	Router.reset_to("story_maker")
+	await wait(0.5)
+	await play_until("reward", 90.0)
+	var pdx: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	check((pdx.get("creations", []) as Array).size() >= 3, "criações salvas")
+	check((pdx.get("my_stories", []) as Array).size() >= 1, "história inventada salva")
+	Router.reset_to("diary")
+	await wait(1.0)
+	check(Router.current_id == "diary", "diário espacial abre")
 	# Sala de Inglês: trilha → lição → recompensa → volta para a trilha, com a palavra no motor de revisão.
 	Router.reset_to("hello")
 	await wait(1.0)

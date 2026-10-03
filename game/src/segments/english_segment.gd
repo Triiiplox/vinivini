@@ -281,7 +281,7 @@ func _card(w: Dictionary, pos: Vector2, k: float) -> Interactable:
 	DS.fit(bg, Vector2(CARD, CARD) * k)
 	bg.position += -Vector2(CARD, CARD) * k / 2.0
 	it.add_child(bg)
-	it.add_child(EnPicture.new(w.get("pic", {}), CARD * 0.78 * k))
+	it.add_child(Figure.new(w.get("pic", {}), CARD * 0.78 * k))
 	world.add_child(it)
 	cards.append(it)
 	it.scale = Vector2.ZERO

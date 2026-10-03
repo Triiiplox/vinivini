@@ -43,7 +43,8 @@ STR = r'"((?:[^"\\]|\\.)*)"'
 # ---------------------------------------------------------------- código
 SENTENCE_FILES = [os.path.join(ROOT, "src", "segments", "*.gd")] + [
     os.path.join(ROOT, "src", "screens", f) for f in
-    ["ship_screen.gd", "opening_screen.gd", "galaxy_screen.gd", "reward_screen.gd", "draw_screen.gd"]]
+    ["ship_screen.gd", "opening_screen.gd", "galaxy_screen.gd", "reward_screen.gd", "draw_screen.gd", "academy_screen.gd",
+     "studio_screen.gd", "story_maker_screen.gd", "library_screen.gd", "diary_screen.gd", "creator_screen.gd", "rest_screen.gd"]]
 sentence_files = set()
 for g in SENTENCE_FILES:
     sentence_files.update(glob.glob(g))
@@ -64,6 +65,11 @@ for path in glob.glob(os.path.join(ROOT, "src", "**", "*.gd"), recursive=True):
         for m in re.finditer(STR, src):
             t = unescape(m.group(1))
             if re.search(r"[.!?]$", t) and " " in t and m.group(1) not in cosmo_spans and "%" not in t and "res://" not in t:
+                add("narrator", t, rel)
+        # Trechos falados no fim de listas de opções (ex.: ["vini", {...}, "o comandante Vini"]).
+        for m in re.finditer(r', ' + STR + r'\]', src):
+            t = unescape(m.group(1))
+            if " " in t and not t.startswith("res://") and "%" not in t:
                 add("narrator", t, rel)
         # Nomes próprios ditos isoladamente (ex.: NAMES no planetário).
         for blk in re.finditer(r"const NAMES := \{(.*?)\}", src, re.S):
@@ -135,6 +141,17 @@ for u in en["units"]:
 # Planeta Eco: palavras da triagem (botão "Ouvir" dos pais), na voz da narradora.
 for it in J("speech/words.json")["screening"]:
     add("narrator", it["w"], "speech")
+
+# Lições (motor seg_lesson): explicações, perguntas, opções lidas e o fato depois do acerto.
+for les in J("lessons/lessons.json")["lessons"]:
+    if les.get("intro"):
+        add("narrator", les["intro"], "lesson")
+    for r in les["teach"] + les["ask"]:
+        add("narrator", r["say"], "lesson")
+        for t in r.get("read", []):
+            add("narrator", t, "lesson")
+        if r.get("after"):
+            add("narrator", r["after"], "lesson")
 
 # ---------------------------------------------------------------- síntese
 def key_for(who, text):

@@ -3,22 +3,30 @@ extends GameScreen
 ## Cada estação é um lugar com função (cabine → mapa da galáxia, oficina, cozinha, laboratório...).
 ## Robozinho voador (tipo Astrobee) acompanha; criaturas criadas passeiam no laboratório. Área dos pais: segurar o cadeado.
 
-const WIDTH := 5400.0
+const SPACING := 520.0
+const WIDTH := 420.0 + 12 * SPACING + 420.0
+## Estações em ordem pela nave (x calculado). Algumas abrem com missões (ShipProgress.STATION_REQ).
 const STATIONS := [
-	{"id": "hello", "x": 420.0, "icon": "voice", "color": "#60A5FA", "screen": "hello",
-		"say": "A sala de inglês! O astronauta Hoppy só fala inglês. Vamos aprender com ele?"},
-	{"id": "workshop", "x": 1050.0, "icon": "wrench", "color": "#FF8C42", "screen": "seg_build",
+	{"id": "room", "icon": "smile", "color": "#FF70A6", "screen": "wardrobe",
+		"say": "Seu quarto. Aqui você troca a roupa de astronauta!"},
+	{"id": "workshop", "icon": "wrench", "color": "#FF8C42", "screen": "seg_build",
 		"say": "A oficina. Vamos montar um foguete?"},
-	{"id": "kitchen", "x": 1680.0, "icon": "heart", "color": "#EE4266", "screen": "seg_cook",
-		"say": "A cozinha espacial! Os clientes estão com fome."},
-	{"id": "lab", "x": 2310.0, "icon": "flask", "color": "#06D6A0", "screen": "seg_creature", "say": "O laboratório de criaturas!"},
-	{"id": "games", "x": 2940.0, "icon": "abc", "color": "#9B5DE5", "screen": "seg_monster",
-		"say": "O Monstro Comilão está com fome de sílabas!"},
-	{"id": "robots", "x": 3500.0, "icon": "puzzle", "color": "#3A86FF", "screen": "seg_robot", "say": "A sala dos robôs. Vamos programar!"},
-	{"id": "observatory", "x": 4060.0, "icon": "telescope", "color": "#2EC4B6", "screen": "seg_planetarium",
+	{"id": "academy", "icon": "book", "color": "#9B5DE5", "screen": "academy",
+		"say": "A escola de astronautas! Aqui a gente aprende de tudo."},
+	{"id": "hello", "icon": "voice", "color": "#60A5FA", "screen": "hello",
+		"say": "A sala de inglês! O astronauta Hoppy só fala inglês. Vamos aprender com ele?"},
+	{"id": "kitchen", "icon": "heart", "color": "#EE4266", "screen": "seg_cook",
+		"say": "A cozinha da estação! A tripulação está com fome."},
+	{"id": "library", "icon": "book", "color": "#F59E0B", "screen": "books", "say": "A biblioteca! Vamos ouvir uma história?"},
+	{"id": "lab", "icon": "flask", "color": "#06D6A0", "screen": "seg_creature",
+		"say": "O laboratório de imaginação! Aqui você inventa um bichinho."},
+	{"id": "robots", "icon": "puzzle", "color": "#3A86FF", "screen": "seg_robot", "say": "A sala dos robôs. Vamos programar!"},
+	{"id": "observatory", "icon": "telescope", "color": "#2EC4B6", "screen": "seg_planetarium",
 		"say": "O observatório. Vamos ver os planetas!"},
-	{"id": "art", "x": 4560.0, "icon": "palette", "color": "#FFD23F", "screen": "draw", "say": "O ateliê. Vamos desenhar!"},
-	{"id": "cockpit", "x": 5080.0, "icon": "map", "color": "#FFD23F", "screen": "galaxy",
+	{"id": "gallery", "icon": "trophy", "color": "#FACC15", "screen": "gallery", "say": "Seus troféus e medalhas!"},
+	{"id": "diary", "icon": "map", "color": "#A78BFA", "screen": "diary", "say": "O seu diário espacial!"},
+	{"id": "art", "icon": "palette", "color": "#FFD23F", "screen": "studio", "say": "O ateliê de criação! Vamos inventar?"},
+	{"id": "cockpit", "icon": "map", "color": "#FFD23F", "screen": "galaxy",
 		"say": "A cabine de comando! Vamos escolher uma missão?"},
 ]
 
@@ -41,7 +49,7 @@ const SENDER_LINES := {
 var vini: CharacterRig2D
 var pet: PetActor
 var stations: Dictionary = {}
-var trophies: Interactable
+var surprise: Interactable
 var _walk_tw: Tween
 var _going := ""
 
@@ -52,14 +60,17 @@ func build() -> void:
 	AudioService.play_music("hub")
 	AudioService.play_ambience("ship")
 	world.add_child(Scenery.new("ship"))
-	for st in STATIONS:
+	for i in STATIONS.size():
+		var st: Dictionary = STATIONS[i].duplicate()
+		st["x"] = 420.0 + i * SPACING
 		_make_station(st)
-	trophies = _make_trophy_wall(Vector2(3220, 250))
+	_spawn_crew()
+	_spawn_surprise()
 	vini = CharacterRig2D.new("vini", 270.0)
 	vini.position = Vector2(float(params.get("x", 760)), Scenery.GROUND_Y + 30)
 	vini.z_index = 20
 	world.add_child(vini)
-	pet = PetActor.new(110.0)
+	pet = PetActor.new(110.0, str(AppState.avatar().get("pet", "pet_bip")))
 	pet.follow = vini
 	pet.position = vini.position + Vector2(-150, -170)
 	pet.z_index = 22
@@ -81,6 +92,11 @@ func build() -> void:
 
 
 func begin() -> void:
+	var limit := int(SaveService.settings.get_value("daily_limit_min"))
+	if limit > 0 and AppState.played_today_seconds() >= limit * 60.0:
+		finished = true
+		Router.reset_to("rest")
+		return
 	if bool(params.get("quiet", false)):
 		return
 	var first := not bool(AppState.profile().get("ship_seen", false))
@@ -142,28 +158,62 @@ func _make_station(st: Dictionary) -> void:
 			var pl := ShaderPlanet.new("earth", 60.0)
 			pl.position = Vector2(0, -190)
 			it.add_child(pl)
-		"games":
-			var mo := ArtSprite.new("npcs", "monster_open", 110.0, SvgArt.tint_colors(Color("#9B5DE5")))
-			mo.position = Vector2(80, 120)
-			mo.idle = "wobble"
-			it.add_child(mo)
 		"robots":
 			var rb := NpcActor.new("robot", "happy", 90.0)
 			rb.position = Vector2(-90, 170)
 			it.add_child(rb)
+	if not ShipProgress.station_open(str(st["id"])):
+		var lock := IconDraw.new("lock", Color.WHITE)
+		lock.size = Vector2(90, 90)
+		lock.position = Vector2(-45, -70)
+		lock.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		lock.z_index = 3
+		it.add_child(lock)
+		it.modulate = Color(0.55, 0.58, 0.7)
 	world.add_child(it)
 	it.tapped.connect(_on_station)
 	stations[st["id"]] = it
 
 
-func _make_trophy_wall(pos: Vector2) -> Interactable:
-	var it := Interactable.new()
-	it.radius = 90.0
-	it.position = pos
-	it.add_child(ArtSprite.new("ui", "medal", 90.0))
-	it.tapped.connect(func(_i): _go_to({"id": "gallery", "x": pos.x, "screen": "gallery", "say": Lines.n("Seus troféus e medalhas!")}))
-	world.add_child(it)
-	return it
+## Astronautas da tripulação que já chegaram (missões concluídas) andam pela nave.
+func _spawn_crew() -> void:
+	var list := ShipProgress.crew()
+	for i in list.size():
+		var c := CrewActor.new(str(list[i]), 230.0)
+		c.position = Vector2(1300 + i * 1500, Scenery.GROUND_Y + 30)
+		c.z_index = 12
+		world.add_child(c)
+		var tw := c.create_tween().set_loops()
+		tw.tween_property(c, "position:x", c.position.x + 220, 4.0 + i).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(c, "position:x", c.position.x, 4.0 + i).set_trans(Tween.TRANS_SINE)
+
+
+## Estrela cadente do desafio surpresa (uma vez por dia): leva a 3 perguntas da lição recomendada.
+func _spawn_surprise() -> void:
+	if not ShipProgress.surprise_available() or AppState.parent_challenge().size() > 0:
+		return
+	surprise = Interactable.new()
+	surprise.name = "Surprise"
+	surprise.radius = 80.0
+	surprise.position = Vector2(float(params.get("x", 760)) + 420, 230)
+	surprise.z_index = 30
+	var star := ArtSprite.new("words", "estrela", 90.0)
+	star.idle = "spin"
+	surprise.add_child(star)
+	var tail := Fx.trail(surprise, Color(1, 0.9, 0.4))
+	tail.emitting = true
+	Fx.glow(surprise, Vector2.ZERO, 200.0, Color(1, 0.85, 0.3, 0.5), 1.2).z_index = -1
+	world.add_child(surprise)
+	surprise.tapped.connect(_open_surprise)
+
+
+func _open_surprise(_it: Interactable) -> void:
+	finished = true
+	ShipProgress.mark_surprise()
+	AudioService.play_sfx("unlock")
+	vini.play("celebrate")
+	var d := narrate(Lines.n("Uma estrela cadente! É um desafio surpresa!"))
+	after(d + 0.3, Router.reset_to.bind("seg_lesson", {"lesson": Recommend.next_lesson(), "n": 3, "surprise": true}))
 
 
 func _spawn_creatures() -> void:
@@ -176,7 +226,7 @@ func _spawn_creatures() -> void:
 			eyes.append(Vector2(float(e[0]), float(e[1])))
 		d["eyes"] = eyes
 		var c := CreatureView.new(d, 50.0)
-		c.position = Vector2(2310 - 260 + (i - start) * 150, Scenery.GROUND_Y - 30)
+		c.position = Vector2(420.0 + 6 * SPACING - 260 + (i - start) * 150, Scenery.GROUND_Y - 30)
 		c.z_index = 12
 		world.add_child(c)
 		var tw := c.create_tween().set_loops()
@@ -239,6 +289,13 @@ func _walk(x: float) -> Tween:
 
 
 func _on_station(it: Interactable) -> void:
+	var id := str(it.payload["id"])
+	if not ShipProgress.station_open(id):
+		AudioService.play_sfx("retry")
+		it.wiggle()
+		var mid := str(ShipProgress.STATION_REQ[id])
+		narrate_seq([Lines.n("Essa sala abre depois da missão"), str(ContentService.repo.missions[mid]["name"])])
+		return
 	_go_to(it.payload)
 
 
@@ -248,7 +305,8 @@ func _go_to(st: Dictionary) -> void:
 	_going = str(st["id"])
 	hand.hide_hint()
 	narrate(str(st["say"]))
-	var tw := _walk(float(st["x"]) - 40.0)
+	var x: float = float(st["x"]) if st.has("x") else stations[str(st["id"])].position.x
+	var tw := _walk(x - 40.0)
 	tw.tween_callback(_enter.bind(st))
 
 
@@ -263,7 +321,7 @@ func _enter(st: Dictionary) -> void:
 	if screen == "seg_build":
 		p["blueprint"] = ["rocket", "rover", "reactor"][randi() % 3]
 	await get_tree().create_timer(0.7).timeout
-	if screen in ["wardrobe", "gallery", "draw"]:
+	if screen in ["wardrobe", "gallery", "draw", "diary", "books", "studio"]:
 		Router.go(screen, p)
 	else:
 		Router.reset_to(screen, p)

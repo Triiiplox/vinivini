@@ -54,6 +54,12 @@ func build() -> void:
 	var art := ArtSprite.new("props", "ship_side", 150.0)
 	art.idle = "float"
 	ship_icon.add_child(art)
+	# Peças que a nave ganhou nas campanhas concluídas.
+	var parts := ShipProgress.ship_parts()
+	for i in parts.size():
+		var pa := ArtSprite.new("build", str(parts[i]), 46.0)
+		pa.position = Vector2(-60 + i * 30, -46 if i % 2 == 0 else 40)
+		ship_icon.add_child(pa)
 	world.add_child(ship_icon)
 	play_btn = DSButton.new("primary", "play", Vector2(220, 130))
 	play_btn.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)

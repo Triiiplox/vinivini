@@ -281,7 +281,10 @@ func finish(result: Dictionary = {}) -> void:
 			str(skills[0]) if not skills.is_empty() else ""), "rounds": 3, "first_try": int(result.get("stars", 3)), "level_ups": []})
 		Router.replace("reward", {"result": result, "free_play": true, "parent": true, "reward": rw})
 	else:
-		Router.replace("reward", {"result": result, "free_play": true})
+		var r := result.duplicate()
+		if params.has("back") and not r.has("back"):
+			r["back"] = str(params["back"])
+		Router.replace("reward", {"result": r, "free_play": true})
 
 
 func _on_home() -> void:

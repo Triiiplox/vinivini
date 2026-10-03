@@ -84,6 +84,26 @@ static func step(id: String, s: Node) -> void:
 						var p: Interactable = s.pile[0]
 						p.global_position = s.creature.global_position + Vector2(randf_range(-50, 50), -40)
 						s._on_piece(p, s.zone)
+		"seg_lesson":
+			_lesson(s, false)
+		"books":
+			if not s.finished and not s.books.is_empty():
+				s._open(s.books[0])
+		"story_maker":
+			if not s.cards.is_empty() and not s.busy and s.step < s.STEPS.size():
+				s._on_pick(s.cards[randi() % s.cards.size()])
+		"maker":
+			if s.mode == "planet":
+				s._on_tile(s.palette[0])
+			elif not s.palette.is_empty() and s.placed.size() < 3:
+				var it: Interactable = s.palette[s.placed.size() % s.palette.size()]
+				it.position = Vector2(600, 300)
+				s._on_drop(it, s.canvas_zone)
+			if s.placed.size() >= 3 or s.mode == "planet":
+				s._save()
+		"academy":
+			if not s.tiles.is_empty() and not s.finished:
+				s._on_lesson(s.tiles[0])
 		"seg_english":
 			_english(s, false)
 		"hello":
@@ -154,6 +174,8 @@ static func _mistake(id: String, s: Node) -> bool:
 					if k != s.target:
 						s._on_tap(s.nodes[k])
 						return true
+		"seg_lesson":
+			return _lesson(s, true)
 		"seg_english":
 			return _english(s, true)
 		"seg_creature":
@@ -179,6 +201,36 @@ static func _english(s: Node, wrong: bool) -> bool:
 		"tpr":
 			if not wrong:
 				s._tpr_tap(s.step["c"])
+	return false
+
+
+## Lição: explicação → play; escolher → certa (ou errada com mistake); ordenar → próxima; classificar → solta no grupo.
+static func _lesson(s: Node, wrong: bool) -> bool:
+	if s.busy or s.rd.is_empty() or s.finished:
+		return false
+	match str(s.rd.get("k", "")):
+		"teach":
+			if s.next_btn.visible and not wrong:
+				s._advance()
+		"pick":
+			for c in s.cards:
+				if is_instance_valid(c) and c.name.begins_with("Opt_") and (int(c.payload) != int(s.rd["ok"])) == wrong:
+					s._on_pick(c)
+					return true
+		"order":
+			for c in s.cards:
+				if is_instance_valid(c) and c.enabled and c.name.begins_with("Ord_") \
+						and (int(c.payload) != s.order_next) == wrong:
+					s._on_order(c)
+					return true
+		"sort":
+			for c in s.cards:
+				if is_instance_valid(c) and c.draggable and c.name.begins_with("Sort_"):
+					var b := int(c.payload)
+					if wrong:
+						b = (b + 1) % s.zones.size()
+					s._on_drop(c, s.zones[b])
+					return true
 	return false
 
 

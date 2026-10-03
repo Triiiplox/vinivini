@@ -424,6 +424,9 @@ items = [
     item("acc_telescope", "Lunetinha", "accessory", {"type": "missions", "area": "science", "value": 1}, style="telescope"),
     item("acc_planet_pet", "Planetinha de Estimação", "accessory", {"type": "creative", "value": 1}, style="planet_pet"),
     item("acc_medal", "Medalha da Família", "accessory", {"type": "parent", "value": 1}, style="medal"),
+    item("pet_bip", "Robozinho Bip", "pet", ST),
+    item("pet_robot", "Robô Ajudante", "pet", {"type": "stars", "value": 15}),
+    item("pet_cat", "Gato da Tripulação", "pet", {"type": "stars", "value": 30}),
 ]
 dump("rewards/items.json", items)
 
@@ -497,6 +500,7 @@ index = {
     "banks": {"syllables": "banks/syllables.json", "words": "banks/words.json"},
     "english": "english/units.json",  # gerado por tools/build_english.py
     "speech": "speech/words.json",  # gerado por tools/build_speech.py
+    "lessons": "lessons/lessons.json",  # gerado por tools/build_lessons.py
 }
 dump("index.json", index)
 tot = len(reading) + len(build) + len(counting) + len(addition) + len(compare) + len(patterns) + len(memory) + len(sci) + len(emotions)
@@ -550,6 +554,8 @@ campaigns = [
     {"id": "lua", "name": "Missão Lua", "planet": "moon", "missions": ["m04", "m05", "m06"]},
     {"id": "marte", "name": "Planeta Vermelho", "planet": "mars", "missions": ["m07", "m08", "m09"]},
     {"id": "gigantes", "name": "Gigantes do Espaço", "planet": "saturn", "missions": ["m10", "m11", "m12"]},
+    {"id": "terra", "name": "Planeta Terra", "planet": "earth", "missions": ["m13", "m14", "m15"]},
+    {"id": "escola", "name": "Escola de Astronautas", "planet": "jupiter", "missions": ["m16", "m17", "m18"]},
 ]
 # Tudo com ciência real (Sistema Solar, missões espaciais de verdade). Personagens: o Vini, o robô Astro,
 # astronautas da tripulação e robôs (robôs ajudantes existem de verdade: Astrobee, Perseverance, Robonaut).
@@ -588,6 +594,7 @@ missions = [
      "segments": [
          {"type": "monster", "rounds": 5, "theme": "moon"},
          {"type": "word", "rounds": 2},
+         {"type": "lesson", "lesson": "som_das_letras", "n": 3},
      ]},
     {"id": "m06", "campaign": "lua", "name": "O Jipe Lunar", "area": "math", "requires": "m05", "reward_item": "",
      "segments": [
@@ -608,6 +615,7 @@ missions = [
     {"id": "m08", "campaign": "marte", "name": "O Robozinho Perdido", "area": "emotion", "requires": "m07", "reward_item": "acc_heart_badge",
      "segments": [
          {"type": "story", "story": "story_robot_lost_001"},
+         {"type": "lesson", "lesson": "recontar", "n": 2},
      ]},
     {"id": "m09", "campaign": "marte", "name": "O Grande Cânion de Marte", "area": "logic", "requires": "m08", "reward_item": "",
      "segments": [
@@ -620,6 +628,7 @@ missions = [
     {"id": "m10", "campaign": "gigantes", "name": "Planetário", "area": "science", "requires": "m06", "reward_item": "acc_telescope",
      "segments": [
          {"type": "planetarium", "quests": 3},
+         {"type": "lesson", "lesson": "planetas", "n": 3},
      ]},
     {"id": "m11", "campaign": "gigantes", "name": "Os Anéis de Saturno", "area": "math", "requires": "m10", "reward_item": "",
      "segments": [
@@ -634,6 +643,42 @@ missions = [
              L("cosmo", "Entre Marte e Júpiter tem milhões de rochas voando: é o cinturão de asteroides! Tem uma grande no caminho.", mood="worry")], music="boss"),
          {"type": "boss", "portal_skill": "syllables", "goal": 3, "theme": "space"},
          {"type": "story", "story": "story_star_light_001"},
+         {"type": "lesson", "lesson": "sentimentos_dificeis", "n": 3},
+     ]},
+    {"id": "m13", "campaign": "terra", "name": "A Horta da Nave", "area": "science", "requires": "m04", "reward_item": "",
+     "segments": [
+         cut("ship", [{"id": "avatar", "x": 360}, {"id": "crew", "x": 880, "suit": "suit_green"}], [
+             L("npc", "Na estação espacial a gente planta alface de verdade! Vamos cuidar da horta?", actor="crew")]),
+         {"type": "lesson", "lesson": "plantas", "n": 3},
+         {"type": "lesson", "lesson": "agua", "n": 2},
+     ]},
+    {"id": "m14", "campaign": "terra", "name": "Dia e Noite", "area": "science", "requires": "m13", "reward_item": "",
+     "segments": [
+         {"type": "lesson", "lesson": "dia_e_noite", "n": 2},
+         {"type": "lesson", "lesson": "fases_da_lua", "n": 2},
+         {"type": "lesson", "lesson": "terra", "n": 2},
+     ]},
+    {"id": "m15", "campaign": "terra", "name": "Os Bichos e o Tempo", "area": "science", "requires": "m14", "reward_item": "",
+     "segments": [
+         {"type": "lesson", "lesson": "animais", "n": 3},
+         {"type": "lesson", "lesson": "clima", "n": 2},
+     ]},
+    {"id": "m16", "campaign": "escola", "name": "Treino de Astronauta", "area": "science", "requires": "m10", "reward_item": "",
+     "segments": [
+         {"type": "lesson", "lesson": "astronautas", "n": 2},
+         {"type": "lesson", "lesson": "gravidade", "n": 2},
+         {"type": "flight", "play": "collect", "goal": 6, "theme": "space"},
+     ]},
+    {"id": "m17", "campaign": "escola", "name": "Foguetes e Satélites", "area": "science", "requires": "m16", "reward_item": "",
+     "segments": [
+         {"type": "lesson", "lesson": "foguetes", "n": 3},
+         {"type": "build", "blueprint": "rocket"},
+     ]},
+    {"id": "m18", "campaign": "escola", "name": "Missões de Verdade", "area": "science", "requires": "m17", "reward_item": "",
+     "segments": [
+         {"type": "lesson", "lesson": "missoes_reais", "n": 3},
+         {"type": "lesson", "lesson": "asteroides_cometas", "n": 2},
+         {"type": "lesson", "lesson": "galaxias", "n": 2},
      ]},
 ]
 dump("campaign/campaigns.json", {"campaigns": campaigns, "missions": missions})

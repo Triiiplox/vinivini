@@ -3,8 +3,8 @@ extends GameScreen
 ## o astronauta vestindo a peça). Toque = veste na hora. Peças trancadas mostram cadeado e a voz
 ## explica como ganhar. Sem texto.
 
-const SLOTS := ["helmet", "suit", "accessory"]
-const SLOT_ICON := {"helmet": "smile", "suit": "star", "accessory": "heart"}
+const SLOTS := ["helmet", "suit", "accessory", "pet"]
+const SLOT_ICON := {"helmet": "smile", "suit": "star", "accessory": "heart", "pet": "cosmo"}
 
 var av: Dictionary
 var big: CharacterRig2D
@@ -35,18 +35,26 @@ func build() -> void:
 		t.radius = 50.0
 		t.payload = SLOTS[i]
 		var p := Panel.new()
-		p.add_theme_stylebox_override("panel", UITheme.rounded([Palette.PINK, Palette.ORANGE, Palette.TEAL][i], 44, 6, Color("#22204A")))
+		var tab_col: Color = [Palette.PINK, Palette.ORANGE, Palette.TEAL, Palette.PURPLE][i]
+		p.add_theme_stylebox_override("panel", UITheme.rounded(tab_col, 44, 6, Color("#22204A")))
 		p.size = Vector2(88, 88)
 		p.position = Vector2(-44, -44)
 		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		t.add_child(p)
-		var mini := CharacterRig2D.new("vini", 74.0)
-		mini.dress = false
-		mini.position = Vector2(0, 36)
+		var mini: Node2D
+		if SLOTS[i] == "pet":
+			mini = PetActor.new(60.0, "pet_bip")
+			mini.position = Vector2(0, 0)
+		else:
+			mini = CharacterRig2D.new("vini", 74.0)
+			mini.dress = false
+			mini.position = Vector2(0, 36)
 		t.add_child(mini)
-		t.position = Vector2(500 + i * 120, 140)
+		t.position = Vector2(470 + i * 115, 140)
 		world.add_child(t)
-		mini.dress_up(_with(SLOTS[i], {"helmet": "helmet_classic", "suit": "suit_green", "accessory": "acc_cape"}[SLOTS[i]]))
+		if mini is CharacterRig2D:
+			(mini as CharacterRig2D).dress_up(_with(SLOTS[i], {"helmet": "helmet_classic", "suit": "suit_green",
+				"accessory": "acc_cape"}[SLOTS[i]]))
 		t.tapped.connect(_on_tab)
 		tabs.append(t)
 	_show_slot("helmet")
@@ -91,9 +99,13 @@ func _show_slot(s: String) -> void:
 		p.position = Vector2(-65, -75)
 		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		c.add_child(p)
-		var mini := CharacterRig2D.new("vini", 128.0)
-		mini.dress = false
-		mini.position = Vector2(0, 68)
+		var mini: Node2D
+		if s == "pet":
+			mini = PetActor.new(90.0, str(it["id"]))
+		else:
+			mini = CharacterRig2D.new("vini", 128.0)
+			(mini as CharacterRig2D).dress = false
+			mini.position = Vector2(0, 68)
 		mini.modulate = Color.WHITE if open else Color(0.25, 0.25, 0.35)
 		c.add_child(mini)
 		if not open:
@@ -104,7 +116,8 @@ func _show_slot(s: String) -> void:
 		c.position = Vector2(520 + (i % 5) * 150, 320 + (i / 5) * 170)
 		c.scale = Vector2.ZERO
 		world.add_child(c)
-		mini.dress_up(_with(s, str(it["id"])))
+		if mini is CharacterRig2D:
+			(mini as CharacterRig2D).dress_up(_with(s, str(it["id"])))
 		c.create_tween().tween_property(c, "scale", Vector2.ONE, 0.2).set_delay(i * 0.04)
 		c.tapped.connect(_on_item.bind(open))
 		cards.append(c)

@@ -6,17 +6,29 @@ var height_px := 110.0
 var follow: Node2D
 var offset := Vector2(-150, -170)
 var t := 0.0
-var _body: NpcActor
+var kind := "pet_bip"
+var _body: Node2D
 var _flip := 1
 
 
-func _init(h: float = 110.0) -> void:
+func _init(h: float = 110.0, k: String = "pet_bip") -> void:
 	height_px = h
+	kind = k
 
 
+## Mascotes reais: robozinhos voadores (bip, robô) ou o gato da tripulação.
 func _ready() -> void:
-	_body = NpcActor.new("bip", "happy", height_px)
-	_body.floating = true
+	match kind:
+		"pet_robot":
+			var r := NpcActor.new("robot", "happy", height_px * 1.1)
+			r.floating = true
+			_body = r
+		"pet_cat":
+			_body = ArtSprite.new("words", "gato", height_px * 1.1)
+		_:
+			var b := NpcActor.new("bip", "happy", height_px)
+			b.floating = true
+			_body = b
 	add_child(_body)
 
 

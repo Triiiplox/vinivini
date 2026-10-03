@@ -21,6 +21,7 @@ static func default_avatar() -> Dictionary:
 		"suit": "suit_blue",
 		"helmet": "helmet_none",
 		"accessory": "acc_none",
+		"pet": "pet_bip",
 	}
 
 
