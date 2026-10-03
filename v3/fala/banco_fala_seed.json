@@ -1,0 +1,598 @@
+{
+ "versao": 1,
+ "aviso": "Banco inicial NÃO validado. Palavras e pares precisam de revisão de fonoaudióloga e do sotaque da família antes de virar alvo. Pares com uma das palavras pouco desenhável/conhecida devem ser trocados.",
+ "campos": {
+  "inicio/meio": "posição do som-alvo na palavra",
+  "pares": "pares mínimos REAIS [palavra-alvo, contraste, processo] — jogo 'qual figura?' e pares comunicativos",
+  "idade_tipica": "faixa citada em REFERENCIAS_FALA.md",
+  "formas_trocadas": "[palavra certa, forma trocada típica, processo] — só para o jogo 'o Eco falou certinho?' (a forma trocada é dita pelo Eco, nunca exigida da criança)"
+ },
+ "familias": [
+  {
+   "id": "ch",
+   "ipa": "ʃ",
+   "grafias": [
+    "ch",
+    "x"
+   ],
+   "nome_jogo": "Som do vento",
+   "metafora": "o vento faz chhh / pedir silêncio",
+   "idade_tipica": "2;10–3;0",
+   "inicio": [
+    "chave",
+    "chuva",
+    "chapéu",
+    "chinelo",
+    "chocolate",
+    "xícara",
+    "chupeta"
+   ],
+   "meio": [
+    "bicho",
+    "peixe",
+    "caixa",
+    "bolacha",
+    "lixo",
+    "bruxa",
+    "mochila"
+   ],
+   "pares": [
+    [
+     "chá",
+     "já",
+     "vozeamento"
+    ],
+    [
+     "chato",
+     "jato",
+     "vozeamento"
+    ],
+    [
+     "bicho",
+     "bico",
+     "plosivização/posteriorização"
+    ],
+    [
+     "chão",
+     "são",
+     "despalatalização"
+    ],
+    [
+     "cacho",
+     "caco",
+     "plosivização"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "chave",
+     "save",
+     "despalatalização"
+    ],
+    [
+     "chapéu",
+     "sapéu",
+     "despalatalização"
+    ],
+    [
+     "chuva",
+     "tuva",
+     "plosivização"
+    ]
+   ]
+  },
+  {
+   "id": "j",
+   "ipa": "ʒ",
+   "grafias": [
+    "j",
+    "g (antes de e/i)"
+   ],
+   "nome_jogo": "Som do jato",
+   "metafora": "o jato faz jjjj",
+   "idade_tipica": "2;6–3;6",
+   "inicio": [
+    "janela",
+    "jacaré",
+    "joaninha",
+    "girafa",
+    "gelo",
+    "gelatina",
+    "jipe"
+   ],
+   "meio": [
+    "queijo",
+    "beijo",
+    "laranja",
+    "tigela",
+    "berinjela",
+    "canjica"
+   ],
+   "pares": [
+    [
+     "jato",
+     "gato",
+     "posteriorização"
+    ],
+    [
+     "jato",
+     "chato",
+     "desvozeamento"
+    ],
+    [
+     "gelo",
+     "zelo",
+     "despalatalização"
+    ],
+    [
+     "já",
+     "dá",
+     "plosivização"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "janela",
+     "zanela",
+     "despalatalização"
+    ],
+    [
+     "girafa",
+     "dirafa",
+     "plosivização"
+    ],
+    [
+     "jacaré",
+     "zacaré",
+     "despalatalização"
+    ]
+   ]
+  },
+  {
+   "id": "s_z",
+   "ipa": "s/z",
+   "grafias": [
+    "s",
+    "ss",
+    "ç",
+    "z"
+   ],
+   "nome_jogo": "Som da cobra e da abelha",
+   "metafora": "cobra sss / abelha zzz",
+   "idade_tipica": "2;0–2;6",
+   "inicio": [
+    "sapo",
+    "sol",
+    "sino",
+    "sapato",
+    "zebra",
+    "zíper"
+   ],
+   "meio": [
+    "casa",
+    "mesa",
+    "peso",
+    "asa",
+    "taça",
+    "doce"
+   ],
+   "pares": [
+    [
+     "casa",
+     "caça",
+     "vozeamento"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "sapo",
+     "tapo",
+     "plosivização"
+    ]
+   ]
+  },
+  {
+   "id": "kg",
+   "ipa": "k/g",
+   "grafias": [
+    "c (a,o,u)",
+    "qu",
+    "g (a,o,u)",
+    "gu"
+   ],
+   "nome_jogo": "Som do sapo coaxando",
+   "metafora": "o sapo faz k-k-k no fundo da garganta",
+   "idade_tipica": "~2;0",
+   "inicio": [
+    "casa",
+    "cama",
+    "copo",
+    "gato",
+    "galo",
+    "gota"
+   ],
+   "meio": [
+    "boca",
+    "vaca",
+    "foguete",
+    "jogo",
+    "fogo"
+   ],
+   "pares": [
+    [
+     "cola",
+     "tola",
+     "anteriorização"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "gato",
+     "dato",
+     "anteriorização"
+    ],
+    [
+     "galo",
+     "dalo",
+     "anteriorização"
+    ],
+    [
+     "casa",
+     "tasa",
+     "anteriorização"
+    ]
+   ]
+  },
+  {
+   "id": "r_fraco",
+   "ipa": "ɾ",
+   "grafias": [
+    "r entre vogais"
+   ],
+   "nome_jogo": "Motorzinho da língua",
+   "metafora": "a pontinha da língua bate rapidinho",
+   "idade_tipica": "4;2–4;6",
+   "inicio": [],
+   "meio": [
+    "arara",
+    "barata",
+    "coruja",
+    "pirata",
+    "cenoura",
+    "pera",
+    "girafa",
+    "tesoura",
+    "geladeira"
+   ],
+   "pares": [
+    [
+     "pera",
+     "pela",
+     "substituição de líquida"
+    ],
+    [
+     "cara",
+     "cala",
+     "substituição de líquida"
+    ],
+    [
+     "coro",
+     "colo",
+     "substituição de líquida"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "barata",
+     "baiata",
+     "semivocalização (esperada aos 4)"
+    ],
+    [
+     "arara",
+     "alala",
+     "substituição de líquida"
+    ],
+    [
+     "barata",
+     "baiata",
+     "semivocalização"
+    ]
+   ]
+  },
+  {
+   "id": "lh",
+   "ipa": "ʎ",
+   "grafias": [
+    "lh"
+   ],
+   "nome_jogo": "Som da abelha lh",
+   "metafora": "língua grudada no céu da boca",
+   "idade_tipica": "~4;0",
+   "inicio": [],
+   "meio": [
+    "abelha",
+    "olho",
+    "coelho",
+    "folha",
+    "palhaço",
+    "ovelha",
+    "orelha",
+    "milho"
+   ],
+   "pares": [
+    [
+     "velha",
+     "vela",
+     "substituição"
+    ],
+    [
+     "malha",
+     "mala",
+     "substituição"
+    ],
+    [
+     "galho",
+     "galo",
+     "substituição"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "palha",
+     "paia",
+     "semivocalização"
+    ],
+    [
+     "abelha",
+     "abeia",
+     "semivocalização"
+    ],
+    [
+     "coelho",
+     "coelo",
+     "substituição"
+    ]
+   ]
+  },
+  {
+   "id": "nh",
+   "ipa": "ɲ",
+   "grafias": [
+    "nh"
+   ],
+   "nome_jogo": "Som do ninho",
+   "metafora": "nhac!",
+   "idade_tipica": "~2;6–3;0",
+   "inicio": [],
+   "meio": [
+    "ninho",
+    "minhoca",
+    "banho",
+    "sonho",
+    "galinha",
+    "aranha",
+    "rainha"
+   ],
+   "pares": [
+    [
+     "sono",
+     "sonho",
+     "substituição"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": []
+  },
+  {
+   "id": "r_forte",
+   "ipa": "R (varia por região)",
+   "grafias": [
+    "r inicial",
+    "rr"
+   ],
+   "nome_jogo": "Motor do carro",
+   "metafora": "o carro faz rrrr",
+   "idade_tipica": "~3;6",
+   "inicio": [
+    "rato",
+    "roda",
+    "rua",
+    "rei",
+    "rosa"
+   ],
+   "meio": [
+    "carro",
+    "cachorro",
+    "terra",
+    "gorro",
+    "barriga"
+   ],
+   "pares": [
+    [
+     "carro",
+     "caro",
+     "contraste r forte × r fraco"
+    ],
+    [
+     "murro",
+     "muro",
+     "contraste r forte × r fraco"
+    ]
+   ],
+   "obs": "realização varia muito por região; ajustar ao sotaque da família",
+   "validado_por_fono": false,
+   "formas_trocadas": []
+  },
+  {
+   "id": "enc_r",
+   "ipa": "C+ɾ",
+   "grafias": [
+    "pr",
+    "br",
+    "tr",
+    "dr",
+    "cr",
+    "gr",
+    "fr",
+    "vr"
+   ],
+   "nome_jogo": "Foguete com dois motores",
+   "metafora": "juntar dois sons: p + r = pr",
+   "idade_tipica": "4;0–5;0",
+   "inicio": [
+    "prato",
+    "prego",
+    "bruxa",
+    "trem",
+    "troféu",
+    "cravo",
+    "grilo",
+    "fruta",
+    "frango",
+    "dragão"
+   ],
+   "meio": [
+    "cobra",
+    "livro",
+    "zebra",
+    "quatro",
+    "tigre",
+    "cabra"
+   ],
+   "pares": [
+    [
+     "pato",
+     "prato",
+     "redução de encontro (esperada aos 4)"
+    ],
+    [
+     "fita",
+     "frita",
+     "redução de encontro"
+    ],
+    [
+     "tem",
+     "trem",
+     "redução de encontro"
+    ],
+    [
+     "boca",
+     "broca",
+     "redução de encontro"
+    ],
+    [
+     "pego",
+     "prego",
+     "redução de encontro"
+    ],
+    [
+     "fio",
+     "frio",
+     "redução de encontro"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "prato",
+     "pato",
+     "redução de encontro"
+    ],
+    [
+     "bruxa",
+     "buxa",
+     "redução de encontro"
+    ]
+   ]
+  },
+  {
+   "id": "enc_l",
+   "ipa": "C+l",
+   "grafias": [
+    "pl",
+    "bl",
+    "cl",
+    "gl",
+    "fl"
+   ],
+   "nome_jogo": "Foguete com dois motores (L)",
+   "metafora": "p + l = pl",
+   "idade_tipica": "4;6–5;0 (depois dos encontros com r)",
+   "inicio": [
+    "planeta",
+    "placa",
+    "bloco",
+    "blusa",
+    "clipe",
+    "globo",
+    "flor",
+    "flauta"
+   ],
+   "meio": [
+    "bicicleta",
+    "teclado",
+    "chiclete",
+    "bíblia"
+   ],
+   "pares": [
+    [
+     "pano",
+     "plano",
+     "redução de encontro"
+    ],
+    [
+     "foco",
+     "floco",
+     "redução de encontro"
+    ]
+   ],
+   "validado_por_fono": false,
+   "formas_trocadas": [
+    [
+     "planeta",
+     "paneta",
+     "redução de encontro"
+    ],
+    [
+     "flor",
+     "for",
+     "redução de encontro"
+    ]
+   ]
+  },
+  {
+   "id": "coda",
+   "ipa": "r/s/l em final de sílaba",
+   "grafias": [
+    "r final",
+    "s final",
+    "l final"
+   ],
+   "nome_jogo": "(só com indicação da fono)",
+   "metafora": "",
+   "idade_tipica": "varia; forte variação regional",
+   "inicio": [],
+   "meio": [
+    "porta",
+    "garfo",
+    "barco",
+    "pasta",
+    "mosca",
+    "escova",
+    "mar",
+    "flor",
+    "sol"
+   ],
+   "pares": [],
+   "obs": "NÃO treinar por padrão: pronúncia regional (retroflexo, fricativo, chiado carioca) não é erro",
+   "validado_por_fono": false,
+   "formas_trocadas": []
+  }
+ ]
+}
