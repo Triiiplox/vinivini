@@ -41,16 +41,19 @@ func _run() -> void:
 	for n in RigAnimations.NAMES:
 		var length: float = rigs[0].anim.get_animation(n).length
 		for i in rigs.size():
+			rigs[i]._set_pose(n)
 			rigs[i].anim.play(n)
 			rigs[i].anim.seek(length * i / 4.0, true)
 			rigs[i].anim.pause()
 		await get_tree().process_frame
 		await _shot("anim_" + n)
-	var moods := ["happy", "big_smile", "surprised", "sad", "thinking"]
-	for i in rigs.size():
-		rigs[i].anim.play("idle")
-		rigs[i].set_mood(moods[i])
-		rigs[i].scale = Vector2(1.6, 1.6)
-		rigs[i].position = Vector2(140 + i * 250, 1000)
-	await get_tree().process_frame
-	await _shot("faces")
+	var sets := [["happy", "big_smile", "surprised", "sad", "thinking"], ["angry", "curious", "proud", "calm", "scared"]]
+	for k in sets.size():
+		for i in rigs.size():
+			rigs[i]._set_pose("")
+			rigs[i].anim.play("idle")
+			rigs[i].set_mood(sets[k][i])
+			rigs[i].scale = Vector2(1.6, 1.6)
+			rigs[i].position = Vector2(140 + i * 250, 1000)
+		await get_tree().process_frame
+		await _shot("faces" if k == 0 else "faces_%d" % k)

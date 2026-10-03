@@ -68,7 +68,9 @@ func build() -> void:
 		rescue_npc.facing = -1
 		rescue_npc.z_index = 15
 		world.add_child(rescue_npc)
-	for i in int(width / 420.0):
+	# Cenário pintado já traz pedras e cristais; enfeite vetorial só nos temas ainda em SVG.
+	var deco_n := 0 if Scenery.PAINTED.has(world_theme) else int(width / 420.0)
+	for i in deco_n:
 		var deco := ArtSprite.new("props", ["rock_a", "rock_b", "plant_a", "plant_b"][i % 4], randf_range(60, 120),
 			SvgArt.tint_colors(_rock_color()))
 		deco.anchor_bottom = true

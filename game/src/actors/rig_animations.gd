@@ -1,6 +1,7 @@
 class_name RigAnimations
 extends RefCounted
-## Biblioteca de animações (keyframes) para o CharacterRig2D: rotações de ossos em graus e "hip_y"/"hip_x".
+## Biblioteca de animações (keyframes) para o CharacterRig2D: rotações de ossos em graus e "hip_y"/"hip_x"
+## (deslocamentos em px de um personagem de 1000 de altura; escalados por rig.unit()).
 ## Convenção: braço/perna do lado _r = esquerda da tela. Rotação positiva = horário.
 
 const NAMES := ["idle", "walk", "run", "jump", "celebrate", "wave", "point", "think", "surprised"]
@@ -76,10 +77,11 @@ static func data(n: String) -> Array:
 				[1.2, {"upper_arm_l": -4, "forearm_l": 4, "torso": 0, "head": 0}]]]
 		"think":
 			return [2.0, false, [
-				[0.0, {"upper_arm_l": -4, "forearm_l": 4, "head": 0}],
-				[0.35, {"upper_arm_l": -20, "forearm_l": 150, "head": 8}],
-				[1.6, {"upper_arm_l": -20, "forearm_l": 150, "head": 10}],
-				[2.0, {"upper_arm_l": -4, "forearm_l": 4, "head": 0}]]]
+				# Braço até o queixo vem pintado (pose "think" do rig); aqui só o corpo acompanha.
+				[0.0, {"upper_arm_l": -4, "forearm_l": 4, "head": 0, "torso": 0}],
+				[0.35, {"upper_arm_l": -6, "forearm_l": 6, "head": 3, "torso": 1.5}],
+				[1.6, {"upper_arm_l": -6, "forearm_l": 6, "head": 4, "torso": 1.5}],
+				[2.0, {"upper_arm_l": -4, "forearm_l": 4, "head": 0, "torso": 0}]]]
 		"surprised":
 			return [0.8, false, [
 				[0.0, {"hip_y": 0, "upper_arm_r": 4, "upper_arm_l": -4, "head": 0}],
@@ -114,5 +116,5 @@ static func build(n: String, rig: CharacterRig2D) -> Animation:
 		var last := 0.0
 		for key in d[2]:
 			last = float(key[1].get(b, last))
-			a.track_insert_key(ti, key[0], rest + last if b == "hip_y" else deg_to_rad(last))
+			a.track_insert_key(ti, key[0], rest + last * rig.unit() if b == "hip_y" else deg_to_rad(last))
 	return a

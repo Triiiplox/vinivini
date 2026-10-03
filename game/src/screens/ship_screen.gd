@@ -102,42 +102,44 @@ func _make_station(st: Dictionary) -> void:
 	it.payload = st
 	it.z_index = 2
 	var col := Color(str(st["color"]))
+	# Painel holográfico flutuando na frente da parede pintada (vidro escuro + borda luminosa).
+	var holo := Node2D.new()
+	it.add_child(holo)
 	var door := Panel.new()
-	door.add_theme_stylebox_override("panel", UITheme.rounded(col.darkened(0.55), 40, 8, col))
-	door.size = Vector2(240, 300)
-	door.position = Vector2(-120, -130)
+	var sb := UITheme.rounded(Color(DS.SPACE_DARK, 0.62), 36, 5, col.lightened(0.15))
+	sb.shadow_color = Color(col, 0.55)
+	sb.shadow_size = 22
+	door.add_theme_stylebox_override("panel", sb)
+	door.size = Vector2(230, 250)
+	door.position = Vector2(-115, -140)
 	door.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	it.add_child(door)
-	# Luz da porta + moldura (dá profundidade de "porta de nave").
-	var lamp := Panel.new()
-	lamp.add_theme_stylebox_override("panel", UITheme.rounded(col.lightened(0.35), 14, 5, Color("#22204A")))
-	lamp.size = Vector2(150, 26)
-	lamp.position = Vector2(-75, -150)
-	lamp.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	it.add_child(lamp)
+	holo.add_child(door)
 	var inner := Panel.new()
-	inner.add_theme_stylebox_override("panel", UITheme.rounded(col.darkened(0.35), 30, 0))
-	inner.size = Vector2(200, 250)
-	inner.position = Vector2(-100, -105)
+	inner.add_theme_stylebox_override("panel", UITheme.rounded(Color(col, 0.16), 28, 2, Color(col, 0.45)))
+	inner.size = Vector2(196, 216)
+	inner.position = Vector2(-98, -123)
 	inner.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	it.add_child(inner)
+	holo.add_child(inner)
+	# Feixe do projetor no chão.
+	var beam := Polygon2D.new()
+	beam.polygon = PackedVector2Array([Vector2(-60, 112), Vector2(60, 112), Vector2(26, 196), Vector2(-26, 196)])
+	beam.vertex_colors = PackedColorArray([Color(col, 0.28), Color(col, 0.28), Color(col, 0.0), Color(col, 0.0)])
+	it.add_child(beam)
+	var bob := holo.create_tween().set_loops()
+	bob.tween_property(holo, "position:y", -8.0, 1.6 + randf() * 0.4).set_trans(Tween.TRANS_SINE)
+	bob.tween_property(holo, "position:y", 0.0, 1.6 + randf() * 0.4).set_trans(Tween.TRANS_SINE)
 	var glow := Fx.glow(it, Vector2(0, -10), 300.0, Color(col, 0.35), 0.8)
 	glow.z_index = -1
 	var ic := IconDraw.new(str(st["icon"]), Color.WHITE)
-	ic.size = Vector2(150, 150)
-	ic.position = Vector2(-75, -100)
-	it.add_child(ic)
+	ic.size = Vector2(140, 140)
+	ic.position = Vector2(-70, -85)
+	holo.add_child(ic)
 	match str(st["id"]):
 		"kitchen":
 			var f := ArtSprite.new("foods", "strawberry", 70.0)
 			f.position = Vector2(80, 130)
 			f.idle = "float"
 			it.add_child(f)
-		"workshop":
-			var r := ArtSprite.new("build", "rocket_nose", 70.0)
-			r.position = Vector2(-85, 130)
-			r.idle = "wobble"
-			it.add_child(r)
 		"cockpit":
 			var pl := ShaderPlanet.new("earth", 60.0)
 			pl.position = Vector2(0, -190)

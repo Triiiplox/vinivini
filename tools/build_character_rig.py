@@ -50,7 +50,7 @@ def bake(name, src, scale, flip=False):
 
 
 J = L["joints"]
-rig = {"char": char, "height": J["root"][1] - min(J["head"][1] - 420, 40), "bones": [], "parts": [], "slots": {}}
+rig = {"char": char, "height": L.get("height", J["root"][1] - min(J["head"][1] - 420, 40)), "bones": [], "parts": [], "slots": {}}
 for bone, parent in L["bones"]:
     bj = J[L["bone_joint"][bone]]
     pj = J["root"] if parent == "root" else J[L["bone_joint"][parent]]
@@ -61,10 +61,17 @@ for name, c in L["parts"].items():
     bone = L["part_bone"][name]
     w, h = bake(name, c.get("src", name), c["scale"], c.get("flip", False))
     bj = J[L["bone_joint"][bone]]
-    rig["parts"].append({"name": name, "bone": bone, "tex": "parts/%s.png" % name, "z": c["z"],
-                         "offset": [c["x"] - bj[0], c["y"] - bj[1]]})
+    part = {"name": name, "bone": bone, "tex": "parts/%s.png" % name, "z": c["z"],
+            "offset": [c["x"] - bj[0], c["y"] - bj[1]]}
+    if c.get("pose"):
+        part["pose"] = c["pose"]  # só aparece durante essa ação
+    rig["parts"].append(part)
+if L.get("poses"):
+    rig["poses"] = L["poses"]
 
-# Slots de rosto e mãos: mesma escala da peça padrão do slot.
+# Slots (texturas trocáveis na mesma posição da peça de mesmo nome).
+# Com "slots" no layout: estados explícitos (ex.: cabeças pintadas por humor, bocas de fala, pálpebras).
+# Sem: rosto montado por partes (olhos/sobrancelhas/boca) pelos nomes padrão.
 FACE = {
     "eye_a": ("eye_%s_a", ["open", "blink", "half", "happy", "surprised", "sad", "right", "left"]),
     "eye_b": ("eye_%s_b", ["open", "blink", "half", "happy", "surprised", "sad", "right", "left"]),
@@ -72,11 +79,12 @@ FACE = {
     "brow_b": ("brow_%s_b", ["normal", "curious", "angry", "sad", "surprised"]),
     "mouth": ("mouth_%s", ["neutral", "smile", "big_smile", "o", "a", "e", "mbp", "sad", "talk"]),
 }
-for slot, (pat, states) in FACE.items():
+SLOTS = L.get("slots") or {slot: {st: pat % st for st in states} for slot, (pat, states) in FACE.items()
+                           if slot in L["parts"]}
+for slot, states in SLOTS.items():
     sc = L["parts"][slot]["scale"]
     rig["slots"][slot] = {}
-    for st in states:
-        src = pat % st
+    for st, src in states.items():
         if not os.path.exists(os.path.join(P, src + ".png")):
             continue
         nm = "%s__%s" % (slot, st)

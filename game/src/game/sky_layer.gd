@@ -13,7 +13,14 @@ const THEMES := {
 		0.5],
 }
 
+## Céus pintados (assets/scenes): tema -> [arquivo, cor]. Os outros temas usam só o shader.
+const PAINTED := {
+	"space": ["space_sky", Color.WHITE], "saturn": ["space_sky", Color(1.0, 0.92, 0.85)],
+	"moon": ["space_sky", Color(0.62, 0.66, 0.85)],
+}
+
 var rect: ColorRect
+var painted: TextureRect
 var mat: ShaderMaterial
 var theme := "space"
 
@@ -28,12 +35,23 @@ func _ready() -> void:
 	rect.material = mat
 	add_child(rect)
 	rect.resized.connect(func(): mat.set_shader_parameter("screen_px", rect.size))
+	painted = TextureRect.new()
+	painted.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	painted.texture = load("res://assets/scenes/space_sky.jpg")
+	painted.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	painted.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	painted.size = Vector2(1440, 810)
+	painted.position = Vector2(-80, -45)
+	painted.modulate.a = 0.0
+	add_child(painted)
 	set_theme("space", 0.0)
 	set_quality(not bool(SaveService.settings.get_value("reduced_effects")))
 
 
 func set_parallax(v: Vector2) -> void:
 	mat.set_shader_parameter("parallax", v)
+	# Céu pintado: anda bem pouco (bem longe), com folga de 80 px para cada lado.
+	painted.position = Vector2(-80.0 - clampf(v.x * 0.03, -80.0, 80.0), -45.0 - clampf(v.y * 0.03, -45.0, 45.0))
 
 
 func set_quality(high: bool) -> void:
@@ -42,6 +60,12 @@ func set_quality(high: bool) -> void:
 
 func set_theme(name: String, fade: float = 0.8) -> void:
 	theme = name
+	var pt: Array = PAINTED.get(name, [])
+	var target := Color(pt[1]) if not pt.is_empty() else Color(1, 1, 1, 0)
+	if fade <= 0.0:
+		painted.modulate = target
+	else:
+		create_tween().tween_property(painted, "modulate", target, fade)
 	var t: Array = THEMES.get(name, THEMES["space"])
 	var keys := ["top_color", "bottom_color", "neb_a", "neb_b", "neb_c", "neb_strength"]
 	for i in keys.size():

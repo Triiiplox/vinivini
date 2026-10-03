@@ -1,286 +1,279 @@
 {
  "char": "vini",
- "height": 1033,
+ "height": 834,
  "bones": [
   {
    "name": "hip",
    "parent": "root",
    "pos": [
-    0,
-    -378
+    0.0,
+    -325.20000000000005
    ]
   },
   {
    "name": "torso",
    "parent": "hip",
    "pos": [
-    0,
-    0
+    0.0,
+    0.0
    ]
   },
   {
    "name": "neck",
    "parent": "torso",
    "pos": [
-    0,
-    -220
+    0.0,
+    -226.8
    ]
   },
   {
    "name": "head",
    "parent": "neck",
    "pos": [
-    0,
-    -15
+    0.0,
+    -6.0
    ]
   },
   {
    "name": "upper_arm_r",
    "parent": "torso",
    "pos": [
-    -126,
-    -220
+    -129.0,
+    -150.0
    ]
   },
   {
    "name": "forearm_r",
    "parent": "upper_arm_r",
    "pos": [
-    -10,
-    128
+    -13.199999999999989,
+    69.0
    ]
   },
   {
    "name": "hand_r",
    "parent": "forearm_r",
    "pos": [
-    2,
-    124
+    -42.0,
+    81.0
    ]
   },
   {
    "name": "upper_arm_l",
    "parent": "torso",
    "pos": [
-    130,
-    -220
+    129.0,
+    -150.0
    ]
   },
   {
    "name": "forearm_l",
    "parent": "upper_arm_l",
    "pos": [
-    10,
-    128
+    13.800000000000011,
+    70.80000000000001
    ]
   },
   {
    "name": "hand_l",
    "parent": "forearm_l",
    "pos": [
-    2,
-    124
+    42.0,
+    79.19999999999999
    ]
   },
   {
    "name": "thigh_r",
    "parent": "hip",
    "pos": [
-    -46,
-    0
+    -58.19999999999999,
+    36.0
    ]
   },
   {
    "name": "shin_r",
    "parent": "thigh_r",
    "pos": [
-    -4,
-    162
+    -9.0,
+    72.0
    ]
   },
   {
    "name": "foot_r",
    "parent": "shin_r",
    "pos": [
-    -8,
-    133
+    -3.0,
+    132.0
    ]
   },
   {
    "name": "thigh_l",
    "parent": "hip",
    "pos": [
-    52,
-    0
+    58.80000000000001,
+    36.0
    ]
   },
   {
    "name": "shin_l",
    "parent": "thigh_l",
    "pos": [
-    5,
-    162
+    7.800000000000011,
+    72.0
    ]
   },
   {
    "name": "foot_l",
    "parent": "shin_l",
    "pos": [
-    12,
-    133
+    2.3999999999999773,
+    132.0
    ]
   }
  ],
  "parts": [
   {
-   "name": "backpack",
-   "bone": "torso",
-   "tex": "parts/backpack.png",
-   "z": 0,
-   "offset": [
-    12,
-    -170
-   ]
-  },
-  {
-   "name": "hair_back",
-   "bone": "head",
-   "tex": "parts/hair_back.png",
-   "z": 1,
-   "offset": [
-    -3,
-    -225
-   ]
-  },
-  {
-   "name": "arm_r_up",
-   "bone": "upper_arm_r",
-   "tex": "parts/arm_r_up.png",
-   "z": 2,
-   "offset": [
-    -2,
-    50
-   ]
-  },
-  {
-   "name": "arm_r_lo",
-   "bone": "forearm_r",
-   "tex": "parts/arm_r_lo.png",
-   "z": 2,
-   "offset": [
-    0,
-    62
-   ]
-  },
-  {
-   "name": "glove_r",
-   "bone": "hand_r",
-   "tex": "parts/glove_r.png",
-   "z": 3,
-   "offset": [
-    2,
-    38
-   ]
-  },
-  {
-   "name": "boot_r",
-   "bone": "foot_r",
-   "tex": "parts/boot_r.png",
-   "z": 3,
-   "offset": [
-    -10,
-    40
-   ]
-  },
-  {
-   "name": "shin_r",
-   "bone": "shin_r",
-   "tex": "parts/shin_r.png",
-   "z": 4,
-   "offset": [
-    -1,
-    73
-   ]
-  },
-  {
    "name": "thigh_r",
    "bone": "thigh_r",
    "tex": "parts/thigh_r.png",
-   "z": 5,
+   "z": 1,
    "offset": [
-    0,
-    78
-   ]
-  },
-  {
-   "name": "boot_l",
-   "bone": "foot_l",
-   "tex": "parts/boot_l.png",
-   "z": 3,
-   "offset": [
-    8,
-    40
-   ]
-  },
-  {
-   "name": "shin_l",
-   "bone": "shin_l",
-   "tex": "parts/shin_l.png",
-   "z": 4,
-   "offset": [
-    0,
-    73
+    -1.0,
+    14.0
    ]
   },
   {
    "name": "thigh_l",
    "bone": "thigh_l",
    "tex": "parts/thigh_l.png",
-   "z": 5,
+   "z": 1,
    "offset": [
-    0,
-    78
+    0.5,
+    15.5
+   ]
+  },
+  {
+   "name": "shin_r",
+   "bone": "shin_r",
+   "tex": "parts/shin_r.png",
+   "z": 2,
+   "offset": [
+    -69.0,
+    103.5
+   ]
+  },
+  {
+   "name": "shin_l",
+   "bone": "shin_l",
+   "tex": "parts/shin_l.png",
+   "z": 2,
+   "offset": [
+    89.19999999999999,
+    103.5
    ]
   },
   {
    "name": "torso",
    "bone": "torso",
    "tex": "parts/torso.png",
-   "z": 6,
+   "z": 4,
    "offset": [
-    0,
-    -125
+    1.3000000000000114,
+    -85.0
+   ]
+  },
+  {
+   "name": "arm_r_up",
+   "bone": "upper_arm_r",
+   "tex": "parts/arm_r_up.png",
+   "z": 5,
+   "offset": [
+    -34.19999999999999,
+    54.0
    ]
   },
   {
    "name": "arm_l_up",
    "bone": "upper_arm_l",
    "tex": "parts/arm_l_up.png",
-   "z": 7,
+   "z": 5,
    "offset": [
-    0,
-    50
+    7.300000000000011,
+    54.0
+   ]
+  },
+  {
+   "name": "arm_r_lo",
+   "bone": "forearm_r",
+   "tex": "parts/arm_r_lo.png",
+   "z": 6,
+   "offset": [
+    -60.0,
+    95.0
    ]
   },
   {
    "name": "arm_l_lo",
    "bone": "forearm_l",
    "tex": "parts/arm_l_lo.png",
-   "z": 7,
+   "z": 6,
    "offset": [
-    0,
-    62
+    47.5,
+    93.19999999999999
    ]
   },
   {
-   "name": "glove_l",
-   "bone": "hand_l",
-   "tex": "parts/glove_l.png",
-   "z": 8,
+   "name": "pad_r",
+   "bone": "upper_arm_r",
+   "tex": "parts/pad_r.png",
+   "z": 7,
    "offset": [
-    -4,
-    38
+    -0.6999999999999886,
+    -7.0
    ]
+  },
+  {
+   "name": "pad_l",
+   "bone": "upper_arm_l",
+   "tex": "parts/pad_l.png",
+   "z": 7,
+   "offset": [
+    1.3000000000000114,
+    -6.5
+   ]
+  },
+  {
+   "name": "torso_think",
+   "bone": "torso",
+   "tex": "parts/torso_think.png",
+   "z": 4,
+   "offset": [
+    -26.19999999999999,
+    -84.5
+   ],
+   "pose": "think"
+  },
+  {
+   "name": "hand_think",
+   "bone": "torso",
+   "tex": "parts/hand_think.png",
+   "z": 12,
+   "offset": [
+    -9.699999999999989,
+    -232.5
+   ],
+   "pose": "think"
+  },
+  {
+   "name": "torso_point",
+   "bone": "torso",
+   "tex": "parts/torso_point.png",
+   "z": 4,
+   "offset": [
+    98.80000000000001,
+    -107.0
+   ],
+   "pose": "point"
   },
   {
    "name": "head",
@@ -288,116 +281,86 @@
    "tex": "parts/head.png",
    "z": 9,
    "offset": [
-    0,
-    -170
+    -3.6999999999999886,
+    -129.7
    ]
   },
   {
-   "name": "eye_a",
+   "name": "lids",
    "bone": "head",
-   "tex": "parts/eye_a.png",
+   "tex": "parts/lids.png",
    "z": 10,
    "offset": [
-    -33,
-    -150
-   ]
-  },
-  {
-   "name": "eye_b",
-   "bone": "head",
-   "tex": "parts/eye_b.png",
-   "z": 10,
-   "offset": [
-    67,
-    -150
-   ]
-  },
-  {
-   "name": "brow_a",
-   "bone": "head",
-   "tex": "parts/brow_a.png",
-   "z": 11,
-   "offset": [
-    -38,
-    -215
-   ]
-  },
-  {
-   "name": "brow_b",
-   "bone": "head",
-   "tex": "parts/brow_b.png",
-   "z": 11,
-   "offset": [
-    72,
-    -215
+    -3.6999999999999886,
+    -129.7
    ]
   },
   {
    "name": "mouth",
    "bone": "head",
    "tex": "parts/mouth.png",
-   "z": 11,
+   "z": 10,
    "offset": [
-    27,
-    -63
-   ]
-  },
-  {
-   "name": "hair_front",
-   "bone": "head",
-   "tex": "parts/hair_front.png",
-   "z": 12,
-   "offset": [
-    0,
-    -275
+    -3.6999999999999886,
+    -129.7
    ]
   }
  ],
  "slots": {
-  "eye_a": {
-   "open": "parts/eye_a__open.png",
-   "blink": "parts/eye_a__blink.png",
-   "half": "parts/eye_a__half.png",
-   "happy": "parts/eye_a__happy.png",
-   "surprised": "parts/eye_a__surprised.png",
-   "sad": "parts/eye_a__sad.png",
-   "right": "parts/eye_a__right.png",
-   "left": "parts/eye_a__left.png"
+  "head": {
+   "happy": "parts/head__happy.png",
+   "big_smile": "parts/head__big_smile.png",
+   "curious": "parts/head__curious.png",
+   "surprised": "parts/head__surprised.png",
+   "sad": "parts/head__sad.png",
+   "thinking": "parts/head__thinking.png",
+   "angry": "parts/head__angry.png",
+   "scared": "parts/head__scared.png",
+   "calm": "parts/head__calm.png",
+   "proud": "parts/head__proud.png"
   },
-  "eye_b": {
-   "open": "parts/eye_b__open.png",
-   "blink": "parts/eye_b__blink.png",
-   "half": "parts/eye_b__half.png",
-   "happy": "parts/eye_b__happy.png",
-   "surprised": "parts/eye_b__surprised.png",
-   "sad": "parts/eye_b__sad.png",
-   "right": "parts/eye_b__right.png",
-   "left": "parts/eye_b__left.png"
-  },
-  "brow_a": {
-   "normal": "parts/brow_a__normal.png",
-   "curious": "parts/brow_a__curious.png",
-   "angry": "parts/brow_a__angry.png",
-   "sad": "parts/brow_a__sad.png",
-   "surprised": "parts/brow_a__surprised.png"
-  },
-  "brow_b": {
-   "normal": "parts/brow_b__normal.png",
-   "curious": "parts/brow_b__curious.png",
-   "angry": "parts/brow_b__angry.png",
-   "sad": "parts/brow_b__sad.png",
-   "surprised": "parts/brow_b__surprised.png"
+  "lids": {
+   "happy": "parts/lids__happy.png",
+   "big_smile": "parts/lids__big_smile.png",
+   "curious": "parts/lids__curious.png",
+   "surprised": "parts/lids__surprised.png",
+   "sad": "parts/lids__sad.png",
+   "thinking": "parts/lids__thinking.png",
+   "angry": "parts/lids__angry.png",
+   "scared": "parts/lids__scared.png",
+   "calm": "parts/lids__calm.png",
+   "proud": "parts/lids__proud.png"
   },
   "mouth": {
-   "neutral": "parts/mouth__neutral.png",
-   "smile": "parts/mouth__smile.png",
-   "big_smile": "parts/mouth__big_smile.png",
-   "o": "parts/mouth__o.png",
    "a": "parts/mouth__a.png",
    "e": "parts/mouth__e.png",
    "mbp": "parts/mouth__mbp.png",
-   "sad": "parts/mouth__sad.png",
-   "talk": "parts/mouth__talk.png"
+   "o": "parts/mouth__o.png"
+  }
+ },
+ "poses": {
+  "think": {
+   "show": [
+    "hand_think",
+    "torso_think"
+   ],
+   "hide": [
+    "torso",
+    "arm_r_up",
+    "arm_r_lo",
+    "pad_r"
+   ]
+  },
+  "point": {
+   "show": [
+    "torso_point"
+   ],
+   "hide": [
+    "torso",
+    "arm_l_up",
+    "arm_l_lo",
+    "pad_l"
+   ]
   }
  }
 }

@@ -3,7 +3,8 @@ extends Node2D
 ## Personagem por partes com esqueleto do Godot (Skeleton2D + Bone2D + AnimationPlayer), sem Spine.
 ## Lê assets/characters/<char>/rig.json (gerado por tools/build_character_rig.py).
 ## Origem = entre os pés. Estados contínuos: idle, walk, run. Ações: jump, celebrate, wave, point, think, surprised.
-## Rosto em slots (olhos, sobrancelhas, boca) com piscar, expressões e boca falando.
+## Rosto: (a) cabeças pintadas por humor (slot "head") + pálpebras ("lids") + bocas de fala ("mouth") —
+## arte da ficha sem montagem; ou (b) rosto por partes (olhos, sobrancelhas, boca). Piscar e lip-sync nos dois.
 
 signal action_finished(action: String)
 
@@ -42,6 +43,10 @@ var _hair_vel := 0.0
 var _prev_head_rot := 0.0
 var _prev_x := 0.0
 var _walk_tw: Tween
+## Modo cabeça pintada (slot "head" no rig.json).
+var _painted := false
+## Poses com braço pintado (rig.json "poses"): ação -> {show, hide}. Aplicada durante a ação.
+var _pose := ""
 
 
 func _init(id: String = "vini", h: float = 260.0) -> void:
@@ -83,6 +88,8 @@ func _ready() -> void:
 		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		bones[str(p["bone"])].add_child(s)
 		sprites[s.name] = s
+		if p.has("pose"):
+			s.visible = false
 	for slot in _rig["slots"]:
 		slots[slot] = {}
 		for st in _rig["slots"][slot]:
@@ -107,6 +114,10 @@ func _ready() -> void:
 		lib.add_animation(n, RigAnimations.build(n, self))
 	anim.add_animation_library("", lib)
 	anim.animation_finished.connect(_on_anim_finished)
+	_painted = slots.has("head")
+	if _painted:
+		_show("lids", false)
+		_show("mouth", false)
 	set_mood(mood)
 	anim.play("idle")
 	_prev_x = position.x
@@ -117,8 +128,16 @@ func bone_path(bone: String) -> String:
 	return str(_body.get_path_to(bones[bone]))
 
 
+## Escala do personagem em relação a 1000 de altura (para deslocamentos das animações).
+func unit() -> float:
+	return float(_rig.get("height", 1000.0)) / 1000.0
+
+
 func set_mood(m: String) -> void:
 	mood = m if EXPRESSIONS.has(m) else "happy"
+	if _painted:
+		_set_head(mood)
+		return
 	var e: Array = EXPRESSIONS[mood]
 	_eye_state = e[0]
 	_set_slot("eye_a", e[0])
@@ -128,6 +147,36 @@ func set_mood(m: String) -> void:
 	_mouth_state = e[2]
 	if not talking:
 		_set_slot("mouth", e[2])
+
+
+func _set_head(st: String) -> void:
+	if not sprites.has("head"):
+		return
+	var spr: Sprite2D = sprites["head"]
+	var tex: Texture2D = slots["head"].get(st, slots["head"].get("happy"))
+	if spr.texture == tex:
+		return
+	spr.texture = tex
+	_set_slot("lids", st)
+	# Troca de cabeça com um "squash" curtinho (lê como reação, não como corte seco).
+	spr.scale = Vector2(1.04, 0.95)
+	spr.create_tween().tween_property(spr, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _show(slot: String, on: bool) -> void:
+	if sprites.has(slot):
+		(sprites[slot] as Sprite2D).visible = on
+
+
+## Boca de fala (modo pintado): "" esconde e volta para a cabeça do humor.
+func _painted_mouth(v: String) -> void:
+	if v == "" or not slots.get("mouth", {}).has(v):
+		_show("mouth", false)
+		_set_head(mood)
+		return
+	_set_head("happy")
+	_set_slot("mouth", v)
+	_show("mouth", true)
 
 
 func _set_slot(slot: String, st: String) -> void:
@@ -140,11 +189,17 @@ func _set_slot(slot: String, st: String) -> void:
 func set_talking(on: bool) -> void:
 	talking = on
 	if not on:
-		_set_slot("mouth", _mouth_state)
+		if _painted:
+			_painted_mouth("")
+		else:
+			_set_slot("mouth", _mouth_state)
 
 
 ## Boca por lip-sync (A, E, O, MBP, REST) — chamada pelo VoiceService quando houver markers.
 func set_viseme(v: String) -> void:
+	if _painted:
+		_painted_mouth(str({"A": "a", "E": "e", "O": "o", "MBP": "mbp"}.get(v, "")))
+		return
 	var m := {"A": "a", "E": "e", "O": "o", "MBP": "mbp", "REST": _mouth_state}
 	_set_slot("mouth", str(m.get(v, "talk")))
 
@@ -173,13 +228,40 @@ func play(action: String) -> void:
 			set_mood("surprised")
 		"think":
 			set_mood("thinking")
+	_set_pose(action)
 	anim.play(action, 0.08)
+
+
+## Troca para a pose pintada da ação (ou volta ao rig normal com ""), com fade curto.
+func _set_pose(action: String) -> void:
+	var poses: Dictionary = _rig.get("poses", {})
+	var next := action if poses.has(action) else ""
+	if next == _pose:
+		return
+	if _pose != "":
+		_pose_swap(poses[_pose]["hide"], poses[_pose]["show"])
+	if next != "":
+		_pose_swap(poses[next]["show"], poses[next]["hide"])
+	_pose = next
+
+
+func _pose_swap(show: Array, hide: Array) -> void:
+	for n in hide:
+		if sprites.has(n):
+			(sprites[n] as Sprite2D).visible = false
+	for n in show:
+		if sprites.has(n):
+			var spr: Sprite2D = sprites[n]
+			spr.visible = true
+			spr.modulate.a = 0.0
+			spr.create_tween().tween_property(spr, "modulate:a", 1.0, 0.1)
 
 
 func _on_anim_finished(n: StringName) -> void:
 	if str(n) == _action:
 		var a := _action
 		_action = ""
+		_set_pose("")
 		anim.play(state, 0.2)
 		action_finished.emit(a)
 
@@ -205,7 +287,9 @@ func _process(delta: float) -> void:
 	if _blink_t <= 0.0:
 		_blinking = not _blinking
 		_blink_t = 0.11 if _blinking else randf_range(2.2, 4.8)
-		if _eye_state in ["open", "left", "right"]:
+		if _painted:
+			_show("lids", _blinking)
+		elif _eye_state in ["open", "left", "right"]:
 			_set_slot("eye_a", "blink" if _blinking else _eye_state)
 			_set_slot("eye_b", "blink" if _blinking else _eye_state)
 	# Lip-sync pelos markers da fala atual.
@@ -214,13 +298,19 @@ func _process(delta: float) -> void:
 		set_viseme(Voice.viseme_now())
 	elif _lip_active:
 		_lip_active = false
-		_set_slot("mouth", _mouth_state)
+		if _painted:
+			_painted_mouth("")
+		else:
+			_set_slot("mouth", _mouth_state)
 	# Boca falando genérica (sem markers).
 	if talking and not _lip_active:
 		_talk_t -= delta
 		if _talk_t <= 0.0:
 			_talk_t = randf_range(0.07, 0.13)
-			_set_slot("mouth", TALK_SHAPES[randi() % TALK_SHAPES.size()])
+			if _painted:
+				_painted_mouth(["a", "e", "o", "mbp", ""][randi() % 5])
+			else:
+				_set_slot("mouth", TALK_SHAPES[randi() % TALK_SHAPES.size()])
 	# Movimento secundário do cabelo: mola amortecida seguindo a cabeça e o deslocamento.
 	if sprites.has("hair_front"):
 		var head: Bone2D = bones["head"]
