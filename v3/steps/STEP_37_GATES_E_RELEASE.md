@@ -1,4 +1,4 @@
-# STEP 34 — Gates finais e release
+# STEP 37 — Gates finais e release
 
 ## Objetivo
 Só chamar de 10/10 o que a rubrica prova.
@@ -12,10 +12,13 @@ Só chamar de 10/10 o que a rubrica prova.
    - varredura de placeholder;
    - 0 falas sem áudio;
    - `aapt dump permissions` com só VIBRATE e RECORD_AUDIO.
-3. Playtest final com o Vini (protocolo do STEP 21) em 3 dias + diário de 7 dias do Fun Gate.
-4. Revisão cética escrita (`docs/REVISAO_FINAL.md`): o que um pai exigente, um game designer de app infantil
+3. Planeta Hello: as 150 lições jogadas pelo Autoplay (acertando e errando); sondagem de inglês inicial ×
+   8 semanas anexada; 0 áudio em inglês sem escuta humana.
+4. Planeta Eco: banco revisado pela fono (ou marcado "não validado" no app); relatório por som.
+5. Playtest final com o Vini (protocolo do STEP 21) em 3 dias + diário de 7 dias do Fun Gate.
+6. Revisão cética escrita (`docs/REVISAO_FINAL.md`): o que um pai exigente, um game designer de app infantil
    e uma fonoaudióloga criticariam hoje, e o que foi feito ou não para cada ponto.
-5. Build e versão: versionCode++, os dois APKs (universal e arm64), SHA-256, CHANGELOG, PROJECT_STATUS,
+7. Build e versão: versionCode++, os dois APKs (universal e arm64), SHA-256, CHANGELOG, PROJECT_STATUS,
    `CHECKLIST_STATUS` atualizado.
 
 ## Critério de release 10/10
@@ -23,5 +26,5 @@ Todas as áreas ★ com 10 e evidência; demais áreas ≥ 9 com evidência.
 Se não bater: lançar como **v3.x "beta da família"** com as notas reais. Nunca arredondar para cima.
 
 ## Prompt pronto
-> Execute o STEP 34. Monte a rubrica com evidências, rode todos os gates, escreva a revisão cética e gere a
+> Execute o STEP 37. Monte a rubrica com evidências, rode todos os gates, escreva a revisão cética e gere a
 > release. Se algum gate ★ falhar, não declare 10/10 — liste o que falta e quem precisa agir.

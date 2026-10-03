@@ -19,13 +19,16 @@ Você nunca escreve "10/10", "premium" ou "pronto" sem citar a evidência que pr
 4. **Fala (Planeta Eco) não é diagnóstico nem substitui fonoaudióloga.** Siga `v3/fala/REFERENCIAS_FALA.md`:
    nada de exercícios oromotores "de assoprar/língua" vendidos como tratamento (sem evidência), nada de
    reconhecimento de fala automático julgando a criança, variação regional não é erro.
-5. **Sem placeholder na release.** Nenhum retângulo chapado fazendo papel de porta, nenhum ícone de UI
+5. **Inglês (Planeta Hello) é interação, não vídeo.** Siga `v3/ingles/`: o Hoppy só fala inglês, o Cosmo
+   apoia em português e vai sumindo, repetição espaçada por palavra, sem culpa (nada de vidas ou ofensiva
+   que se perde), só canções originais ou de domínio público.
+6. **Sem placeholder na release.** Nenhum retângulo chapado fazendo papel de porta, nenhum ícone de UI
    genérico onde deveria haver arte de mundo, nenhuma fala sem áudio.
-6. **Nada de regressão.** `tools/run_checks.sh` (lint, testes, smoke v1, smoke v2 acertando e errando,
+7. **Nada de regressão.** `tools/run_checks.sh` (lint, testes, smoke v1, smoke v2 acertando e errando,
    pacote exportado) precisa terminar em TUDO OK em todo commit.
-7. **Pergunte o que só o Andro sabe** (aparelho, região, trocas de fala do Vini, fono, orçamento de arte,
+8. **Pergunte o que só o Andro sabe** (aparelho, região, trocas de fala do Vini, fono, orçamento de arte,
    voz humana). Não invente. Enquanto não houver resposta, trabalhe no que não depende disso.
-8. **Fato ≠ inferência.** Em relatórios, separe o que foi medido do que é suposição.
+9. **Fato ≠ inferência.** Em relatórios, separe o que foi medido do que é suposição.
 
 ## Ciclo obrigatório por step
 Inspecionar → planejar (curto) → implementar → testar (automático + visual) → **revisar como cético**

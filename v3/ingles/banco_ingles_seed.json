@@ -1,0 +1,2418 @@
+{
+ "versao": 1,
+ "nome_no_jogo": "Planeta Hello",
+ "personagem": "Hoppy (alienzinho que só fala inglês)",
+ "variedade": "inglês americano (uma única variedade, vozes nativas)",
+ "aviso": "Canções marcadas 'original' são do projeto; 'tradicional' = domínio público. Não usar letras/melodias protegidas (ex.: músicas de canais infantis).",
+ "unidades": [
+  {
+   "n": 1,
+   "id": "hello",
+   "tema": "Olá! Eu sou…",
+   "palavras": [
+    {
+     "en": "hello",
+     "pt": "olá"
+    },
+    {
+     "en": "hi",
+     "pt": "oi"
+    },
+    {
+     "en": "bye-bye",
+     "pt": "tchau"
+    },
+    {
+     "en": "yes",
+     "pt": "sim"
+    },
+    {
+     "en": "no",
+     "pt": "não"
+    },
+    {
+     "en": "boy",
+     "pt": "menino"
+    },
+    {
+     "en": "girl",
+     "pt": "menina"
+    },
+    {
+     "en": "friend",
+     "pt": "amigo"
+    },
+    {
+     "en": "happy",
+     "pt": "feliz"
+    },
+    {
+     "en": "sad",
+     "pt": "triste"
+    },
+    {
+     "en": "please",
+     "pt": "por favor"
+    },
+    {
+     "en": "thank you",
+     "pt": "obrigado"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Hello! I'm Hoppy.",
+     "pt": "Olá! Eu sou o Hoppy."
+    },
+    {
+     "en": "What's your name?",
+     "pt": "Qual é o seu nome?"
+    },
+    {
+     "en": "I'm Vini.",
+     "pt": "Eu sou o Vini."
+    },
+    {
+     "en": "How are you?",
+     "pt": "Como você está?"
+    },
+    {
+     "en": "I'm happy!",
+     "pt": "Estou feliz!"
+    },
+    {
+     "en": "Bye-bye!",
+     "pt": "Tchau!"
+    }
+   ],
+   "tpr": [
+    "Wave hello!",
+    "Wave bye-bye!",
+    "Smile!",
+    "Nod yes!",
+    "Shake your head no!"
+   ],
+   "cancao": {
+    "titulo": "Hello Song (original)",
+    "letra": "Hello, hello, hello to you! / Hello, hello, how are you? / I'm happy, I'm happy, I'm happy today! / Hello, hello, let's go and play!"
+   },
+   "historia": "Hoppy chega na nave, não fala português e cumprimenta todo mundo: o Cosmo, o dragãozinho e o Vini.",
+   "jogos": [
+    "Ouvir e tocar (quem está feliz/triste?)",
+    "Hoppy cumprimenta: responda tocando em hello ou bye-bye",
+    "Rosto do Hoppy: deixe ele happy ou sad"
+   ],
+   "falar": [
+    "hello",
+    "bye-bye",
+    "I'm Vini",
+    "I'm happy"
+   ]
+  },
+  {
+   "n": 2,
+   "id": "colors",
+   "tema": "Cores",
+   "palavras": [
+    {
+     "en": "red",
+     "pt": "vermelho"
+    },
+    {
+     "en": "blue",
+     "pt": "azul"
+    },
+    {
+     "en": "yellow",
+     "pt": "amarelo"
+    },
+    {
+     "en": "green",
+     "pt": "verde"
+    },
+    {
+     "en": "orange",
+     "pt": "laranja"
+    },
+    {
+     "en": "purple",
+     "pt": "roxo"
+    },
+    {
+     "en": "pink",
+     "pt": "rosa"
+    },
+    {
+     "en": "black",
+     "pt": "preto"
+    },
+    {
+     "en": "white",
+     "pt": "branco"
+    },
+    {
+     "en": "brown",
+     "pt": "marrom"
+    },
+    {
+     "en": "gray",
+     "pt": "cinza"
+    },
+    {
+     "en": "rainbow",
+     "pt": "arco-íris"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "It's red!",
+     "pt": "É vermelho!"
+    },
+    {
+     "en": "What color is it?",
+     "pt": "Que cor é?"
+    },
+    {
+     "en": "I like blue.",
+     "pt": "Eu gosto de azul."
+    },
+    {
+     "en": "Touch something green!",
+     "pt": "Toque em algo verde!"
+    }
+   ],
+   "tpr": [
+    "Touch red!",
+    "Jump on blue!",
+    "Find something yellow!",
+    "Clap for green!"
+   ],
+   "cancao": {
+    "titulo": "Rainbow Chant (original)",
+    "letra": "Red and yellow, pink and green, / purple, orange, blue! / I can see a rainbow, / I can see it too!"
+   },
+   "historia": "Hoppy pinta a nave e as tintas fogem; o Vini acha cada cor pelo nome.",
+   "jogos": [
+    "Pintar pelo nome (ouvir a cor e pintar)",
+    "Portais coloridos na pilotagem (fly through the blue portal)",
+    "Robô de cores (go to the red square)",
+    "Trilha de luzes com nome de cor"
+   ],
+   "falar": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "It's red!"
+   ]
+  },
+  {
+   "n": 3,
+   "id": "numbers10",
+   "tema": "Números 1–10",
+   "palavras": [
+    {
+     "en": "one",
+     "pt": "um"
+    },
+    {
+     "en": "two",
+     "pt": "dois"
+    },
+    {
+     "en": "three",
+     "pt": "três"
+    },
+    {
+     "en": "four",
+     "pt": "quatro"
+    },
+    {
+     "en": "five",
+     "pt": "cinco"
+    },
+    {
+     "en": "six",
+     "pt": "seis"
+    },
+    {
+     "en": "seven",
+     "pt": "sete"
+    },
+    {
+     "en": "eight",
+     "pt": "oito"
+    },
+    {
+     "en": "nine",
+     "pt": "nove"
+    },
+    {
+     "en": "ten",
+     "pt": "dez"
+    },
+    {
+     "en": "how many",
+     "pt": "quantos"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "How many stars?",
+     "pt": "Quantas estrelas?"
+    },
+    {
+     "en": "Three stars!",
+     "pt": "Três estrelas!"
+    },
+    {
+     "en": "Count with me!",
+     "pt": "Conte comigo!"
+    },
+    {
+     "en": "Ten, nine, eight… blast off!",
+     "pt": "Dez, nove, oito… decolar!"
+    }
+   ],
+   "tpr": [
+    "Jump three times!",
+    "Clap five times!",
+    "Show me two fingers!",
+    "Count to ten and blast off!"
+   ],
+   "cancao": {
+    "titulo": "Ten Little Rockets (original)",
+    "letra": "One little, two little, three little rockets, / four little, five little, six little rockets, / seven little, eight little, nine little rockets, / ten little rockets fly!"
+   },
+   "historia": "Contagem regressiva: o Vini conta em inglês para o foguete decolar.",
+   "jogos": [
+    "Contagem regressiva (ten… blast off)",
+    "Restaurante: I want three apples",
+    "Construção: four wheels, please",
+    "Quantos? (ouvir e tocar o número de objetos)"
+   ],
+   "falar": [
+    "one",
+    "two",
+    "three",
+    "Three stars!"
+   ]
+  },
+  {
+   "n": 4,
+   "id": "animals",
+   "tema": "Animais",
+   "palavras": [
+    {
+     "en": "cat",
+     "pt": "gato"
+    },
+    {
+     "en": "dog",
+     "pt": "cachorro"
+    },
+    {
+     "en": "bird",
+     "pt": "pássaro"
+    },
+    {
+     "en": "fish",
+     "pt": "peixe"
+    },
+    {
+     "en": "frog",
+     "pt": "sapo"
+    },
+    {
+     "en": "duck",
+     "pt": "pato"
+    },
+    {
+     "en": "cow",
+     "pt": "vaca"
+    },
+    {
+     "en": "horse",
+     "pt": "cavalo"
+    },
+    {
+     "en": "lion",
+     "pt": "leão"
+    },
+    {
+     "en": "monkey",
+     "pt": "macaco"
+    },
+    {
+     "en": "elephant",
+     "pt": "elefante"
+    },
+    {
+     "en": "giraffe",
+     "pt": "girafa"
+    },
+    {
+     "en": "snake",
+     "pt": "cobra"
+    },
+    {
+     "en": "bee",
+     "pt": "abelha"
+    },
+    {
+     "en": "rabbit",
+     "pt": "coelho"
+    },
+    {
+     "en": "bear",
+     "pt": "urso"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "It's a cat!",
+     "pt": "É um gato!"
+    },
+    {
+     "en": "The cat says meow.",
+     "pt": "O gato faz miau."
+    },
+    {
+     "en": "Where's the dog?",
+     "pt": "Cadê o cachorro?"
+    },
+    {
+     "en": "I like monkeys!",
+     "pt": "Eu gosto de macacos!"
+    }
+   ],
+   "tpr": [
+    "Jump like a frog!",
+    "Fly like a bird!",
+    "Swim like a fish!",
+    "Walk like an elephant!",
+    "Hop like a rabbit!"
+   ],
+   "cancao": {
+    "titulo": "Old MacDonald Had a Farm (tradicional, domínio público)",
+    "letra": "Old MacDonald had a farm, E-I-E-I-O… (versão do jogo com cow, duck, horse, dog, cat)"
+   },
+   "historia": "Os animais fugiram do zoológico espacial; o Vini chama cada um pelo nome e ele volta.",
+   "jogos": [
+    "Quem faz esse som? (ouvir e tocar)",
+    "Exploração: find the cat",
+    "Imite o animal (TPR com avatar e com o corpo)",
+    "Memória: animal e som"
+   ],
+   "falar": [
+    "cat",
+    "dog",
+    "frog",
+    "It's a cat!"
+   ]
+  },
+  {
+   "n": 5,
+   "id": "body",
+   "tema": "Corpo",
+   "palavras": [
+    {
+     "en": "head",
+     "pt": "cabeça"
+    },
+    {
+     "en": "eyes",
+     "pt": "olhos"
+    },
+    {
+     "en": "ears",
+     "pt": "orelhas"
+    },
+    {
+     "en": "nose",
+     "pt": "nariz"
+    },
+    {
+     "en": "mouth",
+     "pt": "boca"
+    },
+    {
+     "en": "hair",
+     "pt": "cabelo"
+    },
+    {
+     "en": "hands",
+     "pt": "mãos"
+    },
+    {
+     "en": "arms",
+     "pt": "braços"
+    },
+    {
+     "en": "legs",
+     "pt": "pernas"
+    },
+    {
+     "en": "feet",
+     "pt": "pés"
+    },
+    {
+     "en": "fingers",
+     "pt": "dedos"
+    },
+    {
+     "en": "tummy",
+     "pt": "barriga"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Touch your nose!",
+     "pt": "Toque no seu nariz!"
+    },
+    {
+     "en": "I have two eyes.",
+     "pt": "Eu tenho dois olhos."
+    },
+    {
+     "en": "Clap your hands!",
+     "pt": "Bata palmas!"
+    },
+    {
+     "en": "Wiggle your fingers!",
+     "pt": "Mexa os dedos!"
+    }
+   ],
+   "tpr": [
+    "Touch your head!",
+    "Touch your nose!",
+    "Stamp your feet!",
+    "Clap your hands!",
+    "Shake your legs!"
+   ],
+   "cancao": {
+    "titulo": "Head, Shoulders, Knees and Toes (tradicional, domínio público)",
+    "letra": "Head, shoulders, knees and toes, knees and toes… eyes and ears and mouth and nose!"
+   },
+   "historia": "O Hoppy monta um robô e esquece onde vão as partes; o Vini ensina.",
+   "jogos": [
+    "Cosmo says (Simon says): toque no próprio corpo",
+    "Monte o robô/criatura pelo nome das partes",
+    "Criador de criaturas em inglês: two eyes, four legs"
+   ],
+   "falar": [
+    "nose",
+    "eyes",
+    "hands",
+    "Touch your nose!"
+   ]
+  },
+  {
+   "n": 6,
+   "id": "food",
+   "tema": "Comida",
+   "palavras": [
+    {
+     "en": "apple",
+     "pt": "maçã"
+    },
+    {
+     "en": "banana",
+     "pt": "banana"
+    },
+    {
+     "en": "orange",
+     "pt": "laranja"
+    },
+    {
+     "en": "milk",
+     "pt": "leite"
+    },
+    {
+     "en": "water",
+     "pt": "água"
+    },
+    {
+     "en": "bread",
+     "pt": "pão"
+    },
+    {
+     "en": "cheese",
+     "pt": "queijo"
+    },
+    {
+     "en": "egg",
+     "pt": "ovo"
+    },
+    {
+     "en": "cake",
+     "pt": "bolo"
+    },
+    {
+     "en": "cookie",
+     "pt": "biscoito"
+    },
+    {
+     "en": "pizza",
+     "pt": "pizza"
+    },
+    {
+     "en": "ice cream",
+     "pt": "sorvete"
+    },
+    {
+     "en": "carrot",
+     "pt": "cenoura"
+    },
+    {
+     "en": "strawberry",
+     "pt": "morango"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "I'm hungry!",
+     "pt": "Estou com fome!"
+    },
+    {
+     "en": "I want an apple, please.",
+     "pt": "Eu quero uma maçã, por favor."
+    },
+    {
+     "en": "Yummy!",
+     "pt": "Que delícia!"
+    },
+    {
+     "en": "Here you are!",
+     "pt": "Aqui está!"
+    }
+   ],
+   "tpr": [
+    "Eat the apple! (mímica)",
+    "Drink the milk!",
+    "Rub your tummy: yummy!"
+   ],
+   "cancao": {
+    "titulo": "Yummy Song (original)",
+    "letra": "Apple, banana, yummy, yummy, yum! / Cookie and cake in my tummy, tummy, tum!"
+   },
+   "historia": "O Restaurante de Marte recebe clientes que só falam inglês.",
+   "jogos": [
+    "Restaurante de Marte em inglês (I want two bananas, please)",
+    "Monstro comilão: feed me the cheese",
+    "Mercado: ponha na cesta o que o Hoppy pedir"
+   ],
+   "falar": [
+    "apple",
+    "banana",
+    "I want an apple, please.",
+    "Yummy!"
+   ]
+  },
+  {
+   "n": 7,
+   "id": "toys",
+   "tema": "Brinquedos",
+   "palavras": [
+    {
+     "en": "ball",
+     "pt": "bola"
+    },
+    {
+     "en": "doll",
+     "pt": "boneca"
+    },
+    {
+     "en": "car",
+     "pt": "carro"
+    },
+    {
+     "en": "kite",
+     "pt": "pipa"
+    },
+    {
+     "en": "robot",
+     "pt": "robô"
+    },
+    {
+     "en": "teddy bear",
+     "pt": "ursinho"
+    },
+    {
+     "en": "blocks",
+     "pt": "blocos"
+    },
+    {
+     "en": "train",
+     "pt": "trem"
+    },
+    {
+     "en": "balloon",
+     "pt": "balão"
+    },
+    {
+     "en": "drum",
+     "pt": "tambor"
+    },
+    {
+     "en": "plane",
+     "pt": "avião"
+    },
+    {
+     "en": "boat",
+     "pt": "barco"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Let's play!",
+     "pt": "Vamos brincar!"
+    },
+    {
+     "en": "My ball!",
+     "pt": "Minha bola!"
+    },
+    {
+     "en": "Your turn!",
+     "pt": "Sua vez!"
+    },
+    {
+     "en": "Where's my teddy?",
+     "pt": "Cadê meu ursinho?"
+    }
+   ],
+   "tpr": [
+    "Throw the ball!",
+    "Drive the car!",
+    "Fly the kite!",
+    "Play the drum!"
+   ],
+   "cancao": {
+    "titulo": "Let's Play (original)",
+    "letra": "Ball and car and kite and train, / let's play, let's play again!"
+   },
+   "historia": "A caixa de brinquedos da nave virou bagunça; guardar pelo nome.",
+   "jogos": [
+    "Guarde o brinquedo (put the ball in the box)",
+    "Caça ao tesouro em inglês",
+    "Sua vez / minha vez (turn-taking)"
+   ],
+   "falar": [
+    "ball",
+    "car",
+    "Let's play!",
+    "Your turn!"
+   ]
+  },
+  {
+   "n": 8,
+   "id": "space",
+   "tema": "Espaço",
+   "palavras": [
+    {
+     "en": "star",
+     "pt": "estrela"
+    },
+    {
+     "en": "moon",
+     "pt": "lua"
+    },
+    {
+     "en": "sun",
+     "pt": "sol"
+    },
+    {
+     "en": "planet",
+     "pt": "planeta"
+    },
+    {
+     "en": "rocket",
+     "pt": "foguete"
+    },
+    {
+     "en": "astronaut",
+     "pt": "astronauta"
+    },
+    {
+     "en": "alien",
+     "pt": "alienígena"
+    },
+    {
+     "en": "spaceship",
+     "pt": "nave"
+    },
+    {
+     "en": "Earth",
+     "pt": "Terra"
+    },
+    {
+     "en": "comet",
+     "pt": "cometa"
+    },
+    {
+     "en": "sky",
+     "pt": "céu"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Blast off!",
+     "pt": "Decolar!"
+    },
+    {
+     "en": "Look at the moon!",
+     "pt": "Olha a lua!"
+    },
+    {
+     "en": "I'm an astronaut!",
+     "pt": "Eu sou astronauta!"
+    },
+    {
+     "en": "Fly to the stars!",
+     "pt": "Voe até as estrelas!"
+    }
+   ],
+   "tpr": [
+    "Blast off! (pular)",
+    "Float like an astronaut!",
+    "Twinkle like a star (mãos abrindo)!"
+   ],
+   "cancao": {
+    "titulo": "Twinkle, Twinkle, Little Star (tradicional, domínio público)",
+    "letra": "Twinkle, twinkle, little star, how I wonder what you are…"
+   },
+   "historia": "Missão em inglês: Hoppy é o comandante e dá as ordens da viagem.",
+   "jogos": [
+    "Pilotagem com comandos em inglês (up, down, faster)",
+    "Planetário em inglês (touch the moon)",
+    "Montar o foguete pelo nome das peças"
+   ],
+   "falar": [
+    "star",
+    "moon",
+    "rocket",
+    "Blast off!"
+   ]
+  },
+  {
+   "n": 9,
+   "id": "actions",
+   "tema": "Ações (verbos)",
+   "palavras": [
+    {
+     "en": "jump",
+     "pt": "pular"
+    },
+    {
+     "en": "run",
+     "pt": "correr"
+    },
+    {
+     "en": "walk",
+     "pt": "andar"
+    },
+    {
+     "en": "sit down",
+     "pt": "sentar"
+    },
+    {
+     "en": "stand up",
+     "pt": "levantar"
+    },
+    {
+     "en": "clap",
+     "pt": "bater palmas"
+    },
+    {
+     "en": "dance",
+     "pt": "dançar"
+    },
+    {
+     "en": "sing",
+     "pt": "cantar"
+    },
+    {
+     "en": "sleep",
+     "pt": "dormir"
+    },
+    {
+     "en": "eat",
+     "pt": "comer"
+    },
+    {
+     "en": "swim",
+     "pt": "nadar"
+    },
+    {
+     "en": "fly",
+     "pt": "voar"
+    },
+    {
+     "en": "stop",
+     "pt": "parar"
+    },
+    {
+     "en": "go",
+     "pt": "ir"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Can you jump?",
+     "pt": "Você consegue pular?"
+    },
+    {
+     "en": "Yes, I can!",
+     "pt": "Sim, eu consigo!"
+    },
+    {
+     "en": "Stop! Go!",
+     "pt": "Para! Vai!"
+    },
+    {
+     "en": "Let's dance!",
+     "pt": "Vamos dançar!"
+    }
+   ],
+   "tpr": [
+    "Jump!",
+    "Run in place!",
+    "Sit down!",
+    "Stand up!",
+    "Dance!",
+    "Stop!",
+    "Go!",
+    "Freeze!"
+   ],
+   "cancao": {
+    "titulo": "Stop and Go (original)",
+    "letra": "Jump, jump, jump and stop! / Run, run, run and stop! / Dance, dance, dance and… freeze!"
+   },
+   "historia": "Treino de astronauta: Hoppy é o treinador físico.",
+   "jogos": [
+    "Cosmo says com o corpo (adulto confirma) e com o avatar (tocar)",
+    "Stop & Go (estátua musical)",
+    "Robô programável com go, stop, jump"
+   ],
+   "falar": [
+    "jump",
+    "stop",
+    "go",
+    "Yes, I can!"
+   ]
+  },
+  {
+   "n": 10,
+   "id": "family",
+   "tema": "Família",
+   "palavras": [
+    {
+     "en": "mom",
+     "pt": "mamãe"
+    },
+    {
+     "en": "dad",
+     "pt": "papai"
+    },
+    {
+     "en": "baby",
+     "pt": "bebê"
+    },
+    {
+     "en": "brother",
+     "pt": "irmão"
+    },
+    {
+     "en": "sister",
+     "pt": "irmã"
+    },
+    {
+     "en": "grandma",
+     "pt": "vovó"
+    },
+    {
+     "en": "grandpa",
+     "pt": "vovô"
+    },
+    {
+     "en": "family",
+     "pt": "família"
+    },
+    {
+     "en": "I love you",
+     "pt": "eu te amo"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "This is my mom.",
+     "pt": "Esta é minha mãe."
+    },
+    {
+     "en": "I love you!",
+     "pt": "Eu te amo!"
+    },
+    {
+     "en": "Good night!",
+     "pt": "Boa noite!"
+    },
+    {
+     "en": "Good morning!",
+     "pt": "Bom dia!"
+    }
+   ],
+   "tpr": [
+    "Hug! (abraçar alguém)",
+    "Give a kiss!",
+    "Wave to grandma!"
+   ],
+   "cancao": {
+    "titulo": "My Family (original)",
+    "letra": "Mommy, daddy, baby too, / grandma, grandpa, I love you!"
+   },
+   "historia": "O Vini apresenta a família ao Hoppy; o adulto pode gravar 'This is Dad!'.",
+   "jogos": [
+    "Árvore da família (com fotos opcionais, locais)",
+    "Quem é? (ouvir e tocar)"
+   ],
+   "falar": [
+    "mom",
+    "dad",
+    "I love you!",
+    "Good night!"
+   ]
+  },
+  {
+   "n": 11,
+   "id": "clothes",
+   "tema": "Roupas",
+   "palavras": [
+    {
+     "en": "hat",
+     "pt": "chapéu"
+    },
+    {
+     "en": "shirt",
+     "pt": "camisa"
+    },
+    {
+     "en": "T-shirt",
+     "pt": "camiseta"
+    },
+    {
+     "en": "pants",
+     "pt": "calça"
+    },
+    {
+     "en": "shorts",
+     "pt": "short"
+    },
+    {
+     "en": "dress",
+     "pt": "vestido"
+    },
+    {
+     "en": "shoes",
+     "pt": "sapatos"
+    },
+    {
+     "en": "socks",
+     "pt": "meias"
+    },
+    {
+     "en": "jacket",
+     "pt": "jaqueta"
+    },
+    {
+     "en": "helmet",
+     "pt": "capacete"
+    },
+    {
+     "en": "boots",
+     "pt": "botas"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Put on your hat!",
+     "pt": "Coloque o chapéu!"
+    },
+    {
+     "en": "Take off your shoes!",
+     "pt": "Tire os sapatos!"
+    },
+    {
+     "en": "It's cold! Put on your jacket.",
+     "pt": "Está frio! Coloque a jaqueta."
+    }
+   ],
+   "tpr": [
+    "Put on your hat (mímica)!",
+    "Take off your shoes!",
+    "Zip your jacket!"
+   ],
+   "cancao": {
+    "titulo": "Getting Dressed (original)",
+    "letra": "Socks, shoes, pants and shirt, / put them on and off we go!"
+   },
+   "historia": "Vestir o astronauta para cada planeta (frio, calor, chuva).",
+   "jogos": [
+    "Guarda-roupa em inglês (put on the blue helmet)",
+    "Clima e roupa: it's cold → jacket"
+   ],
+   "falar": [
+    "hat",
+    "shoes",
+    "Put on your hat!"
+   ]
+  },
+  {
+   "n": 12,
+   "id": "shapes",
+   "tema": "Formas e tamanhos",
+   "palavras": [
+    {
+     "en": "circle",
+     "pt": "círculo"
+    },
+    {
+     "en": "square",
+     "pt": "quadrado"
+    },
+    {
+     "en": "triangle",
+     "pt": "triângulo"
+    },
+    {
+     "en": "star",
+     "pt": "estrela"
+    },
+    {
+     "en": "heart",
+     "pt": "coração"
+    },
+    {
+     "en": "big",
+     "pt": "grande"
+    },
+    {
+     "en": "small",
+     "pt": "pequeno"
+    },
+    {
+     "en": "long",
+     "pt": "comprido"
+    },
+    {
+     "en": "short",
+     "pt": "curto"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "It's a big circle!",
+     "pt": "É um círculo grande!"
+    },
+    {
+     "en": "Find the small star!",
+     "pt": "Ache a estrela pequena!"
+    }
+   ],
+   "tpr": [
+    "Make a big circle with your arms!",
+    "Make yourself small!",
+    "Draw a heart in the air!"
+   ],
+   "cancao": {
+    "titulo": "Shapes Chant (original)",
+    "letra": "Circle, square, triangle, star, / big and small, near and far!"
+   },
+   "historia": "Consertar a nave encaixando peças pelas formas.",
+   "jogos": [
+    "Trilha de luzes em inglês",
+    "Portais de formas (fly through the triangle)",
+    "Big or small?"
+   ],
+   "falar": [
+    "circle",
+    "big",
+    "small"
+   ]
+  },
+  {
+   "n": 13,
+   "id": "home",
+   "tema": "Casa",
+   "palavras": [
+    {
+     "en": "house",
+     "pt": "casa"
+    },
+    {
+     "en": "door",
+     "pt": "porta"
+    },
+    {
+     "en": "window",
+     "pt": "janela"
+    },
+    {
+     "en": "bed",
+     "pt": "cama"
+    },
+    {
+     "en": "table",
+     "pt": "mesa"
+    },
+    {
+     "en": "chair",
+     "pt": "cadeira"
+    },
+    {
+     "en": "kitchen",
+     "pt": "cozinha"
+    },
+    {
+     "en": "bathroom",
+     "pt": "banheiro"
+    },
+    {
+     "en": "bedroom",
+     "pt": "quarto"
+    },
+    {
+     "en": "lamp",
+     "pt": "luminária"
+    },
+    {
+     "en": "TV",
+     "pt": "televisão"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Open the door!",
+     "pt": "Abra a porta!"
+    },
+    {
+     "en": "Close the window!",
+     "pt": "Feche a janela!"
+    },
+    {
+     "en": "Go to bed!",
+     "pt": "Vá para a cama!"
+    }
+   ],
+   "tpr": [
+    "Open the door (mímica)!",
+    "Close the door!",
+    "Turn on the light!",
+    "Turn off the light!"
+   ],
+   "cancao": {
+    "titulo": "Open, Shut Them (tradicional, domínio público)",
+    "letra": "Open, shut them, open, shut them, give a little clap…"
+   },
+   "historia": "Tour da nave em inglês: Hoppy abre as portas das salas.",
+   "jogos": [
+    "Nave em inglês (go to the kitchen)",
+    "Open/close (tocar para abrir ou fechar)"
+   ],
+   "falar": [
+    "door",
+    "bed",
+    "Open the door!"
+   ]
+  },
+  {
+   "n": 14,
+   "id": "weather",
+   "tema": "Tempo e clima",
+   "palavras": [
+    {
+     "en": "sunny",
+     "pt": "ensolarado"
+    },
+    {
+     "en": "rainy",
+     "pt": "chuvoso"
+    },
+    {
+     "en": "windy",
+     "pt": "ventando"
+    },
+    {
+     "en": "cloudy",
+     "pt": "nublado"
+    },
+    {
+     "en": "snowy",
+     "pt": "nevando"
+    },
+    {
+     "en": "hot",
+     "pt": "quente"
+    },
+    {
+     "en": "cold",
+     "pt": "frio"
+    },
+    {
+     "en": "rain",
+     "pt": "chuva"
+    },
+    {
+     "en": "snow",
+     "pt": "neve"
+    },
+    {
+     "en": "cloud",
+     "pt": "nuvem"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "It's sunny!",
+     "pt": "Está ensolarado!"
+    },
+    {
+     "en": "It's cold!",
+     "pt": "Está frio!"
+    },
+    {
+     "en": "How's the weather?",
+     "pt": "Como está o tempo?"
+    }
+   ],
+   "tpr": [
+    "Shiver: it's cold!",
+    "Fan yourself: it's hot!",
+    "Wiggle fingers like rain!"
+   ],
+   "cancao": {
+    "titulo": "Rain, Rain, Go Away (tradicional, domínio público)",
+    "letra": "Rain, rain, go away, come again another day…"
+   },
+   "historia": "Cada planeta tem um clima; o Hoppy prevê o tempo.",
+   "jogos": [
+    "Escolher roupa pelo clima",
+    "Previsão do tempo da nave"
+   ],
+   "falar": [
+    "sunny",
+    "cold",
+    "It's sunny!"
+   ]
+  },
+  {
+   "n": 15,
+   "id": "transport",
+   "tema": "Transportes",
+   "palavras": [
+    {
+     "en": "car",
+     "pt": "carro"
+    },
+    {
+     "en": "bus",
+     "pt": "ônibus"
+    },
+    {
+     "en": "train",
+     "pt": "trem"
+    },
+    {
+     "en": "plane",
+     "pt": "avião"
+    },
+    {
+     "en": "boat",
+     "pt": "barco"
+    },
+    {
+     "en": "bike",
+     "pt": "bicicleta"
+    },
+    {
+     "en": "truck",
+     "pt": "caminhão"
+    },
+    {
+     "en": "helicopter",
+     "pt": "helicóptero"
+    },
+    {
+     "en": "rocket",
+     "pt": "foguete"
+    },
+    {
+     "en": "fast",
+     "pt": "rápido"
+    },
+    {
+     "en": "slow",
+     "pt": "devagar"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Fast! Slow!",
+     "pt": "Rápido! Devagar!"
+    },
+    {
+     "en": "Beep beep!",
+     "pt": "Bi-bi!"
+    },
+    {
+     "en": "All aboard!",
+     "pt": "Todos a bordo!"
+    }
+   ],
+   "tpr": [
+    "Drive fast!",
+    "Drive slow!",
+    "Row the boat!",
+    "Fly the plane!"
+   ],
+   "cancao": {
+    "titulo": "Row, Row, Row Your Boat (tradicional, domínio público)",
+    "letra": "Row, row, row your boat, gently down the stream…"
+   },
+   "historia": "Corrida espacial: fast/slow controlam a nave.",
+   "jogos": [
+    "Pilotagem fast/slow",
+    "Qual faz esse barulho?"
+   ],
+   "falar": [
+    "car",
+    "fast",
+    "slow",
+    "Beep beep!"
+   ]
+  },
+  {
+   "n": 16,
+   "id": "numbers20",
+   "tema": "Números 11–20",
+   "palavras": [
+    {
+     "en": "eleven",
+     "pt": "onze"
+    },
+    {
+     "en": "twelve",
+     "pt": "doze"
+    },
+    {
+     "en": "thirteen",
+     "pt": "treze"
+    },
+    {
+     "en": "fourteen",
+     "pt": "catorze"
+    },
+    {
+     "en": "fifteen",
+     "pt": "quinze"
+    },
+    {
+     "en": "sixteen",
+     "pt": "dezesseis"
+    },
+    {
+     "en": "seventeen",
+     "pt": "dezessete"
+    },
+    {
+     "en": "eighteen",
+     "pt": "dezoito"
+    },
+    {
+     "en": "nineteen",
+     "pt": "dezenove"
+    },
+    {
+     "en": "twenty",
+     "pt": "vinte"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Let's count to twenty!",
+     "pt": "Vamos contar até vinte!"
+    }
+   ],
+   "tpr": [
+    "Jump eleven times!",
+    "Count to twenty and blast off!"
+   ],
+   "cancao": {
+    "titulo": "Count to Twenty (original)",
+    "letra": "Eleven, twelve, thirteen, fourteen, / fifteen, sixteen, seventeen, / eighteen, nineteen… twenty! Blast off!"
+   },
+   "historia": "Recolher 20 cristais para a usina.",
+   "jogos": [
+    "Contar cristais em inglês",
+    "Portais de números 11–20"
+   ],
+   "falar": [
+    "eleven",
+    "twenty"
+   ]
+  },
+  {
+   "n": 17,
+   "id": "where",
+   "tema": "Onde está? (in, on, under)",
+   "palavras": [
+    {
+     "en": "in",
+     "pt": "dentro"
+    },
+    {
+     "en": "on",
+     "pt": "em cima"
+    },
+    {
+     "en": "under",
+     "pt": "embaixo"
+    },
+    {
+     "en": "next to",
+     "pt": "ao lado"
+    },
+    {
+     "en": "box",
+     "pt": "caixa"
+    },
+    {
+     "en": "table",
+     "pt": "mesa"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Where's the cat?",
+     "pt": "Cadê o gato?"
+    },
+    {
+     "en": "It's under the table!",
+     "pt": "Está embaixo da mesa!"
+    },
+    {
+     "en": "Put it in the box!",
+     "pt": "Coloque na caixa!"
+    }
+   ],
+   "tpr": [
+    "Put your hand on your head!",
+    "Hide under the table!",
+    "Stand next to Mom!"
+   ],
+   "cancao": {
+    "titulo": "In, On, Under (original)",
+    "letra": "In the box, on the box, under the box — where's the fox?"
+   },
+   "historia": "Esconde-esconde com o Hoppy pela nave.",
+   "jogos": [
+    "Arrastar objeto para in/on/under",
+    "Detetive: onde está o gato?"
+   ],
+   "falar": [
+    "in",
+    "on",
+    "under",
+    "It's under the table!"
+   ]
+  },
+  {
+   "n": 18,
+   "id": "feelings",
+   "tema": "Sentimentos",
+   "palavras": [
+    {
+     "en": "happy",
+     "pt": "feliz"
+    },
+    {
+     "en": "sad",
+     "pt": "triste"
+    },
+    {
+     "en": "angry",
+     "pt": "bravo"
+    },
+    {
+     "en": "scared",
+     "pt": "com medo"
+    },
+    {
+     "en": "tired",
+     "pt": "cansado"
+    },
+    {
+     "en": "hungry",
+     "pt": "com fome"
+    },
+    {
+     "en": "excited",
+     "pt": "animado"
+    },
+    {
+     "en": "calm",
+     "pt": "calmo"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "I'm tired.",
+     "pt": "Estou cansado."
+    },
+    {
+     "en": "Are you OK?",
+     "pt": "Você está bem?"
+    },
+    {
+     "en": "Let's take a deep breath.",
+     "pt": "Vamos respirar fundo."
+    },
+    {
+     "en": "I feel better!",
+     "pt": "Me sinto melhor!"
+    }
+   ],
+   "tpr": [
+    "Make a happy face!",
+    "Make a sad face!",
+    "Take a deep breath!"
+   ],
+   "cancao": {
+    "titulo": "If You're Happy and You Know It (tradicional, domínio público)",
+    "letra": "If you're happy and you know it, clap your hands…"
+   },
+   "historia": "Um alien está triste; o Vini descobre o que ele sente e ajuda (liga com as histórias de emoção).",
+   "jogos": [
+    "Como ele se sente? (ouvir e tocar a carinha)",
+    "Ajudar o amigo (escolha da ação certa)"
+   ],
+   "falar": [
+    "happy",
+    "sad",
+    "Are you OK?"
+   ]
+  },
+  {
+   "n": 19,
+   "id": "routine",
+   "tema": "Rotina do dia",
+   "palavras": [
+    {
+     "en": "wake up",
+     "pt": "acordar"
+    },
+    {
+     "en": "brush my teeth",
+     "pt": "escovar os dentes"
+    },
+    {
+     "en": "eat breakfast",
+     "pt": "tomar café"
+    },
+    {
+     "en": "go to school",
+     "pt": "ir à escola"
+    },
+    {
+     "en": "play",
+     "pt": "brincar"
+    },
+    {
+     "en": "take a bath",
+     "pt": "tomar banho"
+    },
+    {
+     "en": "go to sleep",
+     "pt": "dormir"
+    },
+    {
+     "en": "morning",
+     "pt": "manhã"
+    },
+    {
+     "en": "night",
+     "pt": "noite"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Good morning!",
+     "pt": "Bom dia!"
+    },
+    {
+     "en": "Time to brush your teeth!",
+     "pt": "Hora de escovar os dentes!"
+    },
+    {
+     "en": "Good night, sleep tight!",
+     "pt": "Boa noite, durma bem!"
+    }
+   ],
+   "tpr": [
+    "Wake up and stretch!",
+    "Brush your teeth (mímica)!",
+    "Wash your hands!",
+    "Go to sleep (fingir)!"
+   ],
+   "cancao": {
+    "titulo": "This Is the Way (tradicional, domínio público)",
+    "letra": "This is the way we brush our teeth, brush our teeth… so early in the morning!"
+   },
+   "historia": "Um dia na nave do começo ao fim, em inglês.",
+   "jogos": [
+    "Ordene a rotina (sequência)",
+    "Rotina real: o adulto usa as frases em casa"
+   ],
+   "falar": [
+    "Good morning!",
+    "Good night!"
+   ]
+  },
+  {
+   "n": 20,
+   "id": "school",
+   "tema": "Escola",
+   "palavras": [
+    {
+     "en": "pencil",
+     "pt": "lápis"
+    },
+    {
+     "en": "crayon",
+     "pt": "giz de cera"
+    },
+    {
+     "en": "book",
+     "pt": "livro"
+    },
+    {
+     "en": "bag",
+     "pt": "mochila"
+    },
+    {
+     "en": "paper",
+     "pt": "papel"
+    },
+    {
+     "en": "scissors",
+     "pt": "tesoura"
+    },
+    {
+     "en": "glue",
+     "pt": "cola"
+    },
+    {
+     "en": "teacher",
+     "pt": "professora"
+    },
+    {
+     "en": "paint",
+     "pt": "tinta"
+    },
+    {
+     "en": "draw",
+     "pt": "desenhar"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Can I have a crayon?",
+     "pt": "Posso pegar um giz?"
+    },
+    {
+     "en": "Let's draw!",
+     "pt": "Vamos desenhar!"
+    }
+   ],
+   "tpr": [
+    "Draw a circle!",
+    "Raise your hand!"
+   ],
+   "cancao": {
+    "titulo": "Draw With Me (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "pencil",
+    "crayon",
+    "book"
+   ]
+  },
+  {
+   "n": 21,
+   "id": "ocean",
+   "tema": "Oceano",
+   "palavras": [
+    {
+     "en": "sea",
+     "pt": "mar"
+    },
+    {
+     "en": "whale",
+     "pt": "baleia"
+    },
+    {
+     "en": "shark",
+     "pt": "tubarão"
+    },
+    {
+     "en": "octopus",
+     "pt": "polvo"
+    },
+    {
+     "en": "crab",
+     "pt": "caranguejo"
+    },
+    {
+     "en": "turtle",
+     "pt": "tartaruga"
+    },
+    {
+     "en": "starfish",
+     "pt": "estrela-do-mar"
+    },
+    {
+     "en": "shell",
+     "pt": "concha"
+    },
+    {
+     "en": "wave",
+     "pt": "onda"
+    },
+    {
+     "en": "dolphin",
+     "pt": "golfinho"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Let's go swimming!",
+     "pt": "Vamos nadar!"
+    },
+    {
+     "en": "Look, a dolphin!",
+     "pt": "Olha, um golfinho!"
+    }
+   ],
+   "tpr": [
+    "Swim like a fish!",
+    "Walk like a crab!"
+   ],
+   "cancao": {
+    "titulo": "Under the Sea Chant (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "sea",
+    "whale",
+    "shark"
+   ]
+  },
+  {
+   "n": 22,
+   "id": "farm",
+   "tema": "Fazenda",
+   "palavras": [
+    {
+     "en": "farm",
+     "pt": "fazenda"
+    },
+    {
+     "en": "pig",
+     "pt": "porco"
+    },
+    {
+     "en": "sheep",
+     "pt": "ovelha"
+    },
+    {
+     "en": "goat",
+     "pt": "cabra"
+    },
+    {
+     "en": "chicken",
+     "pt": "galinha"
+    },
+    {
+     "en": "tractor",
+     "pt": "trator"
+    },
+    {
+     "en": "farmer",
+     "pt": "fazendeiro"
+    },
+    {
+     "en": "barn",
+     "pt": "celeiro"
+    },
+    {
+     "en": "corn",
+     "pt": "milho"
+    },
+    {
+     "en": "egg",
+     "pt": "ovo"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "The pig says oink!",
+     "pt": "O porco faz oinc!"
+    }
+   ],
+   "tpr": [
+    "Moo like a cow!",
+    "Drive the tractor!"
+   ],
+   "cancao": {
+    "titulo": "On the Farm (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "farm",
+    "pig",
+    "sheep"
+   ]
+  },
+  {
+   "n": 23,
+   "id": "nature",
+   "tema": "Natureza",
+   "palavras": [
+    {
+     "en": "tree",
+     "pt": "árvore"
+    },
+    {
+     "en": "flower",
+     "pt": "flor"
+    },
+    {
+     "en": "leaf",
+     "pt": "folha"
+    },
+    {
+     "en": "grass",
+     "pt": "grama"
+    },
+    {
+     "en": "rock",
+     "pt": "pedra"
+    },
+    {
+     "en": "river",
+     "pt": "rio"
+    },
+    {
+     "en": "mountain",
+     "pt": "montanha"
+    },
+    {
+     "en": "garden",
+     "pt": "jardim"
+    },
+    {
+     "en": "seed",
+     "pt": "semente"
+    },
+    {
+     "en": "water (verb)",
+     "pt": "regar"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Let's plant a seed!",
+     "pt": "Vamos plantar uma semente!"
+    },
+    {
+     "en": "It's growing!",
+     "pt": "Está crescendo!"
+    }
+   ],
+   "tpr": [
+    "Grow like a tree!",
+    "Water the flowers!"
+   ],
+   "cancao": {
+    "titulo": "Little Seed (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "tree",
+    "flower",
+    "leaf"
+   ]
+  },
+  {
+   "n": 24,
+   "id": "music",
+   "tema": "Música",
+   "palavras": [
+    {
+     "en": "music",
+     "pt": "música"
+    },
+    {
+     "en": "guitar",
+     "pt": "violão"
+    },
+    {
+     "en": "piano",
+     "pt": "piano"
+    },
+    {
+     "en": "drum",
+     "pt": "tambor"
+    },
+    {
+     "en": "loud",
+     "pt": "alto"
+    },
+    {
+     "en": "quiet",
+     "pt": "baixinho"
+    },
+    {
+     "en": "song",
+     "pt": "canção"
+    },
+    {
+     "en": "dance",
+     "pt": "dançar"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Play loud!",
+     "pt": "Toque alto!"
+    },
+    {
+     "en": "Play quiet!",
+     "pt": "Toque baixinho!"
+    }
+   ],
+   "tpr": [
+    "Play the drum loud!",
+    "Play the piano quiet!"
+   ],
+   "cancao": {
+    "titulo": "Loud and Quiet (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "music",
+    "guitar",
+    "piano"
+   ]
+  },
+  {
+   "n": 25,
+   "id": "opposites",
+   "tema": "Opostos",
+   "palavras": [
+    {
+     "en": "up",
+     "pt": "em cima"
+    },
+    {
+     "en": "down",
+     "pt": "embaixo"
+    },
+    {
+     "en": "open",
+     "pt": "aberto"
+    },
+    {
+     "en": "closed",
+     "pt": "fechado"
+    },
+    {
+     "en": "hot",
+     "pt": "quente"
+    },
+    {
+     "en": "cold",
+     "pt": "frio"
+    },
+    {
+     "en": "full",
+     "pt": "cheio"
+    },
+    {
+     "en": "empty",
+     "pt": "vazio"
+    },
+    {
+     "en": "fast",
+     "pt": "rápido"
+    },
+    {
+     "en": "slow",
+     "pt": "devagar"
+    },
+    {
+     "en": "old",
+     "pt": "velho"
+    },
+    {
+     "en": "new",
+     "pt": "novo"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Up or down?",
+     "pt": "Em cima ou embaixo?"
+    }
+   ],
+   "tpr": [
+    "Hands up!",
+    "Hands down!"
+   ],
+   "cancao": {
+    "titulo": "Up and Down (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "up",
+    "down",
+    "open"
+   ]
+  },
+  {
+   "n": 26,
+   "id": "jobs",
+   "tema": "Profissões",
+   "palavras": [
+    {
+     "en": "doctor",
+     "pt": "médico"
+    },
+    {
+     "en": "firefighter",
+     "pt": "bombeiro"
+    },
+    {
+     "en": "cook",
+     "pt": "cozinheiro"
+    },
+    {
+     "en": "police officer",
+     "pt": "policial"
+    },
+    {
+     "en": "pilot",
+     "pt": "piloto"
+    },
+    {
+     "en": "builder",
+     "pt": "construtor"
+    },
+    {
+     "en": "vet",
+     "pt": "veterinário"
+    },
+    {
+     "en": "scientist",
+     "pt": "cientista"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "I want to be a pilot!",
+     "pt": "Eu quero ser piloto!"
+    }
+   ],
+   "tpr": [
+    "Put out the fire!",
+    "Fly the plane!"
+   ],
+   "cancao": {
+    "titulo": "When I Grow Up (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "doctor",
+    "firefighter",
+    "cook"
+   ]
+  },
+  {
+   "n": 27,
+   "id": "places",
+   "tema": "Lugares",
+   "palavras": [
+    {
+     "en": "park",
+     "pt": "parque"
+    },
+    {
+     "en": "beach",
+     "pt": "praia"
+    },
+    {
+     "en": "zoo",
+     "pt": "zoológico"
+    },
+    {
+     "en": "shop",
+     "pt": "loja"
+    },
+    {
+     "en": "school",
+     "pt": "escola"
+    },
+    {
+     "en": "hospital",
+     "pt": "hospital"
+    },
+    {
+     "en": "street",
+     "pt": "rua"
+    },
+    {
+     "en": "playground",
+     "pt": "parquinho"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Let's go to the park!",
+     "pt": "Vamos ao parque!"
+    }
+   ],
+   "tpr": [
+    "Slide down the slide!",
+    "Swing on the swing!"
+   ],
+   "cancao": {
+    "titulo": "Let's Go (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "park",
+    "beach",
+    "zoo"
+   ]
+  },
+  {
+   "n": 28,
+   "id": "bugs",
+   "tema": "Bichinhos",
+   "palavras": [
+    {
+     "en": "ant",
+     "pt": "formiga"
+    },
+    {
+     "en": "butterfly",
+     "pt": "borboleta"
+    },
+    {
+     "en": "spider",
+     "pt": "aranha"
+    },
+    {
+     "en": "ladybug",
+     "pt": "joaninha"
+    },
+    {
+     "en": "worm",
+     "pt": "minhoca"
+    },
+    {
+     "en": "snail",
+     "pt": "caracol"
+    },
+    {
+     "en": "caterpillar",
+     "pt": "lagarta"
+    },
+    {
+     "en": "fly",
+     "pt": "mosca"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Look, a butterfly!",
+     "pt": "Olha, uma borboleta!"
+    }
+   ],
+   "tpr": [
+    "Fly like a butterfly!",
+    "Crawl like a worm!"
+   ],
+   "cancao": {
+    "titulo": "Little Bugs (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "ant",
+    "butterfly",
+    "spider"
+   ]
+  },
+  {
+   "n": 29,
+   "id": "verbs2",
+   "tema": "Mais ações",
+   "palavras": [
+    {
+     "en": "open",
+     "pt": "abrir"
+    },
+    {
+     "en": "close",
+     "pt": "fechar"
+    },
+    {
+     "en": "push",
+     "pt": "empurrar"
+    },
+    {
+     "en": "pull",
+     "pt": "puxar"
+    },
+    {
+     "en": "throw",
+     "pt": "jogar"
+    },
+    {
+     "en": "catch",
+     "pt": "pegar"
+    },
+    {
+     "en": "give",
+     "pt": "dar"
+    },
+    {
+     "en": "take",
+     "pt": "pegar/levar"
+    },
+    {
+     "en": "look",
+     "pt": "olhar"
+    },
+    {
+     "en": "listen",
+     "pt": "escutar"
+    },
+    {
+     "en": "help",
+     "pt": "ajudar"
+    },
+    {
+     "en": "find",
+     "pt": "achar"
+    }
+   ],
+   "chunks": [
+    {
+     "en": "Help me, please!",
+     "pt": "Me ajuda, por favor!"
+    },
+    {
+     "en": "Look! Listen!",
+     "pt": "Olha! Escuta!"
+    }
+   ],
+   "tpr": [
+    "Push!",
+    "Pull!",
+    "Catch the ball!",
+    "Look up!",
+    "Listen!"
+   ],
+   "cancao": {
+    "titulo": "Push and Pull (original)",
+    "letra": "(escrever letra original curta, 4 versos, ritmo de palmas)"
+   },
+   "historia": "(escrever: missão curta em que as palavras resolvem o problema)",
+   "jogos": [
+    "(reaproveitar 2 jogos da nave em modo inglês)"
+   ],
+   "falar": [
+    "open",
+    "close",
+    "push"
+   ]
+  },
+  {
+   "n": 30,
+   "id": "review",
+   "tema": "Grande aventura (revisão)",
+   "palavras": [],
+   "chunks": [
+    {
+     "en": "I can do it!",
+     "pt": "Eu consigo!"
+    },
+    {
+     "en": "We did it!",
+     "pt": "Conseguimos!"
+    }
+   ],
+   "tpr": [
+    "Mix de todos os comandos (Cosmo says)"
+   ],
+   "cancao": {
+    "titulo": "Medley das canções",
+    "letra": "(revisão das canções das unidades)"
+   },
+   "historia": "Missão final: o Hoppy precisa voltar para casa e só o Vini entende o mapa em inglês.",
+   "jogos": [
+    "Chefão bilíngue: siga as instruções em inglês para levar o Hoppy ao planeta dele"
+   ],
+   "falar": [
+    "We did it!"
+   ]
+  }
+ ]
+}

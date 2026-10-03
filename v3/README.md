@@ -10,11 +10,11 @@ produzem (playtest, aparelho real, opinião da fonoaudióloga). Isso está expl�
 
 ## Ordem de uso
 1. Cole `MASTER_PROMPT_V3.md` no início da sessão do agente.
-2. Execute os steps **na ordem** (`steps/STEP_21` … `STEP_34`). Cada step tem um bloco "Prompt pronto"
+2. Execute os steps **na ordem** (`steps/STEP_21` … `STEP_37`). Cada step tem um bloco "Prompt pronto"
    para colar, critérios de aceite medíveis e as evidências obrigatórias.
 3. Ao final de cada step, o agente atualiza `PROJECT_STATUS.md`, `CHANGELOG.md`, `docs/DECISIONS.md` e
    a planilha de notas em `docs/RUBRICA_PROGRESSO.md` (criada no STEP 21).
-4. Release só com `STEP_34` aprovado (todos os gates com evidência).
+4. Release só com `STEP_37` aprovado (todos os gates com evidência).
 
 ## Entradas que só o Andro tem (o agente deve pedir, não inventar)
 | Entrada | Usada em | Por quê |
@@ -42,7 +42,15 @@ produzem (playtest, aparelho real, opinião da fonoaudióloga). Isso está expl�
 | 31 | Voz 2.0 (revisão de ouvido, opção de voz humana) | Andro + agente |
 | 32 | Desempenho no aparelho real | Andro + agente |
 | 33 | Área dos pais 2.0 (PIN, relatórios, modo fono) | agente |
-| 34 | Gates finais e release | todos |
+| 34 | **Planeta Hello (inglês)** — currículo, voz nativa, repetição espaçada, trilha de 150 lições | agente |
+| 35 | **Planeta Hello** — lições interativas e jogos da nave em modo inglês | agente |
+| 36 | **Planeta Hello** — canções, falar em inglês, painel dos pais | agente + Andro |
+| 37 | Gates finais e release | todos |
 
 O módulo de fala chama **Planeta Eco** dentro do jogo (nada de "fonoaudiologia" para a criança).
-Base científica e limites: `fala/REFERENCIAS_FALA.md`. Banco inicial de palavras: `fala/banco_fala_seed.json`.
+Base científica e limites: `fala/REFERENCIAS_FALA.md`. Banco inicial: `fala/banco_fala_seed.json` — 13 famílias de sons,
+353 palavras, 77 pares mínimos reais, 45 formas trocadas, 48 frases e 12 mini-histórias (não validado por fono).
+
+O inglês chama **Planeta Hello** (personagem Hoppy, que só fala inglês). Pesquisa: `ingles/REFERENCIAS_INGLES.md`.
+Currículo e anatomia da lição: `ingles/CURRICULO_INGLES.md`. Banco: `ingles/banco_ingles_seed.json` — 30 unidades,
+304 palavras, 84 frases-chave, 97 comandos de corpo, 30 canções (originais ou domínio público).

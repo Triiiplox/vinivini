@@ -1,12 +1,20 @@
 {
- "versao": 1,
- "aviso": "Banco inicial NÃO validado. Palavras e pares precisam de revisão de fonoaudióloga e do sotaque da família antes de virar alvo. Pares com uma das palavras pouco desenhável/conhecida devem ser trocados.",
+ "versao": 2,
+ "aviso": "Banco NÃO validado. Revisar com fonoaudióloga e com o sotaque da família antes de virar alvo. Pares em que uma das palavras é pouco conhecida ou difícil de desenhar devem ser trocados.",
  "campos": {
   "inicio/meio": "posição do som-alvo na palavra",
-  "pares": "pares mínimos REAIS [palavra-alvo, contraste, processo] — jogo 'qual figura?' e pares comunicativos",
-  "idade_tipica": "faixa citada em REFERENCIAS_FALA.md",
-  "formas_trocadas": "[palavra certa, forma trocada típica, processo] — só para o jogo 'o Eco falou certinho?' (a forma trocada é dita pelo Eco, nunca exigida da criança)"
+  "pares": "pares mínimos REAIS [palavra-alvo, contraste, processo] — jogos 'qual figura?' e pares comunicativos",
+  "formas_trocadas": "[palavra certa, forma trocada típica, processo] — só para o jogo 'o Eco falou certinho?'; a forma trocada é dita pelo Eco, nunca pedida à criança",
+  "frases": "frases portadoras para o nível 'frase' da hierarquia",
+  "historia_chuva_de_sons": "mini-história para bombardeio auditivo (STEP 29)"
  },
+ "frases_portadoras": [
+  "Eu vejo um(a) ___.",
+  "O Eco pegou o(a) ___.",
+  "Cadê o(a) ___?",
+  "Olha o(a) ___!",
+  "Eu quero o(a) ___."
+ ],
  "familias": [
   {
    "id": "ch",
@@ -24,8 +32,20 @@
     "chapéu",
     "chinelo",
     "chocolate",
+    "chupeta",
+    "chá",
+    "chão",
+    "chafariz",
+    "chiclete",
+    "churrasco",
+    "chuveiro",
     "xícara",
-    "chupeta"
+    "xampu",
+    "xadrez",
+    "chocalho",
+    "chifre",
+    "chaleira",
+    "chaminé"
    ],
    "meio": [
     "bicho",
@@ -34,7 +54,20 @@
     "bolacha",
     "lixo",
     "bruxa",
-    "mochila"
+    "mochila",
+    "cachorro",
+    "ameixa",
+    "abacaxi",
+    "lagartixa",
+    "bochecha",
+    "salsicha",
+    "flecha",
+    "colchão",
+    "borracha",
+    "lancha",
+    "bexiga",
+    "fechadura",
+    "mexerica"
    ],
    "pares": [
     [
@@ -48,22 +81,51 @@
      "vozeamento"
     ],
     [
-     "bicho",
-     "bico",
-     "plosivização/posteriorização"
-    ],
-    [
      "chão",
      "são",
      "despalatalização"
     ],
     [
+     "chão",
+     "cão",
+     "posteriorização"
+    ],
+    [
+     "chapa",
+     "capa",
+     "plosivização"
+    ],
+    [
+     "chuva",
+     "luva",
+     "contraste amplo"
+    ],
+    [
+     "chá",
+     "pá",
+     "plosivização"
+    ],
+    [
+     "bicho",
+     "bico",
+     "plosivização"
+    ],
+    [
      "cacho",
      "caco",
      "plosivização"
+    ],
+    [
+     "lancha",
+     "lança",
+     "despalatalização"
+    ],
+    [
+     "queixo",
+     "queijo",
+     "vozeamento"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "chave",
@@ -79,8 +141,28 @@
      "chuva",
      "tuva",
      "plosivização"
+    ],
+    [
+     "peixe",
+     "peise",
+     "despalatalização"
+    ],
+    [
+     "bicho",
+     "bito",
+     "plosivização"
     ]
-   ]
+   ],
+   "frases": [
+    "O chapéu caiu no chão.",
+    "A chuva molhou o chinelo.",
+    "O peixe está na caixa.",
+    "A bruxa tomou chá na xícara.",
+    "O cachorro comeu a bolacha.",
+    "Cadê a chave da mochila?"
+   ],
+   "historia_chuva_de_sons": "Choveu! A chuva caiu no chapéu do cachorro. Ele correu de chinelo até a caixa, pegou a chave e abriu o chuveiro. Depois tomou chá na xícara com bolacha de chocolate. Chhh… o cachorro foi dormir no colchão.",
+   "validado_por_fono": false
   },
   {
    "id": "j",
@@ -99,7 +181,20 @@
     "girafa",
     "gelo",
     "gelatina",
-    "jipe"
+    "jipe",
+    "jarra",
+    "jaula",
+    "joia",
+    "jogo",
+    "jornal",
+    "jabuti",
+    "jaca",
+    "jangada",
+    "jardim",
+    "girassol",
+    "geladeira",
+    "gema",
+    "gibi"
    ],
    "meio": [
     "queijo",
@@ -107,7 +202,19 @@
     "laranja",
     "tigela",
     "berinjela",
-    "canjica"
+    "canjica",
+    "caju",
+    "feijão",
+    "anjo",
+    "pijama",
+    "beija-flor",
+    "tijolo",
+    "relógio",
+    "cereja",
+    "igreja",
+    "bandeja",
+    "abajur",
+    "loja"
    ],
    "pares": [
     [
@@ -121,17 +228,46 @@
      "desvozeamento"
     ],
     [
-     "gelo",
-     "zelo",
-     "despalatalização"
-    ],
-    [
      "já",
      "dá",
      "plosivização"
+    ],
+    [
+     "jaca",
+     "vaca",
+     "contraste de ponto"
+    ],
+    [
+     "jaca",
+     "faca",
+     "contraste de ponto e vozeamento"
+    ],
+    [
+     "jogo",
+     "fogo",
+     "contraste de ponto"
+    ],
+    [
+     "joia",
+     "boia",
+     "plosivização"
+    ],
+    [
+     "queijo",
+     "queixo",
+     "desvozeamento"
+    ],
+    [
+     "gelo",
+     "selo",
+     "despalatalização + desvozeamento"
+    ],
+    [
+     "loja",
+     "lousa",
+     "despalatalização"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "janela",
@@ -147,92 +283,335 @@
      "jacaré",
      "zacaré",
      "despalatalização"
+    ],
+    [
+     "queijo",
+     "queizo",
+     "despalatalização"
+    ],
+    [
+     "joaninha",
+     "doaninha",
+     "plosivização"
     ]
-   ]
+   ],
+   "frases": [
+    "A girafa olhou pela janela.",
+    "O jacaré comeu o queijo.",
+    "A joaninha pousou no girassol.",
+    "O jipe passou no jardim.",
+    "Tem gelo na jarra.",
+    "O anjo de pijama dorme."
+   ],
+   "historia_chuva_de_sons": "No jardim tinha uma girafa de pijama. Ela olhou pela janela e viu um jacaré comendo queijo e um jabuti tomando suco de laranja com gelo. A joaninha pousou no girassol. Jjjj… passou um jato no céu!",
+   "validado_por_fono": false
   },
   {
-   "id": "s_z",
-   "ipa": "s/z",
+   "id": "s",
+   "ipa": "s",
    "grafias": [
     "s",
     "ss",
     "ç",
-    "z"
+    "c (antes de e/i)"
    ],
-   "nome_jogo": "Som da cobra e da abelha",
-   "metafora": "cobra sss / abelha zzz",
+   "nome_jogo": "Som da cobra",
+   "metafora": "a cobra faz sss",
    "idade_tipica": "2;0–2;6",
    "inicio": [
     "sapo",
     "sol",
     "sino",
     "sapato",
-    "zebra",
-    "zíper"
+    "sorvete",
+    "suco",
+    "sereia",
+    "sofá",
+    "saia",
+    "salada",
+    "sabonete",
+    "sacola",
+    "selo",
+    "sopa",
+    "cinco",
+    "cebola",
+    "cesta"
    ],
    "meio": [
-    "casa",
-    "mesa",
-    "peso",
-    "asa",
+    "pássaro",
+    "osso",
     "taça",
-    "doce"
+    "doce",
+    "palhaço",
+    "cabeça",
+    "vassoura",
+    "moça",
+    "poço",
+    "massa",
+    "pescoço"
    ],
    "pares": [
     [
-     "casa",
-     "caça",
+     "saco",
+     "taco",
+     "plosivização"
+    ],
+    [
+     "sela",
+     "vela",
+     "contraste de ponto"
+    ],
+    [
+     "selo",
+     "gelo",
+     "contraste palatal"
+    ],
+    [
+     "sola",
+     "cola",
+     "posteriorização"
+    ],
+    [
+     "sal",
+     "pá",
+     "contraste amplo"
+    ],
+    [
+     "cinco",
+     "zinco",
      "vozeamento"
+    ],
+    [
+     "caça",
+     "casa",
+     "vozeamento"
+    ],
+    [
+     "sopa",
+     "copa",
+     "posteriorização"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "sapo",
      "tapo",
      "plosivização"
+    ],
+    [
+     "sol",
+     "tol",
+     "plosivização"
+    ],
+    [
+     "sapato",
+     "xapato",
+     "palatalização"
     ]
-   ]
+   ],
+   "frases": [
+    "O sapo pulou no sofá.",
+    "A sereia tomou sorvete.",
+    "O sol esquentou a sopa.",
+    "O palhaço tem sapato grande."
+   ],
+   "historia_chuva_de_sons": "O sol brilhou e o sapo saiu do sofá. Ele calçou o sapato, tomou suco e sorvete com a sereia. Sss… fez a cobra, e o sino tocou.",
+   "validado_por_fono": false
+  },
+  {
+   "id": "z",
+   "ipa": "z",
+   "grafias": [
+    "z",
+    "s entre vogais"
+   ],
+   "nome_jogo": "Som da abelha",
+   "metafora": "a abelha faz zzz",
+   "idade_tipica": "2;0–2;6",
+   "inicio": [
+    "zebra",
+    "zíper",
+    "zero",
+    "zoológico",
+    "zabumba"
+   ],
+   "meio": [
+    "casa",
+    "mesa",
+    "asa",
+    "rosa",
+    "vaso",
+    "camisa",
+    "raposa",
+    "tesoura",
+    "blusa",
+    "beleza",
+    "doze",
+    "onze",
+    "coisa",
+    "framboesa",
+    "princesa",
+    "buzina",
+    "azeite",
+    "azul"
+   ],
+   "pares": [
+    [
+     "casa",
+     "caça",
+     "desvozeamento"
+    ],
+    [
+     "zinco",
+     "cinco",
+     "desvozeamento"
+    ],
+    [
+     "asa",
+     "assa",
+     "desvozeamento"
+    ],
+    [
+     "rosa",
+     "roça",
+     "desvozeamento"
+    ],
+    [
+     "mesa",
+     "meça",
+     "desvozeamento"
+    ]
+   ],
+   "formas_trocadas": [
+    [
+     "zebra",
+     "sebra",
+     "desvozeamento"
+    ],
+    [
+     "casa",
+     "cassa",
+     "desvozeamento"
+    ]
+   ],
+   "frases": [
+    "A zebra entrou na casa.",
+    "A rosa está no vaso azul.",
+    "A princesa abriu o zíper da blusa."
+   ],
+   "historia_chuva_de_sons": "Zzz… a abelha voou até a casa da zebra. Na mesa tinha uma rosa no vaso azul. A princesa de camisa rosa contou: um, dois… doze abelhas!",
+   "validado_por_fono": false
   },
   {
    "id": "kg",
    "ipa": "k/g",
    "grafias": [
-    "c (a,o,u)",
+    "c (a, o, u)",
     "qu",
-    "g (a,o,u)",
+    "g (a, o, u)",
     "gu"
    ],
    "nome_jogo": "Som do sapo coaxando",
-   "metafora": "o sapo faz k-k-k no fundo da garganta",
-   "idade_tipica": "~2;0",
+   "metafora": "o sapo faz k-k-k lá no fundo da garganta",
+   "idade_tipica": "~2;0–3;0",
    "inicio": [
     "casa",
     "cama",
     "copo",
+    "cavalo",
+    "carro",
+    "caneca",
+    "cubo",
+    "queijo",
+    "quati",
     "gato",
     "galo",
-    "gota"
+    "gota",
+    "galinha",
+    "garrafa",
+    "gorro",
+    "goiaba",
+    "gaivota",
+    "guitarra",
+    "coelho",
+    "cobra"
    ],
    "meio": [
     "boca",
     "vaca",
     "foguete",
     "jogo",
-    "fogo"
+    "fogo",
+    "faca",
+    "pipoca",
+    "macaco",
+    "peteca",
+    "foca",
+    "formiga",
+    "lago",
+    "fogão",
+    "bigode",
+    "tartaruga",
+    "barriga",
+    "amigo",
+    "banco"
    ],
    "pares": [
     [
-     "cola",
-     "tola",
+     "cubo",
+     "tubo",
      "anteriorização"
+    ],
+    [
+     "boca",
+     "bota",
+     "anteriorização"
+    ],
+    [
+     "gado",
+     "dado",
+     "anteriorização"
+    ],
+    [
+     "gato",
+     "pato",
+     "contraste de ponto"
+    ],
+    [
+     "gola",
+     "bola",
+     "contraste de ponto"
+    ],
+    [
+     "gota",
+     "bota",
+     "contraste de ponto"
+    ],
+    [
+     "faca",
+     "fada",
+     "anteriorização"
+    ],
+    [
+     "caco",
+     "taco",
+     "anteriorização"
+    ],
+    [
+     "cama",
+     "lama",
+     "contraste amplo"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "gato",
      "dato",
+     "anteriorização"
+    ],
+    [
+     "casa",
+     "tasa",
      "anteriorização"
     ],
     [
@@ -241,11 +620,111 @@
      "anteriorização"
     ],
     [
-     "casa",
-     "tasa",
+     "foguete",
+     "fodete",
+     "anteriorização"
+    ],
+    [
+     "macaco",
+     "matato",
      "anteriorização"
     ]
-   ]
+   ],
+   "frases": [
+    "O gato subiu na cama.",
+    "O macaco comeu pipoca.",
+    "A vaca bebe água no copo.",
+    "O galo canta de manhã.",
+    "A foca brinca de peteca."
+   ],
+   "historia_chuva_de_sons": "Có-có-có! O galo acordou o gato, a vaca e o macaco. Eles comeram pipoca e goiaba no carro amarelo. A foca jogou peteca e a gota de chuva caiu no gorro do cavalo.",
+   "validado_por_fono": false
+  },
+  {
+   "id": "l",
+   "ipa": "l",
+   "grafias": [
+    "l (início de sílaba)"
+   ],
+   "nome_jogo": "Som da língua no céu da boca",
+   "metafora": "a pontinha da língua sobe: lá-lá-lá",
+   "idade_tipica": "~3;0",
+   "inicio": [
+    "lua",
+    "leão",
+    "lápis",
+    "lata",
+    "limão",
+    "lobo",
+    "laço",
+    "leite",
+    "luva",
+    "lago",
+    "lixo",
+    "lagarta",
+    "lâmpada",
+    "laranja"
+   ],
+   "meio": [
+    "mala",
+    "bola",
+    "vela",
+    "galo",
+    "bolo",
+    "cola",
+    "mola",
+    "gelo",
+    "pulo",
+    "janela",
+    "cavalo",
+    "tela"
+   ],
+   "pares": [
+    [
+     "lua",
+     "rua",
+     "contraste de líquida"
+    ],
+    [
+     "lata",
+     "pata",
+     "contraste de ponto"
+    ],
+    [
+     "galo",
+     "gato",
+     "contraste de modo"
+    ],
+    [
+     "mala",
+     "mapa",
+     "contraste de ponto"
+    ],
+    [
+     "lobo",
+     "bobo",
+     "contraste de ponto"
+    ]
+   ],
+   "formas_trocadas": [
+    [
+     "lua",
+     "iua",
+     "semivocalização"
+    ],
+    [
+     "bola",
+     "boia",
+     "semivocalização"
+    ]
+   ],
+   "frases": [
+    "A lua brilha no lago.",
+    "O leão comeu limão.",
+    "A bola está na mala."
+   ],
+   "historia_chuva_de_sons": "Lá-lá-lá! A lua acendeu o lago. O leão de luva pegou a lata de leite e o lápis. O lobo dormiu na mala com a bola e o bolo.",
+   "validado_por_fono": false
   },
   {
    "id": "r_fraco",
@@ -254,7 +733,7 @@
     "r entre vogais"
    ],
    "nome_jogo": "Motorzinho da língua",
-   "metafora": "a pontinha da língua bate rapidinho",
+   "metafora": "a pontinha da língua bate rapidinho: tra-ra-ra",
    "idade_tipica": "4;2–4;6",
    "inicio": [],
    "meio": [
@@ -266,7 +745,24 @@
     "pera",
     "girafa",
     "tesoura",
-    "geladeira"
+    "geladeira",
+    "cadeira",
+    "banheira",
+    "torneira",
+    "coroa",
+    "pirulito",
+    "xícara",
+    "careca",
+    "cereja",
+    "jacaré",
+    "sereia",
+    "pirâmide",
+    "parede",
+    "bandeira",
+    "laranja",
+    "gorila",
+    "caramelo",
+    "tiara"
    ],
    "pares": [
     [
@@ -283,9 +779,23 @@
      "coro",
      "colo",
      "substituição de líquida"
+    ],
+    [
+     "mora",
+     "mola",
+     "substituição de líquida"
+    ],
+    [
+     "muro",
+     "murro",
+     "r fraco × r forte"
+    ],
+    [
+     "caro",
+     "carro",
+     "r fraco × r forte"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "barata",
@@ -298,11 +808,29 @@
      "substituição de líquida"
     ],
     [
-     "barata",
-     "baiata",
-     "semivocalização"
+     "pirata",
+     "pilata",
+     "substituição de líquida"
+    ],
+    [
+     "cenoura",
+     "cenoula",
+     "substituição de líquida"
+    ],
+    [
+     "girafa",
+     "gilafa",
+     "substituição de líquida"
     ]
-   ]
+   ],
+   "frases": [
+    "A arara comeu a pera.",
+    "O pirata sentou na cadeira.",
+    "A barata subiu na parede.",
+    "A coruja usa coroa."
+   ],
+   "historia_chuva_de_sons": "Na ilha do pirata morava uma arara. Ela comia pera, cereja e cenoura. Um dia, uma barata subiu na cadeira e a coruja de coroa gritou: tra-ra-ra! A girafa e o jacaré riram na banheira.",
+   "validado_por_fono": false
   },
   {
    "id": "lh",
@@ -310,8 +838,8 @@
    "grafias": [
     "lh"
    ],
-   "nome_jogo": "Som da abelha lh",
-   "metafora": "língua grudada no céu da boca",
+   "nome_jogo": "Som da língua grudada",
+   "metafora": "língua grudada no céu da boca: lhe-lhe",
    "idade_tipica": "~4;0",
    "inicio": [],
    "meio": [
@@ -322,7 +850,19 @@
     "palhaço",
     "ovelha",
     "orelha",
-    "milho"
+    "milho",
+    "galho",
+    "agulha",
+    "toalha",
+    "joelho",
+    "espelho",
+    "alho",
+    "telha",
+    "colher",
+    "pilha",
+    "filhote",
+    "baralho",
+    "chocalho"
    ],
    "pares": [
     [
@@ -339,15 +879,19 @@
      "galho",
      "galo",
      "substituição"
+    ],
+    [
+     "telha",
+     "tela",
+     "substituição"
+    ],
+    [
+     "filha",
+     "fila",
+     "substituição"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
-    [
-     "palha",
-     "paia",
-     "semivocalização"
-    ],
     [
      "abelha",
      "abeia",
@@ -355,10 +899,33 @@
     ],
     [
      "coelho",
-     "coelo",
+     "coeio",
+     "semivocalização"
+    ],
+    [
+     "palhaço",
+     "paiaço",
+     "semivocalização"
+    ],
+    [
+     "olho",
+     "oio",
+     "semivocalização"
+    ],
+    [
+     "folha",
+     "fola",
      "substituição"
     ]
-   ]
+   ],
+   "frases": [
+    "A abelha pousou na folha.",
+    "O coelho comeu milho.",
+    "O palhaço tem orelha grande.",
+    "A ovelha se olhou no espelho."
+   ],
+   "historia_chuva_de_sons": "O coelho e a ovelha brincavam no galho. Uma abelha pousou na folha e o palhaço riu. Ele pegou a colher, a toalha e o milho, e se olhou no espelho com o filhote.",
+   "validado_por_fono": false
   },
   {
    "id": "nh",
@@ -377,23 +944,56 @@
     "sonho",
     "galinha",
     "aranha",
-    "rainha"
+    "rainha",
+    "cozinha",
+    "unha",
+    "pinha",
+    "linha",
+    "caminhão",
+    "dinheiro",
+    "sardinha",
+    "gatinho",
+    "bolinha",
+    "vizinho",
+    "carrinho"
    ],
    "pares": [
     [
      "sono",
      "sonho",
      "substituição"
+    ],
+    [
+     "pino",
+     "pinho",
+     "substituição"
     ]
    ],
-   "validado_por_fono": false,
-   "formas_trocadas": []
+   "formas_trocadas": [
+    [
+     "galinha",
+     "galina",
+     "substituição"
+    ],
+    [
+     "minhoca",
+     "mioca",
+     "semivocalização"
+    ]
+   ],
+   "frases": [
+    "A galinha fez um ninho.",
+    "A rainha tomou banho.",
+    "A minhoca entrou no caminhão."
+   ],
+   "historia_chuva_de_sons": "Nhac! A galinha achou uma minhoca perto do ninho. A rainha e a aranha cozinharam sardinha na cozinha. Depois, o gatinho tomou banho e teve um sonho bom.",
+   "validado_por_fono": false
   },
   {
    "id": "r_forte",
    "ipa": "R (varia por região)",
    "grafias": [
-    "r inicial",
+    "r no início",
     "rr"
    ],
    "nome_jogo": "Motor do carro",
@@ -404,30 +1004,82 @@
     "roda",
     "rua",
     "rei",
-    "rosa"
+    "rosa",
+    "rede",
+    "relógio",
+    "rabo",
+    "remo",
+    "rinoceronte",
+    "raposa",
+    "rã",
+    "raquete",
+    "robô",
+    "roupa",
+    "rio"
    ],
    "meio": [
     "carro",
     "cachorro",
     "terra",
     "gorro",
-    "barriga"
+    "barriga",
+    "ferro",
+    "morro",
+    "burro",
+    "torre",
+    "garrafa",
+    "jarra",
+    "macarrão",
+    "cigarra",
+    "beterraba"
    ],
    "pares": [
     [
      "carro",
      "caro",
-     "contraste r forte × r fraco"
+     "r forte × r fraco"
     ],
     [
      "murro",
      "muro",
-     "contraste r forte × r fraco"
+     "r forte × r fraco"
+    ],
+    [
+     "rua",
+     "lua",
+     "contraste de líquida"
+    ],
+    [
+     "rato",
+     "pato",
+     "contraste amplo"
+    ],
+    [
+     "rato",
+     "gato",
+     "contraste amplo"
     ]
    ],
-   "obs": "realização varia muito por região; ajustar ao sotaque da família",
+   "formas_trocadas": [
+    [
+     "rato",
+     "lato",
+     "substituição"
+    ],
+    [
+     "carro",
+     "calo",
+     "substituição"
+    ]
+   ],
+   "frases": [
+    "O rato subiu no carro.",
+    "O rei tem roupa vermelha.",
+    "A raposa correu na rua."
+   ],
+   "historia_chuva_de_sons": "Rrrr! O carro do rei passou na rua. Um rato e uma raposa pularam no rio. O cachorro de gorro pegou a roda e o relógio na torre.",
    "validado_por_fono": false,
-   "formas_trocadas": []
+   "obs": "realização varia muito por região; ajustar ao sotaque da família e nunca corrigir a variante regional"
   },
   {
    "id": "enc_r",
@@ -442,20 +1094,32 @@
     "fr",
     "vr"
    ],
-   "nome_jogo": "Foguete com dois motores",
+   "nome_jogo": "Foguete de dois motores",
    "metafora": "juntar dois sons: p + r = pr",
    "idade_tipica": "4;0–5;0",
    "inicio": [
     "prato",
     "prego",
+    "praia",
+    "presente",
     "bruxa",
+    "braço",
     "trem",
+    "tromba",
+    "trator",
     "troféu",
+    "travesseiro",
     "cravo",
+    "cruz",
     "grilo",
+    "grama",
+    "gravata",
     "fruta",
     "frango",
-    "dragão"
+    "freio",
+    "dragão",
+    "três",
+    "prédio"
    ],
    "meio": [
     "cobra",
@@ -463,7 +1127,14 @@
     "zebra",
     "quatro",
     "tigre",
-    "cabra"
+    "cabra",
+    "estrela",
+    "abraço",
+    "trevo",
+    "letra",
+    "pedra",
+    "cofre",
+    "sobremesa"
    ],
    "pares": [
     [
@@ -495,9 +1166,18 @@
      "fio",
      "frio",
      "redução de encontro"
+    ],
+    [
+     "pata",
+     "prata",
+     "redução de encontro"
+    ],
+    [
+     "gato",
+     "grato",
+     "redução de encontro"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "prato",
@@ -508,8 +1188,31 @@
      "bruxa",
      "buxa",
      "redução de encontro"
+    ],
+    [
+     "trem",
+     "tem",
+     "redução de encontro"
+    ],
+    [
+     "livro",
+     "livo",
+     "redução de encontro"
+    ],
+    [
+     "zebra",
+     "zeba",
+     "redução de encontro"
     ]
-   ]
+   ],
+   "frases": [
+    "O dragão comeu fruta no prato.",
+    "A bruxa pegou o trem.",
+    "O grilo pulou na grama.",
+    "A zebra leu um livro."
+   ],
+   "historia_chuva_de_sons": "Um dragão verde pegou o trem para a praia. Levou fruta no prato, um presente e um livro. Na grama tinha um grilo, uma cobra e uma zebra de gravata. Três estrelas brilharam no céu!",
+   "validado_por_fono": false
   },
   {
    "id": "enc_l",
@@ -521,24 +1224,29 @@
     "gl",
     "fl"
    ],
-   "nome_jogo": "Foguete com dois motores (L)",
+   "nome_jogo": "Foguete de dois motores (L)",
    "metafora": "p + l = pl",
    "idade_tipica": "4;6–5;0 (depois dos encontros com r)",
    "inicio": [
     "planeta",
     "placa",
+    "planta",
+    "pluma",
     "bloco",
     "blusa",
     "clipe",
     "globo",
     "flor",
-    "flauta"
+    "flauta",
+    "floco",
+    "flecha"
    ],
    "meio": [
     "bicicleta",
     "teclado",
     "chiclete",
-    "bíblia"
+    "bíblia",
+    "atleta"
    ],
    "pares": [
     [
@@ -550,9 +1258,13 @@
      "foco",
      "floco",
      "redução de encontro"
+    ],
+    [
+     "fecha",
+     "flecha",
+     "redução de encontro"
     ]
    ],
-   "validado_por_fono": false,
    "formas_trocadas": [
     [
      "planeta",
@@ -563,8 +1275,25 @@
      "flor",
      "for",
      "redução de encontro"
+    ],
+    [
+     "bicicleta",
+     "bicideta",
+     "substituição"
+    ],
+    [
+     "blusa",
+     "busa",
+     "redução de encontro"
     ]
-   ]
+   ],
+   "frases": [
+    "A flor está no planeta azul.",
+    "O atleta andou de bicicleta.",
+    "A blusa tem um clipe."
+   ],
+   "historia_chuva_de_sons": "No planeta Flor tinha uma planta que tocava flauta. O atleta de blusa amarela andou de bicicleta até o globo e ganhou um chiclete e um floco de neve.",
+   "validado_por_fono": false
   },
   {
    "id": "coda",
@@ -587,12 +1316,20 @@
     "escova",
     "mar",
     "flor",
-    "sol"
+    "sol",
+    "farol",
+    "anel",
+    "papel",
+    "pastel",
+    "vespa",
+    "escada"
    ],
    "pares": [],
-   "obs": "NÃO treinar por padrão: pronúncia regional (retroflexo, fricativo, chiado carioca) não é erro",
+   "formas_trocadas": [],
+   "frases": [],
+   "historia_chuva_de_sons": "",
    "validado_por_fono": false,
-   "formas_trocadas": []
+   "obs": "NÃO treinar por padrão: a pronúncia regional (retroflexo, fricativo, chiado carioca) não é erro"
   }
  ]
 }
