@@ -3,6 +3,9 @@ extends BaseScreen
 ## Toca a música-tema cantada.
 
 
+var _started := false
+
+
 func on_enter() -> void:
 	if is_instance_valid(Router.sky):
 		Router.sky.set_theme("space", 0.0)
@@ -38,6 +41,13 @@ func on_enter() -> void:
 	vini.position = Vector2(330, 690)
 	stage.add_child(vini)
 	after(0.6, func(): vini.play("wave"))
+	# Criança de 4 anos toca no personagem, não no botão: tocar no Vini também começa o jogo.
+	var hit := Control.new()
+	hit.name = "ViniTap"
+	hit.position = Vector2(170, 280)
+	hit.size = Vector2(320, 420)
+	hit.gui_input.connect(_on_vini_input.bind(vini))
+	add_child(hit)
 	var astro := CosmoRig.new(170.0)
 	astro.position = Vector2(1000, 360)
 	stage.add_child(astro)
@@ -54,7 +64,17 @@ func on_enter() -> void:
 	pulse.tween_property(play, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 
 
+func _on_vini_input(e: InputEvent, vini: CharacterRig2D) -> void:
+	if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
+		vini.play("jump")
+		AudioService.play_sfx("boing")
+		after(0.45, _on_play)
+
+
 func _on_play() -> void:
+	if _started:
+		return
+	_started = true
 	AudioService.play_sfx("whoosh")
 	if not bool(SaveService.settings.get_value("intro_video_seen")):
 		Router.reset_to("intro_video", {"next": "opening"})

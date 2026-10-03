@@ -230,3 +230,18 @@ func test_campaign_completion_plays_celebration() -> void:
 	check(MissionFlow._campaign_just_done(str(ms[ms.size() - 1])), "última missão fecha a campanha")
 	for clip in ["celebra", "oi"]:
 		check(ResourceLoader.exists("res://assets/video/%s.ogv" % clip), "clipe %s" % clip)
+
+
+func test_tapping_vini_on_splash_starts_game() -> void:
+	SaveService.settings.set_value("intro_video_seen", true)
+	Router.reset_to("splash")
+	await frames(2)
+	var hit: Control = Router.current_screen.find_child("ViniTap", true, false)
+	check(hit != null, "área de toque no Vini")
+	var ev := InputEventScreenTouch.new()
+	ev.pressed = true
+	hit.gui_input.emit(ev)
+	hit.gui_input.emit(ev)
+	await get_tree().create_timer(0.7).timeout
+	await frames(2)
+	check(Router.current_id != "splash", "tocar no Vini começa o jogo (%s)" % Router.current_id)

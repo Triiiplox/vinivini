@@ -34,6 +34,16 @@ func on_enter() -> void:
 	add_child(player)
 	player.finished.connect(_finish)
 	player.play()
+	# Proteção: se o aparelho não tocar o vídeo (decodificação falhou), não deixa a tela preta parada.
+	var limit := maxf(4.0, player.get_stream_length() + 2.0)
+	get_tree().create_timer(1.5).timeout.connect(_watchdog)
+	get_tree().create_timer(limit).timeout.connect(_finish)
+
+
+func _watchdog() -> void:
+	if not _done and is_instance_valid(player) and (not player.is_playing() or player.stream_position <= 0.0):
+		GameLog.info("Video", "vídeo não começou; seguindo")
+		_finish()
 
 
 func _gui_input(e: InputEvent) -> void:
