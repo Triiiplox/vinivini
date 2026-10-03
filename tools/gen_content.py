@@ -285,7 +285,7 @@ EMO = [
      [act("Ajudar a procurar", True), act("Dar um abraço", True), act("Rir dele", False, "Rir pode deixar ele mais triste. Vamos escolher outro jeito?")]),
     (1, "alien", "O alienzinho ganhou um presente!", "feliz", ["feliz", "triste", "medo"],
      [act("Comemorar junto", True), act("Dizer parabéns", True), act("Pegar o presente dele", False, "O presente é dele. Vamos comemorar com ele?")]),
-    (1, "cosmo", "Derrubaram a torre de blocos do Cosmo.", "bravo", ["bravo", "feliz", "surpreso"],
+    (1, "cosmo", "Derrubaram a torre de blocos do Astro.", "bravo", ["bravo", "feliz", "surpreso"],
      [act("Respirar fundo junto", True), act("Ajudar a montar de novo", True), act("Derrubar de novo", False, "Ficar bravo é normal, mas derrubar de novo machuca o sentimento dele. Que tal ajudar?")]),
     (1, "star", "A estrelinha ouviu um barulho alto no escuro.", "medo", ["medo", "feliz", "bravo"],
      [act("Ficar pertinho dela", True), act("Acender uma luz", True), act("Dar um susto", False, "Ela já está com medo. Vamos ajudar ela a se acalmar?")]),
@@ -299,8 +299,8 @@ EMO = [
      [act("Combinar a vez de cada um", True), act("Contar até dez juntos", True), act("Empurrar quem está na frente", False, "Empurrar pode machucar. Cada um tem sua vez!")]),
     (2, "robot", "O robozinho respirou fundo e ficou tranquilo.", "calmo", ["calmo", "bravo", "medo"],
      [act("Respirar junto com ele", True), act("Brincar devagar com ele", True)]),
-    (2, "cosmo", "O Cosmo vai voar sozinho pela primeira vez.", "medo", ["medo", "feliz", "bravo"],
-     [act("Dizer: você consegue!", True), act("Ir junto da primeira vez", True), act("Dizer que ele é medroso", False, "Todo mundo sente medo às vezes. Vamos encorajar o Cosmo?")]),
+    (2, "cosmo", "O Astro vai voar sozinho pela primeira vez.", "medo", ["medo", "feliz", "bravo"],
+     [act("Dizer: você consegue!", True), act("Ir junto da primeira vez", True), act("Dizer que ele é medroso", False, "Todo mundo sente medo às vezes. Vamos encorajar o Astro?")]),
     (2, "alien", "O amigo do alienzinho fala outra língua.", "surpreso", ["surpreso", "triste", "bravo"],
      [act("Aprender uma palavra nova com ele", True), act("Brincar usando gestos", True), act("Ignorar o amigo", False, "Ser diferente é legal! Vamos tentar brincar juntos?")]),
     (2, "star", "A estrelinha dividiu o lanche com você.", "feliz", ["feliz", "triste", "medo"],
@@ -335,9 +335,9 @@ def sc(bg, *chars):
 robot = {"id": "story_robot_lost_001", "title": "O Robozinho Perdido", "cover": "mars", "start": "n1",
          "reward_stars": 3, "nodes": {
     "n1": node("Em Marte, um robozinho está sozinho. Ele parece triste.", sc("mars", "robot:sad"),
-               [ch("Perguntar o que aconteceu", "n2", ["empathy"], "heart"), ch("Chamar o Cosmo para ajudar", "n3", ["cooperation"], "cosmo")]),
+               [ch("Perguntar o que aconteceu", "n2", ["empathy"], "heart"), ch("Chamar o Astro para ajudar", "n3", ["cooperation"], "cosmo")]),
     "n2": node("— Eu perdi meu amigo, o cachorrinho-robô Bip! — disse o robozinho.", sc("mars", "robot:sad", "avatar:calm"), nxt="n4"),
-    "n3": node("O Cosmo chegou voando: — Vamos ajudar juntos! O robozinho contou que perdeu o amigo Bip.", sc("mars", "robot:sad", "cosmo:happy"), nxt="n4"),
+    "n3": node("O Astro chegou voando: — Vamos ajudar juntos! O robozinho contou que perdeu o amigo Bip.", sc("mars", "robot:sad", "cosmo:happy"), nxt="n4"),
     "n4": node("Onde vamos procurar o Bip?", sc("mars", "robot:calm", "avatar:happy"),
                [ch("Na cratera grande", "n5", ["courage"], "crater"), ch("Atrás das pedras vermelhas", "n6", ["curiosity"], "rock")]),
     "n5": node("A cratera é escura... O robozinho está com medo.", sc("crater", "robot:scared", "avatar:calm"),
@@ -424,7 +424,7 @@ items = [
     item("acc_jetpack", "Mochila a Jato", "accessory", {"type": "missions", "area": "logic", "value": 2}, style="jetpack"),
     item("acc_cape", "Capa de Herói", "accessory", {"type": "story_end", "value": 1}, style="cape"),
     item("acc_heart_badge", "Broche do Coração", "accessory", {"type": "missions", "area": "emotion", "value": 1}, style="heart_badge"),
-    item("acc_robot_pet", "Mini Cosmo", "accessory", {"type": "stars", "value": 20}, style="robot_pet"),
+    item("acc_robot_pet", "Mini Astro", "accessory", {"type": "stars", "value": 20}, style="robot_pet"),
     item("acc_telescope", "Lunetinha", "accessory", {"type": "missions", "area": "science", "value": 1}, style="telescope"),
     item("acc_planet_pet", "Planetinha de Estimação", "accessory", {"type": "creative", "value": 1}, style="planet_pet"),
     item("acc_medal", "Medalha da Família", "accessory", {"type": "parent", "value": 1}, style="medal"),
@@ -464,7 +464,7 @@ dump("feedback/praise.json", praise)
 praise["simple"] += ["Arrasou!", "Que demais!", "Perfeito, comandante!", "Na mosca!", "É isso aí, {name}!", "Que esperto!",
     "Você é fera!", "Brilhou!", "Muito bom!", "Excelente!", "Uhuu, acertou!", "Bateu aqui!", "Que comandante!",
     "Missão no alvo!", "Foi de primeira!", "Supersônico!", "Olha só que craque!", "A nave aplaudiu!", "Estrela de ouro!",
-    "Até o Cosmo pulou de alegria!", "Você manda muito, {name}!", "Certinho!", "Nossa, que rápido!", "Mandou ver!"]
+    "Até o Astro pulou de alegria!", "Você manda muito, {name}!", "Certinho!", "Nossa, que rápido!", "Mandou ver!"]
 praise["streak_3"] += ["Três acertos! Os motores estão a toda!", "Você não erra uma!", "Sequência de foguete!",
     "Que pontaria, {name}!", "Três estrelas seguidas!"]
 praise["streak_5"] += ["Cinco seguidas! Velocidade da luz!", "Você é o comandante mais rápido da galáxia!",
@@ -473,7 +473,7 @@ praise["persistence"] += ["Você continuou tentando. Isso é coragem!", "Tentou,
     "Errar ajuda a aprender. E você aprendeu!", "Que paciência de astronauta!", "Você não desistiu. Muito bem!",
     "Devagar e com cuidado, você chegou lá!"]
 praise["hard"] += ["Essa era de comandante experiente!", "Nível difícil vencido!", "Uau, essa foi das grandes!",
-    "Até o Cosmo achou difícil. E você conseguiu!"]
+    "Até o Astro achou difícil. E você conseguiu!"]
 praise["strategy_reading"] += ["Você escutou o som direitinho!", "Você reconheceu as letras!", "Que ouvido de leitor!",
     "Você juntou os sons e formou a palavra!", "Leitor espacial!", "O monstro adorou sua escolha!"]
 praise["strategy_math"] += ["Você contou certinho!", "Nem um a mais, nem um a menos!", "Que conta caprichada!",

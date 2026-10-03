@@ -27,7 +27,7 @@ Você nunca escreve "10/10", "premium" ou "pronto" sem citar a evidência que pr
 4. **Fala (Planeta Eco) não é diagnóstico nem substitui fonoaudióloga.** Siga `v3/fala/REFERENCIAS_FALA.md`:
    nada de exercícios oromotores "de assoprar/língua" vendidos como tratamento (sem evidência), nada de
    reconhecimento de fala automático julgando a criança, variação regional não é erro.
-5. **Inglês (Planeta Hello) é interação, não vídeo.** Siga `v3/ingles/`: o Hoppy só fala inglês, o Cosmo
+5. **Inglês (Planeta Hello) é interação, não vídeo.** Siga `v3/ingles/`: o Hoppy só fala inglês, o Astro
    apoia em português e vai sumindo, repetição espaçada por palavra, sem culpa (nada de vidas ou ofensiva
    que se perde), só canções originais ou de domínio público.
 6. **Sem placeholder na release.** Nenhum retângulo chapado fazendo papel de porta, nenhum ícone de UI

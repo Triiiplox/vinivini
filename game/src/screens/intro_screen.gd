@@ -10,7 +10,7 @@ var cosmo: CharacterView
 func on_enter() -> void:
 	var n := AppState.child_name()
 	lines = [
-		"Oi, comandante %s! Eu sou o Cosmo, seu robô ajudante." % n,
+		"Oi, comandante %s! Eu sou o Astro, seu robô ajudante." % n,
 		"Esta é a nossa nave, a Estrela Azul. Daqui vamos explorar planetas!",
 		"Em cada planeta tem desafios divertidos. Errar faz parte: a gente tenta de novo!",
 		"Vamos começar? Toque em qualquer lugar!",

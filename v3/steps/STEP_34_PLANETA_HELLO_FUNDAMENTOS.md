@@ -30,7 +30,7 @@ repetição espaçada e trilha. Leitura obrigatória: `v3/ingles/REFERENCIAS_ING
 6. Personagem Hoppy:
    - rig com idle, falar, comemorar e "não entendi" (inclina a cabeça);
    - só fala inglês;
-   - o Cosmo dá apoio em português que vai sumindo, com a regra do REFERENCIAS.
+   - o Astro dá apoio em português que vai sumindo, com a regra do REFERENCIAS.
 
 ## Critérios de aceite
 - Validador verde para as 30 unidades.

@@ -197,7 +197,7 @@
  },
  {
   "id": "acc_robot_pet",
-  "name": "Mini Cosmo",
+  "name": "Mini Astro",
   "slot": "accessory",
   "unlock": {
    "type": "stars",

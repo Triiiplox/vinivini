@@ -63,7 +63,7 @@
   "difficulty": 1,
   "type": "emotion",
   "character": "cosmo",
-  "scenario": "Derrubaram a torre de blocos do Cosmo.",
+  "scenario": "Derrubaram a torre de blocos do Astro.",
   "emotion": "bravo",
   "emotion_options": [
    "bravo",
@@ -256,7 +256,7 @@
   "difficulty": 2,
   "type": "emotion",
   "character": "cosmo",
-  "scenario": "O Cosmo vai voar sozinho pela primeira vez.",
+  "scenario": "O Astro vai voar sozinho pela primeira vez.",
   "emotion": "medo",
   "emotion_options": [
    "medo",
@@ -275,7 +275,7 @@
    {
     "text": "Dizer que ele é medroso",
     "kind": false,
-    "feedback": "Todo mundo sente medo às vezes. Vamos encorajar o Cosmo?"
+    "feedback": "Todo mundo sente medo às vezes. Vamos encorajar o Astro?"
    }
   ]
  },

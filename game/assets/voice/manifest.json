@@ -749,10 +749,10 @@
 "t": "Desafio de comandante! A mesma missão, só que mais difícil. Vamos?",
 "w": "narrator"
 },
-"a56f85d39716": {
-"f": "a56f85d39716.ogg",
-"d": 2.61,
-"t": "Olá, {name}! Eu sou o Cosmo, o robô da sua nave.",
+"1741bb3523ab": {
+"f": "1741bb3523ab.ogg",
+"d": 2.85,
+"t": "Esse é você, comandante! Toque no Vini para dar oi!",
 "w": "cosmo"
 },
 "9824079b2b41": {
@@ -779,88 +779,10 @@
 "t": "Que obra de arte! Vou pendurar na nave.",
 "w": "cosmo"
 },
-"5e7765e73985": {
-"f": "5e7765e73985.ogg",
-"d": 0.55,
-"t": "dez",
-"w": "narrator"
-},
-"94209b526908": {
-"f": "94209b526908.ogg",
-"d": 0.53,
-"t": "uma",
-"w": "narrator"
-},
-"6e5bc7c334c1": {
-"f": "6e5bc7c334c1.ogg",
-"d": 0.82,
-"t": "dezoito",
-"w": "narrator"
-},
-"c7e268cb3730": {
-"f": "c7e268cb3730.ogg",
-"d": 0.57,
-"t": "zero",
-"w": "narrator"
-},
-"7ba3c2849447": {
-"f": "7ba3c2849447.ogg",
-"d": 0.55,
-"t": "seis",
-"w": "narrator"
-},
-"2eb0b7385b29": {
-"f": "2eb0b7385b29.ogg",
-"d": 0.64,
-"t": "sete",
-"w": "narrator"
-},
-"b2e5a3836553": {
-"f": "b2e5a3836553.ogg",
-"d": 0.65,
-"t": "cinco",
-"w": "narrator"
-},
 "648b46cabe67": {
 "f": "648b46cabe67.ogg",
 "d": 0.65,
 "t": "treze",
-"w": "narrator"
-},
-"b22af9958ca8": {
-"f": "b22af9958ca8.ogg",
-"d": 0.62,
-"t": "onze",
-"w": "narrator"
-},
-"1c6bb139fc2b": {
-"f": "1c6bb139fc2b.ogg",
-"d": 1.02,
-"t": "dezessete",
-"w": "narrator"
-},
-"59ab21cdfe18": {
-"f": "59ab21cdfe18.ogg",
-"d": 0.62,
-"t": "doze",
-"w": "narrator"
-},
-"68fce19f79e0": {
-"f": "68fce19f79e0.ogg",
-"d": 0.61,
-"t": "nove",
-"w": "narrator"
-},
-"3a7721b9cc80": {
-"f": "3a7721b9cc80.ogg",
-"d": 0.51,
-"t": "um",
-"w": "narrator"
-},
-"357cb8978f40": {
-"f": "357cb8978f40.ogg",
-"d": 0.62,
-"t": "dois",
 "w": "narrator"
 },
 "1693d052b5b3": {
@@ -869,22 +791,46 @@
 "t": "catorze",
 "w": "narrator"
 },
-"d164b9c31be2": {
-"f": "d164b9c31be2.ogg",
+"1c6bb139fc2b": {
+"f": "1c6bb139fc2b.ogg",
+"d": 1.02,
+"t": "dezessete",
+"w": "narrator"
+},
+"68fce19f79e0": {
+"f": "68fce19f79e0.ogg",
+"d": 0.61,
+"t": "nove",
+"w": "narrator"
+},
+"c7e268cb3730": {
+"f": "c7e268cb3730.ogg",
+"d": 0.57,
+"t": "zero",
+"w": "narrator"
+},
+"0870d0f085d6": {
+"f": "0870d0f085d6.ogg",
 "d": 0.68,
-"t": "vinte",
+"t": "quatro",
 "w": "narrator"
 },
-"2220246b9656": {
-"f": "2220246b9656.ogg",
+"5e7765e73985": {
+"f": "5e7765e73985.ogg",
+"d": 0.55,
+"t": "dez",
+"w": "narrator"
+},
+"357cb8978f40": {
+"f": "357cb8978f40.ogg",
 "d": 0.62,
-"t": "três",
+"t": "dois",
 "w": "narrator"
 },
-"39accb4dfe34": {
-"f": "39accb4dfe34.ogg",
-"d": 0.66,
-"t": "quinze",
+"2eb0b7385b29": {
+"f": "2eb0b7385b29.ogg",
+"d": 0.64,
+"t": "sete",
 "w": "narrator"
 },
 "8b7fd81e32d7": {
@@ -893,10 +839,10 @@
 "t": "dezenove",
 "w": "narrator"
 },
-"9c97e83554f7": {
-"f": "9c97e83554f7.ogg",
-"d": 0.64,
-"t": "duas",
+"2220246b9656": {
+"f": "2220246b9656.ogg",
+"d": 0.62,
+"t": "três",
 "w": "narrator"
 },
 "76eb0c0fa8cf": {
@@ -911,10 +857,64 @@
 "t": "oito",
 "w": "narrator"
 },
-"0870d0f085d6": {
-"f": "0870d0f085d6.ogg",
+"b2e5a3836553": {
+"f": "b2e5a3836553.ogg",
+"d": 0.65,
+"t": "cinco",
+"w": "narrator"
+},
+"9c97e83554f7": {
+"f": "9c97e83554f7.ogg",
+"d": 0.64,
+"t": "duas",
+"w": "narrator"
+},
+"d164b9c31be2": {
+"f": "d164b9c31be2.ogg",
 "d": 0.68,
-"t": "quatro",
+"t": "vinte",
+"w": "narrator"
+},
+"3a7721b9cc80": {
+"f": "3a7721b9cc80.ogg",
+"d": 0.51,
+"t": "um",
+"w": "narrator"
+},
+"6e5bc7c334c1": {
+"f": "6e5bc7c334c1.ogg",
+"d": 0.82,
+"t": "dezoito",
+"w": "narrator"
+},
+"94209b526908": {
+"f": "94209b526908.ogg",
+"d": 0.53,
+"t": "uma",
+"w": "narrator"
+},
+"39accb4dfe34": {
+"f": "39accb4dfe34.ogg",
+"d": 0.66,
+"t": "quinze",
+"w": "narrator"
+},
+"7ba3c2849447": {
+"f": "7ba3c2849447.ogg",
+"d": 0.55,
+"t": "seis",
+"w": "narrator"
+},
+"59ab21cdfe18": {
+"f": "59ab21cdfe18.ogg",
+"d": 0.62,
+"t": "doze",
+"w": "narrator"
+},
+"b22af9958ca8": {
+"f": "b22af9958ca8.ogg",
+"d": 0.62,
+"t": "onze",
 "w": "narrator"
 },
 "823472766ada": {
@@ -2231,12 +2231,6 @@
 "t": "Estrela de ouro!",
 "w": "cosmo"
 },
-"27f237989cce": {
-"f": "27f237989cce.ogg",
-"d": 1.84,
-"t": "Até o Cosmo pulou de alegria!",
-"w": "cosmo"
-},
 "a01cee516b95": {
 "f": "a01cee516b95.ogg",
 "d": 1.47,
@@ -2445,12 +2439,6 @@
 "f": "b9146ce53335.ogg",
 "d": 1.73,
 "t": "Uau, essa foi das grandes!",
-"w": "cosmo"
-},
-"4e99cd0d384d": {
-"f": "4e99cd0d384d.ogg",
-"d": 2.72,
-"t": "Até o Cosmo achou difícil. E você conseguiu!",
 "w": "cosmo"
 },
 "f94285465e4c": {
@@ -2945,22 +2933,10 @@
 "t": "Perguntar o que aconteceu",
 "w": "narrator"
 },
-"f46ced47a107": {
-"f": "f46ced47a107.ogg",
-"d": 1.7,
-"t": "Chamar o Cosmo para ajudar",
-"w": "narrator"
-},
 "7d313d051bea": {
 "f": "7d313d051bea.ogg",
 "d": 3.77,
 "t": "— Eu perdi meu amigo, o cachorrinho-robô Bip! — disse o robozinho.",
-"w": "narrator"
-},
-"9a69fcefe8bf": {
-"f": "9a69fcefe8bf.ogg",
-"d": 5.3,
-"t": "O Cosmo chegou voando: — Vamos ajudar juntos! O robozinho contou que perdeu o amigo Bip.",
 "w": "narrator"
 },
 "c850b2cd8994": {
@@ -3143,10 +3119,34 @@
 "t": "Agora Lumi brilha cor-de-rosa, como uma nebulosa. Obrigada, comandante!",
 "w": "narrator"
 },
-"1741bb3523ab": {
-"f": "1741bb3523ab.ogg",
-"d": 2.85,
-"t": "Esse é você, comandante! Toque no Vini para dar oi!",
+"fb3ba65a716c": {
+"f": "fb3ba65a716c.ogg",
+"d": 2.57,
+"t": "Olá, {name}! Eu sou o Astro, o robô da sua nave.",
 "w": "cosmo"
+},
+"93ae8639e68b": {
+"f": "93ae8639e68b.ogg",
+"d": 1.83,
+"t": "Até o Astro pulou de alegria!",
+"w": "cosmo"
+},
+"5b4926b2242f": {
+"f": "5b4926b2242f.ogg",
+"d": 2.68,
+"t": "Até o Astro achou difícil. E você conseguiu!",
+"w": "cosmo"
+},
+"7ddb518771fc": {
+"f": "7ddb518771fc.ogg",
+"d": 1.63,
+"t": "Chamar o Astro para ajudar",
+"w": "narrator"
+},
+"57c26943cc7f": {
+"f": "57c26943cc7f.ogg",
+"d": 5.2,
+"t": "O Astro chegou voando: — Vamos ajudar juntos! O robozinho contou que perdeu o amigo Bip.",
+"w": "narrator"
 }
 }

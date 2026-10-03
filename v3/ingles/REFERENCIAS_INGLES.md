@@ -13,7 +13,7 @@
 1. **Fala primeiro, leitura nunca obrigatória.** Nenhuma palavra em inglês escrita é necessária para
    jogar. Texto em inglês aparece no máximo como legenda decorativa desligável, sem phonics nesta fase.
 2. **Uma voz de referência do inglês**: vozes nativas en-US do Kokoro, em velocidade normal e lenta,
-   no mesmo pipeline do `gen_voice.py`. Personagem **Hoppy** só fala inglês. O **Cosmo** dá o apoio em
+   no mesmo pipeline do `gen_voice.py`. Personagem **Hoppy** só fala inglês. O **Astro** dá o apoio em
    português e vai sumindo: traduz na 1ª exposição, depois só dá dica se a criança errar 2 vezes, e a
    partir da unidade 6 só explica a mecânica do jogo, nunca o significado.
 3. **Sem culpa**: nada de "ofensiva" que se perde, vidas ou corações. A constância vira uma planta na nave

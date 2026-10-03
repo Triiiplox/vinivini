@@ -22,7 +22,7 @@ Meta de longo prazo: cobrir a lista Cambridge Pre A1 Starters (~500 palavras).
 | Momento | Duração | O que acontece | Por quê |
 |---|---|---|---|
 | Aquecimento | 30–45 s | 3 palavras antigas devolvidas pelo motor espaçado: "Find the **cat**!" | Recuperação espaçada |
-| Conhecer | 1 min | Hoppy mostra o objeto vivo, diz a palavra 3× em contexto ("A cat! The cat is sleeping. Meow, cat!"). Na 1ª exposição, o Cosmo sussurra "gato" | Entrada compreensível; apoio em português que vai sumindo |
+| Conhecer | 1 min | Hoppy mostra o objeto vivo, diz a palavra 3× em contexto ("A cat! The cat is sleeping. Meow, cat!"). Na 1ª exposição, o Astro sussurra "gato" | Entrada compreensível; apoio em português que vai sumindo |
 | Ouvir e tocar | 1–1,5 min | 2 → 3 → 4 figuras: "Touch the **dog**". Errou: o objeto tocado diz o próprio nome ("I'm a cat!") e o certo pisca | Compreensão antes da fala; erro vira aprendizado |
 | Fazer (TPR) | 1 min | "Jump like a frog!": o avatar faz quando a criança toca nele, e no modo corpo o adulto confirma | Movimento e linguagem juntos |
 | Jogar | 1–2 min | Jogo da nave em modo inglês (lista abaixo) | Usar a palavra para resolver algo |

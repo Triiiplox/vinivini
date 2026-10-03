@@ -18,13 +18,13 @@ poucos segundos e o Hoppy reage na hora.
    existentes e as falas trocadas por `Lines.en`.
 6. **História interativa**:
    - 6–10 cenas em inglês com escolhas por figura;
-   - o Cosmo resume em português só na 1ª vez;
+   - o Astro resume em português só na 1ª vez;
    - perguntas de compreensão por figura ("Who ate the cake?").
 7. **Desafio do Hoppy** (miniboss): mistura comandos de toda a unidade + 3 revisões. Ex.: levar o Hoppy até
    o planeta seguindo instruções faladas.
 
 ## Regras
-- Erro nunca é "errado": o objeto tocado diz o próprio nome e o certo pisca. Depois de 2 erros, o Cosmo dá a
+- Erro nunca é "errado": o objeto tocado diz o próprio nome e o certo pisca. Depois de 2 erros, o Astro dá a
   dica em português.
 - Mão-guia após 6 s sem ação.
 - Cada lição registra por palavra: acerto de primeira, tentativas e tempo, enviados ao `EnglishSRS` e ao Learning Engine (`english.<unidade>`).

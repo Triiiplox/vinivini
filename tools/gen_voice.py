@@ -125,7 +125,7 @@ def spoken(text):
     t = text.replace("{name}", NAME_SPOKEN)
     t = re.sub(r"\bVini\b", NAME_SPOKEN, t)
     t = t.replace("—", ",")
-    t = t.replace("Cosmo", "Cósmo")
+    t = t.replace("Cosmo", "Cósmo")  # nome antigo (legado)
     return t
 
 

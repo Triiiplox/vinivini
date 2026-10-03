@@ -39,7 +39,7 @@ func begin() -> void:
 		t2.tween_property(cosmo, "position", Vector2(980, 250), 1.0).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		AudioService.play_sfx("beep"))
 	after(3.8, func():
-		var d := cosmo_say(Lines.c("Olá, {name}! Eu sou o Cosmo, o robô da sua nave."))
+		var d := cosmo_say(Lines.c("Olá, {name}! Eu sou o Astro, o robô da sua nave."))
 		after(d + 0.3, _show_avatar))
 
 
