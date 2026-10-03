@@ -23,13 +23,13 @@ var facing := 1
 var talking := false
 ## Se não vazio, a boca segue o lip-sync quando o Voice estiver falando com esta voz ("narrator", "cosmo", "npc").
 var lipsync_who := ""
-var _lip_active := false
 var skeleton: Skeleton2D
 var anim: AnimationPlayer
 var bones: Dictionary = {}
 var sprites: Dictionary = {}
 var slots: Dictionary = {}
 var _rig: Dictionary = {}
+var _lip_active := false
 var _body: Node2D
 var _action := ""
 var _blink_t := 2.5
