@@ -32,6 +32,7 @@ func build() -> void:
 		pass
 	elif shown.size() > 0:
 		rec_area = str(shown[0][0])
+	var lv := Areas.levels()
 	for i in shown.size():
 		var a: Array = shown[i]
 		var t := Interactable.new()
@@ -50,6 +51,10 @@ func build() -> void:
 		ic.position = Vector2(-32, -32)
 		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		t.add_child(ic)
+		# Anel dourado: quanto a criança já avançou nessa área (nível 0–10 da área dos pais).
+		var ring := ProgressRing.new(52.0, float(lv.get(a[0], 0)) / 10.0)
+		ring.name = "Ring"
+		t.add_child(ring)
 		t.tapped.connect(_on_area)
 		world.add_child(t)
 		tabs.append(t)

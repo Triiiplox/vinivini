@@ -67,6 +67,7 @@ func build() -> void:
 	play_btn.visible = false
 	play_btn.pressed.connect(_start)
 	hud.root.add_child(play_btn)
+	add_journey_bar()
 	var focus := str(params.get("focus", ""))
 	var cur := _current_mission()
 	if focus != "" and order.has(focus):

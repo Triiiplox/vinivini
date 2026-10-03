@@ -11,6 +11,8 @@ var _paused := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Cópia de segurança do dia, antes de jogar (restaurável na área dos pais).
+	SaveService.snapshot_daily(today())
 	RewardService.ensure_starter_items()
 	RewardService.refresh_name()
 	EventBus.session_started.emit()

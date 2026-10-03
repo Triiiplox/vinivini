@@ -38,6 +38,10 @@ func build() -> void:
 	cont.visible = false
 	cont.pressed.connect(_continue)
 	hud.root.add_child(cont)
+	if params.has("mission"):
+		var bar := add_journey_bar()
+		if bool(params.get("first_time", false)):
+			bar.animate_from(int(JourneyBar.compute()["done"]) - 1)
 	hint_fn = _hint
 
 

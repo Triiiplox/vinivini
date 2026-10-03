@@ -19,6 +19,13 @@ const GAME_NAMES := {
 	"opening": "Abertura",
 }
 const SENDERS := ["Papai", "Mamãe", "Vovó", "Vovô", "Titia", "Titio"]
+const DIFF_NAMES := {"auto": "Automático", "easy": "Fácil", "medium": "Médio", "hard": "Difícil"}
+const DIFF_NOTES := {
+	"auto": "Recomendado. Cada habilidade tem o seu nível: sobe quando a criança acerta de primeira e desce quando erra seguido.",
+	"easy": "Tudo no nível 1. Bom para começar ou para dias de cansaço.",
+	"medium": "Tudo no nível 2 (onde existir).",
+	"hard": "Tudo no nível mais alto disponível (até 3). Se ela errar muito, volte para Automático.",
+}
 
 var body: VBoxContainer
 var tabs_box: HBoxContainer
@@ -28,6 +35,7 @@ var ch_skill := "math.counting"
 var ch_level := 1
 var ch_rounds := 3
 var _confirm_reset := false
+var _confirm_restore := ""
 
 
 func on_enter() -> void:
@@ -427,6 +435,53 @@ func _set_volume(v: float, key: String) -> void:
 	AudioService.apply_volumes()
 
 
+func _set_difficulty(v: String) -> void:
+	SaveService.settings.set_value("difficulty", str(DIFF_NAMES.find_key(v)))
+
+
+## Cópias de segurança automáticas (uma por dia ao abrir o app) + a de antes de apagar/restaurar.
+func _backups() -> void:
+	var tags: Array = SaveService.snapshot_tags()
+	tags.reverse()
+	for extra in ["reset", "undo"]:
+		if SaveService.has_snapshot(extra):
+			tags.append(extra)
+	var info := "O progresso é salvo a cada acerto. Além disso, o app guarda uma cópia por dia (últimos %d dias)." % \
+		SaveService.MAX_SNAPSHOTS
+	body.add_child(_txt(info + " Toque numa cópia duas vezes para voltar a ela.", 20, Palette.TEXT_SOFT))
+	if tags.is_empty():
+		body.add_child(_txt("Ainda não há cópias (a primeira é feita amanhã ao abrir o jogo).", 20, Palette.TEXT_SOFT))
+		return
+	var h := HFlowContainer.new()
+	h.add_theme_constant_override("h_separation", 8)
+	h.add_theme_constant_override("v_separation", 8)
+	for t in tags:
+		var local := SaveService.snapshot_time(str(t)) + int(Time.get_time_zone_from_system().get("bias", 0)) * 60
+		var when := Time.get_datetime_string_from_unix_time(local, true).left(16)
+		var label := str({"reset": "Antes de apagar", "undo": "Antes de restaurar"}.get(t, "Cópia de"))
+		var text := "Toque de novo: voltar?" if _confirm_restore == t else "%s %s" % [label, when]
+		var b := UI.button(text, Palette.YELLOW if _confirm_restore == t else Palette.PANEL_LIGHT, "", Vector2(300, 60), false, 18)
+		b.name = "Restore_%s" % t
+		b.tapped.connect(_restore.bind(str(t)))
+		h.add_child(b)
+	body.add_child(h)
+
+
+func _restore(t: String) -> void:
+	if _confirm_restore != t:
+		_confirm_restore = t
+		_show("settings")
+		return
+	_confirm_restore = ""
+	if SaveService.restore_snapshot(t):
+		RewardService.ensure_starter_items()
+		fx().toast("Progresso restaurado", Palette.GREEN)
+		Router.reset_to("splash")
+	else:
+		fx().toast("Não deu para restaurar essa cópia", Palette.RED)
+		_show("settings")
+
+
 func _set_limit(v: String) -> void:
 	SaveService.settings.set_value("daily_limit_min", int(v))
 
@@ -494,6 +549,9 @@ func _settings() -> void:
 		sl.value_changed.connect(_set_volume.bind(str(vol[1])))
 		vh.add_child(sl)
 		body.add_child(vh)
+	var dm := LearningService.difficulty_mode()
+	body.add_child(_choice_row("Dificuldade:", DIFF_NAMES.values(), str(DIFF_NAMES[dm]), _set_difficulty))
+	body.add_child(_txt(str(DIFF_NOTES[dm]) + " O progresso é registrado em qualquer modo.", 20, Palette.TEXT_SOFT))
 	var lim := str(SaveService.settings.get_value("daily_limit_min"))
 	body.add_child(_choice_row("Limite de tempo por dia (min):", ["0", "20", "30", "45", "60"], lim, _set_limit))
 	var lim_note := "0 = sem limite. Ao chegar no limite, o Vini vai descansar e só um adulto libera mais tempo."
@@ -513,6 +571,7 @@ func _settings() -> void:
 	var cur := str(SaveService.settings.get_value("break_reminder_min"))
 	body.add_child(_choice_row("Lembrete de pausa (min):", ["0", "15", "20", "30"], cur, _set_break_reminder))
 	body.add_child(_txt("0 = desligado. O lembrete é gentil e nunca bloqueia o jogo.", 20, Palette.TEXT_SOFT))
+	_backups()
 	var reset_text := "Toque de novo para confirmar" if _confirm_reset else "Apagar progresso"
 	var reset := UI.button(reset_text, Palette.RED, "close", Vector2(420, 70), false, 24)
 	reset.name = "ResetProgress"
@@ -531,7 +590,8 @@ func _settings() -> void:
 	body.add_child(_txt("Versão %s · %d atividades · erros de conteúdo: %d · recuperações de save: %d" % [
 		ProjectSettings.get_setting("application/config/version", "?"), ContentService.repo.activities.size(),
 		ContentService.repo.errors.size(), rec.size()], 18, Palette.TEXT_SOFT))
-	body.add_child(_txt("Sem anúncios, sem compras, sem internet. Os dados ficam só neste aparelho.", 18, Palette.TEXT_SOFT))
+	var privacy := "Sem anúncios, sem compras, sem internet. Os dados ficam neste aparelho (e no backup do Android, se estiver ligado)."
+	body.add_child(_txt(privacy, 18, Palette.TEXT_SOFT))
 
 
 func _toggle(label: String, on: bool, setter: Callable) -> Control:

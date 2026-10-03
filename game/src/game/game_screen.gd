@@ -82,6 +82,16 @@ func set_sky(theme_name: String) -> void:
 		Router.sky.set_theme(theme_name)
 
 
+## Barra da jornada no topo (foguete na trilha das campanhas + estrelas). Toque: a narradora explica.
+func add_journey_bar() -> JourneyBar:
+	var bar := JourneyBar.new()
+	bar.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	bar.position = Vector2(-JourneyBar.W * 0.5 - 45.0, 14.0)
+	bar.tapped.connect(func(): narrate(Lines.n("Essa é a sua jornada! Cada missão nova leva o foguete mais longe.")))
+	hud.root.add_child(bar)
+	return bar
+
+
 func add_cosmo(pos: Vector2, h: float = 150.0) -> CosmoRig:
 	cosmo = CosmoRig.new(h)
 	cosmo.position = pos
@@ -260,10 +270,7 @@ func record(skill: String, task_id: String, first_try: bool, tries: int, respons
 func difficulty(skill: String) -> int:
 	if params.has("level"):
 		return clampi(int(params["level"]), 1, 3)
-	var lvl := LearningService.get_progress(skill).level
-	if str(params.get("mode", "")) == "commander":
-		lvl = mini(lvl + 1, ContentService.repo.max_level(skill))
-	return clampi(lvl, 1, 3)
+	return clampi(LearningService.level_for(skill, str(params.get("mode", "")) == "commander"), 1, 3)
 
 
 ## Encerra o segmento. result: {stars, skills:[...], ...}

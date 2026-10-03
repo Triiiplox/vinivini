@@ -1,6 +1,9 @@
 extends Node
 ## Integra LearningEngine + AdaptiveSelector + persistência.
 
+const DIFFICULTY_MODES := ["auto", "easy", "medium", "hard"]
+const FIXED_LEVEL := {"easy": 1, "medium": 2, "hard": 3}
+
 var rng := RandomNumberGenerator.new()
 ## Habilidades praticadas recentemente (variedade na seleção).
 var recent_skills: Array = []
@@ -27,14 +30,27 @@ func next_activity(skills: Array, mode: String = "normal", forced_difficulty: in
 		progress[s] = get_progress(str(s))
 	var now := int(Time.get_unix_time_from_system())
 	var skill := str(skills[0]) if skills.size() == 1 else AdaptiveSelector.pick_skill(skills, progress, now, recent_skills, rng)
-	var max_lvl := ContentService.repo.max_level(skill)
-	var diff := forced_difficulty if forced_difficulty > 0 else AdaptiveSelector.difficulty_for(progress[skill], max_lvl, mode)
+	var diff := forced_difficulty if forced_difficulty > 0 else level_for(skill, mode == "commander")
 	var activity := ContentService.get_activity(skill, diff, recent_activities)
 	if not activity.is_empty():
 		recent_activities.append(activity["id"])
 		if recent_activities.size() > 12:
 			recent_activities.remove_at(0)
 	return {"skill": skill, "difficulty": diff, "activity": activity, "needs_support": (progress[skill] as SkillProgress).needs_support}
+
+
+## Dificuldade escolhida pelos pais: "auto" acompanha a criança (sobe quando acerta de primeira, desce quando erra
+## seguido); "easy"/"medium"/"hard" fixam o nível 1/2/3. challenge = desafio, um nível acima. Sempre dentro de 1..máximo.
+func level_for(skill: String, challenge: bool = false) -> int:
+	var lvl: int = int(FIXED_LEVEL.get(difficulty_mode(), get_progress(skill).level))
+	if challenge:
+		lvl += 1
+	return clampi(lvl, 1, maxi(1, ContentService.repo.max_level(skill)))
+
+
+func difficulty_mode() -> String:
+	var m := str(SaveService.settings.get_value("difficulty"))
+	return m if DIFFICULTY_MODES.has(m) else "auto"
 
 
 ## Registra resultado de uma atividade. Retorna eventos ("level_up", ...).

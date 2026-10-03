@@ -88,6 +88,7 @@ func build() -> void:
 	lock.modulate.a = 0.55
 	lock.held.connect(func(): Router.go("parent_gate"))
 	hud.root.add_child(lock)
+	add_journey_bar()
 	hint_fn = func(): hand.show_tap(stations["cockpit"].global_position)
 
 
