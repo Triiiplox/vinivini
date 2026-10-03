@@ -1,5 +1,25 @@
 # PROJECT STATUS
 
+## v2.0.0 (2026-10-03) — reconstrução após feedback
+Status: **software pronto e testado automaticamente; falta validar no aparelho e com o Vini.**
+APK: `dist/ViniComandante-v2.0.0.apk` (universal, 61 MB) · arm64: `build/ViniComandante-v2.0.0-arm64.apk` (37 MB)
+Checagens: `tools/run_checks.sh` → TUDO OK (lint 0 · 69 testes · smoke v1 79 passos · smoke v2 52 passos
+acertando e com erros de propósito · ambos também no pacote exportado · 0 falas sem áudio).
+Status item a item do checklist do produto: **docs/CHECKLIST_STATUS.md** (inclui o que NÃO foi feito).
+
+| Área | Status | Evidência |
+|---|---|---|
+| Fluxo sem leitura (abertura → nave → mapa → missão → baú) | PASS | smoke v2; screenshots `docs/screenshots/v2` |
+| Voz natural offline (529 falas) | PASS | smoke v2: 0 falas sem áudio; ADR-020 |
+| 12 missões / 4 campanhas / 13 tipos de jogo | PASS | robô joga todas, acertando e errando (ADR-022) |
+| Dificuldade adaptativa | PASS | smoke v2: contagem chega ao nível 3 com acertos; testes v1 de subir/descer |
+| Desafio de Comandante e da família | PASS | smoke v2 |
+| Área dos pais, save, offline | PASS | testes v1 + smoke; APK sem INTERNET |
+| Instalação/desempenho em aparelho real | PENDENTE | sem dispositivo no ambiente de build |
+| Fun Gate (o Vini se diverte?) | PENDENTE | só com a criança |
+| Itens ❌ do checklist (customização da nave, jardim, detetive, caça ao tesouro, escrita por traçado...) | NÃO FEITO | docs/CHECKLIST_STATUS.md |
+
+## Histórico v1 (MVP 1.0/1.1)
 Status geral: **FINALIZADO (MVP)** — pendência externa única: validação em aparelho Android físico
 (ambiente de build sem dispositivo/emulador; ver docs/QA_REPORT.md → "Roteiro rápido no aparelho").
 

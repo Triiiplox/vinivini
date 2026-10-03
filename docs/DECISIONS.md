@@ -91,3 +91,49 @@ resolve as cores (pele/cabelo/traje/planeta) e rasteriza com o ThorVG do Godot n
   `_draw` causava crash (signal 11) no Godot 4.5.1.
 - ThorVG não aceita cor hex com alfa (#rrggbbaa): usar fill-opacity/stroke-opacity.
 - Ícones de UI seguem chapados (brancos sobre botões coloridos), por legibilidade.
+
+## ADR-019 - v2: a criança não lê → nada no caminho dela depende de texto
+Feedback: "o Vini não sabe ler e o jogo espera decisões onde ele tem que ler". Regra nova:
+toda instrução é **falada** (voz pré-gerada), toda escolha é **figura/forma/cor + som**, toda tela tem
+botão "ouvir de novo" e uma mão-guia aparece após 6 s parado. Texto só existe como objeto de aprendizagem
+(sílabas, numerais) e sempre tocável para ouvir. As telas v1 (hub, mapa, planeta, atividade, criador,
+troféus, biblioteca, laboratório, observatório) ficaram fora do fluxo da criança; continuam no código
+(testes e smoke v1) e são candidatas a remoção. A área dos pais continua com texto (é para adultos).
+
+## ADR-020 - Voz natural pré-gerada offline (Kokoro), sem TTS do sistema
+Opções: TTS do Android (genérico, depende de dados instalados, varia por aparelho), serviço de voz na
+nuvem (exige internet/conta — o jogo é offline e sem rede), modelo neural local no build. Escolha:
+**Kokoro-82M (ONNX) no build** gerando OGG mono 24 kHz; vozes `pf_dora` (narradora), `pm_alex` com leve
+aumento de tom e eco (Cosmo) e `pm_santa` (NPCs). `tools/gen_voice.py` varre `Lines.n/Lines.c`, frases de
+diálogo nas constantes dos segmentos e todo o conteúdo JSON; chave = md5("quem|texto-modelo"), igual a
+`VoiceService.key_for`, então só falas novas são sintetizadas. "{name}" vira "Víni" (acento força a
+pronúncia certa); sílabas isoladas usam vogal acentuada ("bá") para não serem soletradas.
+Custo: 529 falas ≈ 6 MB. Limitação: o nome é sempre "Víni" — mudar o nome na área dos pais não muda a voz.
+
+## ADR-021 - Missões = sequência de segmentos (telas de jogo) definidos em JSON
+`content/campaign/campaigns.json` define campanhas e missões; cada missão é uma lista de segmentos
+(`cutscene`, `flight`, `explore`, `build`, `cook`, `monster`, `word`, `robot`, `memory`, `pattern`,
+`story`, `planetarium`, `creature`, `boss`) com parâmetros. `MissionFlow` executa, junta estrelas (média,
+1–3) e desbloqueia a próxima. Cada segmento é um `GameScreen` (mundo 2D + câmera + HUD sem texto +
+roteamento de toque/arraste) e registra "momentos de aprendizagem" no Learning Engine por tarefa,
+não por tela. O mesmo segmento roda como missão, brincadeira livre (estação da nave), Desafio de
+Comandante (+1 nível) ou desafio da família (nível escolhido pelo adulto).
+O parâmetro de modo de voo chama-se `play` (e não `mode`) porque `mode` é reservado ao MissionFlow.
+
+## ADR-022 - QA por "robô jogador"
+Para não aceitar "funciona" sem prova, `src/debug/autoplay.gd` resolve cada segmento lendo o estado interno
+(como uma criança que acerta) e, com `--mistakes`, erra de propósito ~30% das ações (peça a mais, sílaba
+errada, portal errado, programa errado, servir prato vazio...). `--smoke2` joga a abertura e as 12 missões
+pelo mapa, abre cada estação da nave, o Desafio de Comandante e o desafio da família; falha se algo travar,
+se houver erro de log ou fala sem áudio. Roda no projeto e no pacote exportado (`tools/run_checks.sh`).
+
+## ADR-023 - Tamanho do APK
+Motor Godot (arm64) já ocupa 23,6 MB comprimido; voz 6 MB; música recodificada para OGG q0 (≈2,5 MB).
+Resultado: arm64 37 MB, universal (arm64+armv7) 61 MB. Não cabe no limite de anexo do chat (≈30 MB) sem
+cortar a voz; por isso o APK vai versionado em `dist/` no GitHub. Reduzir mais exigiria compilar o motor
+sem módulos (fora do escopo agora).
+
+## ADR-024 - Permissão VIBRATE
+Haptics leves (encaixe, portal certo, estrelas) pedem `android.permission.VIBRATE` (permissão "normal",
+sem diálogo para o usuário). Continua sem INTERNET; `build_apk.sh` falha se aparecer qualquer outra.
+Vibração desligável em Ajustes (área dos pais).

@@ -12,7 +12,7 @@ func _init(store: VersionedStore) -> void:
 
 
 static func defaults() -> Dictionary:
-	return {"music": true, "sfx": true, "voice": true, "break_reminder_min": 0}
+	return {"music": true, "sfx": true, "voice": true, "haptics": true, "reduced_effects": false, "break_reminder_min": 0}
 
 
 func get_value(key: String) -> Variant:

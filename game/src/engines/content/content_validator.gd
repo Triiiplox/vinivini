@@ -20,6 +20,8 @@ const EMOTIONS := ["feliz", "triste", "bravo", "medo", "surpreso", "calmo"]
 const CHARACTERS := ["robot", "alien", "star", "cosmo"]
 
 
+const SEGMENT_TYPES := ["cutscene", "flight", "explore", "build", "cook", "monster", "word", "robot", "memory",
+	"story", "planetarium", "creature", "pattern", "boss"]
 static func validate_activity(a: Variant, known_skills: Dictionary = {}) -> Array[String]:
 	var e: Array[String] = []
 	if not a is Dictionary:
@@ -216,6 +218,24 @@ static func validate_story(s: Variant) -> Array[String]:
 	for nid in nodes:
 		if not can_end.has(nid):
 			e.append("nó '%s' não leva a nenhum final" % nid)
+	return e
+
+
+
+
+static func validate_mission(m: Variant) -> Array[String]:
+	var e: Array[String] = []
+	if not m is Dictionary:
+		e.append("missão não é objeto")
+		return e
+	_req_str(m, "id", e)
+	_req_str(m, "campaign", e)
+	if not m.get("segments") is Array or (m["segments"] as Array).is_empty():
+		e.append("missão '%s' sem segmentos" % m.get("id", "?"))
+		return e
+	for sg in m["segments"]:
+		if not sg is Dictionary or not SEGMENT_TYPES.has(sg.get("type")):
+			e.append("missão '%s': segmento inválido %s" % [m.get("id", "?"), str(sg)])
 	return e
 
 

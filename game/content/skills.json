@@ -1,5 +1,29 @@
 [
  {
+  "id": "math.numbers",
+  "name": "Números",
+  "area": "math",
+  "max_level": 3,
+  "generated": true,
+  "description": "Reconhecer o numeral escrito (portais de pilotagem)."
+ },
+ {
+  "id": "logic.programming",
+  "name": "Programação",
+  "area": "logic",
+  "max_level": 3,
+  "generated": true,
+  "description": "Planejar uma sequência de comandos (robô)."
+ },
+ {
+  "id": "logic.shapes",
+  "name": "Formas",
+  "area": "logic",
+  "max_level": 3,
+  "generated": true,
+  "description": "Reconhecer formas geométricas."
+ },
+ {
   "id": "reading.simple_syllables",
   "name": "Sílabas",
   "area": "reading",

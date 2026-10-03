@@ -20,12 +20,34 @@ const SCREENS := {
 	"trophies": "res://src/screens/trophy_screen.gd",
 	"parent_gate": "res://src/screens/parent_gate_screen.gd",
 	"parent": "res://src/screens/parent_dashboard_screen.gd",
+	"seg_explore": "res://src/segments/explore_segment.gd",
+	"seg_flight": "res://src/segments/flight_segment.gd",
+	"seg_build": "res://src/segments/build_segment.gd",
+	"seg_cook": "res://src/segments/cook_segment.gd",
+	"seg_monster": "res://src/segments/monster_segment.gd",
+	"seg_word": "res://src/segments/word_segment.gd",
+	"seg_robot": "res://src/segments/robot_segment.gd",
+	"seg_memory": "res://src/segments/memory_segment.gd",
+	"seg_pattern": "res://src/segments/pattern_segment.gd",
+	"seg_story": "res://src/segments/story_segment.gd",
+	"seg_planetarium": "res://src/segments/planetarium_segment.gd",
+	"seg_creature": "res://src/segments/creature_segment.gd",
+	"seg_cutscene": "res://src/segments/cutscene_segment.gd",
+	"reward": "res://src/screens/reward_screen.gd",
+	"ship": "res://src/screens/ship_screen.gd",
+	"galaxy": "res://src/screens/galaxy_screen.gd",
+	"opening": "res://src/screens/opening_screen.gd",
+	"draw": "res://src/screens/draw_screen.gd",
+	"wardrobe": "res://src/screens/wardrobe_screen.gd",
+	"gallery": "res://src/screens/gallery_screen.gd",
 }
 
 ## Testes ligam isto para trocar de tela sem animação.
 var instant := false
 ## Camada de celebração registrada pelo Main.
 var fx: CelebrationLayer = null
+## Céu global (shader) registrado pelo Main.
+var sky: SkyLayer = null
 var current_screen: Control = null
 var current_id := ""
 var current_params: Dictionary = {}
@@ -57,10 +79,10 @@ func replace(id: String, params: Dictionary = {}) -> void:
 	_show(id, params)
 
 
-## Limpa o histórico e vai para a nave.
+## Limpa o histórico e vai para a nave (hub explorável).
 func home() -> void:
 	_stack.clear()
-	_show("hub", {})
+	_show("ship", {})
 
 
 ## Reseta a pilha deixando `id` como raiz.
@@ -75,8 +97,8 @@ func back() -> void:
 	if current_screen and current_screen.has_method("on_back") and current_screen.on_back():
 		return
 	if _stack.is_empty():
-		if current_id != "hub" and current_id != "splash" and current_id != "creator":
-			_show("hub", {})
+		if current_id != "ship" and current_id != "splash" and current_id != "opening":
+			_show("ship", {})
 		return
 	var prev: Dictionary = _stack.pop_back()
 	_show(prev["id"], prev["params"])
@@ -100,12 +122,13 @@ func _show(id: String, params: Dictionary) -> void:
 		return
 	_busy = true
 	_fader.mouse_filter = Control.MOUSE_FILTER_STOP
+	var mat := _fader.material as ShaderMaterial
 	var t := create_tween()
-	t.tween_property(_fader, "color:a", 1.0, 0.14)
+	t.tween_method(func(v): mat.set_shader_parameter("progress", v), 0.0, 1.0, 0.32).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	await t.finished
 	_swap(id, params)
 	var t2 := create_tween()
-	t2.tween_property(_fader, "color:a", 0.0, 0.2)
+	t2.tween_method(func(v): mat.set_shader_parameter("progress", v), 1.0, 0.0, 0.38).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	await t2.finished
 	_fader.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_busy = false

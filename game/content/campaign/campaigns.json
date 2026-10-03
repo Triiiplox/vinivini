@@ -1,0 +1,386 @@
+{
+ "campaigns": [
+  {
+   "id": "nave",
+   "name": "Preparando a Nave",
+   "planet": "earth",
+   "missions": [
+    "m01",
+    "m02",
+    "m03"
+   ]
+  },
+  {
+   "id": "lua",
+   "name": "Missão Lua",
+   "planet": "moon",
+   "missions": [
+    "m04",
+    "m05",
+    "m06"
+   ]
+  },
+  {
+   "id": "marte",
+   "name": "Planeta Vermelho",
+   "planet": "mars",
+   "missions": [
+    "m07",
+    "m08",
+    "m09"
+   ]
+  },
+  {
+   "id": "gigantes",
+   "name": "Gigantes do Espaço",
+   "planet": "saturn",
+   "missions": [
+    "m10",
+    "m11",
+    "m12"
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "m01",
+   "campaign": "nave",
+   "name": "Ligar os Motores",
+   "area": "math",
+   "requires": "",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "ship",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 380
+      },
+      {
+       "id": "cosmo",
+       "x": 880
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Comandante, a nave está sem energia! Vamos ligar o motor?",
+       "mood": "worry"
+      },
+      {
+       "who": "narrator",
+       "say": "O comandante topou a missão!",
+       "actor": "avatar",
+       "action": "jump"
+      }
+     ],
+     "music": "story"
+    },
+    {
+     "type": "build",
+     "blueprint": "reactor"
+    },
+    {
+     "type": "flight",
+     "play": "collect",
+     "goal": 5,
+     "theme": "space"
+    }
+   ]
+  },
+  {
+   "id": "m02",
+   "campaign": "nave",
+   "name": "Planetas Cantores",
+   "area": "logic",
+   "requires": "m01",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "memory",
+     "rounds": 3
+    },
+    {
+     "type": "pattern",
+     "rounds": 3
+    }
+   ]
+  },
+  {
+   "id": "m03",
+   "campaign": "nave",
+   "name": "Robô Ajudante",
+   "area": "logic",
+   "requires": "m02",
+   "reward_item": "acc_jetpack",
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "ship",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 360
+      },
+      {
+       "id": "robot",
+       "x": 860,
+       "mood": "sad"
+      }
+     ],
+     "lines": [
+      {
+       "who": "robot",
+       "say": "Bip bop! Eu perdi meus cristais. Você me programa para buscar?",
+       "mood": "sad"
+      },
+      {
+       "who": "narrator",
+       "say": "O comandante vai ajudar o robozinho!",
+       "actor": "avatar",
+       "action": "wave"
+      }
+     ],
+     "music": "story"
+    },
+    {
+     "type": "robot",
+     "rounds": 3,
+     "theme": "mars"
+    }
+   ]
+  },
+  {
+   "id": "m04",
+   "campaign": "lua",
+   "name": "Pouso na Lua",
+   "area": "math",
+   "requires": "m01",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "flight",
+     "play": "portals",
+     "portal_skill": "numbers",
+     "goal": 4,
+     "theme": "space"
+    },
+    {
+     "type": "explore",
+     "theme": "moon",
+     "screens": 3,
+     "collect": {
+      "item": "moon_rock",
+      "count": 4
+     },
+     "door": true,
+     "intro": "Chegamos na Lua! Pegue as pedras lunares para abrir a porta da base."
+    }
+   ]
+  },
+  {
+   "id": "m05",
+   "campaign": "lua",
+   "name": "Monstro das Sílabas",
+   "area": "reading",
+   "requires": "m04",
+   "reward_item": "suit_moon",
+   "segments": [
+    {
+     "type": "monster",
+     "rounds": 5,
+     "theme": "moon",
+     "color": "#9B5DE5"
+    },
+    {
+     "type": "word",
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "id": "m06",
+   "campaign": "lua",
+   "name": "O Jipe Lunar",
+   "area": "math",
+   "requires": "m05",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "build",
+     "blueprint": "rover",
+     "theme": "moon"
+    },
+    {
+     "type": "explore",
+     "theme": "moon",
+     "screens": 3,
+     "collect": {
+      "item": "crystal",
+      "count": 3
+     },
+     "rescue": {
+      "kind": "robot",
+      "mood": "sad",
+      "say": "Você achou o robô perdido! Ele está feliz de novo!"
+     },
+     "intro": "Um robô está perdido na Lua. Vamos procurar?"
+    }
+   ]
+  },
+  {
+   "id": "m07",
+   "campaign": "marte",
+   "name": "Restaurante de Marte",
+   "area": "math",
+   "requires": "m04",
+   "reward_item": "suit_mars",
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "mars",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 360
+      },
+      {
+       "id": "alien",
+       "x": 880
+      }
+     ],
+     "lines": [
+      {
+       "who": "alien",
+       "say": "Socorro! Meu restaurante está cheio e o cozinheiro sumiu!",
+       "mood": "scared"
+      },
+      {
+       "who": "cosmo",
+       "say": "O comandante pode ajudar! Ele conta muito bem."
+      }
+     ],
+     "music": "story"
+    },
+    {
+     "type": "cook",
+     "customers": 3
+    }
+   ]
+  },
+  {
+   "id": "m08",
+   "campaign": "marte",
+   "name": "O Robozinho Perdido",
+   "area": "emotion",
+   "requires": "m07",
+   "reward_item": "acc_heart_badge",
+   "segments": [
+    {
+     "type": "story",
+     "story": "story_robot_lost_001"
+    }
+   ]
+  },
+  {
+   "id": "m09",
+   "campaign": "marte",
+   "name": "Cânion dos Cristais",
+   "area": "logic",
+   "requires": "m08",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "explore",
+     "theme": "mars",
+     "screens": 3,
+     "collect": {
+      "item": "crystal",
+      "count": 5
+     },
+     "door": true,
+     "intro": "O cânion está cheio de cristais! Junte para abrir a caverna."
+    },
+    {
+     "type": "robot",
+     "rounds": 2,
+     "theme": "mars"
+    }
+   ]
+  },
+  {
+   "id": "m10",
+   "campaign": "gigantes",
+   "name": "Planetário",
+   "area": "science",
+   "requires": "m06",
+   "reward_item": "acc_telescope",
+   "segments": [
+    {
+     "type": "planetarium",
+     "quests": 3
+    }
+   ]
+  },
+  {
+   "id": "m11",
+   "campaign": "gigantes",
+   "name": "Criaturas de Saturno",
+   "area": "math",
+   "requires": "m10",
+   "reward_item": "",
+   "segments": [
+    {
+     "type": "flight",
+     "play": "portals",
+     "portal_skill": "shapes",
+     "goal": 3,
+     "theme": "space"
+    },
+    {
+     "type": "creature"
+    }
+   ]
+  },
+  {
+   "id": "m12",
+   "campaign": "gigantes",
+   "name": "A Nuvem Rabugenta",
+   "area": "reading",
+   "requires": "m11",
+   "reward_item": "suit_saturn",
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "space",
+     "actors": [
+      {
+       "id": "cosmo",
+       "x": 640
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Cuidado! Uma nuvem rabugenta está bloqueando o caminho para Saturno!",
+       "mood": "worry"
+      }
+     ],
+     "music": "boss"
+    },
+    {
+     "type": "boss",
+     "portal_skill": "syllables",
+     "goal": 3,
+     "theme": "space"
+    },
+    {
+     "type": "story",
+     "story": "story_star_light_001"
+    }
+   ]
+  }
+ ]
+}

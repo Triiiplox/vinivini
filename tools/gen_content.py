@@ -19,6 +19,12 @@ def dump(rel, data):
 
 # ---------------------------------------------------------------- skills
 skills = [
+    {"id": "math.numbers", "name": "Números", "area": "math", "max_level": 3, "generated": True,
+     "description": "Reconhecer o numeral escrito (portais de pilotagem)."},
+    {"id": "logic.programming", "name": "Programação", "area": "logic", "max_level": 3, "generated": True,
+     "description": "Planejar uma sequência de comandos (robô)."},
+    {"id": "logic.shapes", "name": "Formas", "area": "logic", "max_level": 3, "generated": True,
+     "description": "Reconhecer formas geométricas."},
     {"id": "reading.simple_syllables", "name": "Sílabas", "area": "reading", "max_level": 3,
      "description": "Reconhecer a sílaba inicial e encontrar palavras."},
     {"id": "reading.build_word", "name": "Montar Palavras", "area": "reading", "max_level": 3,
@@ -454,6 +460,35 @@ praise = {
 }
 dump("feedback/praise.json", praise)
 
+# Variedade de elogios (checklist: 100+). Curtos, específicos, sem exagero; {name} vira o nome da criança.
+praise["simple"] += ["Arrasou!", "Que demais!", "Perfeito, comandante!", "Na mosca!", "É isso aí, {name}!", "Que esperto!",
+    "Você é fera!", "Brilhou!", "Muito bom!", "Excelente!", "Uhuu, acertou!", "Bateu aqui!", "Que comandante!",
+    "Missão no alvo!", "Foi de primeira!", "Supersônico!", "Olha só que craque!", "A nave aplaudiu!", "Estrela de ouro!",
+    "Até o Cosmo pulou de alegria!", "Você manda muito, {name}!", "Certinho!", "Nossa, que rápido!", "Mandou ver!"]
+praise["streak_3"] += ["Três acertos! Os motores estão a toda!", "Você não erra uma!", "Sequência de foguete!",
+    "Que pontaria, {name}!", "Três estrelas seguidas!"]
+praise["streak_5"] += ["Cinco seguidas! Velocidade da luz!", "Você é o comandante mais rápido da galáxia!",
+    "Sequência lendária!", "Os planetas estão comemorando!"]
+praise["persistence"] += ["Você continuou tentando. Isso é coragem!", "Tentou, pensou e conseguiu!",
+    "Errar ajuda a aprender. E você aprendeu!", "Que paciência de astronauta!", "Você não desistiu. Muito bem!",
+    "Devagar e com cuidado, você chegou lá!"]
+praise["hard"] += ["Essa era de comandante experiente!", "Nível difícil vencido!", "Uau, essa foi das grandes!",
+    "Até o Cosmo achou difícil. E você conseguiu!"]
+praise["strategy_reading"] += ["Você escutou o som direitinho!", "Você reconheceu as letras!", "Que ouvido de leitor!",
+    "Você juntou os sons e formou a palavra!", "Leitor espacial!", "O monstro adorou sua escolha!"]
+praise["strategy_math"] += ["Você contou certinho!", "Nem um a mais, nem um a menos!", "Que conta caprichada!",
+    "Você é bom com números!", "Contou como um cientista!", "O cliente adorou!"]
+praise["strategy_logic"] += ["Você planejou o caminho!", "O robô seguiu seu programa!", "Que cabeça de engenheiro!",
+    "Você lembrou a ordem certinha!", "Programador espacial!"]
+praise["strategy_science"] += ["Você observou com atenção!", "Astrônomo de verdade!", "Você sabe muito sobre os planetas!",
+    "Que descoberta!"]
+praise["strategy_emotion"] += ["Você ajudou um amigo!", "Que atitude bonita!", "Você cuidou de quem precisava!",
+    "Ser gentil é coisa de comandante!"]
+praise["retry"] += ["Hmm, não foi esse. Tente outro!", "Quase lá! Mais uma vez.", "Escute de novo e tente.",
+    "Respira e tenta de novo!", "Esse não. Qual será?"]
+praise["mission_complete"] += ["Missão completa! Que viagem!", "Você conseguiu, comandante {name}!", "A galáxia agradece!"]
+dump("feedback/praise.json", praise)
+
 index = {
     "skills": "skills.json",
     "activities": ["activities/reading_syllables.json", "activities/reading_build_word.json", "activities/math_counting.json",
@@ -462,7 +497,134 @@ index = {
     "stories": ["stories/story_robot_lost.json", "stories/story_star_light.json"],
     "planets": "world/planets.json", "facts": "world/facts.json", "items": "rewards/items.json",
     "praise": "feedback/praise.json", "avatar": "world/avatar_options.json",
+    "campaigns": "campaign/campaigns.json",
+    "banks": {"syllables": "banks/syllables.json", "words": "banks/words.json"},
 }
 dump("index.json", index)
 tot = len(reading) + len(build) + len(counting) + len(addition) + len(compare) + len(patterns) + len(memory) + len(sci) + len(emotions)
 print("content ok: %d atividades" % tot)
+
+
+# ---------------------------------------------------------------- v2: bancos de voz/leitura
+VOW = {"A": "á", "E": "é", "I": "í", "O": "ó", "U": "ú"}
+CONS = ["B", "M", "P", "L", "S", "D", "T", "V", "N", "F"]
+syl_say = {}
+for c in CONS + ["C", "G", "R"]:
+    for v in "AEIOU":
+        if c in "CG" and v in "EI":
+            continue
+        syl_say[c + v] = c.lower() + VOW[v]
+syl_say.update({"GUE": "guê", "TRE": "tré", "PEI": "pêi", "XE": "xé", "ES": "és", "SOL": "sól", "BÔ": "bô",
+                "A": "á", "O": "ó", "U": "ú", "PLA": "plá"})
+syllables = {
+    "levels": {
+        "1": ["BA", "MA", "PA", "LA", "SA", "DA", "TA", "VA", "NA", "FA"],
+        "2": [c + v for c in CONS for v in "AEIOU"],
+        "3": [c + v for c in CONS + ["C", "G", "R"] for v in "AEIOU" if not (c in "CG" and v in "EI")],
+    },
+    "say": syl_say,
+}
+dump("banks/syllables.json", syllables)
+words = [
+    ("bola", "bola", ["BO", "LA"]), ("bolo", "bolo", ["BO", "LO"]), ("casa", "casa", ["CA", "SA"]), ("copo", "copo", ["CO", "PO"]),
+    ("dado", "dado", ["DA", "DO"]), ("estrela", "estrela", ["ES", "TRE", "LA"]), ("foguete", "foguete", ["FO", "GUE", "TE"]),
+    ("gato", "gato", ["GA", "TO"]), ("lua", "lua", ["LU", "A"]), ("mala", "mala", ["MA", "LA"]), ("nave", "nave", ["NA", "VE"]),
+    ("ovo", "ovo", ["O", "VO"]), ("pato", "pato", ["PA", "TO"]), ("peixe", "peixe", ["PEI", "XE"]), ("pipa", "pipa", ["PI", "PA"]),
+    ("robo", "robô", ["RO", "BÔ"]), ("sapo", "sapo", ["SA", "PO"]), ("sol", "sol", ["SOL"]), ("uva", "uva", ["U", "VA"]),
+    ("vaca", "vaca", ["VA", "CA"]),
+]
+wb = [{"pic": p, "word": w.upper(), "say": w, "syllables": sy} for p, w, sy in words]
+wb += [{"pic": "banana", "group": "foods", "word": "BANANA", "say": "banana", "syllables": ["BA", "NA", "NA"]},
+       {"pic": "tomato", "group": "foods", "word": "TOMATE", "say": "tomate", "syllables": ["TO", "MA", "TE"]}]
+dump("banks/words.json", {"words": wb})
+
+# ---------------------------------------------------------------- v2: campanhas e missões
+def cut(theme, actors, lines, music="story"):
+    return {"type": "cutscene", "theme": theme, "actors": actors, "lines": lines, "music": music}
+
+def L(who, say, **kw):
+    d = {"who": who, "say": say}
+    d.update(kw)
+    return d
+
+campaigns = [
+    {"id": "nave", "name": "Preparando a Nave", "planet": "earth", "missions": ["m01", "m02", "m03"]},
+    {"id": "lua", "name": "Missão Lua", "planet": "moon", "missions": ["m04", "m05", "m06"]},
+    {"id": "marte", "name": "Planeta Vermelho", "planet": "mars", "missions": ["m07", "m08", "m09"]},
+    {"id": "gigantes", "name": "Gigantes do Espaço", "planet": "saturn", "missions": ["m10", "m11", "m12"]},
+]
+missions = [
+    {"id": "m01", "campaign": "nave", "name": "Ligar os Motores", "area": "math", "requires": "", "reward_item": "",
+     "segments": [
+         cut("ship", [{"id": "avatar", "x": 380}, {"id": "cosmo", "x": 880}], [
+             L("cosmo", "Comandante, a nave está sem energia! Vamos ligar o motor?", mood="worry"),
+             L("narrator", "O comandante topou a missão!", actor="avatar", action="jump")]),
+         {"type": "build", "blueprint": "reactor"},
+         {"type": "flight", "play": "collect", "goal": 5, "theme": "space"},
+     ]},
+    {"id": "m02", "campaign": "nave", "name": "Planetas Cantores", "area": "logic", "requires": "m01", "reward_item": "",
+     "segments": [
+         {"type": "memory", "rounds": 3},
+         {"type": "pattern", "rounds": 3},
+     ]},
+    {"id": "m03", "campaign": "nave", "name": "Robô Ajudante", "area": "logic", "requires": "m02", "reward_item": "acc_jetpack",
+     "segments": [
+         cut("ship", [{"id": "avatar", "x": 360}, {"id": "robot", "x": 860, "mood": "sad"}], [
+             L("robot", "Bip bop! Eu perdi meus cristais. Você me programa para buscar?", mood="sad"),
+             L("narrator", "O comandante vai ajudar o robozinho!", actor="avatar", action="wave")]),
+         {"type": "robot", "rounds": 3, "theme": "mars"},
+     ]},
+    {"id": "m04", "campaign": "lua", "name": "Pouso na Lua", "area": "math", "requires": "m01", "reward_item": "",
+     "segments": [
+         {"type": "flight", "play": "portals", "portal_skill": "numbers", "goal": 4, "theme": "space"},
+         {"type": "explore", "theme": "moon", "screens": 3, "collect": {"item": "moon_rock", "count": 4}, "door": True,
+          "intro": "Chegamos na Lua! Pegue as pedras lunares para abrir a porta da base."},
+     ]},
+    {"id": "m05", "campaign": "lua", "name": "Monstro das Sílabas", "area": "reading", "requires": "m04", "reward_item": "suit_moon",
+     "segments": [
+         {"type": "monster", "rounds": 5, "theme": "moon", "color": "#9B5DE5"},
+         {"type": "word", "rounds": 2},
+     ]},
+    {"id": "m06", "campaign": "lua", "name": "O Jipe Lunar", "area": "math", "requires": "m05", "reward_item": "",
+     "segments": [
+         {"type": "build", "blueprint": "rover", "theme": "moon"},
+         {"type": "explore", "theme": "moon", "screens": 3, "collect": {"item": "crystal", "count": 3},
+          "rescue": {"kind": "robot", "mood": "sad", "say": "Você achou o robô perdido! Ele está feliz de novo!"},
+          "intro": "Um robô está perdido na Lua. Vamos procurar?"},
+     ]},
+    {"id": "m07", "campaign": "marte", "name": "Restaurante de Marte", "area": "math", "requires": "m04", "reward_item": "suit_mars",
+     "segments": [
+         cut("mars", [{"id": "avatar", "x": 360}, {"id": "alien", "x": 880}], [
+             L("alien", "Socorro! Meu restaurante está cheio e o cozinheiro sumiu!", mood="scared"),
+             L("cosmo", "O comandante pode ajudar! Ele conta muito bem.")]),
+         {"type": "cook", "customers": 3},
+     ]},
+    {"id": "m08", "campaign": "marte", "name": "O Robozinho Perdido", "area": "emotion", "requires": "m07", "reward_item": "acc_heart_badge",
+     "segments": [
+         {"type": "story", "story": "story_robot_lost_001"},
+     ]},
+    {"id": "m09", "campaign": "marte", "name": "Cânion dos Cristais", "area": "logic", "requires": "m08", "reward_item": "",
+     "segments": [
+         {"type": "explore", "theme": "mars", "screens": 3, "collect": {"item": "crystal", "count": 5}, "door": True,
+          "intro": "O cânion está cheio de cristais! Junte para abrir a caverna."},
+         {"type": "robot", "rounds": 2, "theme": "mars"},
+     ]},
+    {"id": "m10", "campaign": "gigantes", "name": "Planetário", "area": "science", "requires": "m06", "reward_item": "acc_telescope",
+     "segments": [
+         {"type": "planetarium", "quests": 3},
+     ]},
+    {"id": "m11", "campaign": "gigantes", "name": "Criaturas de Saturno", "area": "math", "requires": "m10", "reward_item": "",
+     "segments": [
+         {"type": "flight", "play": "portals", "portal_skill": "shapes", "goal": 3, "theme": "space"},
+         {"type": "creature"},
+     ]},
+    {"id": "m12", "campaign": "gigantes", "name": "A Nuvem Rabugenta", "area": "reading", "requires": "m11", "reward_item": "suit_saturn",
+     "segments": [
+         cut("space", [{"id": "cosmo", "x": 640}], [
+             L("cosmo", "Cuidado! Uma nuvem rabugenta está bloqueando o caminho para Saturno!", mood="worry")], music="boss"),
+         {"type": "boss", "portal_skill": "syllables", "goal": 3, "theme": "space"},
+         {"type": "story", "story": "story_star_light_001"},
+     ]},
+]
+dump("campaign/campaigns.json", {"campaigns": campaigns, "missions": missions})
+print("campanhas ok: %d missões" % len(missions))

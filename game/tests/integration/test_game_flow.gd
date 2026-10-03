@@ -117,21 +117,21 @@ func test_story_reward_and_return_to_hub() -> void:
 	check(SaveService.inventory.is_unlocked(SaveService.profile_id, "acc_cape"), "capa liberada")
 	Router.home()
 	await frames(2)
-	eq(Router.current_id, "hub")
+	eq(Router.current_id, "ship")
 
 
 func test_back_navigation_never_dead_ends() -> void:
-	Router.reset_to("hub")
+	Router.reset_to("ship")
 	await frames(2)
-	for id in ["map", "planet", "library", "lab", "observatory", "trophies", "creator"]:
+	for id in ["map", "planet", "library", "lab", "observatory", "trophies", "creator", "draw"]:
 		Router.go(id, {"id": "moon", "mode": "edit"})
 		await frames(2)
 		Router.back()
 		await frames(2)
-		eq(Router.current_id, "hub", "voltar de %s retorna à nave" % id)
+		eq(Router.current_id, "ship", "voltar de %s retorna à nave" % id)
 	Router.back()
 	await frames(2)
-	eq(Router.current_id, "hub", "voltar na nave não sai do jogo nem quebra")
+	eq(Router.current_id, "ship", "voltar na nave não sai do jogo nem quebra")
 
 
 func test_every_screen_opens_without_errors() -> void:
@@ -142,6 +142,8 @@ func test_every_screen_opens_without_errors() -> void:
 			params["id"] = "story_robot_lost_001"
 		if id == "activity":
 			params = {"mode": "single", "skills": ["math.counting"], "rounds": 1}
+		if id == "seg_cutscene":
+			params["lines"] = [{"who": "cosmo", "say": "Oi!"}]
 		if id == "mission_complete":
 			params = {"result": {"mode": "mission", "rounds": 1, "level_ups": ["Contar"]}, "reward": {"stars": 2, "unlocked": ["suit_mars"]}}
 		Router.reset_to(id, params)
@@ -153,3 +155,34 @@ func test_every_screen_opens_without_errors() -> void:
 		await frames(2)
 		check(Router.current_screen.get("tab") == t, "aba %s do painel" % t)
 	eq(GameLog.error_count, before, "nenhum erro ao abrir telas")
+
+
+func test_mission_flow_runs_segments_and_unlocks_next() -> void:
+	SaveService.reset_profile()
+	check(MissionFlow.is_unlocked("m01"), "m01 aberta")
+	check(not MissionFlow.is_unlocked("m02"), "m02 trancada")
+	MissionFlow.start("m01")
+	await frames(2)
+	var segs: Array = ContentService.repo.missions["m01"]["segments"]
+	for i in segs.size():
+		eq(Router.current_id, MissionFlow.SEGMENT_SCREENS[segs[i]["type"]], "segmento %d" % i)
+		MissionFlow.segment_done({"stars": 3, "skills": ["math.counting"]})
+		await frames(2)
+	eq(Router.current_id, "reward")
+	check(MissionFlow.is_done("m01"), "m01 concluída")
+	check(MissionFlow.is_unlocked("m02"), "m02 liberada")
+	check(MissionFlow.is_unlocked("m04"), "m04 liberada")
+	eq(int(SaveService.progress.data(SaveService.profile_id)["missions_done"]["m01"]), 3, "3 estrelas")
+
+
+func test_boss_segment_runs_flight_in_boss_mode() -> void:
+	SaveService.reset_profile()
+	MissionFlow.start("m12")
+	await frames(2)
+	MissionFlow.segment_done({"stars": 0})
+	await frames(2)
+	eq(Router.current_id, "seg_flight")
+	eq(str(Router.current_params.get("play", "")), "boss")
+	MissionFlow.abort()
+	await frames(2)
+	eq(Router.current_id, "ship")

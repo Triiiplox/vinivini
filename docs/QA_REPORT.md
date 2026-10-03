@@ -1,3 +1,44 @@
+# QA Report — v2.0.0 (2026-10-03)
+
+Ambiente: Godot 4.5.1-stable (Linux headless + Xvfb/llvmpipe), OpenJDK 21, apksigner (apt), Kokoro-onnx 0.6.1.
+Reprodução: `tools/run_checks.sh` · `tools/build_apk.sh` · previews: `godot --path game -- --segpreview=<dir>[:filtro]`.
+
+## Resultado das execuções
+| Verificação | Resultado |
+|---|---|
+| Lint (`gdlint src tests`) | 0 problemas |
+| Parse de todos os scripts (`-- --checkscripts`) | 0 falhas |
+| Testes unit + integração | **69 testes, 2073 asserts, 0 falhas** (inclui fluxo de missão, chefão, campanhas↔histórias/itens, figuras do banco de palavras) |
+| Smoke v1 (telas legadas) projeto / pacote | PASS 79 passos / PASS 79 passos |
+| **Smoke v2**: abertura → 12 missões pelo mapa → Desafio de Comandante → desafio da família → 9 estações | **PASS 52 passos, 0 erros de log, 0 falas sem áudio** (projeto e pacote exportado) |
+| Smoke v2 errando de propósito (~30% das ações) | **PASS 51 passos** — nenhuma recuperação de erro trava |
+| Adaptação | acertando tudo: contagem sobe ao nível 3, sílabas ao 2 |
+| Voz | 529 falas, 6,0 MB; durações conferidas (sílaba ≈0,4 s; frase longa ≤6 s); fonemas checados (bá, guê, Víni, robô) |
+| APK universal | 61 MB · arm64-v8a + armeabi-v7a · minSdk 24/target 35 · versionCode 3 · só VIBRATE · assinatura OK |
+| APK arm64 | 37 MB · assinatura OK |
+| SHA-256 universal | `51b57f7d24ba6c0a8850659e5cc7faa522196d4b09a1be813d09c66aa420fcbf` |
+| SHA-256 arm64 | `34c02d15e55889687e77992da047690e5eed5e540dd2771b7976714ad05d4278` |
+
+## Bugs encontrados e corrigidos na v2
+1. Vários "Cannot infer type" (índice de array/dicionário com `:=`) — pegos pelo novo `--checkscripts` antes de rodar.
+2. `Router.sky` nulo nos testes derrubava segmentos → `GameScreen.set_sky()` com guarda.
+3. `_process` rodando antes de `build()` (nós nulos) → guardas no GameScreen/voo/planetário.
+4. Portais sobrepostos e alvo novo após erro → espaçamento + repetir o MESMO alvo (andaime).
+5. Peça encaixada voltava ao tamanho da bandeja (tween do encaixe sobrescrevia a escala) → `snap_to(final_scale)`.
+6. Foguete desproporcional, aleta direita sem espelhar, peças descoladas → layout pelos viewBox.
+7. Parâmetro `mode` do voo colidia com o `mode` da missão (comandante) → renomeado para `play`.
+8. Estrelas da missão somavam (até 9) → média dos jogos, 1–3.
+9. Cena sem falas terminava no mesmo frame → atraso mínimo.
+10. Elogio personalizado ("Muito bem, Vini!") não achava o áudio → chave normaliza o nome de volta para `{name}`.
+11. Lambdas `func(): if ...` aceitas pelo Godot mas não pelo gdtoolkit → métodos nomeados.
+12. Quarto/troféus v1 dependiam de leitura → guarda-roupa e sala de troféus novos, sem texto.
+
+## Não verificado aqui (precisa de você)
+- Instalar no aparelho, abrir em modo avião, 60 FPS, vibração, volume real da voz vs. música.
+- Se o Vini entende sozinho cada jogo e se diverte (Fun Gate). Sugestão: observar 15 min sem ajudar e anotar onde ele trava.
+
+---
+
 # QA Report — v1.1.0 (2026-10-03)
 
 Ambiente: Godot 4.5.1-stable (Linux headless + Xvfb/llvmpipe para render), OpenJDK 21, apksigner 31 (apt).

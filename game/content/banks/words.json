@@ -1,0 +1,207 @@
+{
+ "words": [
+  {
+   "pic": "bola",
+   "word": "BOLA",
+   "say": "bola",
+   "syllables": [
+    "BO",
+    "LA"
+   ]
+  },
+  {
+   "pic": "bolo",
+   "word": "BOLO",
+   "say": "bolo",
+   "syllables": [
+    "BO",
+    "LO"
+   ]
+  },
+  {
+   "pic": "casa",
+   "word": "CASA",
+   "say": "casa",
+   "syllables": [
+    "CA",
+    "SA"
+   ]
+  },
+  {
+   "pic": "copo",
+   "word": "COPO",
+   "say": "copo",
+   "syllables": [
+    "CO",
+    "PO"
+   ]
+  },
+  {
+   "pic": "dado",
+   "word": "DADO",
+   "say": "dado",
+   "syllables": [
+    "DA",
+    "DO"
+   ]
+  },
+  {
+   "pic": "estrela",
+   "word": "ESTRELA",
+   "say": "estrela",
+   "syllables": [
+    "ES",
+    "TRE",
+    "LA"
+   ]
+  },
+  {
+   "pic": "foguete",
+   "word": "FOGUETE",
+   "say": "foguete",
+   "syllables": [
+    "FO",
+    "GUE",
+    "TE"
+   ]
+  },
+  {
+   "pic": "gato",
+   "word": "GATO",
+   "say": "gato",
+   "syllables": [
+    "GA",
+    "TO"
+   ]
+  },
+  {
+   "pic": "lua",
+   "word": "LUA",
+   "say": "lua",
+   "syllables": [
+    "LU",
+    "A"
+   ]
+  },
+  {
+   "pic": "mala",
+   "word": "MALA",
+   "say": "mala",
+   "syllables": [
+    "MA",
+    "LA"
+   ]
+  },
+  {
+   "pic": "nave",
+   "word": "NAVE",
+   "say": "nave",
+   "syllables": [
+    "NA",
+    "VE"
+   ]
+  },
+  {
+   "pic": "ovo",
+   "word": "OVO",
+   "say": "ovo",
+   "syllables": [
+    "O",
+    "VO"
+   ]
+  },
+  {
+   "pic": "pato",
+   "word": "PATO",
+   "say": "pato",
+   "syllables": [
+    "PA",
+    "TO"
+   ]
+  },
+  {
+   "pic": "peixe",
+   "word": "PEIXE",
+   "say": "peixe",
+   "syllables": [
+    "PEI",
+    "XE"
+   ]
+  },
+  {
+   "pic": "pipa",
+   "word": "PIPA",
+   "say": "pipa",
+   "syllables": [
+    "PI",
+    "PA"
+   ]
+  },
+  {
+   "pic": "robo",
+   "word": "ROBÔ",
+   "say": "robô",
+   "syllables": [
+    "RO",
+    "BÔ"
+   ]
+  },
+  {
+   "pic": "sapo",
+   "word": "SAPO",
+   "say": "sapo",
+   "syllables": [
+    "SA",
+    "PO"
+   ]
+  },
+  {
+   "pic": "sol",
+   "word": "SOL",
+   "say": "sol",
+   "syllables": [
+    "SOL"
+   ]
+  },
+  {
+   "pic": "uva",
+   "word": "UVA",
+   "say": "uva",
+   "syllables": [
+    "U",
+    "VA"
+   ]
+  },
+  {
+   "pic": "vaca",
+   "word": "VACA",
+   "say": "vaca",
+   "syllables": [
+    "VA",
+    "CA"
+   ]
+  },
+  {
+   "pic": "banana",
+   "group": "foods",
+   "word": "BANANA",
+   "say": "banana",
+   "syllables": [
+    "BA",
+    "NA",
+    "NA"
+   ]
+  },
+  {
+   "pic": "tomato",
+   "group": "foods",
+   "word": "TOMATE",
+   "say": "tomate",
+   "syllables": [
+    "TO",
+    "MA",
+    "TE"
+   ]
+  }
+ ]
+}

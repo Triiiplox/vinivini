@@ -34,10 +34,7 @@ func on_enter() -> void:
 
 func _on_play() -> void:
 	AudioService.play_sfx("whoosh")
-	if not AppState.has_profile():
-		Router.go("creator", {"mode": "new"})
-	elif not bool(AppState.profile().get("intro_seen", false)):
-		Router.reset_to("intro")
+	if not AppState.has_profile() or not bool(AppState.profile().get("intro_seen", false)):
+		Router.reset_to("opening")
 	else:
-		say("Oi, comandante %s! Vamos para a nave!" % AppState.child_name())
-		Router.reset_to("hub")
+		Router.reset_to("ship")

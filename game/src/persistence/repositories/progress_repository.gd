@@ -28,6 +28,10 @@ static func defaults() -> Dictionary:
 		"creative_planets": [],
 		"counters": {"missions_by_area": {}, "commander": 0, "parent_challenges": 0, "stories_finished": 0},
 		"parent_challenge": {},
+		"missions_done": {},
+		"creatures": [],
+		"drawings": [],
+		"discoveries": [],
 	}
 
 

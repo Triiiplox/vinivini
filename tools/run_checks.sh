@@ -14,9 +14,15 @@ step "testes"; godot --headless --path . res://tests/test_runner.tscn >"$LOG/tes
 grep -E "FAIL|RESULTADO|^\s+- " "$LOG/tests.txt"; bad "$LOG/tests.txt"
 step "smoke (projeto)"; godot --headless --path . -- --smoke >"$LOG/smoke.txt" 2>&1 || fail=1
 grep -E "SMOKE|FALHOU" "$LOG/smoke.txt"; bad "$LOG/smoke.txt"
+step "smoke v2 (12 missões jogadas pelo robô)"; godot --headless --path . -- --smoke2 >"$LOG/smoke2.txt" 2>&1 || fail=1
+grep -E "SMOKE2|FALHOU|sem voz|níveis" "$LOG/smoke2.txt"; bad "$LOG/smoke2.txt"
+step "smoke v2 com erros de propósito"; godot --headless --path . -- --smoke2 --mistakes >"$LOG/smoke2m.txt" 2>&1 || fail=1
+grep -E "SMOKE2|FALHOU" "$LOG/smoke2m.txt"; bad "$LOG/smoke2m.txt"
 step "smoke (pacote exportado)"; mkdir -p ../build/linux
 godot --headless --path . --export-pack "Linux" ../build/linux/vini.pck >"$LOG/pack.txt" 2>&1 || fail=1
 (cd /tmp && godot --headless --main-pack "$OLDPWD/../build/linux/vini.pck" -- --smoke) >"$LOG/smoke_pck.txt" 2>&1 || fail=1
 grep -E "SMOKE|FALHOU" "$LOG/smoke_pck.txt"; bad "$LOG/smoke_pck.txt"
+(cd /tmp && godot --headless --main-pack "$OLDPWD/../build/linux/vini.pck" -- --smoke2) >"$LOG/smoke2_pck.txt" 2>&1 || fail=1
+grep -E "SMOKE2|FALHOU|sem voz" "$LOG/smoke2_pck.txt"; bad "$LOG/smoke2_pck.txt"
 echo "logs em $LOG"
 [ $fail -eq 0 ] && echo "TUDO OK" || { echo "FALHOU"; exit 1; }

@@ -14,6 +14,10 @@ var items: Array = []
 var items_by_id: Dictionary = {}
 var praise: Dictionary = {}
 var avatar_options: Dictionary = {}
+var campaigns: Array = []
+var missions: Dictionary = {}
+## Bancos dos jogos v2 (sílabas, palavras, pedidos, plantas, robô...).
+var banks: Dictionary = {}
 var errors: Array[String] = []
 
 
@@ -82,6 +86,20 @@ func load_index(index_path: String) -> bool:
 	var av: Variant = _read(base.path_join(str(idx.get("avatar", ""))))
 	if av is Dictionary:
 		avatar_options = av
+	if idx.has("campaigns"):
+		var cp: Variant = _read(base.path_join(str(idx["campaigns"])))
+		if cp is Dictionary:
+			campaigns = cp.get("campaigns", [])
+			for m in cp.get("missions", []):
+				var me := ContentValidator.validate_mission(m)
+				if me.is_empty():
+					missions[m["id"]] = m
+				else:
+					errors.append("missions: %s" % ", ".join(me))
+	for bank_name in idx.get("banks", {}):
+		var b: Variant = _read(base.path_join(str(idx["banks"][bank_name])))
+		if b != null:
+			banks[bank_name] = b
 	return errors.is_empty()
 
 

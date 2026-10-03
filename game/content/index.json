@@ -19,5 +19,10 @@
  "facts": "world/facts.json",
  "items": "rewards/items.json",
  "praise": "feedback/praise.json",
- "avatar": "world/avatar_options.json"
+ "avatar": "world/avatar_options.json",
+ "campaigns": "campaign/campaigns.json",
+ "banks": {
+  "syllables": "banks/syllables.json",
+  "words": "banks/words.json"
+ }
 }

@@ -101,10 +101,10 @@ func play_activity_until_done(make_one_error: bool = false) -> void:
 
 
 func _run() -> void:
-	Router.reset_to("splash")
+	# Fluxo v1 (telas legadas, ainda usadas pelo desafio dos pais). O fluxo da criança v2 está em smoke_v2.gd.
+	Router.reset_to("creator", {"mode": "new"})
 	await frames()
-	await press("PlayButton")
-	check(Router.current_id == "creator", "novo jogo abre o criador")
+	check(Router.current_id == "creator", "criador abre")
 	await press("Cat_helmet")
 	await press("Opt_helmet_bubble")
 	await press("Cat_skin")

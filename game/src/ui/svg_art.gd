@@ -8,6 +8,8 @@ const ART_PATH := "res://assets/art/art.json"
 const MAX_CACHE := 200
 const BUDGET_PER_FRAME := 4
 
+const ART2_PATH := "res://assets/art/art2.json"
+static var _art2: Dictionary = {}
 static var _art: Dictionary = {}
 static var _cache: Dictionary = {}
 static var _order: Array[String] = []
@@ -227,3 +229,91 @@ static func token_svg(shape: String, color: Color) -> String:
 static func background_svg() -> String:
 	var b: Dictionary = art()["background"]
 	return document(b["viewbox"], b["defs"], b["body"])
+
+
+# ---------------------------------------------------------------- arte v2 (art2.json: rigs, objetos, comidas...)
+
+
+
+static func art2() -> Dictionary:
+	if _art2.is_empty():
+		var f := FileAccess.open(ART2_PATH, FileAccess.READ)
+		if f:
+			var d: Variant = JSON.parse_string(f.get_as_text())
+			if d is Dictionary:
+				_art2 = d
+	return _art2
+
+
+## Item simples de um grupo (props, foods, build, words, npcs, pets). colors resolve {c},{cd},{cl}.
+static func item_svg(group: String, name: String, colors: Dictionary = {}) -> String:
+	var it: Dictionary = art2().get(group, {}).get(name, {})
+	if it.is_empty():
+		return ""
+	var c := colors.duplicate()
+	if not c.has("c"):
+		c.merge({"c": "#8E7DFF", "cd": "#5A4FCF", "cl": "#C9C2FF"})
+	return document(it["vb"], str(it.get("defs", "")).format(c), str(it["svg"]).format(c))
+
+
+static func item_vb(group: String, name: String) -> Array:
+	return art2().get(group, {}).get(name, {}).get("vb", [0, 0, 100, 100])
+
+
+static func tint_colors(c: Color) -> Dictionary:
+	return {"c": hex(c), "cd": hex(c.darkened(0.35)), "cl": hex(c.lightened(0.4))}
+
+
+## Cores do avatar (pele, cabelo, traje) para os placeholders.
+static func avatar_colors(av: Dictionary) -> Dictionary:
+	var repo := ContentService.repo
+	var colors := {}
+	add_shades(colors, "skin", _opt_color(repo, "skin", str(av.get("skin", "skin_3")), "#E3A877"), 0.2, 0.25)
+	add_shades(colors, "hair", _opt_color(repo, "hair_color", str(av.get("hair_color", "hair_brown")), "#6B4226"), 0.3, 0.35)
+	var suit_item := repo.get_item(str(av.get("suit", "suit_orange")))
+	add_shades(colors, "suit", Color(str(suit_item.get("color", "#FF8C42"))))
+	return colors
+
+
+## Peça do rig do avatar: head | torso | back | leg | arm.
+static func avatar_part_svg(part: String, av: Dictionary, mood: String = "happy", blink: bool = false) -> String:
+	var rig: Dictionary = art2()["avatar_rig"]
+	var spec: Dictionary = rig["parts"][part]
+	var base: Dictionary = art()["avatar"]["layers"]
+	var extra: Dictionary = rig["layers"]
+	var repo := ContentService.repo
+	var helmet := str(repo.get_item(str(av.get("helmet", "helmet_none"))).get("style", "none"))
+	var acc := str(repo.get_item(str(av.get("accessory", "acc_none"))).get("style", "none"))
+	var hair := str(av.get("hair_style", "short"))
+	if helmet in ["classic", "bubble", "antenna", "cat", "gold"] and hair == "puff":
+		hair = "curly"
+	var suit_item := repo.get_item(str(av.get("suit", "suit_orange")))
+	var vars := {"hair": hair, "helmet": helmet, "acc": acc, "pattern": str(suit_item.get("pattern", "none")),
+		"mood": "blink" if blink and mood == "happy" else mood}
+	var parts: Array[String] = []
+	for l in spec["layers"]:
+		var lname := str(l).format(vars)
+		if base.has(lname):
+			parts.append(base[lname])
+		elif extra.has(lname):
+			parts.append(extra[lname])
+	var colors := avatar_colors(av)
+	return document(spec["vb"], str(art()["avatar"]["defs"]).format(colors), "".join(parts).format(colors))
+
+
+static func cosmo_part_svg(part: String, mood: String = "happy") -> String:
+	var r: Dictionary = art2()["cosmo_rig"]
+	var p: Dictionary = r[part]
+	var body := str(p["svg"])
+	if part == "head":
+		body += str(r["faces"].get(mood, r["faces"]["happy"]))
+	return document(p["vb"], r["defs"], body)
+
+
+## Cliente alienígena (cor + humor) para o Restaurante de Marte.
+static func customer_svg(color: Color, mood: String) -> String:
+	var n: Dictionary = art2()["npcs"]
+	var body: Dictionary = n["customer"]
+	var c := tint_colors(color)
+	var face: String = n["customer_faces"].get(mood, n["customer_faces"]["happy"])
+	return document(body["vb"], str(body["defs"]).format(c), str(body["svg"]).format(c) + face)

@@ -7,58 +7,131 @@
   "Acertou!",
   "Você encontrou!",
   "Show de bola!",
-  "Uau, que legal!"
+  "Uau, que legal!",
+  "Arrasou!",
+  "Que demais!",
+  "Perfeito, comandante!",
+  "Na mosca!",
+  "É isso aí, {name}!",
+  "Que esperto!",
+  "Você é fera!",
+  "Brilhou!",
+  "Muito bom!",
+  "Excelente!",
+  "Uhuu, acertou!",
+  "Bateu aqui!",
+  "Que comandante!",
+  "Missão no alvo!",
+  "Foi de primeira!",
+  "Supersônico!",
+  "Olha só que craque!",
+  "A nave aplaudiu!",
+  "Estrela de ouro!",
+  "Até o Cosmo pulou de alegria!",
+  "Você manda muito, {name}!",
+  "Certinho!",
+  "Nossa, que rápido!",
+  "Mandou ver!"
  ],
  "streak_3": [
   "Três seguidas! Você está voando!",
   "Que sequência, comandante!",
-  "Você está pegando o jeito!"
+  "Você está pegando o jeito!",
+  "Três acertos! Os motores estão a toda!",
+  "Você não erra uma!",
+  "Sequência de foguete!",
+  "Que pontaria, {name}!",
+  "Três estrelas seguidas!"
  ],
  "streak_5": [
   "Cinco seguidas! A nave está brilhando!",
   "Sequência de estrelas! Incrível, {name}!",
-  "Nada te para hoje, comandante!"
+  "Nada te para hoje, comandante!",
+  "Cinco seguidas! Velocidade da luz!",
+  "Você é o comandante mais rápido da galáxia!",
+  "Sequência lendária!",
+  "Os planetas estão comemorando!"
  ],
  "persistence": [
   "Você tentou de novo e descobriu!",
   "Não desistiu e conseguiu!",
   "Isso é persistência de comandante!",
-  "Errar faz parte. E você conseguiu!"
+  "Errar faz parte. E você conseguiu!",
+  "Você continuou tentando. Isso é coragem!",
+  "Tentou, pensou e conseguiu!",
+  "Errar ajuda a aprender. E você aprendeu!",
+  "Que paciência de astronauta!",
+  "Você não desistiu. Muito bem!",
+  "Devagar e com cuidado, você chegou lá!"
  ],
  "hard": [
   "Essa era difícil e você conseguiu!",
   "Que coragem, comandante!",
-  "Desafio superado!"
+  "Desafio superado!",
+  "Essa era de comandante experiente!",
+  "Nível difícil vencido!",
+  "Uau, essa foi das grandes!",
+  "Até o Cosmo achou difícil. E você conseguiu!"
  ],
  "strategy_reading": [
   "Você leu com atenção!",
   "Você ouviu o som da sílaba!",
-  "Juntou as sílabas certinho!"
+  "Juntou as sílabas certinho!",
+  "Você escutou o som direitinho!",
+  "Você reconheceu as letras!",
+  "Que ouvido de leitor!",
+  "Você juntou os sons e formou a palavra!",
+  "Leitor espacial!",
+  "O monstro adorou sua escolha!"
  ],
  "strategy_math": [
   "Você contou com cuidado!",
   "Contou um por um, muito bem!",
-  "Você juntou certinho!"
+  "Você juntou certinho!",
+  "Você contou certinho!",
+  "Nem um a mais, nem um a menos!",
+  "Que conta caprichada!",
+  "Você é bom com números!",
+  "Contou como um cientista!",
+  "O cliente adorou!"
  ],
  "strategy_logic": [
   "Você percebeu o padrão!",
   "Que memória de astronauta!",
-  "Você observou bem!"
+  "Você observou bem!",
+  "Você planejou o caminho!",
+  "O robô seguiu seu programa!",
+  "Que cabeça de engenheiro!",
+  "Você lembrou a ordem certinha!",
+  "Programador espacial!"
  ],
  "strategy_science": [
   "Você sabe muito sobre o espaço!",
-  "Cientista espacial!"
+  "Cientista espacial!",
+  "Você observou com atenção!",
+  "Astrônomo de verdade!",
+  "Você sabe muito sobre os planetas!",
+  "Que descoberta!"
  ],
  "strategy_emotion": [
   "Você entendeu como ele se sente!",
   "Que coração gentil!",
-  "Você foi muito gentil!"
+  "Você foi muito gentil!",
+  "Você ajudou um amigo!",
+  "Que atitude bonita!",
+  "Você cuidou de quem precisava!",
+  "Ser gentil é coisa de comandante!"
  ],
  "retry": [
   "Quase! Tente de novo.",
   "Olhe de novo, com calma.",
   "Vamos tentar outra vez?",
-  "Tudo bem errar. Tente de novo!"
+  "Tudo bem errar. Tente de novo!",
+  "Hmm, não foi esse. Tente outro!",
+  "Quase lá! Mais uma vez.",
+  "Escute de novo e tente.",
+  "Respira e tenta de novo!",
+  "Esse não. Qual será?"
  ],
  "hint": [
   "Vou te dar uma dica!",
@@ -67,7 +140,10 @@
  "mission_complete": [
   "Missão cumprida, comandante {name}!",
   "A nave está orgulhosa de você!",
-  "Mais uma missão concluída!"
+  "Mais uma missão concluída!",
+  "Missão completa! Que viagem!",
+  "Você conseguiu, comandante {name}!",
+  "A galáxia agradece!"
  ],
  "commander_complete": [
   "DESAFIO DE COMANDANTE CONCLUÍDO!"

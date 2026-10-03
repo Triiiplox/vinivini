@@ -39,3 +39,13 @@ open(f, 'w').write(s)
 PY
 pip install -q "gdtoolkit==4.*" pillow 2>/dev/null || true
 echo "ok: godot $(godot --version)"
+# v2: síntese de voz (Kokoro, offline) e música (FluidSynth). Só necessários para REGERAR áudio;
+# os .ogg gerados já estão versionados em game/assets.
+apt-get install -y -q fluidsynth fluid-soundfont-gm vorbis-tools ffmpeg espeak-ng >/dev/null || true
+pip install -q kokoro-onnx soundfile numpy 2>/dev/null || true
+KOKORO_DIR="${KOKORO_DIR:-$HOME/.cache/kokoro}"
+mkdir -p "$KOKORO_DIR"
+for f in kokoro-v1.0.onnx voices-v1.0.bin; do
+  [ -f "$KOKORO_DIR/$f" ] || curl -sSL -o "$KOKORO_DIR/$f" "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f"
+done
+echo "KOKORO_DIR=$KOKORO_DIR (use: KOKORO_DIR=$KOKORO_DIR python3 tools/gen_voice.py)"

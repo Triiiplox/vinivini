@@ -19,6 +19,8 @@ func test_real_content_loads_without_errors() -> void:
 func test_every_skill_has_content_at_every_level() -> void:
 	var r := _repo()
 	for sk in r.skills:
+		if r.skills[sk].get("generated", false):
+			continue  # skills dos segmentos v2: conteúdo gerado em jogo, sem atividades JSON.
 		for lvl in range(1, r.max_level(sk) + 1):
 			check(r.by_skill.get(sk, {}).has(lvl), "%s sem conteúdo no nível %d" % [sk, lvl])
 
@@ -148,3 +150,32 @@ func test_science_facts_are_present_for_all_bodies() -> void:
 	var r := _repo()
 	for id in ["sun", "mercury", "venus", "earth", "moon", "mars", "jupiter", "saturn", "uranus", "neptune"]:
 		check(r.facts.has(id), "fato ausente: %s" % id)
+
+
+func test_campaigns_reference_valid_missions_and_stories() -> void:
+	var r := _repo()
+	check(r.campaigns.size() >= 4, "campanhas")
+	for c in r.campaigns:
+		for mid in c["missions"]:
+			check(r.missions.has(mid), "missão %s da campanha %s" % [mid, c["id"]])
+	for mid in r.missions:
+		var m: Dictionary = r.missions[mid]
+		var req := str(m.get("requires", ""))
+		check(req == "" or r.missions.has(req), "requires %s" % req)
+		for sg in m["segments"]:
+			if sg["type"] == "story":
+				check(not r.get_story(str(sg["story"])).is_empty(), "história %s" % sg["story"])
+			if str(m.get("reward_item", "")) != "":
+				check(not r.get_item(str(m["reward_item"])).is_empty(), "item %s" % m["reward_item"])
+
+
+func test_word_bank_pictures_exist() -> void:
+	var r := _repo()
+	var words: Array = r.banks["words"]["words"]
+	check(words.size() >= 20, "palavras")
+	var say: Dictionary = r.banks["syllables"]["say"]
+	for w in words:
+		var g := str(w.get("group", "words"))
+		check(SvgArt.art2().get(g, {}).has(w["pic"]), "figura %s/%s" % [g, w["pic"]])
+		for syl in w["syllables"]:
+			check(say.has(syl), "sílaba %s sem pronúncia" % syl)
