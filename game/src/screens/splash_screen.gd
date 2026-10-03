@@ -60,5 +60,9 @@ func _on_play() -> void:
 		Router.reset_to("intro_video", {"next": "opening"})
 	elif not AppState.has_profile() or not bool(AppState.profile().get("intro_seen", false)):
 		Router.reset_to("opening")
+	elif str(SaveService.settings.get_value("hello_day")) != AppState.today():
+		# Primeira vez no dia: "bom dia, comandante" (3 s) e segue para a nave.
+		SaveService.settings.set_value("hello_day", AppState.today())
+		Router.reset_to("intro_video", {"clip": "oi", "next": "ship"})
 	else:
 		Router.reset_to("ship")

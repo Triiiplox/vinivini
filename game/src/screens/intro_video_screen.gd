@@ -1,9 +1,10 @@
 extends BaseScreen
-## Abertura em vídeo (apresentação, ~16 s): toca na primeira vez que a criança toca em JOGAR e pode ser revista
-## pela área dos pais. Um toque (ou o voltar do Android) pula. params.next = rota seguinte (padrão "opening").
-## Sem o arquivo de vídeo, ou rodando sem tela (testes), segue direto.
-
-const PATH := "res://assets/video/abertura.ogv"
+## Vídeos curtos em momentos-chave (assets/video/<clip>.ogv). params.clip:
+##   "abertura" (padrão, ~16 s): primeira vez que a criança toca em JOGAR; revisível na área dos pais.
+##   "oi" (3 s): primeira abertura do dia ("bom dia, comandante").
+##   "celebra" (4 s): campanha concluída pela primeira vez, antes do baú.
+## Um toque (ou o voltar do Android) pula. params.next / next_params = rota seguinte (padrão "opening").
+## Sem o arquivo, ou rodando sem tela (testes), segue direto.
 
 var player: VideoStreamPlayer
 var _done := false
@@ -15,14 +16,17 @@ func on_enter() -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.full(bg)
 	add_child(bg)
-	SaveService.settings.set_value("intro_video_seen", true)
-	if DisplayServer.get_name() == "headless" or not ResourceLoader.exists(PATH):
+	var clip := str(params.get("clip", "abertura"))
+	var path := "res://assets/video/%s.ogv" % clip
+	if clip == "abertura":
+		SaveService.settings.set_value("intro_video_seen", true)
+	if DisplayServer.get_name() == "headless" or not ResourceLoader.exists(path):
 		_finish.call_deferred()
 		return
 	AudioService.stop_music()
 	player = VideoStreamPlayer.new()
 	player.name = "IntroVideo"
-	player.stream = load(PATH)
+	player.stream = load(path)
 	player.expand = true
 	player.bus = "Music"
 	player.mouse_filter = Control.MOUSE_FILTER_IGNORE

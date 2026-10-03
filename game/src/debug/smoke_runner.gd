@@ -235,7 +235,8 @@ func _run() -> void:
 			continue
 		Router.reset_to(id, {"mode": "edit"} if id == "creator" else {})
 		await frames(2)
-		check(Router.current_id == id, "tela %s abre" % id)
+		# Vídeo (abertura/momentos), sem tela, segue direto para a próxima rota.
+		check(Router.current_id == ("opening" if id == "intro_video" else id), "tela %s abre" % id)
 	Router.reset_to("hub")
 	await frames()
 	# Limpeza do save de smoke

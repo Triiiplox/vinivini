@@ -92,7 +92,19 @@ func _finish() -> void:
 	if first_time and unlock_item != "":
 		if SaveService.inventory.unlock_item(pid, unlock_item):
 			(reward["unlocked"] as Array).append(unlock_item)
-	Router.replace("reward", {"mission": mission, "reward": reward, "first_time": first_time, "stars": stars})
+	var rparams := {"mission": mission, "reward": reward, "first_time": first_time, "stars": stars}
+	if first_time and _campaign_just_done(mission_id):
+		Router.replace("intro_video", {"clip": "celebra", "next": "reward", "next_params": rparams})
+	else:
+		Router.replace("reward", rparams)
+
+
+## A missão concluída agora fechou a campanha inteira? (momento do vídeo de celebração)
+func _campaign_just_done(mission_id: String) -> bool:
+	for c in ContentService.repo.campaigns:
+		if (c["missions"] as Array).has(mission_id):
+			return ShipProgress.campaign_done(c)
+	return false
 
 
 func is_unlocked(id: String) -> bool:

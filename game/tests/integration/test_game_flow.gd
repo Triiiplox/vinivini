@@ -197,3 +197,36 @@ func test_intro_video_asset_and_flow() -> void:
 	await frames(3)
 	eq(Router.current_id, "splash", "sem tela (testes), a abertura segue direto para a próxima")
 	check(bool(SaveService.settings.get_value("intro_video_seen")), "marcada como vista: não repete sozinha")
+
+
+func test_daily_hello_video_once_per_day() -> void:
+	SaveService.settings.set_value("intro_video_seen", true)
+	var p := AppState.profile()
+	p["intro_seen"] = true
+	p["created"] = true
+	SaveService.profiles.save_profile(p)
+	Router.reset_to("splash")
+	await frames(2)
+	Router.current_screen.call("_on_play")
+	await frames(3)
+	eq(Router.current_id, "ship", "bom dia (vídeo) e segue para a nave")
+	eq(str(SaveService.settings.get_value("hello_day")), AppState.today(), "marcado o dia")
+	Router.reset_to("splash")
+	await frames(2)
+	Router.current_screen.call("_on_play")
+	await frames(2)
+	eq(Router.current_id, "ship", "no mesmo dia vai direto para a nave")
+
+
+func test_campaign_completion_plays_celebration() -> void:
+	SaveService.reset_profile()
+	var c: Dictionary = ContentService.repo.campaigns[0]
+	var ms: Array = c["missions"]
+	var done: Dictionary = SaveService.progress.data(SaveService.profile_id)["missions_done"]
+	for i in ms.size() - 1:
+		done[ms[i]] = 2
+	check(not MissionFlow._campaign_just_done(str(ms[0])), "campanha ainda aberta")
+	done[ms[ms.size() - 1]] = 3
+	check(MissionFlow._campaign_just_done(str(ms[ms.size() - 1])), "última missão fecha a campanha")
+	for clip in ["celebra", "oi"]:
+		check(ResourceLoader.exists("res://assets/video/%s.ogv" % clip), "clipe %s" % clip)
