@@ -1,4 +1,4 @@
-# QA Report — v1.0.0 (2026-10-03)
+# QA Report — v1.1.0 (2026-10-03)
 
 Ambiente: Godot 4.5.1-stable (Linux headless + Xvfb/llvmpipe para render), OpenJDK 21, apksigner 31 (apt).
 Reprodução: `tools/run_checks.sh` (tudo) · `tools/build_apk.sh` (APK) · `tools/screenshots.sh` (telas).
@@ -7,15 +7,15 @@ Reprodução: `tools/run_checks.sh` (tudo) · `tools/build_apk.sh` (APK) · `too
 | Verificação | Resultado |
 |---|---|
 | Lint (`gdlint src tests`) | 0 problemas |
-| Testes unit + integração | **62 testes, 1591 asserts, 0 falhas** |
+| Testes unit + integração | **65 testes, 1911 asserts, 0 falhas** (inclui rasterizar toda a arte) |
 | Todas as 399 atividades jogadas pelo minigame real (erro → dica → acerto) | 0 falhas, 0 erros de log |
 | Smoke end-to-end no projeto | **PASS — 59 passos, 0 falhas, 0 erros de log** |
 | Smoke end-to-end no **pacote exportado** (mesmos filtros do APK) | **PASS — 59 passos** |
-| Sessão longa (40 missões seguidas) | memória 63,5 → 64,2 MB; nós estáveis (~92) |
+| Sessão longa (40 missões seguidas) | memória 66,8 → 67,6 MB; nós estáveis (~92) |
 | Boot (desktop, pacote exportado) | ~270 ms até a tela inicial |
 | Layout 16:9, 20:9 (2400×1080), 4:3 (1024×768) | sem cortes/transbordo (screenshots) |
 | APK | assinatura v2+v3 OK; minSdk 24/target 35; arm64-v8a + armeabi-v7a; **0 permissões**; allowBackup=false |
-| SHA-256 do APK | `3c1eeeb786ba788f5651675e15e49506930a12b437985c0ae8001b6d94f9ae9d` |
+| SHA-256 do APK (v1.1.0) | `3b5b0b4a5b5f2c7d1de0fce286ea7d3884f061eeb8f075001114a21660f117dc` |
 
 O smoke cobre: novo jogo → criar personagem → intro → nave → mapa → 3 planetas (missões) → erro proposital e
 recuperação → os 7 jogos de habilidade → Desafio de Comandante → história ramificada até o fim → Sentimentos →
@@ -23,6 +23,12 @@ Laboratório (salvar planeta) → Observatório + Quiz → Troféus (equipar) �
 certa entra) → todas as abas do painel → criar desafio da família → música off/on → cumprir desafio →
 "fechar e abrir" (cache descartado, relido do disco) → estrelas/progresso/avatar/histórico preservados →
 todas as telas abrem.
+
+## v1.1.0 — arte nova
+- Ilustração vetorial em camadas (ADR-018). Revisão por galerias (`--artpreview`) e 30 screenshots.
+- Bugs achados na integração e corrigidos: **Critical** crash (signal 11) ao adiar redesenho com
+  `call_deferred` dentro de `_draw`; **High** textura liberada pelo cache LRU ainda em uso.
+- Mesmo certificado de assinatura da 1.0.0 (SHA-256 126611cc…99001f7) → atualiza sem perder progresso.
 
 ## Bugs encontrados e corrigidos (por severidade)
 **Critical**
@@ -59,7 +65,7 @@ todas as telas abrem.
 - Desempenho medido em desktop; em celulares antigos (2 GB RAM) o esperado é boot de 1–3 s.
 
 ## Roteiro rápido no aparelho (5 min)
-1. Instalar `dist/ViniComandante-v1.0.0.apk` (permitir "fontes desconhecidas").
+1. Instalar `dist/ViniComandante-v1.1.0.apk` (permitir "fontes desconhecidas").
 2. Ativar modo avião. Abrir → JOGAR → criar astronauta → Pular intro.
 3. Mapa → Marte → MISSÃO; errar uma de propósito (dica aparece) e concluir.
 4. Fechar o app pelo multitarefa, abrir de novo: estrelas e traje novo continuam.

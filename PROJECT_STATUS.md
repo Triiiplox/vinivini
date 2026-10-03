@@ -3,7 +3,7 @@
 Status geral: **FINALIZADO (MVP)** — pendência externa única: validação em aparelho Android físico
 (ambiente de build sem dispositivo/emulador; ver docs/QA_REPORT.md → "Roteiro rápido no aparelho").
 
-APK: `dist/ViniComandante-v1.0.0.apk` · Checagens: `tools/run_checks.sh` → TUDO OK
+APK: `dist/ViniComandante-v1.1.0.apk` (arte vetorial nova) · Checagens: `tools/run_checks.sh` → TUDO OK
 
 | Step | Nome | Status | Testes / evidência | Observações |
 |---|---|---|---|---|
@@ -25,6 +25,6 @@ APK: `dist/ViniComandante-v1.0.0.apk` · Checagens: `tools/run_checks.sh` → TU
 | 15 | Parent Area | PASS | porta testada (errada barra/certa entra); todas as abas; desafio da família ponta a ponta | sem diagnóstico/comparação |
 | 16 | Audio & Accessibility | PASS | toggles testados; TTS indisponível → texto (testado) | SFX/música sintetizados; ducking; fala não sobrepõe |
 | 17 | Persistence & Offline | PASS | escrita atômica, backup, corrupção, migração v1→v2, reload no smoke | 0 permissões (sem INTERNET) |
-| 18 | QA & Performance | PASS | 62 testes; soak 40 missões estável; 17 bugs corrigidos | docs/QA_REPORT.md |
+| 18 | QA & Performance | PASS | 65 testes; soak 40 missões estável; 17 bugs corrigidos | docs/QA_REPORT.md |
 | 19 | Android Build | PASS* | APK assinado v2+v3 verificado; manifest auditado | *instalação física pendente (externo) |
 | 20 | Final Polish & Release | PASS* | DoD e release checklist preenchidos | *idem |

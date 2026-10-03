@@ -20,7 +20,7 @@ func on_enter() -> void:
 		b.name = "Planet_%s" % p["id"]
 		b.flat = true
 		b.focus_mode = Control.FOCUS_NONE
-		b.custom_minimum_size = Vector2(230, 230)
+		b.custom_minimum_size = Vector2(270, 270)
 		b.set_meta("pos", p["map_pos"])
 		var pv := PlanetView.new(p["visual"])
 		pv.highlighted = suggested.get("id", "") == p["id"]

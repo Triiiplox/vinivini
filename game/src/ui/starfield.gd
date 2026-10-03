@@ -38,6 +38,10 @@ func _draw() -> void:
 		PackedVector2Array([r.position, Vector2(r.end.x, 0), r.end, Vector2(0, r.end.y)]),
 		PackedColorArray([Palette.BG_TOP, Palette.BG_TOP, Palette.BG_BOTTOM, Palette.BG_BOTTOM])
 	)
+	# Nebulosas são suaves: rasteriza em baixa resolução e estica (barato e sem serrilhado visível).
+	var neb := SvgArt.get_texture("bg|nebula", 640, 1280, SvgArt.background_svg)
+	if neb:
+		draw_texture_rect(neb, r, false)
 	for s in _stars:
 		var a: float = 0.45 + 0.55 * (0.5 + 0.5 * sin(_t * s[3] + s[4]))
 		draw_circle(Vector2(s[0] * size.x, s[1] * size.y), s[2], Color(1, 1, 1, a), true, -1.0, true)

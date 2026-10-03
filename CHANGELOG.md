@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## v1.1.0 — 2026-10-03 — Arte nova
+### Alterado
+- Toda a arte de personagens e cenário refeita em ilustração vetorial (SVG em camadas, rasterizada na
+  resolução da tela): astronauta chibi com contorno, volume e brilhos; Cosmo, robozinho, alien,
+  estrelinha Lumi e Bip redesenhados com 6 expressões, piscar e boca falando; planetas com sombreamento
+  esférico, anéis com profundidade e crateras/faixas/continentes; objetos de contagem e peças de
+  padrão com volume; fundo com nebulosas.
+- versionCode 2 / 1.1.0 (instala por cima da 1.0.0 mantendo o progresso).
+### Adicionado
+- `tools/gen_art.py`, `SvgArt` (cache LRU + orçamento por frame), galeria `--artpreview`.
+- Teste que rasteriza todas as combinações de avatar, personagens × expressões, planetas, tokens.
+### Corrigido
+- Crash (signal 11) ao adiar redesenho com `call_deferred` dentro de `_draw`.
+- Textura liberada pelo cache enquanto ainda estava em uso por um nó.
+
 ## v1.0.0 — 2026-10-03 — MVP
 ### Adicionado
 - Projeto Godot 4.5.1 (GL Compatibility), Android landscape, minSdk 24, arm64 + armv7, 0 permissões.

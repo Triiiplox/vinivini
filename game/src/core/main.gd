@@ -30,6 +30,9 @@ func _ready() -> void:
 	AudioService.play_music()
 	GameLog.info("Boot", "pronto em %d ms" % Time.get_ticks_msec())
 	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--artpreview="):
+			add_child(load("res://src/debug/art_preview.gd").new())
+			return
 		if a.begins_with("--shots="):
 			add_child(load("res://src/debug/screenshot_runner.gd").new())
 			return

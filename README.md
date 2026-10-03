@@ -4,7 +4,7 @@ Jogo educativo infantil **offline**, tema espacial, para o Vini (4 anos): leitur
 histórias, emoções/respeito e astronomia. Sem anúncios, sem compras, sem internet, sem coleta de dados.
 
 ## Instalar no Android (o que importa)
-1. Copie **`dist/ViniComandante-v1.0.0.apk`** para o celular/tablet (Android 7+).
+1. Copie **`dist/ViniComandante-v1.1.0.apk`** para o celular/tablet (Android 7+).
 2. Abra o arquivo e permita "instalar de fontes desconhecidas" quando o Android pedir.
 3. Para narração em português: Configurações → Sistema → Idioma → Saída de texto em fala →
    motor do Google → instalar dados de voz **Português (Brasil)**. Sem isso, tudo aparece em texto.

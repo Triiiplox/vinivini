@@ -77,3 +77,17 @@ Studio/SDK completo (o download do SDK oficial foi bloqueado no ambiente de buil
 - Lembrete de pausa opcional (desligado por padrão), gentil e sem bloquear o jogo.
 - Cosmo sugere o planeta cuja habilidade mais precisa de prática (seleção adaptativa visível).
 - Histórias registram finais descobertos ("Finais: 1 de 3") — incentivo a reler e explorar escolhas.
+
+## ADR-018 - Arte vetorial em camadas (substitui as primitivas da v1.0.0)
+Feedback do responsável: personagem e desenhos com qualidade baixa. Nova pipeline:
+`tools/gen_art.py` gera `game/assets/art/art.json` com ilustrações SVG em camadas (contorno cartoon,
+volume por gradiente, brilhos, proporção chibi, 6 expressões + piscar + fala). Em runtime, `SvgArt`
+resolve as cores (pele/cabelo/traje/planeta) e rasteriza com o ThorVG do Godot na resolução real da tela.
+- Personalização intacta: cores e peças continuam paramétricas; nenhum PNG por combinação.
+- Cache LRU (200) + orçamento de 4 rasterizações por frame: telas com muitas miniaturas carregam
+  progressivamente em vez de travar em aparelho fraco.
+- Cada nó guarda referência às texturas que desenhou (o LRU não pode liberar textura em uso).
+- Redesenho adiado via `process_frame` (CONNECT_ONE_SHOT); `call_deferred(queue_redraw)` dentro de
+  `_draw` causava crash (signal 11) no Godot 4.5.1.
+- ThorVG não aceita cor hex com alfa (#rrggbbaa): usar fill-opacity/stroke-opacity.
+- Ícones de UI seguem chapados (brancos sobre botões coloridos), por legibilidade.

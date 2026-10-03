@@ -5,7 +5,7 @@
 game/                     projeto Godot 4.5 (abrir esta pasta no editor)
   project.godot, export_presets.cfg, gdlintrc
   content/                conteúdo data-driven (JSON) — único lugar de textos de atividades/histórias
-  assets/                 fontes (OFL), áudio sintetizado, ícone
+  assets/                 fontes (OFL), áudio sintetizado, ícone, art/art.json (ilustrações SVG geradas)
   scenes/main.tscn        única cena; telas são scripts
   src/core/               main, router, event_bus, game_log
   src/engines/            learning/, content/, story/, reward/  (lógica pura, sem nós, 100% testável)
@@ -36,3 +36,9 @@ tools/                    setup do ambiente, checagens, build, geradores de cont
 
 ## Testes (rodar antes de qualquer commit)
 `tools/run_checks.sh` — lint + unit + integração (inclui jogar as 399 atividades) + smoke no projeto e no pacote exportado.
+
+## Arte
+- Fonte: `tools/gen_art.py` → `game/assets/art/art.json`. Revisar com
+  `godot --headless --path game -- --artpreview=/pasta` (galerias PNG).
+- Desenhar sempre via `SvgArt.draw_in()`; nunca `call_deferred` dentro de `_draw`.
+- Sem cor hex com alfa no SVG (ThorVG): use `*-opacity`.
