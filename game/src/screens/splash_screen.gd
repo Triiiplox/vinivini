@@ -1,10 +1,13 @@
 extends BaseScreen
 ## Tela inicial: céu pintado, o Vini acenando, o Astro flutuando, título e um único botão JOGAR (design system).
+## Toca a música-tema cantada.
 
 
 func on_enter() -> void:
 	if is_instance_valid(Router.sky):
 		Router.sky.set_theme("space", 0.0)
+	# Música-tema "Comandante das Estrelas" (cantada) só na tela inicial; nas telas com narração ficam as instrumentais.
+	AudioService.play_music("theme", 0.8)
 	var title := Label.new()
 	title.text = "VINI"
 	title.add_theme_font_override("font", DS.font("title", 900))
