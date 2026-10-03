@@ -84,6 +84,11 @@ static func step(id: String, s: Node) -> void:
 						var p: Interactable = s.pile[0]
 						p.global_position = s.creature.global_position + Vector2(randf_range(-50, 50), -40)
 						s._on_piece(p, s.zone)
+		"seg_english":
+			_english(s, false)
+		"hello":
+			if s.next_id != "":
+				s._on_unit(s.nodes[s.next_id])
 		"reward":
 			if s.cont.visible:
 				s._continue()
@@ -149,10 +154,31 @@ static func _mistake(id: String, s: Node) -> bool:
 					if k != s.target:
 						s._on_tap(s.nodes[k])
 						return true
+		"seg_english":
+			return _english(s, true)
 		"seg_creature":
 			if str(s.step) in ["eyes", "legs", "antennae"] and s.placed >= s.need and not s.pile.is_empty():
 				s._on_piece(s.pile[0], s.zone)
 				return true
+	return false
+
+
+## Planeta Hello: conhecer (toca a figura), achar (toca a certa; com mistake, uma errada), corpo (toca o Vini).
+static func _english(s: Node, wrong: bool) -> bool:
+	if s.busy or s.step.is_empty() or s.cards.is_empty():
+		return false
+	match str(s.step["k"]):
+		"meet":
+			if not wrong:
+				s._on_card(s.cards[0])
+		"find":
+			for c in s.cards:
+				if is_instance_valid(c) and (str(c.payload) != s.target) == wrong:
+					s._on_card(c)
+					return true
+		"tpr":
+			if not wrong:
+				s._tpr_tap(s.step["c"])
 	return false
 
 

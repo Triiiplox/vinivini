@@ -17,6 +17,11 @@ static func c(text: String) -> String:
 	return text
 
 
+## Fala do Hoppy (inglês, Planeta Hello).
+static func en(text: String) -> String:
+	return text
+
+
 static func number(v: int) -> String:
 	return NUMBERS[clampi(v, 0, 20)]
 

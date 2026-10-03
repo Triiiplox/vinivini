@@ -13,6 +13,7 @@ const EXPRESSIONS := {
 	"curious": ["open", "curious", "neutral"], "surprised": ["surprised", "surprised", "o"],
 	"sad": ["sad", "sad", "sad"], "thinking": ["left", "curious", "neutral"], "proud": ["half", "normal", "smile"],
 	"angry": ["open", "angry", "sad"], "calm": ["half", "normal", "neutral"], "scared": ["surprised", "sad", "o"],
+	"tired": ["blink", "normal", "neutral"],
 }
 const TALK_SHAPES := ["a", "e", "o", "mbp", "talk", "a", "e"]
 

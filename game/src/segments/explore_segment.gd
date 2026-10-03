@@ -68,6 +68,8 @@ func build() -> void:
 		rescue_npc.facing = -1
 		rescue_npc.z_index = 15
 		world.add_child(rescue_npc)
+	if world_theme == "moon":
+		_painted_deco()
 	# Cenário pintado já traz pedras e cristais; enfeite vetorial só nos temas ainda em SVG.
 	var deco_n := 0 if Scenery.PAINTED.has(world_theme) else int(width / 420.0)
 	for i in deco_n:
@@ -79,6 +81,31 @@ func build() -> void:
 		world.add_child(deco)
 	hint_fn = _hint
 	hud.set_counter("props", collect_item, 0, count if count > 0 else -1)
+
+
+## Enfeites pintados da Lua: pedras e planta na frente (passam por cima dos pés) e atrás; bandeira no fim.
+func _painted_deco() -> void:
+	# Nada de enfeite parecido com o que se coleta (a criança precisa distinguir o alvo).
+	var kinds: Array = ["rock_big", "plant", "rock_mid", "crystal_big"]
+	if collect_item == "moon_rock":
+		kinds = ["plant", "crystal_big"]
+	elif collect_item == "crystal":
+		kinds = ["rock_big", "plant", "rock_mid"]
+	var x := 420.0
+	var i := 0
+	while x < width - 200.0:
+		var front := i % 3 == 1 and x > 700.0
+		var p := PaintedProp.new(kinds[i % kinds.size()], randf_range(110, 170) * (1.25 if front else 0.8), true)
+		p.position = Vector2(x + randf_range(-60, 60), Scenery.GROUND_Y + (70.0 if front else -6.0))
+		p.z_index = 25 if front else 4
+		p.modulate = Color.WHITE if front else Color(0.86, 0.88, 0.95)
+		world.add_child(p)
+		x += randf_range(380, 520)
+		i += 1
+	var flag := PaintedProp.new("flag", 150.0, true)
+	flag.position = Vector2(width - 140.0, Scenery.GROUND_Y + 10.0)
+	flag.z_index = 4
+	world.add_child(flag)
 
 
 func _rock_color() -> Color:
@@ -104,14 +131,21 @@ func _spawn_collectibles(n: int) -> void:
 		var it := Interactable.new()
 		it.radius = 70.0
 		it.tappable = true
-		var art := ArtSprite.new("props", collect_item, 74.0)
-		art.idle = "float"
-		it.add_child(art)
+		if Scenery.PAINTED.has(world_theme) and PaintedProp.has_art(collect_item):
+			var pp := PaintedProp.new(collect_item, 92.0)
+			it.add_child(pp)
+			var fl := pp.create_tween().set_loops()
+			fl.tween_property(pp, "position:y", -10.0, 1.1 + i * 0.07).set_trans(Tween.TRANS_SINE)
+			fl.tween_property(pp, "position:y", 0.0, 1.1 + i * 0.07).set_trans(Tween.TRANS_SINE)
+		else:
+			var art := ArtSprite.new("props", collect_item, 74.0)
+			art.idle = "float"
+			it.add_child(art)
 		var x := lerpf(520.0, end_x, (i + 0.5) / maxf(1, n))
 		it.position = Vector2(x, Scenery.GROUND_Y - 70 - (i % 3) * 30)
 		it.z_index = 18
 		world.add_child(it)
-		Fx.glow(it, Vector2.ZERO, 120, Color(0.5, 0.9, 1.0) if collect_item == "crystal" else Color(1, 0.9, 0.5), 1.0).z_index = -1
+		Fx.glow(it, Vector2.ZERO, 170, Color(0.5, 0.9, 1.0) if collect_item == "crystal" else Color(1, 0.85, 0.4), 1.0).z_index = -1
 		it.tapped.connect(_on_item_tapped)
 		collectibles.append(it)
 

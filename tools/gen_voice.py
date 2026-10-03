@@ -19,8 +19,10 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "game")
 OUT = os.path.join(ROOT, "assets", "voice")
 CONTENT = os.path.join(ROOT, "content")
 NAME_SPOKEN = "Víni"  # grafia que faz a voz acentuar certo
-VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa"}
-SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95}
+VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa", "hoppy": "af_heart", "hoppy_slow": "af_heart"}
+SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95, "hoppy": 0.92, "hoppy_slow": 0.68}
+# Planeta Hello: o Hoppy só fala inglês (en-US nativo); "hoppy_slow" = a mesma palavra devagar (modelo de escuta).
+LANG = {"hoppy": "en-us", "hoppy_slow": "en-us"}
 
 lines = {}  # (who, text) -> origem
 
@@ -52,6 +54,8 @@ for path in glob.glob(os.path.join(ROOT, "src", "**", "*.gd"), recursive=True):
     cosmo_spans = []
     for m in re.finditer(r"Lines\.n\(" + STR + r"\)", src):
         add("narrator", unescape(m.group(1)), rel)
+    for m in re.finditer(r"Lines\.en\(" + STR + r"\)", src):
+        add("hoppy", unescape(m.group(1)), rel)
     for m in re.finditer(r"Lines\.c\(" + STR + r"\)", src):
         add("cosmo", unescape(m.group(1)), rel)
         cosmo_spans.append(m.group(1))
@@ -116,6 +120,22 @@ for path in glob.glob(os.path.join(CONTENT, "stories", "*.json")):
         for c in n.get("choices", []):
             add("narrator", c["text"], "story")
 
+# Planeta Hello: palavras (normal + devagar), frases e comandos em inglês; significado em português pelo Astro.
+en = J("english/units.json")
+for u in en["units"]:
+    for w in u["words"]:
+        add("hoppy", w["en"], "english")
+        add("hoppy_slow", w["en"], "english")
+        add("cosmo", w["pt"], "english")
+    for c in u["chunks"]:
+        add("hoppy", c["en"], "english")
+    for t in u["tpr"]:
+        add("hoppy", t["en"], "english")
+
+# Planeta Eco: palavras da triagem (botão "Ouvir" dos pais), na voz da narradora.
+for it in J("speech/words.json")["screening"]:
+    add("narrator", it["w"], "speech")
+
 # ---------------------------------------------------------------- síntese
 def key_for(who, text):
     # Igual a VoiceService.key_for: o nome da criança no texto vira "{name}" (normalize).
@@ -123,7 +143,9 @@ def key_for(who, text):
     return hashlib.md5(("%s|%s" % (who, t)).encode("utf-8")).hexdigest()[:12]
 
 
-def spoken(text):
+def spoken(text, lang="pt-br"):
+    if lang.startswith("en"):
+        return re.sub(r"\bVini\b", "Vinny", text.replace("{name}", "Vinny"))
     t = text.replace("{name}", NAME_SPOKEN)
     t = re.sub(r"\bVini\b", NAME_SPOKEN, t)
     t = t.replace("—", ",")
@@ -132,9 +154,9 @@ def spoken(text):
 
 
 # ---------------------------------------------------------------- lip-sync (markers de boca)
-VIS_A = set("aɐ")
-VIS_E = set("eɛiɪjy")
-VIS_O = set("oɔuʊw")
+VIS_A = set("aɐæʌɑ")
+VIS_E = set("eɛiɪjyəɜɝɚ")
+VIS_O = set("oɔuʊwɒ")
 VIS_MBP = set("mbp")
 
 
@@ -146,7 +168,7 @@ def visemes_for(text, lang="pt-br"):
         _TOK
     except NameError:
         _TOK = Tokenizer()
-    ph = _TOK.phonemize(spoken(text), lang)
+    ph = _TOK.phonemize(spoken(text, lang), lang)
     seq = []
     for ch in ph:
         if ch in VIS_A:
@@ -222,12 +244,16 @@ def main():
 
     def synth(job):
         k, who, text = job
-        samples, sr = kok.create(spoken(text), voice=VOICES[who], speed=SPEED[who], lang="pt-br")
+        lang = LANG.get(who, "pt-br")
+        samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
         with tempfile.TemporaryDirectory() as td:
             wav = os.path.join(td, "a.wav")
             sf.write(wav, samples, sr)
             af = ["silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.03",
                   "areverse", "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08", "areverse"]
+            if who.startswith("hoppy"):
+                # Alienzinho: voz nativa um pouco mais aguda (sem mexer no ritmo).
+                af = ["asetrate=%d" % int(sr * 1.07), "aresample=%d" % sr, "atempo=%.4f" % (1 / 1.07)] + af
             if who == "cosmo":
                 # Tom de robô amigável: um pouco mais agudo + leve eco metálico.
                 af = ["asetrate=%d" % int(sr * 1.10), "aresample=%d" % sr, "atempo=0.94",
@@ -238,7 +264,10 @@ def main():
                             "-c:a", "libvorbis", "-q:a", "2", out], check=True)
             d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
                                      capture_output=True, text=True).stdout.strip() or 1.0)
-        return k, {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
+        e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
+        if lang != "pt-br":
+            e["lang"] = lang
+        return k, e
 
     done = 0
     with ThreadPoolExecutor(max_workers=2) as ex:
@@ -251,7 +280,7 @@ def main():
     # Lip-sync: markers para falas que ainda não têm.
     nv = 0
     for k, e in manifest.items():
-        if "v" not in e or force:
+        if not e.get("v") or force:
             e["v"] = markers_for(os.path.join(OUT, e["f"]), e["t"], e.get("lang", "pt-br"))
             nv += 1
     if nv:

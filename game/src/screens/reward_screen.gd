@@ -107,6 +107,8 @@ func _continue() -> void:
 	AudioService.play_sfx("whoosh")
 	if params.has("mission"):
 		Router.reset_to("galaxy", {"focus": str(params["mission"].get("id", ""))})
+	elif str((params.get("result", {}) as Dictionary).get("back", "")) != "":
+		Router.reset_to(str(params["result"]["back"]))
 	else:
 		Router.home()
 

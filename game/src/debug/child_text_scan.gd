@@ -3,7 +3,7 @@ extends RefCounted
 ## Varredura de "texto no fluxo da criança": todo texto visível precisa estar marcado com UI.child_ok
 ## (objeto de aprendizagem ou logo). Usado no teste de integração e no smoke v2 (a cada passo do robô).
 
-const CHILD_SCREENS := ["splash", "opening", "ship", "galaxy", "reward", "wardrobe", "gallery", "draw"]
+const CHILD_SCREENS := ["splash", "opening", "ship", "galaxy", "reward", "wardrobe", "gallery", "draw", "hello"]
 
 
 static func is_child_screen(id: String) -> bool:

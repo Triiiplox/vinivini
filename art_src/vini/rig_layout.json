@@ -333,6 +333,7 @@
    "angry": "head_angry",
    "scared": "head_scared",
    "calm": "head_calm",
+   "tired": "head_tired",
    "proud": "head_proud"
   },
   "lids": {
@@ -345,6 +346,7 @@
    "angry": "lids_angry",
    "scared": "lids_scared",
    "calm": "lids_calm",
+   "tired": "lids_tired",
    "proud": "lids_proud"
   },
   "mouth": {

@@ -18,6 +18,8 @@ const SHAPES := ["circle", "square", "triangle", "star", "heart", "diamond"]
 const COLORS := ["red", "blue", "yellow", "green", "purple", "orange", "pink", "white"]
 const EMOTIONS := ["feliz", "triste", "bravo", "medo", "surpreso", "calmo"]
 const CHARACTERS := ["robot", "alien", "star", "cosmo"]
+## Tipos de figura do Planeta Hello (EnPicture).
+const EN_PIC_TYPES := ["color", "rainbow", "count", "art", "planet", "vini", "shape", "size", "face", "icon"]
 
 
 const SEGMENT_TYPES := ["cutscene", "flight", "explore", "build", "cook", "monster", "word", "robot", "memory",
@@ -236,6 +238,39 @@ static func validate_mission(m: Variant) -> Array[String]:
 	for sg in m["segments"]:
 		if not sg is Dictionary or not SEGMENT_TYPES.has(sg.get("type")):
 			e.append("missão '%s': segmento inválido %s" % [m.get("id", "?"), str(sg)])
+	return e
+
+
+## Unidade do Planeta Hello: ≥ 8 palavras (en+pt), ≥ 3 frases, ≥ 3 comandos de corpo, canção, história e
+## ≥ 2 jogos. A unidade de revisão não tem palavras próprias. Figuras: cada "pic" com tipo conhecido.
+
+
+static func validate_english_unit(u: Variant) -> Array[String]:
+	var e: Array[String] = []
+	if not u is Dictionary:
+		e.append("unidade não é um objeto")
+		return e
+	var d: Dictionary = u
+	_req_str(d, "id", e)
+	var words: Array = d.get("words", [])
+	if not bool(d.get("review", false)) and words.size() < 8:
+		e.append("menos de 8 palavras (%d)" % words.size())
+	for w in words:
+		if not w is Dictionary or not str(w.get("en", "")) or not str(w.get("pt", "")):
+			e.append("palavra sem en/pt")
+			continue
+		if w.has("pic") and not EN_PIC_TYPES.has(str((w["pic"] as Dictionary).get("t", ""))):
+			e.append("figura desconhecida em '%s'" % w["en"])
+	if (d.get("chunks", []) as Array).size() < 3:
+		e.append("menos de 3 frases")
+	if (d.get("tpr", []) as Array).size() < 3:
+		e.append("menos de 3 comandos de corpo")
+	if not d.get("song") is Dictionary or str((d["song"] as Dictionary).get("titulo", "")) == "":
+		e.append("sem canção")
+	if str(d.get("story", "")).length() < 20 or str(d.get("story", "")).begins_with("("):
+		e.append("sem história")
+	if (d.get("games", []) as Array).size() < 2:
+		e.append("menos de 2 jogos")
 	return e
 
 

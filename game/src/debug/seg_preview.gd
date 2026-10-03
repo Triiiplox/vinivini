@@ -160,6 +160,9 @@ func _run() -> void:
 		await shot("ship_2", 1.5)
 		Router.current_screen.vini.position.x = 4900
 		await shot("ship_3", 1.5)
+	if _want("splash"):
+		Router.reset_to("splash", {})
+		await shot("splash_1", 1.5)
 	if _want("opening"):
 		Router.reset_to("opening", {})
 		await shot("opening_1", 3.0)
@@ -170,6 +173,21 @@ func _run() -> void:
 	if _want("wardrobe"):
 		Router.reset_to("wardrobe", {})
 		await shot("wardrobe_1", 1.5)
+	if _want("hello"):
+		Router.reset_to("hello", {})
+		await shot("hello_1", 2.0)
+		for u in ["colors", "numbers10", "space", "feelings", "shapes", "food"]:
+			Router.reset_to("seg_english", {"unit": u})
+			await shot("english_%s_1" % u, 4.5)
+			var s: Node = Router.current_screen
+			for k in 3:
+				Autoplay.step("seg_english", s)
+				await get_tree().create_timer(2.2).timeout
+			await shot("english_%s_2" % u, 0.5)
+	if _want("parent"):
+		for t in ["speech", "english"]:
+			Router.reset_to("parent", {"tab": t})
+			await shot("parent_%s" % t, 1.0)
 	if _want("gallery"):
 		var pd2: Dictionary = SaveService.progress.data(SaveService.profile_id)
 		pd2["missions_done"] = {"m01": 3, "m02": 3, "m03": 3, "m04": 2}

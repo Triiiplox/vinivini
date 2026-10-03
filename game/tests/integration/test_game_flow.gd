@@ -150,7 +150,7 @@ func test_every_screen_opens_without_errors() -> void:
 		await frames(2)
 		eq(Router.current_id, id, "tela %s abriu" % id)
 		check(is_instance_valid(Router.current_screen) and Router.current_screen.get_child_count() > 0, "tela %s tem conteúdo" % id)
-	for t in ["summary", "skills", "history", "challenge", "settings"]:
+	for t in ["summary", "skills", "history", "speech", "english", "challenge", "settings"]:
 		Router.reset_to("parent", {"tab": t})
 		await frames(2)
 		check(Router.current_screen.get("tab") == t, "aba %s do painel" % t)

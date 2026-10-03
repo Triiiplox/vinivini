@@ -1,0 +1,3219 @@
+{
+ "version": 1,
+ "validado_por_fono": false,
+ "notice": "Banco NÃO validado. Revisar com fonoaudióloga e com o sotaque da família antes de virar alvo. Pares em que uma das palavras é pouco conhecida ou difícil de desenhar devem ser trocados.",
+ "carrier_phrases": [
+  "Eu vejo um(a) ___.",
+  "O Eco pegou o(a) ___.",
+  "Cadê o(a) ___?",
+  "Olha o(a) ___!",
+  "Eu quero o(a) ___."
+ ],
+ "sounds": [
+  {
+   "id": "ch",
+   "ipa": "ʃ",
+   "name": "Som do vento",
+   "metaphor": "o vento faz chhh / pedir silêncio",
+   "age_months": [
+    34,
+    36
+   ],
+   "phrases": [
+    "O chapéu caiu no chão.",
+    "A chuva molhou o chinelo.",
+    "O peixe está na caixa.",
+    "A bruxa tomou chá na xícara.",
+    "O cachorro comeu a bolacha.",
+    "Cadê a chave da mochila?"
+   ],
+   "story": "Choveu! A chuva caiu no chapéu do cachorro. Ele correu de chinelo até a caixa, pegou a chave e abriu o chuveiro. Depois tomou chá na xícara com bolacha de chocolate. Chhh… o cachorro foi dormir no colchão.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "j",
+   "ipa": "ʒ",
+   "name": "Som do jato",
+   "metaphor": "o jato faz jjjj",
+   "age_months": [
+    30,
+    42
+   ],
+   "phrases": [
+    "A girafa olhou pela janela.",
+    "O jacaré comeu o queijo.",
+    "A joaninha pousou no girassol.",
+    "O jipe passou no jardim.",
+    "Tem gelo na jarra.",
+    "O anjo de pijama dorme."
+   ],
+   "story": "No jardim tinha uma girafa de pijama. Ela olhou pela janela e viu um jacaré comendo queijo e um jabuti tomando suco de laranja com gelo. A joaninha pousou no girassol. Jjjj… passou um jato no céu!",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "s",
+   "ipa": "s",
+   "name": "Som da cobra",
+   "metaphor": "a cobra faz sss",
+   "age_months": [
+    24,
+    30
+   ],
+   "phrases": [
+    "O sapo pulou no sofá.",
+    "A sereia tomou sorvete.",
+    "O sol esquentou a sopa.",
+    "O palhaço tem sapato grande."
+   ],
+   "story": "O sol brilhou e o sapo saiu do sofá. Ele calçou o sapato, tomou suco e sorvete com a sereia. Sss… fez a cobra, e o sino tocou.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "z",
+   "ipa": "z",
+   "name": "Som da abelha",
+   "metaphor": "a abelha faz zzz",
+   "age_months": [
+    24,
+    30
+   ],
+   "phrases": [
+    "A zebra entrou na casa.",
+    "A rosa está no vaso azul.",
+    "A princesa abriu o zíper da blusa."
+   ],
+   "story": "Zzz… a abelha voou até a casa da zebra. Na mesa tinha uma rosa no vaso azul. A princesa de camisa rosa contou: um, dois… doze abelhas!",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "kg",
+   "ipa": "k/g",
+   "name": "Som do sapo coaxando",
+   "metaphor": "o sapo faz k-k-k lá no fundo da garganta",
+   "age_months": [
+    24,
+    36
+   ],
+   "phrases": [
+    "O gato subiu na cama.",
+    "O macaco comeu pipoca.",
+    "A vaca bebe água no copo.",
+    "O galo canta de manhã.",
+    "A foca brinca de peteca."
+   ],
+   "story": "Có-có-có! O galo acordou o gato, a vaca e o macaco. Eles comeram pipoca e goiaba no carro amarelo. A foca jogou peteca e a gota de chuva caiu no gorro do cavalo.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "l",
+   "ipa": "l",
+   "name": "Som da língua no céu da boca",
+   "metaphor": "a pontinha da língua sobe: lá-lá-lá",
+   "age_months": [
+    36,
+    36
+   ],
+   "phrases": [
+    "A lua brilha no lago.",
+    "O leão comeu limão.",
+    "A bola está na mala."
+   ],
+   "story": "Lá-lá-lá! A lua acendeu o lago. O leão de luva pegou a lata de leite e o lápis. O lobo dormiu na mala com a bola e o bolo.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "r_fraco",
+   "ipa": "ɾ",
+   "name": "Motorzinho da língua",
+   "metaphor": "a pontinha da língua bate rapidinho: tra-ra-ra",
+   "age_months": [
+    50,
+    54
+   ],
+   "phrases": [
+    "A arara comeu a pera.",
+    "O pirata sentou na cadeira.",
+    "A barata subiu na parede.",
+    "A coruja usa coroa."
+   ],
+   "story": "Na ilha do pirata morava uma arara. Ela comia pera, cereja e cenoura. Um dia, uma barata subiu na cadeira e a coruja de coroa gritou: tra-ra-ra! A girafa e o jacaré riram na banheira.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "lh",
+   "ipa": "ʎ",
+   "name": "Som da língua grudada",
+   "metaphor": "língua grudada no céu da boca: lhe-lhe",
+   "age_months": [
+    48,
+    48
+   ],
+   "phrases": [
+    "A abelha pousou na folha.",
+    "O coelho comeu milho.",
+    "O palhaço tem orelha grande.",
+    "A ovelha se olhou no espelho."
+   ],
+   "story": "O coelho e a ovelha brincavam no galho. Uma abelha pousou na folha e o palhaço riu. Ele pegou a colher, a toalha e o milho, e se olhou no espelho com o filhote.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "nh",
+   "ipa": "ɲ",
+   "name": "Som do ninho",
+   "metaphor": "nhac!",
+   "age_months": [
+    30,
+    36
+   ],
+   "phrases": [
+    "A galinha fez um ninho.",
+    "A rainha tomou banho.",
+    "A minhoca entrou no caminhão."
+   ],
+   "story": "Nhac! A galinha achou uma minhoca perto do ninho. A rainha e a aranha cozinharam sardinha na cozinha. Depois, o gatinho tomou banho e teve um sonho bom.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "r_forte",
+   "ipa": "R (varia por região)",
+   "name": "Motor do carro",
+   "metaphor": "o carro faz rrrr",
+   "age_months": [
+    42,
+    42
+   ],
+   "phrases": [
+    "O rato subiu no carro.",
+    "O rei tem roupa vermelha.",
+    "A raposa correu na rua."
+   ],
+   "story": "Rrrr! O carro do rei passou na rua. Um rato e uma raposa pularam no rio. O cachorro de gorro pegou a roda e o relógio na torre.",
+   "coda_only_with_fono": false,
+   "region_note": "O 'r' forte varia por região (raspado, aspirado, vibrante): conta como certo o jeito da família."
+  },
+  {
+   "id": "enc_r",
+   "ipa": "C+ɾ",
+   "name": "Foguete de dois motores",
+   "metaphor": "juntar dois sons: p + r = pr",
+   "age_months": [
+    48,
+    60
+   ],
+   "phrases": [
+    "O dragão comeu fruta no prato.",
+    "A bruxa pegou o trem.",
+    "O grilo pulou na grama.",
+    "A zebra leu um livro."
+   ],
+   "story": "Um dragão verde pegou o trem para a praia. Levou fruta no prato, um presente e um livro. Na grama tinha um grilo, uma cobra e uma zebra de gravata. Três estrelas brilharam no céu!",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "enc_l",
+   "ipa": "C+l",
+   "name": "Foguete de dois motores (L)",
+   "metaphor": "p + l = pl",
+   "age_months": [
+    54,
+    60
+   ],
+   "phrases": [
+    "A flor está no planeta azul.",
+    "O atleta andou de bicicleta.",
+    "A blusa tem um clipe."
+   ],
+   "story": "No planeta Flor tinha uma planta que tocava flauta. O atleta de blusa amarela andou de bicicleta até o globo e ganhou um chiclete e um floco de neve.",
+   "coda_only_with_fono": false,
+   "region_note": ""
+  },
+  {
+   "id": "coda",
+   "ipa": "r/s/l em final de sílaba",
+   "name": "(só com indicação da fono)",
+   "metaphor": "",
+   "age_months": null,
+   "phrases": [],
+   "story": "",
+   "coda_only_with_fono": true,
+   "region_note": ""
+  }
+ ],
+ "words": [
+  {
+   "w": "chave",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chuva",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chapéu",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chinelo",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chocolate",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chupeta",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chá",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chão",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chafariz",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chiclete",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "churrasco",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chuveiro",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "xícara",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "xampu",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "xadrez",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chocalho",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chifre",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chaleira",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chaminé",
+   "sound": "ch",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bicho",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "peixe",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "caixa",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bolacha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lixo",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bruxa",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mochila",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cachorro",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "ameixa",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "abacaxi",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lagartixa",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bochecha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "salsicha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "flecha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "colchão",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "borracha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lancha",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bexiga",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "fechadura",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mexerica",
+   "sound": "ch",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "janela",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jacaré",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "joaninha",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "girafa",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gelo",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gelatina",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jipe",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jarra",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jaula",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "joia",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jogo",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jornal",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jabuti",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jaca",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jangada",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jardim",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "girassol",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "geladeira",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gema",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gibi",
+   "sound": "j",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "queijo",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "beijo",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "laranja",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tigela",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "berinjela",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "canjica",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "caju",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "feijão",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "anjo",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pijama",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "beija-flor",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tijolo",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "relógio",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cereja",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "igreja",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bandeja",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "abajur",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "loja",
+   "sound": "j",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sapo",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sol",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sino",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sapato",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sorvete",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "suco",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sereia",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sofá",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "saia",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "salada",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sabonete",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sacola",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "selo",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sopa",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cinco",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cebola",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cesta",
+   "sound": "s",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pássaro",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "osso",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "taça",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "doce",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "palhaço",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cabeça",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vassoura",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "moça",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "poço",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "massa",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pescoço",
+   "sound": "s",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zebra",
+   "sound": "z",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zíper",
+   "sound": "z",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zero",
+   "sound": "z",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zoológico",
+   "sound": "z",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zabumba",
+   "sound": "z",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "casa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mesa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "asa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rosa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vaso",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "camisa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "raposa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tesoura",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "blusa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "beleza",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "doze",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "onze",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "coisa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "framboesa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "princesa",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "buzina",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "azeite",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "azul",
+   "sound": "z",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "casa",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cama",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "copo",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cavalo",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "carro",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "caneca",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cubo",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "queijo",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "quati",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gato",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "galo",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gota",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "galinha",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "garrafa",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gorro",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "goiaba",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gaivota",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "guitarra",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "coelho",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cobra",
+   "sound": "kg",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "boca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vaca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "foguete",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jogo",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "fogo",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "faca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pipoca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "macaco",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "peteca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "foca",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "formiga",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lago",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "fogão",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bigode",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tartaruga",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "barriga",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "amigo",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "banco",
+   "sound": "kg",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lua",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "leão",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lápis",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lata",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "limão",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lobo",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "laço",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "leite",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "luva",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lago",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lixo",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lagarta",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "lâmpada",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "laranja",
+   "sound": "l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mala",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bola",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vela",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "galo",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bolo",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cola",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mola",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gelo",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pulo",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "janela",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cavalo",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tela",
+   "sound": "l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "arara",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "barata",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "coruja",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pirata",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cenoura",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pera",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "girafa",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tesoura",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "geladeira",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cadeira",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "banheira",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "torneira",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "coroa",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pirulito",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "xícara",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "careca",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cereja",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jacaré",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sereia",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pirâmide",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "parede",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bandeira",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "laranja",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gorila",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "caramelo",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tiara",
+   "sound": "r_fraco",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "abelha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "olho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "coelho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "folha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "palhaço",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "ovelha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "orelha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "milho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "galho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "agulha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "toalha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "joelho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "espelho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "alho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "telha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "colher",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pilha",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "filhote",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "baralho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chocalho",
+   "sound": "lh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "ninho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "minhoca",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "banho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sonho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "galinha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "aranha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rainha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cozinha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "unha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pinha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "linha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "caminhão",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "dinheiro",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sardinha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gatinho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bolinha",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vizinho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "carrinho",
+   "sound": "nh",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rato",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "roda",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rua",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rei",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rosa",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rede",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "relógio",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rabo",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "remo",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rinoceronte",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "raposa",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rã",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "raquete",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "robô",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "roupa",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "rio",
+   "sound": "r_forte",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "carro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cachorro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "terra",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gorro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "barriga",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "ferro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "morro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "burro",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "torre",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "garrafa",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "jarra",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "macarrão",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cigarra",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "beterraba",
+   "sound": "r_forte",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "prato",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "prego",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "praia",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "presente",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bruxa",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "braço",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "trem",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tromba",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "trator",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "troféu",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "travesseiro",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cravo",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cruz",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "grilo",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "grama",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "gravata",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "fruta",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "frango",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "freio",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "dragão",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "três",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "prédio",
+   "sound": "enc_r",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cobra",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "livro",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "zebra",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "quatro",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "tigre",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cabra",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "estrela",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "abraço",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "trevo",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "letra",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pedra",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "cofre",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sobremesa",
+   "sound": "enc_r",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "planeta",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "placa",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "planta",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pluma",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bloco",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "blusa",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "clipe",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "globo",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "flor",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "flauta",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "floco",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "flecha",
+   "sound": "enc_l",
+   "pos": "inicio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bicicleta",
+   "sound": "enc_l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "teclado",
+   "sound": "enc_l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "chiclete",
+   "sound": "enc_l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "bíblia",
+   "sound": "enc_l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "atleta",
+   "sound": "enc_l",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "porta",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "garfo",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "barco",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pasta",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mosca",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "escova",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "mar",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "flor",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "sol",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "farol",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "anel",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "papel",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "pastel",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "vespa",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  },
+  {
+   "w": "escada",
+   "sound": "coda",
+   "pos": "meio",
+   "validado_por_fono": false
+  }
+ ],
+ "pairs": [
+  {
+   "a": "chá",
+   "b": "já",
+   "sound": "ch",
+   "kind": "vozeamento"
+  },
+  {
+   "a": "chato",
+   "b": "jato",
+   "sound": "ch",
+   "kind": "vozeamento"
+  },
+  {
+   "a": "chão",
+   "b": "são",
+   "sound": "ch",
+   "kind": "despalatalização"
+  },
+  {
+   "a": "chão",
+   "b": "cão",
+   "sound": "ch",
+   "kind": "posteriorização"
+  },
+  {
+   "a": "chapa",
+   "b": "capa",
+   "sound": "ch",
+   "kind": "plosivização"
+  },
+  {
+   "a": "chuva",
+   "b": "luva",
+   "sound": "ch",
+   "kind": "contraste amplo"
+  },
+  {
+   "a": "chá",
+   "b": "pá",
+   "sound": "ch",
+   "kind": "plosivização"
+  },
+  {
+   "a": "bicho",
+   "b": "bico",
+   "sound": "ch",
+   "kind": "plosivização"
+  },
+  {
+   "a": "cacho",
+   "b": "caco",
+   "sound": "ch",
+   "kind": "plosivização"
+  },
+  {
+   "a": "lancha",
+   "b": "lança",
+   "sound": "ch",
+   "kind": "despalatalização"
+  },
+  {
+   "a": "queixo",
+   "b": "queijo",
+   "sound": "ch",
+   "kind": "vozeamento"
+  },
+  {
+   "a": "jato",
+   "b": "gato",
+   "sound": "j",
+   "kind": "posteriorização"
+  },
+  {
+   "a": "jato",
+   "b": "chato",
+   "sound": "j",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "já",
+   "b": "dá",
+   "sound": "j",
+   "kind": "plosivização"
+  },
+  {
+   "a": "jaca",
+   "b": "vaca",
+   "sound": "j",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "jaca",
+   "b": "faca",
+   "sound": "j",
+   "kind": "contraste de ponto e vozeamento"
+  },
+  {
+   "a": "jogo",
+   "b": "fogo",
+   "sound": "j",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "joia",
+   "b": "boia",
+   "sound": "j",
+   "kind": "plosivização"
+  },
+  {
+   "a": "queijo",
+   "b": "queixo",
+   "sound": "j",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "gelo",
+   "b": "selo",
+   "sound": "j",
+   "kind": "despalatalização + desvozeamento"
+  },
+  {
+   "a": "saco",
+   "b": "taco",
+   "sound": "s",
+   "kind": "plosivização"
+  },
+  {
+   "a": "sela",
+   "b": "vela",
+   "sound": "s",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "selo",
+   "b": "gelo",
+   "sound": "s",
+   "kind": "contraste palatal"
+  },
+  {
+   "a": "sola",
+   "b": "cola",
+   "sound": "s",
+   "kind": "posteriorização"
+  },
+  {
+   "a": "cinco",
+   "b": "zinco",
+   "sound": "s",
+   "kind": "vozeamento"
+  },
+  {
+   "a": "caça",
+   "b": "casa",
+   "sound": "s",
+   "kind": "vozeamento"
+  },
+  {
+   "a": "sopa",
+   "b": "copa",
+   "sound": "s",
+   "kind": "posteriorização"
+  },
+  {
+   "a": "casa",
+   "b": "caça",
+   "sound": "z",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "zinco",
+   "b": "cinco",
+   "sound": "z",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "asa",
+   "b": "assa",
+   "sound": "z",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "rosa",
+   "b": "roça",
+   "sound": "z",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "mesa",
+   "b": "meça",
+   "sound": "z",
+   "kind": "desvozeamento"
+  },
+  {
+   "a": "cubo",
+   "b": "tubo",
+   "sound": "kg",
+   "kind": "anteriorização"
+  },
+  {
+   "a": "boca",
+   "b": "bota",
+   "sound": "kg",
+   "kind": "anteriorização"
+  },
+  {
+   "a": "gado",
+   "b": "dado",
+   "sound": "kg",
+   "kind": "anteriorização"
+  },
+  {
+   "a": "gato",
+   "b": "pato",
+   "sound": "kg",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "gola",
+   "b": "bola",
+   "sound": "kg",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "gota",
+   "b": "bota",
+   "sound": "kg",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "faca",
+   "b": "fada",
+   "sound": "kg",
+   "kind": "anteriorização"
+  },
+  {
+   "a": "caco",
+   "b": "taco",
+   "sound": "kg",
+   "kind": "anteriorização"
+  },
+  {
+   "a": "cama",
+   "b": "lama",
+   "sound": "kg",
+   "kind": "contraste amplo"
+  },
+  {
+   "a": "lua",
+   "b": "rua",
+   "sound": "l",
+   "kind": "contraste de líquida"
+  },
+  {
+   "a": "lata",
+   "b": "pata",
+   "sound": "l",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "galo",
+   "b": "gato",
+   "sound": "l",
+   "kind": "contraste de modo"
+  },
+  {
+   "a": "mala",
+   "b": "mapa",
+   "sound": "l",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "lobo",
+   "b": "bobo",
+   "sound": "l",
+   "kind": "contraste de ponto"
+  },
+  {
+   "a": "pera",
+   "b": "pela",
+   "sound": "r_fraco",
+   "kind": "substituição de líquida"
+  },
+  {
+   "a": "cara",
+   "b": "cala",
+   "sound": "r_fraco",
+   "kind": "substituição de líquida"
+  },
+  {
+   "a": "coro",
+   "b": "colo",
+   "sound": "r_fraco",
+   "kind": "substituição de líquida"
+  },
+  {
+   "a": "mora",
+   "b": "mola",
+   "sound": "r_fraco",
+   "kind": "substituição de líquida"
+  },
+  {
+   "a": "muro",
+   "b": "murro",
+   "sound": "r_fraco",
+   "kind": "r fraco × r forte"
+  },
+  {
+   "a": "caro",
+   "b": "carro",
+   "sound": "r_fraco",
+   "kind": "r fraco × r forte"
+  },
+  {
+   "a": "velha",
+   "b": "vela",
+   "sound": "lh",
+   "kind": "substituição"
+  },
+  {
+   "a": "malha",
+   "b": "mala",
+   "sound": "lh",
+   "kind": "substituição"
+  },
+  {
+   "a": "galho",
+   "b": "galo",
+   "sound": "lh",
+   "kind": "substituição"
+  },
+  {
+   "a": "telha",
+   "b": "tela",
+   "sound": "lh",
+   "kind": "substituição"
+  },
+  {
+   "a": "filha",
+   "b": "fila",
+   "sound": "lh",
+   "kind": "substituição"
+  },
+  {
+   "a": "sono",
+   "b": "sonho",
+   "sound": "nh",
+   "kind": "substituição"
+  },
+  {
+   "a": "pino",
+   "b": "pinho",
+   "sound": "nh",
+   "kind": "substituição"
+  },
+  {
+   "a": "carro",
+   "b": "caro",
+   "sound": "r_forte",
+   "kind": "r forte × r fraco"
+  },
+  {
+   "a": "murro",
+   "b": "muro",
+   "sound": "r_forte",
+   "kind": "r forte × r fraco"
+  },
+  {
+   "a": "rua",
+   "b": "lua",
+   "sound": "r_forte",
+   "kind": "contraste de líquida"
+  },
+  {
+   "a": "rato",
+   "b": "pato",
+   "sound": "r_forte",
+   "kind": "contraste amplo"
+  },
+  {
+   "a": "rato",
+   "b": "gato",
+   "sound": "r_forte",
+   "kind": "contraste amplo"
+  },
+  {
+   "a": "pato",
+   "b": "prato",
+   "sound": "enc_r",
+   "kind": "redução de encontro (esperada aos 4)"
+  },
+  {
+   "a": "fita",
+   "b": "frita",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "tem",
+   "b": "trem",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "boca",
+   "b": "broca",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "pego",
+   "b": "prego",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "fio",
+   "b": "frio",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "pata",
+   "b": "prata",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "gato",
+   "b": "grato",
+   "sound": "enc_r",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "pano",
+   "b": "plano",
+   "sound": "enc_l",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "foco",
+   "b": "floco",
+   "sound": "enc_l",
+   "kind": "redução de encontro"
+  },
+  {
+   "a": "fecha",
+   "b": "flecha",
+   "sound": "enc_l",
+   "kind": "redução de encontro"
+  }
+ ],
+ "swaps": [
+  {
+   "word": "chave",
+   "said": "save",
+   "sound": "ch",
+   "process": "despalatalização"
+  },
+  {
+   "word": "chapéu",
+   "said": "sapéu",
+   "sound": "ch",
+   "process": "despalatalização"
+  },
+  {
+   "word": "chuva",
+   "said": "tuva",
+   "sound": "ch",
+   "process": "plosivização"
+  },
+  {
+   "word": "peixe",
+   "said": "peise",
+   "sound": "ch",
+   "process": "despalatalização"
+  },
+  {
+   "word": "bicho",
+   "said": "bito",
+   "sound": "ch",
+   "process": "plosivização"
+  },
+  {
+   "word": "janela",
+   "said": "zanela",
+   "sound": "j",
+   "process": "despalatalização"
+  },
+  {
+   "word": "girafa",
+   "said": "dirafa",
+   "sound": "j",
+   "process": "plosivização"
+  },
+  {
+   "word": "jacaré",
+   "said": "zacaré",
+   "sound": "j",
+   "process": "despalatalização"
+  },
+  {
+   "word": "queijo",
+   "said": "queizo",
+   "sound": "j",
+   "process": "despalatalização"
+  },
+  {
+   "word": "joaninha",
+   "said": "doaninha",
+   "sound": "j",
+   "process": "plosivização"
+  },
+  {
+   "word": "sapo",
+   "said": "tapo",
+   "sound": "s",
+   "process": "plosivização"
+  },
+  {
+   "word": "sol",
+   "said": "tol",
+   "sound": "s",
+   "process": "plosivização"
+  },
+  {
+   "word": "sapato",
+   "said": "xapato",
+   "sound": "s",
+   "process": "palatalização"
+  },
+  {
+   "word": "zebra",
+   "said": "sebra",
+   "sound": "z",
+   "process": "desvozeamento"
+  },
+  {
+   "word": "casa",
+   "said": "cassa",
+   "sound": "z",
+   "process": "desvozeamento"
+  },
+  {
+   "word": "gato",
+   "said": "dato",
+   "sound": "kg",
+   "process": "anteriorização"
+  },
+  {
+   "word": "casa",
+   "said": "tasa",
+   "sound": "kg",
+   "process": "anteriorização"
+  },
+  {
+   "word": "galo",
+   "said": "dalo",
+   "sound": "kg",
+   "process": "anteriorização"
+  },
+  {
+   "word": "foguete",
+   "said": "fodete",
+   "sound": "kg",
+   "process": "anteriorização"
+  },
+  {
+   "word": "macaco",
+   "said": "matato",
+   "sound": "kg",
+   "process": "anteriorização"
+  },
+  {
+   "word": "lua",
+   "said": "iua",
+   "sound": "l",
+   "process": "semivocalização"
+  },
+  {
+   "word": "bola",
+   "said": "boia",
+   "sound": "l",
+   "process": "semivocalização"
+  },
+  {
+   "word": "barata",
+   "said": "baiata",
+   "sound": "r_fraco",
+   "process": "semivocalização (esperada aos 4)"
+  },
+  {
+   "word": "arara",
+   "said": "alala",
+   "sound": "r_fraco",
+   "process": "substituição de líquida"
+  },
+  {
+   "word": "pirata",
+   "said": "pilata",
+   "sound": "r_fraco",
+   "process": "substituição de líquida"
+  },
+  {
+   "word": "cenoura",
+   "said": "cenoula",
+   "sound": "r_fraco",
+   "process": "substituição de líquida"
+  },
+  {
+   "word": "girafa",
+   "said": "gilafa",
+   "sound": "r_fraco",
+   "process": "substituição de líquida"
+  },
+  {
+   "word": "abelha",
+   "said": "abeia",
+   "sound": "lh",
+   "process": "semivocalização"
+  },
+  {
+   "word": "coelho",
+   "said": "coeio",
+   "sound": "lh",
+   "process": "semivocalização"
+  },
+  {
+   "word": "palhaço",
+   "said": "paiaço",
+   "sound": "lh",
+   "process": "semivocalização"
+  },
+  {
+   "word": "olho",
+   "said": "oio",
+   "sound": "lh",
+   "process": "semivocalização"
+  },
+  {
+   "word": "folha",
+   "said": "fola",
+   "sound": "lh",
+   "process": "substituição"
+  },
+  {
+   "word": "galinha",
+   "said": "galina",
+   "sound": "nh",
+   "process": "substituição"
+  },
+  {
+   "word": "minhoca",
+   "said": "mioca",
+   "sound": "nh",
+   "process": "semivocalização"
+  },
+  {
+   "word": "rato",
+   "said": "lato",
+   "sound": "r_forte",
+   "process": "substituição"
+  },
+  {
+   "word": "carro",
+   "said": "calo",
+   "sound": "r_forte",
+   "process": "substituição"
+  },
+  {
+   "word": "prato",
+   "said": "pato",
+   "sound": "enc_r",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "bruxa",
+   "said": "buxa",
+   "sound": "enc_r",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "trem",
+   "said": "tem",
+   "sound": "enc_r",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "livro",
+   "said": "livo",
+   "sound": "enc_r",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "zebra",
+   "said": "zeba",
+   "sound": "enc_r",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "planeta",
+   "said": "paneta",
+   "sound": "enc_l",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "flor",
+   "said": "for",
+   "sound": "enc_l",
+   "process": "redução de encontro"
+  },
+  {
+   "word": "bicicleta",
+   "said": "bicideta",
+   "sound": "enc_l",
+   "process": "substituição"
+  },
+  {
+   "word": "blusa",
+   "said": "busa",
+   "sound": "enc_l",
+   "process": "redução de encontro"
+  }
+ ],
+ "screening": [
+  {
+   "w": "chave",
+   "sound": "ch"
+  },
+  {
+   "w": "chuva",
+   "sound": "ch"
+  },
+  {
+   "w": "peixe",
+   "sound": "ch"
+  },
+  {
+   "w": "janela",
+   "sound": "j"
+  },
+  {
+   "w": "girafa",
+   "sound": "j"
+  },
+  {
+   "w": "queijo",
+   "sound": "j"
+  },
+  {
+   "w": "sapo",
+   "sound": "s"
+  },
+  {
+   "w": "sol",
+   "sound": "s"
+  },
+  {
+   "w": "zebra",
+   "sound": "z"
+  },
+  {
+   "w": "casa",
+   "sound": "z"
+  },
+  {
+   "w": "cama",
+   "sound": "kg"
+  },
+  {
+   "w": "gato",
+   "sound": "kg"
+  },
+  {
+   "w": "boca",
+   "sound": "kg"
+  },
+  {
+   "w": "fogo",
+   "sound": "kg"
+  },
+  {
+   "w": "lua",
+   "sound": "l"
+  },
+  {
+   "w": "bola",
+   "sound": "l"
+  },
+  {
+   "w": "barata",
+   "sound": "r_fraco"
+  },
+  {
+   "w": "arara",
+   "sound": "r_fraco"
+  },
+  {
+   "w": "cadeira",
+   "sound": "r_fraco"
+  },
+  {
+   "w": "abelha",
+   "sound": "lh"
+  },
+  {
+   "w": "olho",
+   "sound": "lh"
+  },
+  {
+   "w": "galinha",
+   "sound": "nh"
+  },
+  {
+   "w": "minhoca",
+   "sound": "nh"
+  },
+  {
+   "w": "rato",
+   "sound": "r_forte"
+  },
+  {
+   "w": "carro",
+   "sound": "r_forte"
+  },
+  {
+   "w": "prato",
+   "sound": "enc_r"
+  },
+  {
+   "w": "bruxa",
+   "sound": "enc_r"
+  },
+  {
+   "w": "trem",
+   "sound": "enc_r"
+  },
+  {
+   "w": "planeta",
+   "sound": "enc_l"
+  },
+  {
+   "w": "flor",
+   "sound": "enc_l"
+  }
+ ]
+}

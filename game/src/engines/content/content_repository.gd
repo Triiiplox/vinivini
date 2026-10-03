@@ -18,6 +18,11 @@ var campaigns: Array = []
 var missions: Dictionary = {}
 ## Bancos dos jogos v2 (sílabas, palavras, pedidos, plantas, robô...).
 var banks: Dictionary = {}
+## Planeta Hello (inglês): unidades validadas, por id, na ordem do currículo.
+var english_units: Array = []
+var english_by_id: Dictionary = {}
+## Planeta Eco (fala): banco gerado por tools/build_speech.py (pares mínimos já conferidos lá).
+var speech: Dictionary = {}
 var errors: Array[String] = []
 
 
@@ -100,6 +105,22 @@ func load_index(index_path: String) -> bool:
 		var b: Variant = _read(base.path_join(str(idx["banks"][bank_name])))
 		if b != null:
 			banks[bank_name] = b
+	if idx.has("speech"):
+		var sp: Variant = _read(base.path_join(str(idx["speech"])))
+		if sp is Dictionary and (sp.get("sounds", []) as Array).size() > 0 and (sp.get("screening", []) as Array).size() > 0:
+			speech = sp
+		elif sp != null:
+			errors.append("speech: banco sem sons ou sem triagem")
+	if idx.has("english"):
+		var en: Variant = _read(base.path_join(str(idx["english"])))
+		if en is Dictionary:
+			for u in en.get("units", []):
+				var ue := ContentValidator.validate_english_unit(u)
+				if ue.is_empty():
+					english_units.append(u)
+					english_by_id[u["id"]] = u
+				else:
+					errors.append("english %s: %s" % [str(u.get("id", "?")) if u is Dictionary else "?", ", ".join(ue)])
 	return errors.is_empty()
 
 

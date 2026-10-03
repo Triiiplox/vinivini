@@ -24,5 +24,7 @@
  "banks": {
   "syllables": "banks/syllables.json",
   "words": "banks/words.json"
- }
+ },
+ "english": "english/units.json",
+ "speech": "speech/words.json"
 }

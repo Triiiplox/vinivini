@@ -33,6 +33,8 @@ const SCREENS := {
 	"seg_planetarium": "res://src/segments/planetarium_segment.gd",
 	"seg_creature": "res://src/segments/creature_segment.gd",
 	"seg_cutscene": "res://src/segments/cutscene_segment.gd",
+	"seg_english": "res://src/segments/english_segment.gd",
+	"hello": "res://src/screens/hello_screen.gd",
 	"reward": "res://src/screens/reward_screen.gd",
 	"ship": "res://src/screens/ship_screen.gd",
 	"galaxy": "res://src/screens/galaxy_screen.gd",

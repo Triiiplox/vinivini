@@ -499,6 +499,8 @@ index = {
     "praise": "feedback/praise.json", "avatar": "world/avatar_options.json",
     "campaigns": "campaign/campaigns.json",
     "banks": {"syllables": "banks/syllables.json", "words": "banks/words.json"},
+    "english": "english/units.json",  # gerado por tools/build_english.py
+    "speech": "speech/words.json",  # gerado por tools/build_speech.py
 }
 dump("index.json", index)
 tot = len(reading) + len(build) + len(counting) + len(addition) + len(compare) + len(patterns) + len(memory) + len(sci) + len(emotions)

@@ -31,5 +31,5 @@
 | `scenes/space_sky.png` | Aprovado, vira fundo do espaço |
 | `scenes/moon_ground.png` | Aprovado, mas não emenda dos lados; pedida a versão emendável |
 | `scenes/ship_interior.png` | Aprovado para tela fixa da nave (está em perspectiva) |
-| `scenes/props_v1.png` | Parcial: cristais, planta e bandeira servem; as pedras têm musgo e serão refeitas |
+| `scenes/props_v2.png` | Aprovado: pedras sem musgo, cristais, planta e bandeira; recortados em `game/assets/scenes/props/` |
 | `cast/cast_alien_astro_food.png` | Referência. É cartoon com contorno, fora do estilo 3D do Vini; pedida a versão 3D |

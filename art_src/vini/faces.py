@@ -21,7 +21,7 @@ ROWS = [(0, 378), (378, 738), (738, 1086)]
 # Ordem da grade (prompt 3): 1 happy, 2 big laugh, 3 curious, 4 surprised, 5 sad, 6 thinking,
 # 7 proud, 8 talking, 9 olhos fechados.
 MOODS = {"happy": 1, "big_smile": 2, "curious": 3, "surprised": 4, "sad": 5, "thinking": 6,
-         "angry": 6, "scared": 4, "calm": 7, "proud": 0}  # 0 = cabeça da própria figura frontal
+         "angry": 6, "scared": 4, "calm": 7, "tired": 9, "proud": 0}  # 0 = cabeça da própria figura frontal
 VISEMES = {"a": 8, "e": 1, "o": 4, "mbp": 7}
 STRAIGHT = [1, 2, 4, 5, 7, 8]  # olhar reto: valem para medir a escala
 

@@ -84,7 +84,7 @@ func _run() -> void:
 	Router.reset_to("splash")
 	await wait(0.5)
 	var play: Node = Router.current_screen.find_child("PlayButton", true, false)
-	(play as BaseButton).pressed.emit()
+	play.emit_signal("pressed")
 	await wait(0.5)
 	check(Router.current_id == "opening", "primeiro acesso abre a abertura (%s)" % Router.current_id)
 	if await play_until("seg_cutscene", 120.0):
@@ -142,8 +142,6 @@ func _run() -> void:
 			check(AppState.parent_challenge().is_empty(), "desafio da família concluído")
 	# Nave: cada estação abre sua tela.
 	for st in load("res://src/screens/ship_screen.gd").STATIONS:
-		if str(st["id"]) == "room":
-			continue
 		Router.reset_to("ship", {"quiet": true})
 		await wait(0.3)
 		Router.current_screen._go_to(st)
@@ -153,6 +151,17 @@ func _run() -> void:
 			t += 0.25
 		check(Router.current_id == str(st["screen"]), "estação %s abre %s (%s)" % [st["id"], st["screen"], Router.current_id])
 		await wait(0.5)
+	# Planeta Hello: trilha → lição → recompensa → volta para a trilha, com a palavra no motor de revisão.
+	Router.reset_to("hello")
+	await wait(1.0)
+	var first: String = Router.current_screen.next_id
+	check(first != "", "trilha do inglês tem um planeta aberto")
+	if await play_until("reward", MISSION_TIMEOUT):
+		check(Hello.lessons_done(first) == 1, "lição de inglês contada (%s)" % first)
+		check(not (Hello.state()["words"] as Dictionary).is_empty(), "palavras entram na revisão espaçada")
+		Router.current_screen._continue()
+		await wait(1.0)
+		check(Router.current_id == "hello", "recompensa volta para a trilha (%s)" % Router.current_id)
 	Router.reset_to("ship", {"quiet": true})
 	await wait(0.5)
 	check(Router.current_id == "ship", "volta para a nave")

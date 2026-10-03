@@ -1,37 +1,54 @@
 extends BaseScreen
-## Tela inicial: título, Cosmo e um único botão JOGAR.
+## Tela inicial: céu pintado, o Vini acenando, o Astro flutuando, título e um único botão JOGAR (design system).
 
 
 func on_enter() -> void:
-	var m := UI.margin(40, 30, 40, 30)
-	UI.full(m)
-	add_child(m)
-	var v := UI.vbox(10)
-	m.add_child(v)
-	var t1 := UI.label("Vini", 110, Palette.YELLOW, true)
-	UI.child_ok(t1)
-	t1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(t1)
-	var t2 := UI.label("Comandante das Estrelas", 54, Palette.WHITE, true)
-	UI.child_ok(t2)
-	t2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(t2)
-	var h := UI.hbox(40)
-	h.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	v.add_child(h)
-	var cosmo := CharacterView.new("cosmo", "happy")
-	cosmo.custom_minimum_size = Vector2(260, 260)
-	h.add_child(cosmo)
-	var play := UI.button("", Palette.YELLOW, "play", Vector2(220, 150), false, 56)
+	if is_instance_valid(Router.sky):
+		Router.sky.set_theme("space", 0.0)
+	var title := Label.new()
+	title.text = "VINI"
+	title.add_theme_font_override("font", DS.font("title", 900))
+	title.add_theme_font_size_override("font_size", 120)
+	title.add_theme_color_override("font_color", DS.STAR_GOLD)
+	title.add_theme_color_override("font_outline_color", DS.SPACE_DARK)
+	title.add_theme_constant_override("outline_size", 18)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.position = Vector2(340, 40)
+	title.size = Vector2(600, 140)
+	UI.child_ok(title)
+	add_child(title)
+	var sub := Label.new()
+	sub.text = "COMANDANTE DAS ESTRELAS"
+	sub.add_theme_font_override("font", DS.font("title", 700))
+	sub.add_theme_font_size_override("font_size", 34)
+	sub.add_theme_color_override("font_color", Color.WHITE)
+	sub.add_theme_color_override("font_outline_color", DS.SPACE_DARK)
+	sub.add_theme_constant_override("outline_size", 10)
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub.position = Vector2(290, 170)
+	sub.size = Vector2(700, 50)
+	UI.child_ok(sub)
+	add_child(sub)
+	var stage := Node2D.new()
+	add_child(stage)
+	var vini := CharacterRig2D.new("vini", 400.0)
+	vini.position = Vector2(330, 690)
+	stage.add_child(vini)
+	after(0.6, func(): vini.play("wave"))
+	var astro := CosmoRig.new(170.0)
+	astro.position = Vector2(1000, 360)
+	stage.add_child(astro)
+	var bob := astro.create_tween().set_loops()
+	bob.tween_property(astro, "position:y", 340.0, 1.4).set_trans(Tween.TRANS_SINE)
+	bob.tween_property(astro, "position:y", 360.0, 1.4).set_trans(Tween.TRANS_SINE)
+	var play := DSButton.new("primary", "play", Vector2(260, 150))
 	play.name = "PlayButton"
-	play.icon_color = Palette.TEXT_DARK
-	play.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	play.tapped.connect(_on_play)
-	h.add_child(play)
-	var planet := PlanetView.new("saturn")
-	planet.custom_minimum_size = Vector2(260, 260)
-	h.add_child(planet)
-	play.pulse(2, 0.6)
+	play.position = Vector2(640 - 130, 430)
+	play.pressed.connect(_on_play)
+	add_child(play)
+	var pulse := play.create_tween().set_loops()
+	pulse.tween_property(play, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
+	pulse.tween_property(play, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 
 
 func _on_play() -> void:

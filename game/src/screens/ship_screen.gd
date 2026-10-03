@@ -5,8 +5,8 @@ extends GameScreen
 
 const WIDTH := 5400.0
 const STATIONS := [
-	{"id": "room", "x": 420.0, "icon": "smile", "color": "#FF70A6", "screen": "wardrobe",
-		"say": "Seu quarto. Aqui você troca a roupa de astronauta!"},
+	{"id": "hello", "x": 420.0, "icon": "voice", "color": "#60A5FA", "screen": "hello",
+		"say": "O Planeta Hello! Vamos aprender inglês com o Hoppy?"},
 	{"id": "workshop", "x": 1050.0, "icon": "wrench", "color": "#FF8C42", "screen": "seg_build",
 		"say": "A oficina. Vamos montar um foguete?"},
 	{"id": "kitchen", "x": 1680.0, "icon": "heart", "color": "#EE4266", "screen": "seg_cook",
@@ -53,8 +53,6 @@ func build() -> void:
 	AudioService.play_ambience("ship")
 	world.add_child(Scenery.new("ship"))
 	for st in STATIONS:
-		if str(st["id"]) == "room":
-			continue  # guarda-roupa volta quando houver skins da arte nova
 		_make_station(st)
 	trophies = _make_trophy_wall(Vector2(3220, 250))
 	vini = CharacterRig2D.new("vini", 270.0)

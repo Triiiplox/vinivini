@@ -317,6 +317,7 @@
    "angry": "parts/head__angry.png",
    "scared": "parts/head__scared.png",
    "calm": "parts/head__calm.png",
+   "tired": "parts/head__tired.png",
    "proud": "parts/head__proud.png"
   },
   "lids": {
@@ -329,6 +330,7 @@
    "angry": "parts/lids__angry.png",
    "scared": "parts/lids__scared.png",
    "calm": "parts/lids__calm.png",
+   "tired": "parts/lids__tired.png",
    "proud": "parts/lids__proud.png"
   },
   "mouth": {

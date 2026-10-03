@@ -4,8 +4,12 @@ extends BaseScreen
 
 const TABS := [
 	["summary", "Resumo"], ["skills", "Habilidades"], ["history", "Histórico"],
-	["diary", "Diário"], ["challenge", "Desafio"], ["settings", "Ajustes"],
+	["diary", "Diário"], ["speech", "Fala"], ["english", "Inglês"], ["challenge", "Desafio"], ["settings", "Ajustes"],
 ]
+const AGES := [["3", 36], ["3½", 42], ["4", 48], ["4½", 54], ["5", 60], ["6", 72]]
+const REGIONS := [["Rio", "rio"], ["Nordeste", "nordeste"], ["Interior SP", "sp_interior"], ["Minas", "mg"], ["Sul", "sul"],
+	["Outra", "outra"]]
+const MARKS := [["Certo", "ok"], ["Trocou", "swap"], ["Não falou", "none"]]
 const GAME_NAMES := {
 	"seg_explore": "Exploração", "seg_flight": "Pilotagem", "seg_build": "Construção", "seg_cook": "Restaurante de Marte",
 	"seg_monster": "Monstro das Sílabas", "seg_word": "Montar palavra", "seg_robot": "Robô programável",
@@ -27,12 +31,18 @@ var _confirm_reset := false
 
 
 func on_enter() -> void:
+	# Fundo escuro e calmo: texto longo precisa de contraste (o céu pintado é muito vivo).
+	var shade := ColorRect.new()
+	shade.color = Color(DS.SPACE_DARK, 0.9)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.full(shade)
+	add_child(shade)
 	build_frame("Painel dos responsáveis", "back", false, false)
 	var tabs := UI.hbox(10)
 	tabs_box = tabs
 	content.add_child(tabs)
 	for t in TABS:
-		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(200, 70), false, 26)
+		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(146, 66), false, 22)
 		b.name = "Tab_%s" % t[0]
 		b.tapped.connect(_show.bind(t[0]))
 		tabs.add_child(b)
@@ -57,6 +67,8 @@ func _show(t: String) -> void:
 		"skills": _skills()
 		"history": _history()
 		"diary": _diary()
+		"speech": _speech()
+		"english": _english()
 		"challenge": _challenge()
 		"settings": _settings()
 
@@ -189,6 +201,153 @@ func _diary() -> void:
 			f.store_string(txt)
 		fx().toast("Diário copiado. Cole no WhatsApp ou e-mail.", Palette.GREEN))
 	body.add_child(copy)
+
+
+## Estado da triagem de fala (no progresso do perfil).
+func _sp() -> Dictionary:
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	if not pd.get("speech") is Dictionary:
+		pd["speech"] = {"age_months": 48, "region": "outra", "marks": {}, "targets": []}
+	return pd["speech"]
+
+
+func _sp_set(k: String, v: Variant) -> void:
+	_sp()[k] = v
+	SaveService.progress.persist(SaveService.profile_id)
+	_show("speech")
+
+
+func _speech() -> void:
+	var sp := _sp()
+	var bank: Dictionary = ContentService.repo.speech
+	body.add_child(_txt(SpeechScreening.NOTICE, 24, Palette.YELLOW))
+	body.add_child(_txt("Triagem de sons: diga a palavra (ou toque em Ouvir) e peça para a criança repetir, " +
+		"ou mostre o objeto. Marque o que você ouviu. Leva uns 5 minutos.", 22, Palette.TEXT_SOFT))
+	var age_lbl := ""
+	for a in AGES:
+		if int(a[1]) == int(sp["age_months"]):
+			age_lbl = str(a[0])
+	body.add_child(_choice_row("Idade (anos):", AGES.map(func(a): return a[0]), age_lbl, _pick_age))
+	var reg_lbl := ""
+	for r in REGIONS:
+		if str(r[1]) == str(sp["region"]):
+			reg_lbl = str(r[0])
+	body.add_child(_choice_row("Região da família:", REGIONS.map(func(r): return r[0]), reg_lbl, _pick_region))
+	var marks: Dictionary = sp["marks"]
+	var sounds: Dictionary = {}
+	for so in bank.get("sounds", []):
+		sounds[str(so["id"])] = so
+	var last_sound := ""
+	for it in bank.get("screening", []):
+		var sid := str(it["sound"])
+		if sid != last_sound:
+			last_sound = sid
+			var so: Dictionary = sounds.get(sid, {})
+			body.add_child(_txt("%s  /%s/" % [str(so.get("name", sid)), str(so.get("ipa", ""))], 24, Palette.TEAL))
+			if str(so.get("region_note", "")) != "":
+				body.add_child(_txt(str(so["region_note"]), 18, Palette.TEXT_SOFT))
+		body.add_child(_mark_row(str(it["w"]), sid, str(marks.get(str(it["w"]), ""))))
+	var res := SpeechScreening.evaluate(bank.get("screening", []), marks, bank.get("sounds", []), int(sp["age_months"]),
+		str(sp["region"]))
+	body.add_child(_txt("Resultado (organiza o que você marcou; não é avaliação):", 26, Palette.YELLOW))
+	var targets: Array = sp["targets"]
+	for r in res:
+		if str(r["status"]) == "sem_dados":
+			continue
+		var line := "%s — %s" % [r["name"], r["text"]]
+		if not (r["swapped_words"] as Array).is_empty():
+			line += " (trocou: %s)" % ", ".join(r["swapped_words"])
+		var h := UI.hbox(10, BoxContainer.ALIGNMENT_BEGIN)
+		var l := _txt(line, 20, Palette.WHITE)
+		h.add_child(l)
+		if str(r["status"]) in ["candidato", "esperado"]:
+			var on: bool = targets.has(str(r["sound"]))
+			var b := UI.button("Treinar" if not on else "Treinando", Palette.GREEN if on else Palette.PANEL_LIGHT, "", Vector2(170, 56),
+				false, 20)
+			b.name = "Target_%s" % str(r["sound"])
+			b.tapped.connect(_toggle_target.bind(str(r["sound"])))
+			h.add_child(b)
+		body.add_child(h)
+	body.add_child(_txt("Sons em treino: %d de %d (a escolha é sua ou da fono)." % [targets.size(), SpeechScreening.MAX_TARGETS],
+		20, Palette.TEXT_SOFT))
+	body.add_child(_txt("Quando procurar uma fonoaudióloga:", 24, Palette.YELLOW))
+	for sg in SpeechScreening.SIGNS:
+		body.add_child(_txt("• " + sg, 20))
+	body.add_child(_txt("Banco de palavras ainda não revisado por fonoaudióloga. Exercícios de assoprar ou de língua " +
+		"não são treino de fala. O app nunca julga a fala da criança sozinho.", 18, Palette.TEXT_SOFT))
+
+
+func _mark_row(word: String, sid: String, cur: String) -> Control:
+	var h := HFlowContainer.new()
+	h.add_theme_constant_override("h_separation", 8)
+	var l := UI.label(word, 26, Palette.WHITE)
+	l.custom_minimum_size = Vector2(170, 0)
+	h.add_child(l)
+	var hear := UI.button("Ouvir", Palette.PURPLE, "speaker", Vector2(150, 56), false, 20)
+	hear.tapped.connect(func(): Voice.say(word))
+	h.add_child(hear)
+	var opts: Array = MARKS.duplicate()
+	if (SpeechScreening.REGIONAL.get(str(_sp()["region"]), []) as Array).has(sid):
+		opts.append(["Jeito da região", "regional"])
+	for m in opts:
+		var b := UI.button(str(m[0]), Palette.TEAL if cur == str(m[1]) else Palette.PANEL_LIGHT, "", Vector2(150, 56), false, 20)
+		b.name = "Mark_%s_%s" % [word, m[1]]
+		b.tapped.connect(_mark.bind(word, str(m[1])))
+		h.add_child(b)
+	return h
+
+
+func _mark(word: String, m: String) -> void:
+	(_sp()["marks"] as Dictionary)[word] = m
+	SaveService.progress.persist(SaveService.profile_id)
+	_show("speech")
+
+
+func _pick_age(v: String) -> void:
+	for a in AGES:
+		if str(a[0]) == v:
+			_sp_set("age_months", int(a[1]))
+
+
+func _pick_region(v: String) -> void:
+	for r in REGIONS:
+		if str(r[0]) == v:
+			_sp_set("region", str(r[1]))
+
+
+func _toggle_target(sid: String) -> void:
+	var before: Array = _sp()["targets"]
+	var after_t := SpeechScreening.toggle_target(before, sid)
+	if after_t.size() == before.size() and not before.has(sid):
+		fx().toast("No máximo 2 sons por vez.", Palette.ORANGE)
+		return
+	_sp_set("targets", after_t)
+
+
+func _english() -> void:
+	var st := Hello.state()
+	body.add_child(_txt("Planeta Hello: o Hoppy só fala inglês (voz nativa americana). A criança ouve e toca; " +
+		"não precisa ler. Palavras voltam em revisão nos dias certos.", 22, Palette.TEXT_SOFT))
+	body.add_child(_txt("Palavras vistas: %d · firmes (acertou de primeira em 3 dias diferentes): %d · revisões para hoje: %d" % [
+		(st["words"] as Dictionary).size(), EnglishSRS.known_count(st), Hello.comets()], 24))
+	var last_unit: Dictionary = {}
+	for u in Hello.units():
+		var done := Hello.lessons_done(str(u["id"]))
+		if done > 0:
+			last_unit = u
+			body.add_child(_txt("%d. %s — %d lição(ões)" % [int(u["n"]), str(u["tema"]), done], 22))
+	if last_unit.is_empty():
+		last_unit = Hello.playable_units()[0] if not Hello.playable_units().is_empty() else {}
+	if last_unit.is_empty():
+		return
+	body.add_child(_txt("Frases para usar em casa (%s):" % str(last_unit["tema"]), 24, Palette.YELLOW))
+	for c in last_unit.get("chunks", []).slice(0, 3):
+		var h := UI.hbox(10, BoxContainer.ALIGNMENT_BEGIN)
+		var b := UI.button("Ouvir", Palette.PURPLE, "speaker", Vector2(150, 56), false, 20)
+		b.tapped.connect(func(): Voice.say(str(c["en"]), "hoppy"))
+		h.add_child(b)
+		h.add_child(_txt("%s — %s" % [c["en"], c["pt"]], 22))
+		body.add_child(h)
 
 
 func _challenge() -> void:
