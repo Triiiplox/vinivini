@@ -17,6 +17,8 @@ var last_seq: Array = []
 ## Callable que mostra a dica atual (usa hand.show_tap / show_drag). Vazio = sem dica.
 var hint_fn: Callable
 var finished := false
+## Segmentos em que tocar no chão/mundo é ação válida (andar, avançar cena) não contam "toque sem alvo".
+var world_taps_meaningful := false
 var mission_step := -1
 var mission_steps := 0
 
@@ -52,11 +54,15 @@ func on_enter() -> void:
 	if mission_steps > 0:
 		hud.set_progress(mission_step, mission_steps)
 	build()
+	Telemetry.game_started(str(get_meta("screen_id", name)), not params.has("mission"))
 	begin.call_deferred()
 
 
 func on_exit() -> void:
 	Voice.stop()
+	if not finished:
+		# Saiu no meio: em jogo (seg_*) conta abandono; telas de passeio (nave, mapa) contam visita concluída.
+		Telemetry.game_ended(not str(get_meta("screen_id", "")).begins_with("seg_"))
 	if is_instance_valid(Router.sky):
 		Router.sky.set_parallax(Vector2.ZERO)
 
@@ -146,6 +152,7 @@ func encourage() -> void:
 
 func show_hint() -> void:
 	if hint_fn.is_valid():
+		Telemetry.hint_shown()
 		hint_fn.call()
 
 
@@ -188,6 +195,8 @@ func _unhandled_input(e: InputEvent) -> void:
 				_drag_offset = _drag_item.global_position - p
 				_drag_item.on_pick()
 			elif _press_item == null:
+				if not world_taps_meaningful:
+					Telemetry.missed_tap()
 				on_world_tap(p)
 		else:
 			if _drag_item:
@@ -243,6 +252,7 @@ func _zone_at(p: Vector2) -> DropZone:
 
 ## Registra um "momento de aprendizagem" no Learning Engine.
 func record(skill: String, task_id: String, first_try: bool, tries: int, response_time: float, challenge: bool = false) -> Array[String]:
+	Telemetry.correct_action()
 	return LearningService.record_outcome(skill, task_id, {
 		"first_try": first_try, "tries": tries, "solved": true, "response_time": response_time, "challenge": challenge})
 
@@ -262,6 +272,7 @@ func finish(result: Dictionary = {}) -> void:
 		return
 	finished = true
 	hand.hide_hint()
+	Telemetry.game_ended(true)
 	if params.has("mission"):
 		MissionFlow.segment_done(result)
 	elif str(params.get("mode", "")) == "parent":

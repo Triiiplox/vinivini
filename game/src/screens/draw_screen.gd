@@ -19,6 +19,7 @@ var chips: Array[Interactable] = []
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	set_sky("space")
 	AudioService.play_music("puzzle", 0.4)
 	var bg := Panel.new()

@@ -11,6 +11,7 @@ var line_len := 0.0
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	var th := str(params.get("theme", "space"))
 	set_sky(th)
 	AudioService.play_music(str(params.get("music", "story")))

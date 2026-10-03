@@ -4,8 +4,16 @@ extends BaseScreen
 
 const TABS := [
 	["summary", "Resumo"], ["skills", "Habilidades"], ["history", "Histórico"],
-	["challenge", "Desafio"], ["settings", "Ajustes"],
+	["diary", "Diário"], ["challenge", "Desafio"], ["settings", "Ajustes"],
 ]
+const GAME_NAMES := {
+	"seg_explore": "Exploração", "seg_flight": "Pilotagem", "seg_build": "Construção", "seg_cook": "Restaurante de Marte",
+	"seg_monster": "Monstro das Sílabas", "seg_word": "Montar palavra", "seg_robot": "Robô programável",
+	"seg_memory": "Planetas cantores", "seg_pattern": "Trilha de luzes", "seg_story": "Histórias",
+	"seg_planetarium": "Planetário", "seg_creature": "Criaturas", "seg_cutscene": "Cenas", "ship": "Nave (passeio)",
+	"galaxy": "Mapa da galáxia", "draw": "Ateliê", "wardrobe": "Guarda-roupa", "gallery": "Troféus", "reward": "Recompensas",
+	"opening": "Abertura",
+}
 const SENDERS := ["Papai", "Mamãe", "Vovó", "Vovô", "Titia", "Titio"]
 
 var body: VBoxContainer
@@ -48,6 +56,7 @@ func _show(t: String) -> void:
 		"summary": _summary()
 		"skills": _skills()
 		"history": _history()
+		"diary": _diary()
 		"challenge": _challenge()
 		"settings": _settings()
 
@@ -156,6 +165,28 @@ func _history() -> void:
 		body.add_child(_txt("%s · %s · %s · %d de %d de primeira · +%d estrelas" % [
 			when, modes.get(str(m.get("mode", "")), str(m.get("mode", ""))), ", ".join(sk_names),
 			int(m.get("first_try", 0)), int(m.get("rounds", 0)), int(m.get("stars", 0))], 22))
+
+
+## Diário de uso (telemetria local): base do playtest (v3/steps/STEP_21) e do relatório para a família.
+func _diary() -> void:
+	body.add_child(_txt("Como o Vini está usando cada jogo (dados só neste aparelho).", 24, Palette.TEXT_SOFT))
+	var rows: Array = Telemetry.summary_rows()
+	if rows.is_empty():
+		body.add_child(_txt("Ainda não há registros. Jogue um pouco e volte aqui.", 24))
+	for r in rows:
+		var name := str(GAME_NAMES.get(r["id"], r["id"]))
+		body.add_child(_txt("%s — %d vezes · terminou %d · saiu no meio %d · voltou sozinho %d · dicas %d · toques sem alvo %d · %.0f s até o 1º acerto · %.0f min" % [
+			name, r["plays"], r["completes"], r["abandons"], r["voluntary"], r["hints"], r["missed"], r["first_ok"], r["minutes"]], 22))
+	var copy := UI.button("Copiar diário", Palette.TEAL, "book", Vector2(320, 70), false, 24)
+	copy.name = "CopyDiary"
+	copy.tapped.connect(func():
+		var txt := Telemetry.export_text()
+		DisplayServer.clipboard_set(txt)
+		var f := FileAccess.open("user://diario_uso.csv", FileAccess.WRITE)
+		if f:
+			f.store_string(txt)
+		fx().toast("Diário copiado. Cole no WhatsApp ou e-mail.", Palette.GREEN))
+	body.add_child(copy)
 
 
 func _challenge() -> void:

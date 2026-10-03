@@ -62,6 +62,7 @@ func set_counter(icon_group: String, icon: String, value: int, target: int = -1)
 		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_counter_box.add_child(ic)
 		_counter_label = UI.label("", 52, Palette.YELLOW, true)
+		UI.child_ok(_counter_label)
 		_counter_box.add_child(_counter_label)
 	_counter_label.text = str(value) if target < 0 else "%d/%d" % [value, target]
 	var tw := _counter_label.create_tween()

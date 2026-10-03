@@ -38,6 +38,7 @@ func _ready() -> void:
 		add_child(a)
 	if text != "":
 		var l := UI.label(text, 54 if pic == "" else 30, Color.WHITE if pic == "" else Palette.TEXT_DARK, true)
+		UI.child_ok(l)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		l.size = Vector2(w, 60)

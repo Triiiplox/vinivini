@@ -32,6 +32,7 @@ static func defaults() -> Dictionary:
 		"creatures": [],
 		"drawings": [],
 		"discoveries": [],
+		"telemetry": {"days": {}, "games": {}},
 	}
 
 

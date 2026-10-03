@@ -9,6 +9,7 @@ var _dragging := false
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	set_sky("space")
 	AudioService.play_music("hub", 0.4)
 	world.add_child(Scenery.new("ship"))

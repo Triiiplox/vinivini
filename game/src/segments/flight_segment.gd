@@ -36,6 +36,7 @@ var _streak_node: Node2D
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	mode = str(params.get("play", "collect"))
 	goal = int(params.get("goal", 6))
 	portal_skill = str(params.get("portal_skill", "numbers"))
@@ -242,6 +243,7 @@ func _portal_label(p: Node2D, label: String) -> void:
 		p.add_child(tv)
 		return
 	var l := UI.label(label, 70 if label.length() <= 2 else 54, Palette.WHITE, true)
+	UI.child_ok(l)
 	l.size = Vector2(160, 90)
 	l.position = Vector2(-80, -48)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

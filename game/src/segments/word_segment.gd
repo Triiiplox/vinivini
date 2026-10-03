@@ -139,6 +139,7 @@ func _draw_rocket(n: int) -> void:
 		rocket.add_child(win)
 		if lvl == 1:
 			var g := UI.label(str(syls[i]), 54, Color(1, 1, 1, 0.16), true)
+			UI.child_ok(g)
 			g.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			g.size = Vector2(136, 60)
 			g.position = p - Vector2(68, 30)

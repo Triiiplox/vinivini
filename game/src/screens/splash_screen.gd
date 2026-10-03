@@ -9,9 +9,11 @@ func on_enter() -> void:
 	var v := UI.vbox(10)
 	m.add_child(v)
 	var t1 := UI.label("Vini", 110, Palette.YELLOW, true)
+	UI.child_ok(t1)
 	t1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(t1)
 	var t2 := UI.label("Comandante das Estrelas", 54, Palette.WHITE, true)
+	UI.child_ok(t2)
 	t2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(t2)
 	var h := UI.hbox(40)
@@ -20,7 +22,7 @@ func on_enter() -> void:
 	var cosmo := CharacterView.new("cosmo", "happy")
 	cosmo.custom_minimum_size = Vector2(260, 260)
 	h.add_child(cosmo)
-	var play := UI.button("JOGAR", Palette.YELLOW, "play", Vector2(380, 150), false, 56)
+	var play := UI.button("", Palette.YELLOW, "play", Vector2(220, 150), false, 56)
 	play.name = "PlayButton"
 	play.icon_color = Palette.TEXT_DARK
 	play.size_flags_vertical = Control.SIZE_SHRINK_CENTER

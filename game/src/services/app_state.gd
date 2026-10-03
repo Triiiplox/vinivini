@@ -14,6 +14,7 @@ func _ready() -> void:
 	RewardService.ensure_starter_items()
 	RewardService.refresh_name()
 	EventBus.session_started.emit()
+	Telemetry.session_started.call_deferred()
 
 
 func profile() -> Dictionary:

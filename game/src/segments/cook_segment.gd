@@ -167,6 +167,7 @@ func _show_bubble() -> void:
 		a.position = Vector2(-w / 2 + 70 + i * 150, -10)
 		bubble.add_child(a)
 		var num := UI.label(("%d×" % plates if plates > 1 else "") + str(order[f]), 48, Palette.TEXT_DARK, true)
+		UI.child_ok(num)
 		num.position = Vector2(-w / 2 + 110 + i * 150, -20)
 		bubble.add_child(num)
 		if _lvl == 1:

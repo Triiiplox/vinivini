@@ -8,6 +8,7 @@ const TIME_SCALE := 5.0
 const MISSION_TIMEOUT := 400.0  # segundos de jogo
 
 var failures: Array[String] = []
+var text_violations: Array[String] = []
 var steps := 0
 
 
@@ -21,6 +22,9 @@ func _ready() -> void:
 	var t0 := Time.get_ticks_msec()
 	await _run()
 	Engine.time_scale = 1.0
+	check(text_violations.is_empty(), "nenhum texto a ler no fluxo da criança (%d achados)" % text_violations.size())
+	for v in text_violations.slice(0, 20):
+		print("  texto: " + v)
 	var ok := failures.is_empty() and GameLog.error_count == 0
 	print("SMOKE2 tempo real: %.1fs" % ((Time.get_ticks_msec() - t0) / 1000.0))
 	print("SMOKE2 %s: %d passos, %d falhas, %d erros de log, %d falas sem áudio" % [
@@ -56,6 +60,10 @@ func play_until(target: String, timeout: float) -> bool:
 			seen[last] = true
 			print("   tela: ", last)
 		Autoplay.step(Router.current_id, Router.current_screen)
+		if ChildTextScan.is_child_screen(Router.current_id) and is_instance_valid(Router.current_screen):
+			for b in ChildTextScan.scan(Router.current_screen):
+				if not text_violations.has(b):
+					text_violations.append(b)
 		await wait(0.25)
 		t += 0.25
 		if OS.get_cmdline_user_args().has("--verbose-bot") and fmod(t, 5.0) < 0.25:

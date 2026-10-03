@@ -47,6 +47,7 @@ var _going := ""
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	set_sky("space")
 	AudioService.play_music("hub")
 	AudioService.play_ambience("ship")

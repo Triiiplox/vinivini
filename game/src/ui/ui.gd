@@ -100,3 +100,10 @@ static func stars_badge(count: int) -> PanelContainer:
 	h.add_child(l)
 	p.add_child(h)
 	return p
+
+
+## Marca um texto como permitido no fluxo da criança (objeto de aprendizagem: sílaba, numeral; ou logo).
+## O teste de "texto no fluxo da criança" falha em qualquer Label visível sem esta marca.
+static func child_ok(l: Control) -> Control:
+	l.set_meta("child_text_ok", true)
+	return l

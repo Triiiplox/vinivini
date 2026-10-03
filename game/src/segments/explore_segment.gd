@@ -34,6 +34,7 @@ var _pending_tap: Interactable
 
 
 func build() -> void:
+	world_taps_meaningful = true
 	world_theme = str(params.get("theme", "moon"))
 	width = float(params.get("screens", 3)) * 1280.0
 	set_sky(world_theme if world_theme != "ice" else "ice")
@@ -126,6 +127,7 @@ func _spawn_signs(words: Array, target: String) -> void:
 		pic.position = Vector2(0, -sg.height_px() + 28)
 		it.add_child(pic)
 		var l := UI.label(str(w), 30, Palette.TEXT_DARK, false)
+		UI.child_ok(l)
 		l.add_theme_font_override("font", UITheme.body_font())
 		l.position = Vector2(-60, -sg.height_px() - 24)
 		l.size = Vector2(120, 34)
@@ -169,6 +171,7 @@ func _spawn_door() -> void:
 	holo.custom_minimum_size = Vector2(300, 120)
 	holo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var num := UI.label(str(door_need), 84, Palette.YELLOW, true)
+	UI.child_ok(num)
 	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	holo.add_child(num)
 	panel.add_child(holo)

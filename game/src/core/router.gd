@@ -144,6 +144,7 @@ func _swap(id: String, params: Dictionary) -> void:
 	var script: Script = load(SCREENS[id])
 	var screen: Control = script.new()
 	screen.name = "Screen_%s" % id
+	screen.set_meta("screen_id", id)
 	screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	if screen.has_method("setup"):
 		screen.setup(params)
