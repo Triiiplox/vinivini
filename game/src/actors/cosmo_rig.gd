@@ -72,7 +72,8 @@ func _process(delta: float) -> void:
 		_blink_t = 0.12 if _blinking else randf_range(2.5, 4.0)
 		_refresh_head()
 	if state == "talk" and Voice.is_speaking():
-		var flip := fmod(t, 0.32) < 0.16
+		# Boca aberta/fechada pelo lip-sync da fala (markers do build).
+		var flip := Voice.viseme_now() in ["A", "E", "O"]
 		if flip != _talk_flip:
 			_talk_flip = flip
 			_refresh_head()

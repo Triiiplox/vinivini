@@ -12,6 +12,8 @@ const VOICE_DIR := "res://assets/voice/"
 var enabled := true
 var missing: Array[String] = []
 var current_text := ""
+var current_who := ""
+var _current_entry: Dictionary = {}
 var _manifest: Dictionary = {}
 var _player: AudioStreamPlayer
 var _queue: Array = []
@@ -99,7 +101,9 @@ func is_speaking() -> bool:
 
 func _play(text: String, who: String) -> float:
 	current_text = text
+	current_who = who
 	var e: Dictionary = _manifest.get(key_for(text, who), {})
+	_current_entry = e
 	line_started.emit(text, who)
 	if not enabled or e.is_empty():
 		if e.is_empty() and not missing.has(text):
@@ -137,3 +141,19 @@ func set_enabled(on: bool) -> void:
 	SaveService.settings.set_value("voice", on)
 	if not on:
 		stop()
+
+
+## Visema atual (A, E, O, MBP, REST) da fala tocando, pelos markers gerados no build (lip-sync).
+func viseme_now() -> String:
+	if not _speaking or _current_entry.is_empty():
+		return "REST"
+	var marks: Array = _current_entry.get("v", [])
+	if marks.is_empty():
+		return "A" if fmod(_player.get_playback_position(), 0.3) < 0.15 else "REST"
+	var t := _player.get_playback_position()
+	var cur := "REST"
+	for m in marks:
+		if float(m[0]) > t:
+			break
+		cur = str(m[1])
+	return cur

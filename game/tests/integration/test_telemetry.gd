@@ -71,3 +71,14 @@ func test_child_flow_screens_have_no_text_to_read() -> void:
 		await frames(3)
 		var bad := ChildTextScan.scan(Router.current_screen)
 		check(bad.is_empty(), "tela %s sem texto para ler: %s" % [id, str(bad.slice(0, 3))])
+
+
+func test_voice_manifest_has_lipsync_markers() -> void:
+	var f := FileAccess.open("res://assets/voice/manifest.json", FileAccess.READ)
+	var m: Dictionary = JSON.parse_string(f.get_as_text())
+	var missing := 0
+	for k in m:
+		var e: Dictionary = m[k]
+		if not e.has("v") or (e["v"] as Array).is_empty():
+			missing += 1
+	eq(missing, 0, "toda fala tem markers de lip-sync")

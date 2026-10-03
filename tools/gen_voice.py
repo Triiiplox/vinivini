@@ -129,6 +129,67 @@ def spoken(text):
     return t
 
 
+# ---------------------------------------------------------------- lip-sync (markers de boca)
+VIS_A = set("aɐ")
+VIS_E = set("eɛiɪjy")
+VIS_O = set("oɔuʊw")
+VIS_MBP = set("mbp")
+
+
+def visemes_for(text, lang="pt-br"):
+    """Sequência de visemas (A/E/O/MBP) a partir dos fonemas do texto."""
+    from kokoro_onnx.tokenizer import Tokenizer
+    global _TOK
+    try:
+        _TOK
+    except NameError:
+        _TOK = Tokenizer()
+    ph = _TOK.phonemize(spoken(text), lang)
+    seq = []
+    for ch in ph:
+        if ch in VIS_A:
+            seq.append("A")
+        elif ch in VIS_E:
+            seq.append("E")
+        elif ch in VIS_O:
+            seq.append("O")
+        elif ch in VIS_MBP:
+            seq.append("MBP")
+        elif ch in " ,.!?;:—":
+            seq.append("|")
+    return seq
+
+
+def markers_for(path, text, lang="pt-br"):
+    """Distribui os visemas pelos trechos com voz do áudio (envelope RMS de 20 ms)."""
+    import numpy as np
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "s16le", "-ac", "1", "-ar", "16000", "-"],
+                         capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
+    hop = 320
+    n = max(1, len(x) // hop)
+    rms = np.array([np.sqrt(np.mean(x[i * hop:(i + 1) * hop] ** 2) + 1e-9) for i in range(n)])
+    voiced = rms > max(0.02, rms.max() * 0.12)
+    frames = [i for i in range(n) if voiced[i]]
+    seq = [v for v in visemes_for(text, lang) if v != "|"]
+    out = []
+    if not frames or not seq:
+        return out
+    last = None
+    for k, fi in enumerate(frames):
+        v = seq[min(len(seq) - 1, int(k * len(seq) / len(frames)))]
+        t = round(fi * hop / 16000.0, 2)
+        gap_before = k > 0 and fi - frames[k - 1] > 3
+        if gap_before and last != "REST":
+            out.append([round((frames[k - 1] + 1) * hop / 16000.0, 2), "REST"])
+            last = "REST"
+        if v != last and (not out or t - out[-1][0] >= 0.06):
+            out.append([t, v])
+            last = v
+    out.append([round((frames[-1] + 1) * hop / 16000.0, 2), "REST"])
+    return out
+
+
 def main():
     if "--list" in sys.argv:
         for (who, t), o in sorted(lines.items(), key=lambda x: x[1]):
@@ -185,6 +246,14 @@ def main():
             if done % 25 == 0:
                 print("  %d/%d" % (done, len(todo)), flush=True)
                 json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False)
+    # Lip-sync: markers para falas que ainda não têm.
+    nv = 0
+    for k, e in manifest.items():
+        if "v" not in e or force:
+            e["v"] = markers_for(os.path.join(OUT, e["f"]), e["t"], e.get("lang", "pt-br"))
+            nv += 1
+    if nv:
+        print("lip-sync: %d falas marcadas" % nv)
     json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     keep = set(e["f"] for e in manifest.values())
     for f in glob.glob(os.path.join(OUT, "*.ogg")):

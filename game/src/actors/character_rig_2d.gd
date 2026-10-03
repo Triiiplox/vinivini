@@ -21,6 +21,9 @@ var state := "idle"
 var mood := "happy"
 var facing := 1
 var talking := false
+## Se não vazio, a boca segue o lip-sync quando o Voice estiver falando com esta voz ("narrator", "cosmo", "npc").
+var lipsync_who := ""
+var _lip_active := false
 var skeleton: Skeleton2D
 var anim: AnimationPlayer
 var bones: Dictionary = {}
@@ -205,8 +208,15 @@ func _process(delta: float) -> void:
 		if _eye_state in ["open", "left", "right"]:
 			_set_slot("eye_a", "blink" if _blinking else _eye_state)
 			_set_slot("eye_b", "blink" if _blinking else _eye_state)
-	# Boca falando (até existirem markers de lip-sync).
-	if talking:
+	# Lip-sync pelos markers da fala atual.
+	if lipsync_who != "" and Voice.is_speaking() and Voice.current_who == lipsync_who:
+		_lip_active = true
+		set_viseme(Voice.viseme_now())
+	elif _lip_active:
+		_lip_active = false
+		_set_slot("mouth", _mouth_state)
+	# Boca falando genérica (sem markers).
+	if talking and not _lip_active:
 		_talk_t -= delta
 		if _talk_t <= 0.0:
 			_talk_t = randf_range(0.07, 0.13)
