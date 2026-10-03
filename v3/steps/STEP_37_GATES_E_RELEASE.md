@@ -12,7 +12,9 @@ Só chamar de 10/10 o que a rubrica prova.
    - varredura de placeholder;
    - 0 falas sem áudio;
    - `aapt dump permissions` com só VIBRATE e RECORD_AUDIO.
-3. Planeta Hello: as 150 lições jogadas pelo Autoplay (acertando e errando); sondagem de inglês inicial ×
+3. Design system: prancha lado a lado (pranchas × jogo) de todas as telas e vídeos de movimento de cada tela,
+   aprovados pelo Andro. Qualquer tela mais pobre que as pranchas = FAIL.
+3b. Planeta Hello: as 150 lições jogadas pelo Autoplay (acertando e errando); sondagem de inglês inicial ×
    8 semanas anexada; 0 áudio em inglês sem escuta humana.
 4. Planeta Eco: banco revisado pela fono (ou marcado "não validado" no app); relatório por som.
 5. Playtest final com o Vini (protocolo do STEP 21) em 3 dias + diário de 7 dias do Fun Gate.

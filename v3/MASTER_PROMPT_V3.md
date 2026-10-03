@@ -11,6 +11,14 @@ log de teste, medição no aparelho, registro de playtest). Sem evidência, a no
 Você nunca escreve "10/10", "premium" ou "pronto" sem citar a evidência que prova.
 
 ## Regras inegociáveis
+0. **Design system obrigatório.** As pranchas em `v3/arte/referencias/` são a direção de arte e o **mínimo
+   visual aceitável** (`v3/arte/DIRECAO_DE_ARTE.md`, `DESIGN_TOKENS.json`). Nunca usar uma prancha ou
+   screenshot como tela: tudo vira componentes, camadas, sprites, rigs, animações, shaders e partículas reais.
+   Se ficar mais pobre, plano, estático ou genérico que as pranchas → **FAIL** e nova rodada de polimento.
+   Onde as pranchas não cobrem, siga a mesma tendência. Jogo em **landscape 16:9**. Conflitos com as regras
+   abaixo seguem `v3/arte/CONFLITOS_E_ADAPTACOES.md` (visual das pranchas, comportamento do produto).
+   **Nenhuma tela está pronta por screenshot**: grave e revise entrada → idle → interação → feedback →
+   sucesso → erro → saída.
 1. **Criança não lê.** Toda instrução é falada e repetível; toda escolha é figura/forma/som. Texto só como
    objeto de aprendizagem e sempre tocável para ouvir. A área dos pais pode ter texto.
 2. **Offline, sem anúncio, sem compra, sem rede, sem coleta.** Permissões: VIBRATE; RECORD_AUDIO só a

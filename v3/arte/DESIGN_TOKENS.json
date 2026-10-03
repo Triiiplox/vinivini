@@ -1,0 +1,95 @@
+{
+ "_fonte": "Pranchas em v3/arte/referencias (direção de arte obrigatória). Hex conferidos por amostragem de pixel; os marcados 'conferir' foram lidos de texto pequeno.",
+ "orientacao": "landscape 16:9 (1280x720 lógico, stretch canvas_items/expand); pranchas são retrato e precisam ser RECOMPOSTAS, não esticadas",
+ "cores": {
+  "PRIMARY_BLUE": "#2563FF",
+  "NEBULA_PURPLE": "#A855F7",
+  "CYAN_GLOW": "#22D3EE",
+  "STAR_GOLD": "#FACC15",
+  "GALAXY_PINK": "#F472B6",
+  "LIFE_GREEN": "#4ADE80",
+  "ENERGY_ORANGE": "#FB923C",
+  "ALERT_RED": "#EF4444",
+  "SPACE_DARK": "#081026",
+  "BG_DEEP": "#0B1026",
+  "SURFACE": "#0F1D33 (conferir)",
+  "CARD_PURPLE_DEEP": "#1E1B4B (conferir)",
+  "TEXT_PRIMARY": "#FFFFFF",
+  "TEXT_SECONDARY": "#B8C4E0 (derivado)"
+ },
+ "papel_das_cores": {
+  "PRIMARY_BLUE": "primária/tecnologia",
+  "NEBULA_PURPLE": "secundária/magia/raro",
+  "CYAN_GLOW": "acento/holograma",
+  "STAR_GOLD": "CTA principal (JOGAR), conquista",
+  "GALAXY_PINK": "afeto/amizade",
+  "LIFE_GREEN": "sucesso/natureza",
+  "ENERGY_ORANGE": "aviso suave",
+  "ALERT_RED": "uso mínimo (nunca para erro da criança)",
+  "SPACE_DARK": "fundo"
+ },
+ "raio": {
+  "small": 12,
+  "medium": 20,
+  "large": 32,
+  "pill": 999
+ },
+ "glow": {
+  "soft": 8,
+  "medium": 16,
+  "hero": 32,
+  "regra": "60–70% do glow pré-renderizado no asset; 30–40% realtime"
+ },
+ "borda": {
+  "painel_holografico": "2px CYAN_GLOW 70% + glow soft",
+  "botao_primario": "2px STAR_GOLD claro + highlight especular no topo"
+ },
+ "sombra": {
+  "elevacao_1": "0 4 12 #000 40%",
+  "elevacao_2": "0 8 24 #000 50%",
+  "contato_personagem": "elipse #000 35% achatada"
+ },
+ "tipografia": {
+  "titulos": "Orbitron Bold (OFL) — só logo, títulos grandes e área dos pais",
+  "botoes_destaques": "Nunito ExtraBold/Bold (OFL) — 'Nunito Rounded' das pranchas = Nunito",
+  "apoio": "Nunito Regular/SemiBold",
+  "alfabetizacao": "Andika (OFL) — OBRIGATÓRIA para letras/sílabas/numerais que a criança aprende (a de um andar, formas claras). Orbitron nunca para conteúdo de leitura.",
+  "escala_landscape_px": {
+   "H1": 48,
+   "H2": 36,
+   "H3": 28,
+   "corpo_pais": 24,
+   "botao": 32,
+   "rotulo": 20
+  },
+  "obs": "escala da prancha (24/20/18/16) é de celular retrato; em 1280x720 para criança de 4 anos usar a escala acima"
+ },
+ "espacamento": {
+  "base": 8,
+  "cards": 16,
+  "secoes": 24,
+  "blocos": 32,
+  "margem_segura": 40,
+  "alvo_toque_min": 96,
+  "obs": "prancha diz 44x44; para 4 anos o mínimo do projeto é 96 px lógicos"
+ },
+ "motion": {
+  "botao_toque": "scale 1.00→0.94→1.03→1.00 em 180–250 ms + SFX curto + haptic 15–25 ms + glow responde",
+  "painel_abrir": "alpha 0→1, scale 0.92→1, y +20→0, 250 ms, ease out back suave",
+  "painel_fechar": "scale 1→0.96, alpha 1→0, 150 ms",
+  "item_coletado": "sobe + gira + brilha + partículas + voa ao inventário + contador + som + haptic, ~700 ms",
+  "idle_obrigatorio": "todo objeto interativo tem idle (pulso/flutuar/brilho)"
+ },
+ "recompensa_por_dificuldade": {
+  "facil": "1 estrela",
+  "medio": "2 estrelas",
+  "dificil": "3 estrelas + partículas",
+  "comandante_chefao": "cinemática curta + música + animação de personagem + item raro"
+ },
+ "qualidade": {
+  "LOW": "CPUParticles reduzidas, sem shaders caros, glow só pré-renderizado",
+  "MEDIUM": "padrão",
+  "HIGH": "partículas completas, luzes 2D, efeitos extras",
+  "selecao": "automática por FPS medido (+ ajuste na área dos pais)"
+ }
+}

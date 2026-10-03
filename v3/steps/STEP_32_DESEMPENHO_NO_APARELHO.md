@@ -12,6 +12,9 @@
    - limitar partículas;
    - shader de céu com qualidade baixa automática se FPS < 50 por 3 s.
 4. Medir a abertura a frio.
+5. Comparar os renderers **Mobile** (com fallback para Compatibility) × **Compatibility** no aparelho, e os
+   níveis de qualidade LOW/MEDIUM/HIGH. Decisão final em `docs/DECISIONS.md`.
+6. Medir RAM, GPU, draw calls, partículas ativas e memória de textura (atlas).
 
 ## Critérios de aceite (no aparelho do Vini)
 - FPS médio ≥ 58; nenhum quadro > 50 ms nas transições do roteiro; abertura < 3 s.

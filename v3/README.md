@@ -23,16 +23,22 @@ produzem (playtest, aparelho real, opinião da fonoaudióloga). Isso está expl�
 | Região/sotaque da família (ex.: carioca, paulistano, interior de SP/MG) | 28–30 | "r" e "s" no fim da sílaba variam por região e **não são erro** |
 | 3–5 gravações curtas do Vini falando (ou a lista das trocas que você ouve: "sapéu", "dato"…) | 28 | define os sons-alvo reais em vez de chutar |
 | Se existe fonoaudióloga acompanhando | 28–31 | ela valida banco de palavras e alvos; o app vira "lição de casa" dela |
-| Orçamento/decisão de arte: IA (Weave ligado na conta) ou ilustrador | 23 | arte é o maior salto de nota |
+| Concepts: Weave ligado na conta **ou** imagens geradas por você | 22–23 | a arte segue as pranchas de `arte/referencias/` |
+| Licença Spine (Essential US$ 69 / Pro US$ 379) ou seguir com Skeleton2D | 22, 24 | rig dos personagens |
+| Renomear Cosmo → Astro (elenco da marca) | 22, 24 | o design system manda |
+| Vídeos de referência de movimento (`arte/PEDIDO_DE_VIDEOS.md`) | 24 | timing das animações |
 | Voz: manter voz neural ou gravar voz humana (você/atriz) | 31 | voz humana é o teto de qualidade |
 
 ## Mapa dos steps
 | Step | Tema | Dono da evidência |
 |---|---|---|
 | 21 | Linha de base: playtest com o Vini + medição honesta | Andro + agente |
-| 22 | Bíblia de arte e direção visual | agente (+ aprovação Andro) |
-| 23 | Pipeline de arte final (substituir todos os placeholders) | agente |
-| 24 | Animação e "juice" de nível comercial | agente |
+| 22 | Direção de arte congelada a partir do **design system obrigatório** (`arte/`), tokens, character sheets, telas-chave 16:9 | agente + aprovação Andro |
+| 22B | Biblioteca de UI real (9-slice, estados, motion, SFX, haptics) | agente |
+| 23 | Pipeline de assets: concept → camadas → atlas → Godot | agente (+ concepts do Andro/Weave) |
+| 23B | Cenários vivos, partículas, shaders, níveis de qualidade | agente |
+| 24 | Personagens: rig (Spine ou Skeleton2D), expressões, lip-sync, animações | agente + vídeos de referência do Andro |
+| 24B | Câmera, cinemáticas, transições com warp, recompensa proporcional | agente |
 | 25 | Profundidade: 3 jogos-âncora excelentes | agente + playtest |
 | 26 | Nave 2.0 (salas de verdade + customização) | agente |
 | 27 | Escala de conteúdo (40+ missões, variedade, chefões) | agente |

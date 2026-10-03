@@ -14,7 +14,7 @@ Trocar as portas-retângulo por salas visíveis e tornar a nave "minha".
    - troféus;
    - criaturas.
    Itens ganhos jogando, nunca comprados.
-3. Mascotes com função:
+3. Mascotes do elenco da marca: Luna (dragoa) e Apolo (cão espacial), com função:
    - o dragão aponta para o próximo objetivo;
    - o robô ajuda no robô programável.
    Desbloquear 2+ mascotes.

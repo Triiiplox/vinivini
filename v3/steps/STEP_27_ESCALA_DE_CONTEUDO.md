@@ -10,7 +10,8 @@ Ir de 12 para **40+ missões** e **6+ chefões** sem perder qualidade.
    - Estação Espacial (consertar com o robô);
    - Planeta Jardim (plantar, regar, esperar — causa e efeito);
    - Planeta Eco (módulo de fala, STEPs 28–30);
-   - Cometa da Música (ritmo e sequência).
+   - Cometa da Música (ritmo e sequência);
+   - **Cuidar da Terra** (vem das pranchas: reciclar, água, energia limpa, cidades verdes).
 2. Chefões não violentos (fica feliz, acorda, sai do caminho):
    - lógica: porta de padrões;
    - construção: ponte para o gigante;
