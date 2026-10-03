@@ -76,9 +76,9 @@ func build() -> void:
 	trash.position = Vector2(1210, 470)
 	trash.tapped.connect(func(_i): _clear())
 	world.add_child(trash)
-	var done := ArtButton.new("check", 110.0)
+	var done := DSButton.new("primary", "check", Vector2(150, 110), "success")
 	done.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	done.position = Vector2(-130, -130)
+	done.position = Vector2(-180, -140)
 	done.pressed.connect(_done)
 	hud.root.add_child(done)
 

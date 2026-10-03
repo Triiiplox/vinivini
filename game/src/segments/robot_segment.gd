@@ -26,7 +26,7 @@ var board: Node2D
 var running := false
 var tries := 0
 var t0 := 0.0
-var play_btn: ArtButton
+var play_btn: DSButton
 var solution: Array[Vector2i] = []
 
 
@@ -38,8 +38,8 @@ func build() -> void:
 	world.add_child(Scenery.new(th))
 	lvl = difficulty(SKILL)
 	add_cosmo(Vector2(1180, 150), 110.0)
-	play_btn = ArtButton.new("play", 120.0)
-	play_btn.position = Vector2(1130, 560)
+	play_btn = DSButton.new("primary", "play", Vector2(150, 110))
+	play_btn.position = Vector2(1100, 590)
 	play_btn.speak_text = ""
 	hud.root.add_child(play_btn)
 	play_btn.pressed.connect(_run)

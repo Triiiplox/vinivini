@@ -1,0 +1,74 @@
+{
+ "button_primary": {
+  "margin": 54,
+  "glow": 10,
+  "states": [
+   "normal",
+   "pressed",
+   "disabled",
+   "success",
+   "warning",
+   "rare",
+   "focused"
+  ]
+ },
+ "button_secondary": {
+  "margin": 46,
+  "glow": 8,
+  "states": [
+   "normal",
+   "pressed",
+   "disabled"
+  ]
+ },
+ "button_icon": {
+  "margin": 74,
+  "glow": 9,
+  "states": [
+   "normal",
+   "pressed",
+   "gold",
+   "purple",
+   "disabled"
+  ]
+ },
+ "panel_holo": {
+  "margin": 60,
+  "glow": 12,
+  "states": [
+   "normal"
+  ]
+ },
+ "card": {
+  "margin": 42,
+  "glow": 7,
+  "states": [
+   "normal",
+   "selected"
+  ]
+ },
+ "chip": {
+  "margin": 48,
+  "glow": 6,
+  "states": [
+   "gold",
+   "cyan"
+  ]
+ },
+ "bar_track": {
+  "margin": 20,
+  "glow": 0,
+  "states": [
+   "normal"
+  ]
+ },
+ "bar_fill": {
+  "margin": 32,
+  "glow": 6,
+  "states": [
+   "cyan",
+   "gold",
+   "green"
+  ]
+ }
+}

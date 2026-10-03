@@ -7,7 +7,7 @@ var chest: ArtSprite
 var opened := false
 var unlocked: Array = []
 var avatar: CharacterRig2D
-var cont: ArtButton
+var cont: DSButton
 
 
 func build() -> void:
@@ -33,8 +33,8 @@ func build() -> void:
 	it.position = Vector2(680, 470)
 	it.tapped.connect(func(_i): _open())
 	world.add_child(it)
-	cont = ArtButton.new("play", 150.0)
-	cont.position = Vector2(1080, 520)
+	cont = DSButton.new("primary", "play", Vector2(220, 130))
+	cont.position = Vector2(1010, 520)
 	cont.visible = false
 	cont.pressed.connect(_continue)
 	hud.root.add_child(cont)
@@ -115,7 +115,7 @@ func _hint() -> void:
 	if not opened:
 		hand.show_tap(Vector2(680, 470))
 	elif cont.visible:
-		hand.show_tap(cont.position + Vector2(75, 75))
+		hand.show_tap(cont.position + cont.size / 2.0)
 
 
 func _on_home() -> void:

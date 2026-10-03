@@ -18,12 +18,12 @@ func _ready() -> void:
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(root)
-	var home := ArtButton.new("home", 92.0)
+	var home := DSButton.new("icon", "home", Vector2(92, 92))
 	home.name = "HomeButton"
 	home.position = Vector2(20, 16)
 	home.pressed.connect(func(): home_pressed.emit())
 	root.add_child(home)
-	var spk := ArtButton.new("speaker", 92.0)
+	var spk := DSButton.new("icon", "speaker", Vector2(92, 92), "purple")
 	spk.name = "SpeakButton"
 	spk.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	spk.position = Vector2(-112, 16)
@@ -38,7 +38,7 @@ func _ready() -> void:
 	root.add_child(_pips)
 	_counter_box = HBoxContainer.new()
 	_counter_box.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	_counter_box.position = Vector2(-300, 22)
+	_counter_box.position = Vector2(-330, 24)
 	_counter_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_counter_box.visible = false
 	root.add_child(_counter_box)
@@ -58,12 +58,28 @@ func set_progress(step: int, total: int) -> void:
 func set_counter(icon_group: String, icon: String, value: int, target: int = -1) -> void:
 	_counter_box.visible = true
 	if _counter_box.get_child_count() == 0:
-		var ic := ArtButton.new(icon, 70.0, icon_group)
-		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_counter_box.add_child(ic)
-		_counter_label = UI.label("", 52, Palette.YELLOW, true)
+		# Chip do design system: fundo 9-slice + ícone ilustrado + numeral.
+		var chip := Control.new()
+		chip.custom_minimum_size = Vector2(200, 76)
+		chip.size = chip.custom_minimum_size
+		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var bgc := DS.nine("chip", "gold")
+		chip.add_child(bgc)
+		DS.fit(bgc, chip.size)
+		var ic := ArtSprite.new(icon_group, icon, 62.0)
+		ic.position = Vector2(40, 38)
+		chip.add_child(ic)
+		_counter_label = Label.new()
+		_counter_label.add_theme_font_override("font", DS.font("body", 900))
+		_counter_label.add_theme_font_size_override("font_size", 44)
+		_counter_label.add_theme_color_override("font_color", DS.STAR_GOLD)
+		_counter_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_counter_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_counter_label.position = Vector2(74, 0)
+		_counter_label.size = Vector2(120, 76)
 		UI.child_ok(_counter_label)
-		_counter_box.add_child(_counter_label)
+		chip.add_child(_counter_label)
+		_counter_box.add_child(chip)
 	_counter_label.text = str(value) if target < 0 else "%d/%d" % [value, target]
 	var tw := _counter_label.create_tween()
 	_counter_label.pivot_offset = _counter_label.size / 2

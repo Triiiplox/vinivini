@@ -59,7 +59,7 @@ func _unhandled_input(e: InputEvent) -> void:
 ## Ferramentas de QA por linha de comando (-- --flag). Retorna true se alguma assumiu o controle.
 func _start_debug_tool() -> bool:
 	const TOOLS := {"--segpreview=": "seg_preview", "--rigpreview=": "rig_preview", "--spike=": "spike_fx",
-		"--artpreview=": "art_preview", "--charpreview=": "char_preview", "--shots=": "screenshot_runner",
+		"--artpreview=": "art_preview", "--charpreview=": "char_preview", "--uigallery=": "ui_gallery", "--shots=": "screenshot_runner",
 		"--smoke2": "smoke_v2", "--smoke": "smoke_runner"}
 	var args := OS.get_cmdline_user_args()
 	if args.has("--checkscripts"):

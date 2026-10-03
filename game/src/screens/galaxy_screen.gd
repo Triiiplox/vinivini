@@ -13,7 +13,7 @@ var nodes: Dictionary = {}
 var order: Array[String] = []
 var selected := ""
 var ship_icon: Node2D
-var play_btn: ArtButton
+var play_btn: DSButton
 var path_node: Node2D
 var path_pts: PackedVector2Array = PackedVector2Array()
 var width := 1280.0
@@ -55,9 +55,9 @@ func build() -> void:
 	art.idle = "float"
 	ship_icon.add_child(art)
 	world.add_child(ship_icon)
-	play_btn = ArtButton.new("play", 140.0)
+	play_btn = DSButton.new("primary", "play", Vector2(220, 130))
 	play_btn.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	play_btn.position = Vector2(-170, -170)
+	play_btn.position = Vector2(-260, -170)
 	play_btn.visible = false
 	play_btn.pressed.connect(_start)
 	hud.root.add_child(play_btn)

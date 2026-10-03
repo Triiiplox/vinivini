@@ -55,7 +55,7 @@ func build() -> void:
 	_trail.emitting = true
 	ship_art = ArtSprite.new("props", "ship_side", 190.0)
 	ship.add_child(ship_art)
-	var turbo := ArtButton.new("play", 130.0)
+	var turbo := DSButton.new("icon", "rocket", Vector2(130, 130), "purple")
 	turbo.name = "TurboButton"
 	turbo.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	turbo.position = Vector2(-160, -160)
