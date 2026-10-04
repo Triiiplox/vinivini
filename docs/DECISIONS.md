@@ -191,3 +191,10 @@ Os vídeos de abertura/momentos (Gemini/Grok, editados) são apresentação e po
 ## ADR-033 - Validação visual obrigatória antes de cada APK
 Toda entrega passa por captura de todas as telas no formato 2340×1080 (`--segpreview`, `--touchcheck`) e revisão
 crítica tela a tela (o que está feio, confuso ou cortado) antes de gerar o APK.
+
+## ADR-034 - Pular o que a criança já sabe
+O Vini já conhece letras e números (informação do Andro, 04/10). Lições só de apresentar ("Essa é a letra A",
+contar até 10) cansam e passam a sensação de jogo fraco. Elas ganharam `"basic": true` no conteúdo
+(`vogais`, `consoantes`, `tracar_vogais`, `contar_tocando`) e saem da trilha e da recomendação quando a chave
+"Já conhece letras e números" da área dos pais está ligada (padrão: ligada). Leitura começa em escrever letras,
+depois sons, sílabas e palavras; matemática começa em juntar e tirar com objetos. Desligar a chave traz tudo de volta.
