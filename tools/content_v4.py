@@ -37,6 +37,7 @@ def build(m):
     math(m)
     logic(m)
     reading(m)
+    science(m)
     # Sem perguntas repetidas dentro da lição (o sorteio pode repetir uma conta).
     import json
     for les in m.L[first:]:
@@ -539,3 +540,176 @@ SKILLS = {
     "reading.sentences2": ("Frases com posição", "reading"), "reading.sentence_build": ("Montar frases", "reading"),
     "reading.texts": ("Ler e entender textos", "reading"),
 }
+
+
+# ====================================================================== CIÊNCIAS E ASTRONOMIA (aprofundar)
+# Só fatos verificáveis (ADR-032: nada inventado no conteúdo ensinado). Cada item: (lição, estágio, fala,
+# figura certa, [figuras erradas]). Figuras: ("p", id) planeta/Sol/Lua, ("w", palavra), ("f", comida),
+# ("sci", ...) e dicionários de figura prontos.
+def _f(m, x):
+    if isinstance(x, dict):
+        return x
+    k, v = x
+    if k == "p":
+        return m.planet(v)
+    if k == "w":
+        return m.W(v)
+    if k == "f":
+        return m.F(v)
+    if k == "t":
+        return m.txt(v)
+    return fig(m, x)
+
+
+MOON = lambda ph: {"t": "moon", "phase": ph}  # noqa: E731
+PLANT = lambda st: {"t": "plant", "stage": st}  # noqa: E731
+WATER = lambda s: {"t": "water", "state": s}  # noqa: E731
+WEATHER = lambda w: {"t": "weather", "w": w}  # noqa: E731
+DAYNIGHT = lambda s: {"t": "daynight", "side": s}  # noqa: E731
+PART = lambda p: {"t": "vini_part", "part": p}  # noqa: E731
+COLOR = lambda c: {"t": "color", "c": c}  # noqa: E731
+
+SCI = [
+    # Sol
+    ("sol", 1, "O Sol é uma estrela. Toque no Sol!", ("p", "sun"), [("p", "moon"), ("p", "earth")]),
+    ("sol", 1, "O Sol nos dá luz e calor. Quando o Sol está no céu, é dia ou noite?", DAYNIGHT("day"), [DAYNIGHT("night")]),
+    ("sol", 2, "Quem fica no centro do Sistema Solar?", ("p", "sun"), [("p", "earth"), ("p", "moon")]),
+    ("sol", 2, "As plantas usam a luz do Sol para fazer o próprio alimento. Quem precisa da luz do Sol?", PLANT(3),
+     [("sci", "ice"), ("w", "dado")]),
+    ("sol", 3, "O Sol é a estrela mais perto da Terra. Qual é a estrela mais perto de nós?", ("p", "sun"),
+     [("p", "moon"), ("p", "jupiter")]),
+    ("sol", 3, "Nunca olhe direto para o Sol: ele machuca os olhos. O Sol é quente ou frio?", ("t", "QUENTE"),
+     [("t", "FRIO")]),
+    # Lua
+    ("lua", 1, "A Lua gira em volta da Terra. Em volta de quem a Lua gira?", ("p", "earth"), [("p", "mars"), ("p", "jupiter")]),
+    ("lua", 1, "A Lua tem buracos chamados crateras. Toque na Lua!", ("p", "moon"), [("p", "earth"), ("p", "mars")]),
+    ("lua", 2, "Astronautas pisaram na Lua em 1969, na missão Apollo 11. Quem já andou na Lua?",
+     {"t": "crew", "suit": "suit_blue"}, [("w", "gato"), ("w", "vaca")]),
+    ("lua", 2, "Na lua cheia, a Lua aparece inteira iluminada. Qual é a lua cheia?", MOON(4), [MOON(2), MOON(0)]),
+    ("lua", 3, "Na Lua a gravidade é mais fraca, então você pula mais alto. Onde você pula mais alto?", ("p", "moon"),
+     [("p", "earth"), ("p", "jupiter")]),
+    ("lua", 3, "Na Lua não tem ar. O que o astronauta precisa usar lá?", {"t": "vini"}, [("w", "bola"), ("w", "pipa")]),
+    # Terra
+    ("terra", 1, "Qual planeta tem oceanos e muita vida?", ("p", "earth"), [("p", "mars"), ("p", "moon")]),
+    ("terra", 1, "A Terra é redonda como uma bola. Qual forma ela tem?", {"t": "shape", "s": "circle"},
+     [{"t": "shape", "s": "square"}, {"t": "shape", "s": "triangle"}]),
+    ("terra", 2, "A Terra dá uma volta no Sol a cada ano. Em volta de quem a Terra gira?", ("p", "sun"),
+     [("p", "moon"), ("p", "mars")]),
+    ("terra", 2, "A maior parte da Terra é coberta de água. O que cobre a maior parte da Terra?", ("sci", "liquid"),
+     [("sci", "ice"), ("w", "casa")]),
+    ("terra", 3, "A Terra é o terceiro planeta a partir do Sol. Quantos planetas vêm antes dela?", ("t", "2"),
+     [("t", "3"), ("t", "1")]),
+    ("terra", 3, "A Terra gira em volta de si mesma uma vez por dia. Por isso existe o quê?", DAYNIGHT("night"),
+     [("w", "bola"), ("f", "apple")]),
+    # Planetas
+    ("planetas", 1, "Qual é o planeta mais perto do Sol?", ("p", "mercury"), [("p", "neptune"), ("p", "earth")]),
+    ("planetas", 1, "Qual planeta tem anéis bem grandes?", ("p", "saturn"), [("p", "mars"), ("p", "mercury")]),
+    ("planetas", 2, "Qual é o maior planeta do Sistema Solar?", ("p", "jupiter"), [("p", "earth"), ("p", "mercury")]),
+    ("planetas", 2, "Netuno é azul e é o planeta mais longe do Sol. Toque em Netuno!", ("p", "neptune"),
+     [("p", "mars"), ("p", "venus")]),
+    ("planetas", 3, "Quantos planetas tem o Sistema Solar?", ("t", "8"), [("t", "9"), ("t", "7")]),
+    ("planetas", 3, "O maior vulcão do Sistema Solar, o Monte Olimpo, fica no planeta vermelho. Qual é?", ("p", "mars"),
+     [("p", "earth"), ("p", "jupiter")]),
+    # Sistema solar
+    ("sistema_solar", 1, "Os planetas giram em volta de quem?", ("p", "sun"), [("p", "earth"), ("p", "moon")]),
+    ("sistema_solar", 2, "Qual destes é um planeta gigante feito de gás?", ("p", "jupiter"), [("p", "moon"), ("p", "mercury")]),
+    ("sistema_solar", 2, "Qual destes não é planeta? Ele é o satélite natural da Terra.", ("p", "moon"),
+     [("p", "mars"), ("p", "venus")]),
+    ("sistema_solar", 3, "Mercúrio, Vênus, Terra e Marte são planetas de pedra. Qual destes é de pedra?", ("p", "mars"),
+     [("p", "jupiter"), ("p", "saturn")]),
+    # Estrelas
+    ("estrelas", 1, "As estrelas aparecem no céu de noite. Quando vemos as estrelas?", DAYNIGHT("night"), [DAYNIGHT("day")]),
+    ("estrelas", 2, "Estrelas formam desenhos no céu: as constelações. Qual destes é uma constelação?",
+     {"t": "constellation", "id": "cruzeiro"}, [{"t": "galaxy"}, {"t": "comet"}]),
+    ("estrelas", 2, "O Cruzeiro do Sul está na bandeira do Brasil. Toque no Cruzeiro do Sul!",
+     {"t": "constellation", "id": "cruzeiro"}, [{"t": "constellation", "id": "tres_marias"}]),
+    ("estrelas", 3, "O Sol também é uma estrela. Ele parece maior porque está muito mais perto. Qual estrela é o Sol?",
+     ("p", "sun"), [("p", "moon"), ("p", "earth")]),
+    # Galáxias
+    ("galaxias", 1, "Nós moramos numa galáxia chamada Via Láctea. Qual destes é uma galáxia?", {"t": "galaxy"},
+     [{"t": "comet"}, ("p", "earth")]),
+    ("galaxias", 1, "Uma galáxia tem bilhões de estrelas. O que existe numa galáxia?", ("w", "estrela"),
+     [("f", "bread"), ("w", "bola")]),
+    ("galaxias", 2, "A Via Láctea tem forma de espiral, com braços que giram. Qual tem forma de espiral?",
+     {"t": "galaxy"}, [("p", "moon"), {"t": "shape", "s": "square"}]),
+    # Asteroides e cometas
+    ("asteroides_cometas", 1, "O cometa tem uma cauda brilhante. Toque no cometa!", {"t": "comet"},
+     [{"t": "art", "set": "props", "id": "asteroid"}, ("p", "moon")]),
+    ("asteroides_cometas", 1, "Asteroide é uma rocha que gira em volta do Sol. Toque no asteroide!",
+     {"t": "art", "set": "props", "id": "asteroid"}, [{"t": "comet"}, ("p", "sun")]),
+    ("asteroides_cometas", 2, "A cauda do cometa aparece quando ele chega perto de quem?", ("p", "sun"),
+     [("p", "earth"), ("p", "moon")]),
+    ("asteroides_cometas", 3, "Os cometas são feitos de gelo e poeira. Do que é feito um cometa?", ("sci", "ice"),
+     [("f", "cheese"), ("w", "bolo")]),
+    # Buraco negro
+    ("buraco_negro", 1, "Nem a luz escapa de um buraco negro. Toque no buraco negro!", {"t": "blackhole"},
+     [("p", "sun"), {"t": "galaxy"}]),
+    ("buraco_negro", 2, "O buraco negro puxa tudo com muita força. Que força é essa?", ("t", "GRAVIDADE"),
+     [("t", "VENTO"), ("t", "CHUVA")]),
+    ("buraco_negro", 2, "No meio da nossa galáxia existe um buraco negro gigante. Onde ele fica?", {"t": "galaxy"},
+     [("p", "earth"), ("p", "moon")]),
+    # Gravidade
+    ("gravidade", 1, "A gravidade puxa tudo para baixo. Se você solta a bola, ela vai para onde?", ("t", "PARA BAIXO"),
+     [("t", "PARA CIMA")]),
+    ("gravidade", 2, "Na estação espacial os astronautas flutuam. Onde eles flutuam?", {"t": "satellite"},
+     [("w", "casa"), ("w", "vaca")]),
+    ("gravidade", 3, "Em qual lugar você pesaria menos?", ("p", "moon"), [("p", "earth"), ("p", "jupiter")]),
+    # Astronautas
+    ("astronautas", 1, "O astronauta usa traje espacial. Quem é o astronauta?", {"t": "crew", "suit": "suit_orange"},
+     [("w", "gato"), ("w", "pato")]),
+    ("astronautas", 2, "Astronautas vivem meses na Estação Espacial Internacional. Ela gira em volta de qual planeta?",
+     ("p", "earth"), [("p", "mars"), ("p", "moon")]),
+    ("astronautas", 3, "O primeiro brasileiro a ir ao espaço foi Marcos Pontes, em 2006. Ele era o quê?",
+     {"t": "crew", "suit": "suit_blue"}, [("w", "vaca"), ("w", "peixe")]),
+    # Foguetes
+    ("foguetes", 1, "Qual destes leva gente para o espaço?", ("w", "foguete"), [("w", "casa"), ("w", "bola")]),
+    ("foguetes", 1, "Na contagem regressiva: três, dois, um... e depois?", ("t", "0"), [("t", "4"), ("t", "5")]),
+    ("foguetes", 2, "O fogo sai por baixo e empurra o foguete. Para onde o foguete vai?", ("t", "PARA CIMA"),
+     [("t", "PARA BAIXO")]),
+    # Missões reais
+    ("missoes_reais", 1, "A missão Apollo 11 levou pessoas à Lua em 1969. Para onde ela foi?", ("p", "moon"),
+     [("p", "mars"), ("p", "sun")]),
+    ("missoes_reais", 2, "O jipe robô Perseverance explora o planeta vermelho. Em que planeta ele anda?", ("p", "mars"),
+     [("p", "earth"), ("p", "moon")]),
+    ("missoes_reais", 2, "Satélites giram em volta da Terra e ajudam na previsão do tempo. Qual é o satélite?",
+     {"t": "satellite"}, [{"t": "comet"}, ("w", "foguete")]),
+    # Plantas
+    ("plantas", 1, "Toda planta começa de uma semente. Qual é a semente?", PLANT(0), [PLANT(3), PLANT(4)]),
+    ("plantas", 1, "Do que a planta precisa para crescer?", ("sci", "liquid"), [("w", "bola"), ("w", "dado")]),
+    ("plantas", 2, "A flor vira fruto. Qual planta já tem frutos?", PLANT(4), [PLANT(2), PLANT(1)]),
+    ("plantas", 3, "Depois da semente vem o broto. Qual é o broto?", PLANT(1), [PLANT(0), PLANT(4)]),
+    # Animais
+    ("animais", 1, "Qual animal vive na água?", ("w", "peixe"), [("w", "vaca"), ("w", "gato")]),
+    ("animais", 1, "Qual animal dá leite?", ("w", "vaca"), [("w", "peixe"), ("w", "sapo")]),
+    ("animais", 2, "Qual animal nasce de um ovo?", ("w", "pato"), [("w", "vaca"), ("w", "gato")]),
+    ("animais", 2, "O sapo começa a vida na água, como girino. Toque no sapo!", ("w", "sapo"), [("w", "pato"), ("w", "gato")]),
+    ("animais", 3, "Mamíferos mamam quando são filhotes. Qual destes é mamífero?", ("w", "gato"),
+     [("w", "peixe"), ("w", "pato")]),
+    # Corpo
+    ("corpo", 1, "Com o que a gente enxerga?", PART("eyes"), [PART("hand"), PART("foot")]),
+    ("corpo", 1, "Com o que a gente anda?", PART("foot"), [PART("eyes"), PART("mouth")]),
+    ("corpo", 2, "Com o que a gente come e fala?", PART("mouth"), [PART("foot"), PART("hand")]),
+    # Água
+    ("agua", 1, "Água no congelador vira o quê?", ("sci", "ice"), [WATER("steam"), ("sci", "liquid")]),
+    ("agua", 2, "Água fervendo vira o quê?", WATER("steam"), [("sci", "ice"), ("sci", "liquid")]),
+    ("agua", 2, "De onde cai a chuva?", WEATHER("rain"), [WEATHER("sun")]),
+    # Clima
+    ("clima", 1, "Qual mostra o tempo de chuva?", WEATHER("rain"), [WEATHER("sun"), WEATHER("snow")]),
+    ("clima", 2, "Neve é água congelada que cai do céu. Qual é a neve?", WEATHER("snow"), [WEATHER("rain"), WEATHER("storm")]),
+    ("clima", 2, "Raio e trovão: é tempestade! Qual é a tempestade?", WEATHER("storm"), [WEATHER("rain"), WEATHER("sun")]),
+    # Cores
+    ("cores", 2, "Azul misturado com amarelo dá que cor?", COLOR("#22C55E"), [COLOR("#EF4444"), COLOR("#A855F7")]),
+    ("cores", 2, "Vermelho misturado com amarelo dá que cor?", COLOR("#FB923C"), [COLOR("#22C55E"), COLOR("#3B82F6")]),
+    ("cores", 3, "Vermelho misturado com azul dá que cor?", COLOR("#A855F7"), [COLOR("#FB923C"), COLOR("#22C55E")]),
+    # Luz e sombra
+    ("luz_sombra", 1, "Sem luz não existe sombra. Do que a sombra precisa?", WEATHER("sun"), [("w", "bola"), ("f", "bread")]),
+    ("luz_sombra", 2, "A sombra fica do lado contrário da luz. Qual sombra está certa com a luz deste lado?",
+     {"t": "shadow", "light": "left"}, [{"t": "shadow", "light": "right"}]),
+]
+
+
+def science(m):
+    by_id = {les["id"]: les for les in m.L}
+    for lid, lvl, say, ok, wrong in SCI:
+        les = by_id[lid]
+        les["ask"].append(m.shuffled_pick(say, _f(m, ok), [_f(m, w) for w in wrong], lvl))

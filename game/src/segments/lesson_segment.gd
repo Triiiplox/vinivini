@@ -141,6 +141,11 @@ func _plan() -> void:
 		pick = cur.slice(0, n - n_prev) + prev.slice(0, n_prev)
 		if pick.size() < n:
 			pick += prev.slice(n_prev, n_prev + n - pick.size())
+		if pick.size() < n:
+			# estágio com poucas perguntas: completa com as dos outros estágios da lição (mais fáceis primeiro)
+			var rest: Array = lesson.get("ask", []).filter(func(q): return not pick.has(q))
+			rest.sort_custom(func(a, b): return absi(int(a.get("lvl", 1)) - stage) < absi(int(b.get("lvl", 1)) - stage))
+			pick += rest.slice(0, n - pick.size())
 		pick.shuffle()
 	else:
 		var asks: Array = []
@@ -223,13 +228,15 @@ func _pick() -> void:
 	var gap := 40.0 if n <= 3 else 24.0
 	var k := 1.0 if n <= 3 else 0.86
 	var y := 380.0
+	var scenes := opts.any(func(o): return str(o.get("t", "")) == "scene")
 	if rd.has("show"):
 		# O que se lê/observa fica em cima; as respostas embaixo.
-		var shown := _card(rd["show"], Vector2(640, 215), 1.0)
+		var tall := _tall(rd["show"]) > 1.0
+		var shown := _card(rd["show"], Vector2(640, 175 if scenes else (205 if tall else 215)), 0.8 if scenes else 1.0)
 		shown.name = "Shown"
 		shown.tappable = false
-		k *= 0.82
-		y = 500.0
+		k *= 1.12 if scenes else 0.82
+		y = 470.0 if scenes else (540.0 if tall else 500.0)
 	# Opções largas (conta montada, dinheiro, blocos): espaço pela largura real e encolhe se não couber.
 	var wmax := 1.0
 	for o in opts:
@@ -488,11 +495,15 @@ func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:
 		wf = _wide(spec)
 		spec = spec.duplicate()
 		spec["w"] = wf
+	var hf := _tall(spec)
+	if hf > 1.0:
+		spec = spec.duplicate()
+		spec["h"] = hf
 	it.radius = CARD * 0.5 * k * maxf(1.0, wf * 0.8)
 	var bg := DS.nine("card", "normal")
 	bg.name = "Bg"
-	DS.fit(bg, Vector2(CARD * wf, CARD) * k)
-	bg.position += -Vector2(CARD * wf, CARD) * k / 2.0
+	DS.fit(bg, Vector2(CARD * wf, CARD * hf) * k)
+	bg.position += -Vector2(CARD * wf, CARD * hf) * k / 2.0
 	it.add_child(bg)
 	it.add_child(Figure.new(spec, CARD * 0.8 * k))
 	world.add_child(it)
@@ -502,17 +513,29 @@ func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:
 	return it
 
 
+## Altura do cartão: texto longo (parágrafo) ganha cartão mais alto.
+func _tall(spec: Dictionary) -> float:
+	if str(spec.get("t", "")) == "text" and str(spec.get("s", "")).length() > 50:
+		return 1.55
+	return 1.0
+
+
 ## Largura do cartão (em cartões) para figuras que precisam de espaço.
 func _wide(spec: Dictionary) -> float:
 	match str(spec.get("t", "")):
 		"text":
 			var t := str(spec.get("s", ""))
-			if t.length() > 6 or (t.contains(" ") and t.length() > 3):
-				return clampf(t.length() * 0.11, 1.15, 4.6)
+			if t.length() <= 16 and (t.length() > 3 and t.contains(" ") or t.length() > 6):
+				return clampf(t.length() * 0.24, 1.15, 3.6)
+			if t.length() > 16:
+				return clampf(t.length() * 0.09, 2.6, 4.8)
 		"tens":
 			return clampf(0.7 + int(spec.get("n", 0)) / 100 * 1.1 + (int(spec.get("n", 0)) / 10 % 10) * 0.14, 1.0, 3.6)
 		"money":
-			return clampf((spec.get("v", []) as Array).size() * 0.55, 1.2, 3.0)
+			var nn := 0
+			for v in spec.get("v", []):
+				nn += 2 if int(v) >= 200 else 1
+			return clampf(nn * 0.55, 1.3, 3.4)
 		"numline":
 			return 3.4
 	return 1.0

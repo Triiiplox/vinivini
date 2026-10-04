@@ -92,21 +92,16 @@ func _ready() -> void:
 		"text":
 			var l := Label.new()
 			l.text = str(spec.get("s", ""))
-			var longest := 0
-			for wd in l.text.split(" "):
-				longest = maxi(longest, wd.length())
 			var bw := box * float(spec.get("w", 1.0))
-			var fs := int(minf(box * 0.62, bw * 1.2 / maxf(longest, 1.0)))
-			if bw > box * 1.2:
-				# texto largo (frase): cabe em até 2 linhas
-				fs = int(minf(box * 0.42, bw * 1.9 / maxf(l.text.length(), 1.0)))
+			var bh := box * float(spec.get("h", 1.0))
+			var fs := _fit_font(l.text, bw, bh)
 			l.add_theme_font_override("font", DS.font("learning", 700))
 			l.add_theme_font_size_override("font_size", fs)
 			l.add_theme_color_override("font_color", Color(str(spec.get("c", "#FFFFFF"))))
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			l.autowrap_mode = TextServer.AUTOWRAP_WORD
-			l.size = Vector2(bw, box)
+			l.autowrap_mode = TextServer.AUTOWRAP_WORD if l.text.length() > 16 else TextServer.AUTOWRAP_OFF
+			l.size = Vector2(bw, bh)
 			l.position = -l.size / 2.0
 			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			UI.child_ok(l)  # conteúdo de leitura (o que se aprende), não instrução
@@ -164,6 +159,21 @@ func _scene() -> void:
 	else:
 		add_child(b)
 		add_child(a)
+
+
+## Maior fonte que cabe: testa de 1 a 6 linhas (palavras não se partem); letra de leitura ~0,58 da fonte.
+static func _fit_font(t: String, bw: float, bh: float) -> int:
+	var words := t.split(" ")
+	var longest := 1
+	for wd in words:
+		longest = maxi(longest, wd.length())
+	var best := 8.0
+	var max_lines := 1 if t.length() <= 16 else 6
+	for lines in range(1, max_lines + 1):
+		var per := maxf(float(longest), ceilf(t.length() / float(lines)) * 1.12) if lines > 1 else float(t.length())
+		var fs := minf(bw * 0.94 / (per * 0.6), bh * 0.9 / (lines * 1.28))
+		best = maxf(best, fs)
+	return int(minf(best, bh * 0.62))
 
 
 func _count(n: int) -> void:

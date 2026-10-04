@@ -97,7 +97,7 @@ static func _money(ci: CanvasItem, vals: Array, box: float, bw: float) -> void:
 	var notes: Array = vals.filter(func(v): return int(v) >= 200)
 	var coins: Array = vals.filter(func(v): return int(v) < 200)
 	var font := ThemeDB.fallback_font
-	var nw := minf(box * 0.8, bw * 0.92 / maxf(1.0, notes.size()) / 1.08)
+	var nw := minf(box * 1.1, bw * 0.95 / maxf(1.0, notes.size()) / 1.06)
 	var nh := nw * 0.5
 	var y0 := -box * 0.22 if not coins.is_empty() and not notes.is_empty() else 0.0
 	for i in notes.size():
@@ -108,8 +108,8 @@ static func _money(ci: CanvasItem, vals: Array, box: float, bw: float) -> void:
 		ci.draw_rect(rect, INK, false, 3.0)
 		ci.draw_circle(c + Vector2(nw * 0.22, 0), nh * 0.28, col.lightened(0.35))
 		var txt := "R$ %d" % (int(notes[i]) / 100)
-		var fs := int(nh * 0.36)
-		ci.draw_string(font, c + Vector2(-nw * 0.44, fs * 0.35), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
+		var fs := int(nh * 0.5)
+		ci.draw_string(font, c + Vector2(-nw * 0.45, fs * 0.36), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
 	var cr := minf(box * (0.2 if notes.is_empty() else 0.13), bw * 0.95 / (mini(coins.size(), 5) * 2.3))
 	var yc := box * 0.2 if not notes.is_empty() else 0.0
 	for i in coins.size():

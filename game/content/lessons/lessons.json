@@ -6491,6 +6491,121 @@
      ],
      "ok": 1,
      "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O Sol é uma estrela. Toque no Sol!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O Sol nos dá luz e calor. Quando o Sol está no céu, é dia ou noite?",
+     "opts": [
+      {
+       "t": "daynight",
+       "side": "night"
+      },
+      {
+       "t": "daynight",
+       "side": "day"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Quem fica no centro do Sistema Solar?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "As plantas usam a luz do Sol para fazer o próprio alimento. Quem precisa da luz do Sol?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 3
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O Sol é a estrela mais perto da Terra. Qual é a estrela mais perto de nós?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Nunca olhe direto para o Sol: ele machuca os olhos. O Sol é quente ou frio?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "FRIO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "QUENTE",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -6609,6 +6724,129 @@
      ],
      "ok": 1,
      "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A Lua gira em volta da Terra. Em volta de quem a Lua gira?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A Lua tem buracos chamados crateras. Toque na Lua!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Astronautas pisaram na Lua em 1969, na missão Apollo 11. Quem já andou na Lua?",
+     "opts": [
+      {
+       "t": "crew",
+       "suit": "suit_blue"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Na lua cheia, a Lua aparece inteira iluminada. Qual é a lua cheia?",
+     "opts": [
+      {
+       "t": "moon",
+       "phase": 2
+      },
+      {
+       "t": "moon",
+       "phase": 4
+      },
+      {
+       "t": "moon",
+       "phase": 0
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Na Lua a gravidade é mais fraca, então você pula mais alto. Onde você pula mais alto?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Na Lua não tem ar. O que o astronauta precisa usar lá?",
+     "opts": [
+      {
+       "t": "vini"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pipa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -6807,6 +7045,132 @@
       "por causa da água"
      ],
      "after": "Por causa dos oceanos!"
+    },
+    {
+     "k": "pick",
+     "say": "Qual planeta tem oceanos e muita vida?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A Terra é redonda como uma bola. Qual forma ela tem?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "triangle"
+      },
+      {
+       "t": "shape",
+       "s": "square"
+      },
+      {
+       "t": "shape",
+       "s": "circle"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A Terra dá uma volta no Sol a cada ano. Em volta de quem a Terra gira?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "A maior parte da Terra é coberta de água. O que cobre a maior parte da Terra?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "A Terra é o terceiro planeta a partir do Sol. Quantos planetas vêm antes dela?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "3",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "1",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "2",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "A Terra gira em volta de si mesma uma vez por dia. Por isso existe o quê?",
+     "opts": [
+      {
+       "t": "daynight",
+       "side": "night"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "apple"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 2,
@@ -7063,6 +7427,129 @@
      ],
      "ok": 2,
      "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o planeta mais perto do Sol?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "neptune"
+      },
+      {
+       "t": "planet",
+       "id": "mercury"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual planeta tem anéis bem grandes?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "saturn"
+      },
+      {
+       "t": "planet",
+       "id": "mercury"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual é o maior planeta do Sistema Solar?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mercury"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Netuno é azul e é o planeta mais longe do Sol. Toque em Netuno!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "venus"
+      },
+      {
+       "t": "planet",
+       "id": "neptune"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Quantos planetas tem o Sistema Solar?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "9",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "8",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "7",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "O maior vulcão do Sistema Solar, o Monte Olimpo, fica no planeta vermelho. Qual é?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -7237,6 +7724,86 @@
      ],
      "ok": 0,
      "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Os planetas giram em volta de quem?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual destes é um planeta gigante feito de gás?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mercury"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual destes não é planeta? Ele é o satélite natural da Terra.",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "venus"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Mercúrio, Vênus, Terra e Marte são planetas de pedra. Qual destes é de pedra?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "saturn"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -7342,6 +7909,76 @@
      "ok": 1,
      "lvl": 1,
      "after": "O Sol!"
+    },
+    {
+     "k": "pick",
+     "say": "As estrelas aparecem no céu de noite. Quando vemos as estrelas?",
+     "opts": [
+      {
+       "t": "daynight",
+       "side": "night"
+      },
+      {
+       "t": "daynight",
+       "side": "day"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Estrelas formam desenhos no céu: as constelações. Qual destes é uma constelação?",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "constellation",
+       "id": "cruzeiro"
+      },
+      {
+       "t": "galaxy"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O Cruzeiro do Sul está na bandeira do Brasil. Toque no Cruzeiro do Sul!",
+     "opts": [
+      {
+       "t": "constellation",
+       "id": "cruzeiro"
+      },
+      {
+       "t": "constellation",
+       "id": "tres_marias"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O Sol também é uma estrela. Ele parece maior porque está muito mais perto. Qual estrela é o Sol?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -7424,6 +8061,66 @@
       "Via Láctea"
      ],
      "after": "Via Láctea!"
+    },
+    {
+     "k": "pick",
+     "say": "Nós moramos numa galáxia chamada Via Láctea. Qual destes é uma galáxia?",
+     "opts": [
+      {
+       "t": "galaxy"
+      },
+      {
+       "t": "comet"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Uma galáxia tem bilhões de estrelas. O que existe numa galáxia?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "estrela"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "bread"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A Via Láctea tem forma de espiral, com braços que giram. Qual tem forma de espiral?",
+     "opts": [
+      {
+       "t": "shape",
+       "s": "square"
+      },
+      {
+       "t": "galaxy"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
     }
    ],
    "n": 2,
@@ -7514,6 +8211,88 @@
      "ok": 2,
      "lvl": 2,
      "after": "De gelo e poeira!"
+    },
+    {
+     "k": "pick",
+     "say": "O cometa tem uma cauda brilhante. Toque no cometa!",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "art",
+       "set": "props",
+       "id": "asteroid"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Asteroide é uma rocha que gira em volta do Sol. Toque no asteroide!",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "art",
+       "set": "props",
+       "id": "asteroid"
+      },
+      {
+       "t": "comet"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A cauda do cometa aparece quando ele chega perto de quem?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Os cometas são feitos de gelo e poeira. Do que é feito um cometa?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "ice"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bolo"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "cheese"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -7582,6 +8361,66 @@
       "bola de futebol"
      ],
      "after": "Até a luz!"
+    },
+    {
+     "k": "pick",
+     "say": "Nem a luz escapa de um buraco negro. Toque no buraco negro!",
+     "opts": [
+      {
+       "t": "blackhole"
+      },
+      {
+       "t": "galaxy"
+      },
+      {
+       "t": "planet",
+       "id": "sun"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O buraco negro puxa tudo com muita força. Que força é essa?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "VENTO",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "GRAVIDADE",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "CHUVA",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "No meio da nossa galáxia existe um buraco negro gigante. Onde ele fica?",
+     "opts": [
+      {
+       "t": "galaxy"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
     }
    ],
    "n": 2,
@@ -7663,6 +8502,65 @@
       "Sol",
       "gravidade da Terra"
      ]
+    },
+    {
+     "k": "pick",
+     "say": "A gravidade puxa tudo para baixo. Se você solta a bola, ela vai para onde?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "PARA CIMA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "PARA BAIXO",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Na estação espacial os astronautas flutuam. Onde eles flutuam?",
+     "opts": [
+      {
+       "t": "satellite"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Em qual lugar você pesaria menos?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "jupiter"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 2,
+     "lvl": 3
     }
    ],
    "n": 2,
@@ -7758,6 +8656,70 @@
       "na Lua"
      ],
      "after": "Na Estação Espacial!"
+    },
+    {
+     "k": "pick",
+     "say": "O astronauta usa traje espacial. Quem é o astronauta?",
+     "opts": [
+      {
+       "t": "crew",
+       "suit": "suit_orange"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Astronautas vivem meses na Estação Espacial Internacional. Ela gira em volta de qual planeta?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "earth"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O primeiro brasileiro a ir ao espaço foi Marcos Pontes, em 2006. Ele era o quê?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "crew",
+       "suit": "suit_blue"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
     }
    ],
    "n": 2,
@@ -7867,6 +8829,70 @@
       "baixo",
       "cima"
      ]
+    },
+    {
+     "k": "pick",
+     "say": "Qual destes leva gente para o espaço?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "casa"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Na contagem regressiva: três, dois, um... e depois?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "4",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "5",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "0",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O fogo sai por baixo e empurra o foguete. Para onde o foguete vai?",
+     "opts": [
+      {
+       "t": "text",
+       "s": "PARA CIMA",
+       "c": "#FFFFFF"
+      },
+      {
+       "t": "text",
+       "s": "PARA BAIXO",
+       "c": "#FFFFFF"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
     }
    ],
    "n": 3,
@@ -7995,6 +9021,65 @@
      ],
      "ok": 1,
      "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "A missão Apollo 11 levou pessoas à Lua em 1969. Para onde ela foi?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "sun"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "O jipe robô Perseverance explora o planeta vermelho. Em que planeta ele anda?",
+     "opts": [
+      {
+       "t": "planet",
+       "id": "earth"
+      },
+      {
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "planet",
+       "id": "moon"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Satélites giram em volta da Terra e ajudam na previsão do tempo. Qual é o satélite?",
+     "opts": [
+      {
+       "t": "comet"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "foguete"
+      },
+      {
+       "t": "satellite"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
     }
    ],
    "n": 3,
@@ -8121,6 +9206,88 @@
      ],
      "ok": 0,
      "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Toda planta começa de uma semente. Qual é a semente?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 0
+      },
+      {
+       "t": "plant",
+       "stage": 4
+      },
+      {
+       "t": "plant",
+       "stage": 3
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Do que a planta precisa para crescer?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "dado"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A flor vira fruto. Qual planta já tem frutos?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 1
+      },
+      {
+       "t": "plant",
+       "stage": 4
+      },
+      {
+       "t": "plant",
+       "stage": 2
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Depois da semente vem o broto. Qual é o broto?",
+     "opts": [
+      {
+       "t": "plant",
+       "stage": 0
+      },
+      {
+       "t": "plant",
+       "stage": 1
+      },
+      {
+       "t": "plant",
+       "stage": 4
+      }
+     ],
+     "ok": 1,
+     "lvl": 3
     }
    ],
    "n": 3,
@@ -8314,6 +9481,121 @@
       ]
      ],
      "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Qual animal vive na água?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual animal dá leite?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Qual animal nasce de um ovo?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "vaca"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "O sapo começa a vida na água, como girino. Toque no sapo!",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "sapo"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Mamíferos mamam quando são filhotes. Qual destes é mamífero?",
+     "opts": [
+      {
+       "t": "art",
+       "set": "words",
+       "id": "gato"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "peixe"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "pato"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 4,
@@ -8440,6 +9722,66 @@
       "não comer nada",
       "comer frutas"
      ]
+    },
+    {
+     "k": "pick",
+     "say": "Com o que a gente enxerga?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "hand"
+      },
+      {
+       "t": "vini_part",
+       "part": "eyes"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Com o que a gente anda?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "eyes"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      },
+      {
+       "t": "vini_part",
+       "part": "mouth"
+      }
+     ],
+     "ok": 1,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Com o que a gente come e fala?",
+     "opts": [
+      {
+       "t": "vini_part",
+       "part": "mouth"
+      },
+      {
+       "t": "vini_part",
+       "part": "hand"
+      },
+      {
+       "t": "vini_part",
+       "part": "foot"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
     }
    ],
    "n": 3,
@@ -8547,6 +9889,62 @@
       }
      ],
      "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Água no congelador vira o quê?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "steam"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      }
+     ],
+     "ok": 2,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Água fervendo vira o quê?",
+     "opts": [
+      {
+       "t": "water",
+       "state": "steam"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
+      },
+      {
+       "t": "water",
+       "state": "ice"
+      }
+     ],
+     "ok": 0,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "De onde cai a chuva?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "weather",
+       "w": "rain"
+      }
+     ],
+     "ok": 1,
+     "lvl": 2
     }
    ],
    "n": 3,
@@ -8648,6 +10046,66 @@
       }
      ],
      "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Qual mostra o tempo de chuva?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "rain"
+      },
+      {
+       "t": "weather",
+       "w": "snow"
+      },
+      {
+       "t": "weather",
+       "w": "sun"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "Neve é água congelada que cai do céu. Qual é a neve?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "storm"
+      },
+      {
+       "t": "weather",
+       "w": "rain"
+      },
+      {
+       "t": "weather",
+       "w": "snow"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Raio e trovão: é tempestade! Qual é a tempestade?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "weather",
+       "w": "rain"
+      },
+      {
+       "t": "weather",
+       "w": "storm"
+      }
+     ],
+     "ok": 2,
      "lvl": 2
     }
    ],
@@ -8832,6 +10290,66 @@
      ],
      "ok": 1,
      "lvl": 3
+    },
+    {
+     "k": "pick",
+     "say": "Azul misturado com amarelo dá que cor?",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#EF4444"
+      },
+      {
+       "t": "color",
+       "c": "#A855F7"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Vermelho misturado com amarelo dá que cor?",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#3B82F6"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      }
+     ],
+     "ok": 2,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Vermelho misturado com azul dá que cor?",
+     "opts": [
+      {
+       "t": "color",
+       "c": "#A855F7"
+      },
+      {
+       "t": "color",
+       "c": "#22C55E"
+      },
+      {
+       "t": "color",
+       "c": "#FB923C"
+      }
+     ],
+     "ok": 0,
+     "lvl": 3
     }
    ],
    "n": 4,
@@ -9009,6 +10527,44 @@
       }
      ],
      "ok": 1,
+     "lvl": 2
+    },
+    {
+     "k": "pick",
+     "say": "Sem luz não existe sombra. Do que a sombra precisa?",
+     "opts": [
+      {
+       "t": "weather",
+       "w": "sun"
+      },
+      {
+       "t": "art",
+       "set": "words",
+       "id": "bola"
+      },
+      {
+       "t": "art",
+       "set": "foods",
+       "id": "bread"
+      }
+     ],
+     "ok": 0,
+     "lvl": 1
+    },
+    {
+     "k": "pick",
+     "say": "A sombra fica do lado contrário da luz. Qual sombra está certa com a luz deste lado?",
+     "opts": [
+      {
+       "t": "shadow",
+       "light": "left"
+      },
+      {
+       "t": "shadow",
+       "light": "right"
+      }
+     ],
+     "ok": 0,
      "lvl": 2
     }
    ],
