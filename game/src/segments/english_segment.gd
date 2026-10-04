@@ -28,7 +28,7 @@ func build() -> void:
 	unit = Hello.unit(str(params.get("unit", "colors")))
 	if unit.is_empty():
 		unit = Hello.playable_units()[0]
-	set_sky("space")
+	set_sky("moon")
 	AudioService.play_music("explore")
 	world.add_child(Scenery.new("moon"))
 	hoppy = CrewActor.new("suit_saturn", 250.0)

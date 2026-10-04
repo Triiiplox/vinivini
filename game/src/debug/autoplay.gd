@@ -231,6 +231,33 @@ static func _lesson(s: Node, wrong: bool) -> bool:
 						b = (b + 1) % s.zones.size()
 					s._on_drop(c, s.zones[b])
 					return true
+		"trace":
+			# Robô "traça": passa por todos os pontos de controle (ou só metade, quando erra de propósito).
+			var pts: Array = s._trace_pts
+			for i in pts.size():
+				if not wrong or i % 2 == 0:
+					pts[i]["hit"] = true
+			s._trace_check(true)
+			return true
+		"count":
+			for c in s.cards:
+				if is_instance_valid(c) and c.name.begins_with("Cnt_"):
+					if int(c.payload) == 0 or wrong:
+						s._on_count(c)
+						return true
+		"join", "take":
+			var want := "out" if str(s.rd["k"]) == "join" else "in"
+			for c in s.cards:
+				if is_instance_valid(c) and c.draggable and str(c.payload) == want:
+					s._on_basket_drop(c, s.outside if wrong == (want == "out") else s.basket)
+					return true
+		"build":
+			var parts: Array = s.rd.get("parts", [])
+			if s.placed < parts.size():
+				for c in s.cards:
+					if is_instance_valid(c) and c.draggable and (str(c.payload) == str(parts[s.placed])) != wrong:
+						s._on_syllable_drop(c, s.zones[s.placed])
+						return true
 	return false
 
 

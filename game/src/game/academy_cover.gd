@@ -6,7 +6,10 @@ extends RefCounted
 static func cover(les: Dictionary) -> Dictionary:
 	var teach: Array = les.get("teach", [])
 	if not teach.is_empty():
-		return teach[0].get("fig", {})
+		var f: Dictionary = teach[0].get("fig", {})
+		if str(f.get("t", "")) == "plant":
+			return {"t": "plant", "stage": 3}  # a planta com flor diz "plantas"; a semente parecia só uma barra
+		return f
 	var q: Dictionary = (les.get("ask", []) as Array)[0]
 	if q.has("show"):
 		return q["show"]

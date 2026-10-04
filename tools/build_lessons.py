@@ -199,13 +199,11 @@ lesson("consoantes", "Letras e figuras", "reading.letters", "ship", "Cada letra 
 
 lesson("tracar_letras", "Escrever letras", "reading.letters", "ship", "Vamos escrever mais letras com o dedo!",
        [T("Toda letra começa na bolinha verde. Devagar, seguindo o caminho!", txt("L"))],
-       [TR("Escreva a letra %s com o dedo!" % c, c, "%s de %s! Muito bem!" % (c, NAME.get(EX[c], EX[c])), lv)
+       [TR("Escreva a letra %s com o dedo!" % c, c,
+           ("%s de %s! Muito bem!" % (c, NAME.get(EX[c], EX[c]))) if c in EX else "%s! Muito bem!" % c, lv)
         for c, lv in [("L", 1), ("T", 1), ("V", 1), ("M", 2), ("N", 2), ("F", 2), ("P", 2), ("B", 3), ("D", 3), ("R", 3),
-                      ("S", 3), ("C", 2), ("G", 3)] if c in EX or c == "T"] ,
+                      ("S", 3), ("C", 2), ("G", 3)]],
        n=3, icon_id="abc", group="reading")
-for q in L[-1]["ask"]:
-    if q["letter"] == "T":
-        q["done"] = "T! Muito bem!"
 
 lesson("som_das_letras", "O som das letras", "reading.letter_sounds", "ship",
        "Toda palavra começa com um som. Escute bem o comecinho!",
@@ -232,7 +230,7 @@ lesson("montar_palavras", "Montar palavras", "reading.build_word", "ship",
        "Vamos montar palavras juntando pedacinhos! Toque num pedacinho para ouvir o som dele.",
        [T("Bola tem dois pedacinhos: bó, lá. Juntando: bola!", row(txt("BO"), txt("LA"), W("bola")))],
        [BW("Monte a palavra %s! Arraste os pedacinhos para os quadrados." % NAME.get(w, w), w, p, snd,
-           "%s: %s!" % (", ".join(x.capitalize() for x in snd), NAME.get(w, w)),
+           "%s: %s!" % (", ".join(snd).capitalize(), NAME.get(w, w)),
            extra=None if lv == 1 else [d for d in DISTRACT if d[0] not in p][:1], lvl=lv)
         for w, p, snd, lv in SYL],
        n=3, icon_id="blocks", group="reading")

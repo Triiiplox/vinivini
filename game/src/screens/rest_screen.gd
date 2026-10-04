@@ -7,10 +7,11 @@ func build() -> void:
 	set_sky("space")
 	AudioService.play_music("map", 0.3)
 	world.add_child(Scenery.new("ship"))
-	var dim := ColorRect.new()
+	# Noite na nave: véu escuro cobrindo também as laterais das telas largas.
+	var dim := Polygon2D.new()
+	dim.polygon = PackedVector2Array([Vector2(-1000, -400), Vector2(2280, -400), Vector2(2280, 1200), Vector2(-1000, 1200)])
 	dim.color = Color(0.02, 0.03, 0.1, 0.55)
-	dim.size = Vector2(1280, 720)
-	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dim.z_index = 5
 	world.add_child(dim)
 	var vini := CharacterRig2D.new("vini", 330.0)
 	vini.position = Vector2(640, 660)

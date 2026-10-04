@@ -9,6 +9,11 @@ const AREA_SAY := {
 	"emotion": "Sentimentos e amizade!",
 }
 
+const AREA_LOOK := {
+	"reading": ["abc", "#2563FF"], "math": ["123", "#FB923C"], "logic": ["puzzle", "#A855F7"],
+	"science": ["flask", "#22C55E"], "astronomy": ["planet", "#22D3EE"], "emotion": ["heart", "#F472B6"],
+}
+
 ## Última matéria aberta (a lição volta para cá ao terminar).
 static var last_area := ""
 
@@ -31,6 +36,7 @@ func build() -> void:
 		area = str(ContentService.repo.lessons.get(Recommend.next_lesson(), {}).get("group", "reading"))
 	last_area = area
 	_build_trail()
+	_area_badge()
 	# Desafio difícil: a próxima lição da trilha, um nível acima.
 	var hard := DSButton.new("icon", "trophy", Vector2(120, 120), "gold")
 	hard.name = "HardChallenge"
@@ -59,17 +65,17 @@ func _build_trail() -> void:
 	world.add_child(path)
 	for i in ids.size():
 		var les: Dictionary = ContentService.repo.lessons[ids[i]]
-		var pos := Vector2(300 + i * 270, 340 + (70.0 if i % 2 == 0 else -50.0))
+		var pos := Vector2(330 + i * 280, 360 + (60.0 if i % 2 == 0 else -50.0))
 		path_pts.append(pos)
 		var it := Interactable.new()
 		it.name = "Lesson_%s" % ids[i]
-		it.radius = 100.0
+		it.radius = 110.0
 		it.payload = {"id": ids[i], "open": i <= next_i}
 		it.position = pos
 		it.z_index = 10
 		var bg := DS.nine("card", "selected" if i == next_i else "normal")
-		DS.fit(bg, Vector2(200, 200))
-		bg.position += Vector2(-100, -100)
+		DS.fit(bg, Vector2(214, 214))
+		bg.position += Vector2(-107, -107)
 		it.add_child(bg)
 		var fig := Figure.new(AcademyCover.cover(les), 140.0)
 		it.add_child(fig)
@@ -102,11 +108,35 @@ func _build_trail() -> void:
 		tiles.append(it)
 	if next_id == "" and not ids.is_empty():
 		next_id = str(ids[ids.size() - 1])
+	# O Vini fica ao lado da lição que brilha ("é aqui que eu vou").
+	if not path_pts.is_empty():
+		var vini := CharacterRig2D.new("vini", 220.0)
+		vini.position = Vector2(path_pts[mini(next_i, path_pts.size() - 1)].x - 150, 690)
+		vini.z_index = 20
+		world.add_child(vini)
+		vini.play("point")
 	camera.limit_left = 0
-	camera.limit_right = int(maxf(1280.0, 300 + ids.size() * 270 + 120))
+	camera.limit_right = int(maxf(1280.0, 330 + ids.size() * 280 + 120))
 	var focus: float = path_pts[mini(next_i, path_pts.size() - 1)].x if path_pts.size() > 0 else 640.0
 	_set_cam_x(focus)
 	camera.reset_smoothing()
+
+
+## Selo da matéria ao lado do botão de casa: a criança sabe em que matéria está (mesma cor/ícone da tela principal).
+func _area_badge() -> void:
+	var look: Array = AREA_LOOK.get(area, ["star", "#FACC15"])
+	var badge := Panel.new()
+	badge.name = "AreaBadge"
+	badge.add_theme_stylebox_override("panel", UITheme.rounded(Color(str(look[1])), 46, 5, Color.WHITE))
+	badge.size = Vector2(92, 92)
+	badge.position = Vector2(124, 16)
+	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.root.add_child(badge)
+	var ic := IconDraw.new(str(look[0]), Color.WHITE)
+	ic.size = Vector2(64, 64)
+	ic.position = Vector2(14, 14)
+	ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	badge.add_child(ic)
 
 
 func _draw_path(n: Node2D) -> void:

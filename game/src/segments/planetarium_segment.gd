@@ -48,7 +48,7 @@ var order_i := 0
 
 func build() -> void:
 	quests = int(params.get("quests", 3))
-	set_sky("space")
+	set_sky("deep")
 	AudioService.play_music("map")
 	orbit_draw = Node2D.new()
 	orbit_draw.draw.connect(_draw_orbits)

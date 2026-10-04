@@ -312,6 +312,25 @@ static func validate_lesson(l: Variant) -> Array[String]:
 				for it in r.get("items", []):
 					if int(it[1]) < 0 or int(it[1]) >= nb:
 						e.append("item fora dos grupos")
+			"trace":
+				if str(r.get("letter", "")) == "" or str(r.get("done", "")) == "":
+					e.append("traçar sem letra ou sem fala final")
+			"count":
+				if int(r.get("n", 0)) < 1 or int(r.get("n", 0)) > 10 or str(r.get("total", "")) == "":
+					e.append("contar com quantidade fora de 1–10 ou sem total")
+			"join", "take":
+				var a := int(r.get("a", 0))
+				var b := int(r.get("b", 0))
+				if a < 0 or b < 1 or (k == "take" and b > a) or a + b > 10 or str(r.get("total", "")) == "":
+					e.append("cesta com números inválidos: %s" % str(r.get("say", "")))
+			"build":
+				var parts: Array = r.get("parts", [])
+				var snd: Dictionary = r.get("sounds", {})
+				if parts.size() < 2 or not r.get("pic") is Dictionary:
+					e.append("montar palavra sem partes ou sem figura")
+				for x in parts + (r.get("extra", []) as Array):
+					if not snd.has(x):
+						e.append("sílaba sem som: %s" % x)
 			_:
 				e.append("tipo de rodada desconhecido: %s" % k)
 	return e

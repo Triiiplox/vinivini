@@ -5,8 +5,12 @@ extends CanvasLayer
 const THEMES := {
 	"space": [Color(0.10, 0.12, 0.38), Color(0.03, 0.04, 0.16), Color(0.55, 0.20, 0.85), Color(0.15, 0.55, 0.95), Color(0.95, 0.30, 0.55),
 		0.55],
-	"moon": [Color(0.05, 0.07, 0.22), Color(0.02, 0.03, 0.10), Color(0.30, 0.35, 0.80), Color(0.20, 0.45, 0.85), Color(0.6, 0.6, 0.9),
-		0.35],
+	# Céu visto da Lua: preto com estrelas, sem nebulosa colorida (não há ar; é o que os astronautas viram).
+	"moon": [Color(0.02, 0.03, 0.08), Color(0.0, 0.0, 0.02), Color(0.30, 0.35, 0.80), Color(0.20, 0.45, 0.85), Color(0.6, 0.6, 0.9),
+		0.0],
+	# Espaço "de verdade" para conteúdo de astronomia (sem o Saturno pintado do céu de apresentação).
+	"deep": [Color(0.04, 0.05, 0.16), Color(0.01, 0.01, 0.05), Color(0.35, 0.25, 0.75), Color(0.15, 0.35, 0.8), Color(0.5, 0.3, 0.6),
+		0.12],
 	"mars": [Color(0.35, 0.12, 0.18), Color(0.12, 0.04, 0.10), Color(0.95, 0.45, 0.25), Color(0.8, 0.25, 0.3), Color(1.0, 0.6, 0.3), 0.45],
 	"ice": [Color(0.08, 0.16, 0.40), Color(0.03, 0.06, 0.20), Color(0.3, 0.7, 1.0), Color(0.5, 0.9, 1.0), Color(0.8, 0.9, 1.0), 0.45],
 	"saturn": [Color(0.20, 0.14, 0.36), Color(0.05, 0.04, 0.16), Color(0.95, 0.75, 0.35), Color(0.55, 0.35, 0.85), Color(0.95, 0.55, 0.45),
@@ -16,7 +20,6 @@ const THEMES := {
 ## Céus pintados (assets/scenes): tema -> [arquivo, cor]. Os outros temas usam só o shader.
 const PAINTED := {
 	"space": ["space_sky", Color.WHITE], "saturn": ["space_sky", Color(1.0, 0.92, 0.85)],
-	"moon": ["space_sky", Color(0.62, 0.66, 0.85)],
 }
 
 var rect: ColorRect
@@ -24,6 +27,7 @@ var painted: TextureRect
 var mat: ShaderMaterial
 var theme := "space"
 var _vp := Vector2(1280, 720)
+var _fade_tw: Tween
 
 
 func _ready() -> void:
@@ -70,10 +74,14 @@ func set_theme(name: String, fade: float = 0.8) -> void:
 	theme = name
 	var pt: Array = PAINTED.get(name, [])
 	var target := Color(pt[1]) if not pt.is_empty() else Color(1, 1, 1, 0)
+	# Uma troca de tema cancela a anterior (senão o fade antigo termina por último e "vence").
+	if _fade_tw and _fade_tw.is_valid():
+		_fade_tw.kill()
 	if fade <= 0.0:
 		painted.modulate = target
 	else:
-		create_tween().tween_property(painted, "modulate", target, fade)
+		_fade_tw = create_tween()
+		_fade_tw.tween_property(painted, "modulate", target, fade)
 	var t: Array = THEMES.get(name, THEMES["space"])
 	var keys := ["top_color", "bottom_color", "neb_a", "neb_b", "neb_c", "neb_strength"]
 	for i in keys.size():

@@ -20,7 +20,7 @@ var t0 := 0.0
 
 func build() -> void:
 	rounds = int(params.get("rounds", 3))
-	set_sky("space")
+	set_sky("deep")
 	AudioService.play_music("puzzle", 0.6)
 	lvl = difficulty(SKILL)
 	var n := lvl + 2

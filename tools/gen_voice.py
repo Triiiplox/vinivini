@@ -153,6 +153,11 @@ for les in J("lessons/lessons.json")["lessons"]:
             add("narrator", t, "lesson")
         if r.get("after"):
             add("narrator", r["after"], "lesson")
+        for key in ("done", "total", "word_say", "why"):
+            if r.get(key):
+                add("narrator", r[key], "lesson")
+        for t in r.get("sounds", {}).values():
+            add("narrator", t, "lesson")
 
 # ---------------------------------------------------------------- síntese
 def key_for(who, text):

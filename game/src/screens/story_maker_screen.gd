@@ -49,8 +49,9 @@ func build() -> void:
 
 
 func begin() -> void:
-	var d := narrate(Lines.n("Vamos criar uma história! Escolha cada parte tocando nas figuras."))
-	after(d + 0.3, _show_step)
+	# Fala curta e as figuras logo em seguida (antes a tela ficava vazia por ~5 s).
+	var d := narrate(Lines.n("Vamos criar uma história!"))
+	after(d + 0.1, _show_step)
 
 
 func _options() -> Array:

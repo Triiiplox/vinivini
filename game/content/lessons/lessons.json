@@ -381,6 +381,64 @@
    "group": "reading"
   },
   {
+   "id": "tracar_vogais",
+   "name": "Escrever as vogais",
+   "skill": "reading.letters",
+   "theme": "ship",
+   "intro": "Agora você vai escrever as vogais com o dedo!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Para escrever, a gente começa na bolinha verde e vai seguindo as bolinhas brancas.",
+     "fig": {
+      "t": "text",
+      "s": "A",
+      "c": "#FFFFFF"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "trace",
+     "say": "Passe o dedo na letra A, seguindo as bolinhas!",
+     "letter": "A",
+     "done": "A! Você escreveu a letra A!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Passe o dedo na letra E, seguindo as bolinhas!",
+     "letter": "E",
+     "done": "E! Você escreveu a letra E!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Passe o dedo na letra I, seguindo as bolinhas!",
+     "letter": "I",
+     "done": "I! Você escreveu a letra I!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Passe o dedo na letra O, seguindo as bolinhas!",
+     "letter": "O",
+     "done": "O! Você escreveu a letra O!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Passe o dedo na letra U, seguindo as bolinhas!",
+     "letter": "U",
+     "done": "U! Você escreveu a letra U!",
+     "lvl": 2
+    }
+   ],
+   "n": 3,
+   "icon": "abc",
+   "group": "reading"
+  },
+  {
    "id": "consoantes",
    "name": "Letras e figuras",
    "skill": "reading.letters",
@@ -754,6 +812,120 @@
     }
    ],
    "n": 5,
+   "icon": "abc",
+   "group": "reading"
+  },
+  {
+   "id": "tracar_letras",
+   "name": "Escrever letras",
+   "skill": "reading.letters",
+   "theme": "ship",
+   "intro": "Vamos escrever mais letras com o dedo!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Toda letra começa na bolinha verde. Devagar, seguindo o caminho!",
+     "fig": {
+      "t": "text",
+      "s": "L",
+      "c": "#FFFFFF"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "trace",
+     "say": "Escreva a letra L com o dedo!",
+     "letter": "L",
+     "done": "L de lua! Muito bem!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra T com o dedo!",
+     "letter": "T",
+     "done": "T! Muito bem!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra V com o dedo!",
+     "letter": "V",
+     "done": "V de vaca! Muito bem!",
+     "lvl": 1
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra M com o dedo!",
+     "letter": "M",
+     "done": "M de mala! Muito bem!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra N com o dedo!",
+     "letter": "N",
+     "done": "N de nave! Muito bem!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra F com o dedo!",
+     "letter": "F",
+     "done": "F de foguete! Muito bem!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra P com o dedo!",
+     "letter": "P",
+     "done": "P de pato! Muito bem!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra B com o dedo!",
+     "letter": "B",
+     "done": "B de bola! Muito bem!",
+     "lvl": 3
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra D com o dedo!",
+     "letter": "D",
+     "done": "D de dado! Muito bem!",
+     "lvl": 3
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra R com o dedo!",
+     "letter": "R",
+     "done": "R de robô! Muito bem!",
+     "lvl": 3
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra S com o dedo!",
+     "letter": "S",
+     "done": "S de sol! Muito bem!",
+     "lvl": 3
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra C com o dedo!",
+     "letter": "C",
+     "done": "C de casa! Muito bem!",
+     "lvl": 2
+    },
+    {
+     "k": "trace",
+     "say": "Escreva a letra G com o dedo!",
+     "letter": "G",
+     "done": "G de gato! Muito bem!",
+     "lvl": 3
+    }
+   ],
+   "n": 3,
    "icon": "abc",
    "group": "reading"
   },
@@ -1156,6 +1328,340 @@
    ],
    "n": 5,
    "icon": "voice",
+   "group": "reading"
+  },
+  {
+   "id": "montar_palavras",
+   "name": "Montar palavras",
+   "skill": "reading.build_word",
+   "theme": "ship",
+   "intro": "Vamos montar palavras juntando pedacinhos! Toque num pedacinho para ouvir o som dele.",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Bola tem dois pedacinhos: bó, lá. Juntando: bola!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "text",
+        "s": "BO",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "text",
+        "s": "LA",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "build",
+     "say": "Monte a palavra bola! Arraste os pedacinhos para os quadrados.",
+     "word_say": "bola",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "parts": [
+      "BO",
+      "LA"
+     ],
+     "sounds": {
+      "BO": "bó",
+      "LA": "lá"
+     },
+     "extra": [],
+     "done": "Bó, lá: bola!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra pato! Arraste os pedacinhos para os quadrados.",
+     "word_say": "pato",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "pato"
+     },
+     "parts": [
+      "PA",
+      "TO"
+     ],
+     "sounds": {
+      "PA": "pá",
+      "TO": "tô"
+     },
+     "extra": [],
+     "done": "Pá, tô: pato!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra uva! Arraste os pedacinhos para os quadrados.",
+     "word_say": "uva",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "uva"
+     },
+     "parts": [
+      "U",
+      "VA"
+     ],
+     "sounds": {
+      "U": "ú",
+      "VA": "vá"
+     },
+     "extra": [],
+     "done": "Ú, vá: uva!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra lua! Arraste os pedacinhos para os quadrados.",
+     "word_say": "lua",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "lua"
+     },
+     "parts": [
+      "LU",
+      "A"
+     ],
+     "sounds": {
+      "LU": "lú",
+      "A": "á"
+     },
+     "extra": [],
+     "done": "Lú, á: lua!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra mala! Arraste os pedacinhos para os quadrados.",
+     "word_say": "mala",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "mala"
+     },
+     "parts": [
+      "MA",
+      "LA"
+     ],
+     "sounds": {
+      "MA": "má",
+      "LA": "lá"
+     },
+     "extra": [],
+     "done": "Má, lá: mala!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra gato! Arraste os pedacinhos para os quadrados.",
+     "word_say": "gato",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "gato"
+     },
+     "parts": [
+      "GA",
+      "TO"
+     ],
+     "sounds": {
+      "GA": "gá",
+      "TO": "tô"
+     },
+     "extra": [],
+     "done": "Gá, tô: gato!",
+     "lvl": 1
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra dado! Arraste os pedacinhos para os quadrados.",
+     "word_say": "dado",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "dado"
+     },
+     "parts": [
+      "DA",
+      "DO"
+     ],
+     "sounds": {
+      "DA": "dá",
+      "DO": "dô",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Dá, dô: dado!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra sapo! Arraste os pedacinhos para os quadrados.",
+     "word_say": "sapo",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "sapo"
+     },
+     "parts": [
+      "SA",
+      "PO"
+     ],
+     "sounds": {
+      "SA": "sá",
+      "PO": "pô",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Sá, pô: sapo!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra vaca! Arraste os pedacinhos para os quadrados.",
+     "word_say": "vaca",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "vaca"
+     },
+     "parts": [
+      "VA",
+      "CA"
+     ],
+     "sounds": {
+      "VA": "vá",
+      "CA": "cá",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Vá, cá: vaca!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra pipa! Arraste os pedacinhos para os quadrados.",
+     "word_say": "pipa",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "pipa"
+     },
+     "parts": [
+      "PI",
+      "PA"
+     ],
+     "sounds": {
+      "PI": "pí",
+      "PA": "pá",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Pí, pá: pipa!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra bolo! Arraste os pedacinhos para os quadrados.",
+     "word_say": "bolo",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "bolo"
+     },
+     "parts": [
+      "BO",
+      "LO"
+     ],
+     "sounds": {
+      "BO": "bô",
+      "LO": "lô",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Bô, lô: bolo!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra nave! Arraste os pedacinhos para os quadrados.",
+     "word_say": "nave",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "nave"
+     },
+     "parts": [
+      "NA",
+      "VE"
+     ],
+     "sounds": {
+      "NA": "ná",
+      "VE": "vê",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Ná, vê: nave!",
+     "lvl": 2
+    },
+    {
+     "k": "build",
+     "say": "Monte a palavra foguete! Arraste os pedacinhos para os quadrados.",
+     "word_say": "foguete",
+     "pic": {
+      "t": "art",
+      "set": "words",
+      "id": "foguete"
+     },
+     "parts": [
+      "FO",
+      "GUE",
+      "TE"
+     ],
+     "sounds": {
+      "FO": "fô",
+      "GUE": "guê",
+      "TE": "tê",
+      "MA": "má"
+     },
+     "extra": [
+      "MA"
+     ],
+     "done": "Fô, guê, tê: foguete!",
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "blocks",
    "group": "reading"
   },
   {
@@ -2810,6 +3316,413 @@
    "n": 3,
    "icon": "book",
    "group": "reading"
+  },
+  {
+   "id": "contar_tocando",
+   "name": "Contar tocando",
+   "skill": "math.counting",
+   "theme": "ship",
+   "intro": "Vamos contar tocando em cada um!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Para contar, toque em cada um uma vez só, e fale junto: um, dois, três!",
+     "fig": {
+      "t": "count",
+      "n": 3,
+      "set": "words",
+      "id": "estrela"
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "count",
+     "say": "Toque em cada estrela para contar!",
+     "n": 3,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "estrela"
+     },
+     "total": "São três estrelas!",
+     "lvl": 1
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada bola para contar!",
+     "n": 4,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "São quatro bolas!",
+     "lvl": 1
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada maçã para contar!",
+     "n": 5,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "apple"
+     },
+     "total": "São cinco maçãs!",
+     "lvl": 1
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada peixe para contar!",
+     "n": 4,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "peixe"
+     },
+     "total": "São quatro peixes!",
+     "lvl": 1
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada morango para contar!",
+     "n": 6,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "strawberry"
+     },
+     "total": "São seis morangos!",
+     "lvl": 2
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada ovo para contar!",
+     "n": 7,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "egg"
+     },
+     "total": "São sete ovos!",
+     "lvl": 2
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada estrela para contar!",
+     "n": 8,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "estrela"
+     },
+     "total": "São oito estrelas!",
+     "lvl": 3
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada bola para contar!",
+     "n": 9,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "São nove bolas!",
+     "lvl": 3
+    },
+    {
+     "k": "count",
+     "say": "Toque em cada maçã para contar!",
+     "n": 10,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "apple"
+     },
+     "total": "São dez maçãs!",
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "123",
+   "group": "math"
+  },
+  {
+   "id": "juntar",
+   "name": "Juntar e contar",
+   "skill": "math.addition.concrete",
+   "theme": "ship",
+   "intro": "Juntar é colocar tudo na cesta e contar quantos ficaram!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Duas maçãs na cesta e mais uma: juntando, ficam três!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "count",
+        "n": 2,
+        "set": "foods",
+        "id": "apple"
+       },
+       {
+        "t": "text",
+        "s": "+",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "count",
+        "n": 1,
+        "set": "foods",
+        "id": "apple"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "join",
+     "say": "A cesta tem duas maçãs. Arraste mais uma para dentro!",
+     "a": 2,
+     "b": 1,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "apple"
+     },
+     "total": "Duas mais uma: três maçãs!",
+     "lvl": 1
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem uma bola. Arraste mais duas para dentro!",
+     "a": 1,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "Uma mais duas: três bolas!",
+     "lvl": 1
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem duas estrelas. Arraste mais duas para dentro!",
+     "a": 2,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "estrela"
+     },
+     "total": "Duas mais duas: quatro estrelas!",
+     "lvl": 1
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem três ovos. Arraste mais um para dentro!",
+     "a": 3,
+     "b": 1,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "egg"
+     },
+     "total": "Três mais um: quatro ovos!",
+     "lvl": 2
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem dois morangos. Arraste mais três para dentro!",
+     "a": 2,
+     "b": 3,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "strawberry"
+     },
+     "total": "Dois mais três: cinco morangos!",
+     "lvl": 2
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem três peixes. Arraste mais dois para dentro!",
+     "a": 3,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "peixe"
+     },
+     "total": "Três mais dois: cinco peixes!",
+     "lvl": 2
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem quatro maçãs. Arraste mais duas para dentro!",
+     "a": 4,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "apple"
+     },
+     "total": "Quatro mais duas: seis maçãs!",
+     "lvl": 3
+    },
+    {
+     "k": "join",
+     "say": "A cesta tem três bolas. Arraste mais três para dentro!",
+     "a": 3,
+     "b": 3,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "Três mais três: seis bolas!",
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "plus",
+   "group": "math"
+  },
+  {
+   "id": "tirar_objetos",
+   "name": "Tirar e contar",
+   "skill": "math.subtraction",
+   "theme": "ship",
+   "intro": "Tirar é levar para fora da cesta e contar quantos sobraram!",
+   "teach": [
+    {
+     "k": "teach",
+     "say": "Três bolas na cesta. Tirando uma, sobram duas!",
+     "fig": {
+      "t": "row",
+      "items": [
+       {
+        "t": "count",
+        "n": 3,
+        "set": "words",
+        "id": "bola"
+       },
+       {
+        "t": "text",
+        "s": "−1",
+        "c": "#FFFFFF"
+       },
+       {
+        "t": "count",
+        "n": 2,
+        "set": "words",
+        "id": "bola"
+       }
+      ]
+     }
+    }
+   ],
+   "ask": [
+    {
+     "k": "take",
+     "say": "Tem três bolas na cesta. Tire uma para fora!",
+     "a": 3,
+     "b": 1,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "Três menos uma: sobraram duas!",
+     "lvl": 1
+    },
+    {
+     "k": "take",
+     "say": "Tem quatro maçãs na cesta. Tire uma para fora!",
+     "a": 4,
+     "b": 1,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "apple"
+     },
+     "total": "Quatro menos uma: sobraram três!",
+     "lvl": 1
+    },
+    {
+     "k": "take",
+     "say": "Tem quatro estrelas na cesta. Tire duas para fora!",
+     "a": 4,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "estrela"
+     },
+     "total": "Quatro menos duas: sobraram duas!",
+     "lvl": 1
+    },
+    {
+     "k": "take",
+     "say": "Tem cinco peixes na cesta. Tire dois para fora!",
+     "a": 5,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "peixe"
+     },
+     "total": "Cinco menos dois: sobraram três!",
+     "lvl": 2
+    },
+    {
+     "k": "take",
+     "say": "Tem cinco ovos na cesta. Tire três para fora!",
+     "a": 5,
+     "b": 3,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "egg"
+     },
+     "total": "Cinco menos três: sobraram dois!",
+     "lvl": 2
+    },
+    {
+     "k": "take",
+     "say": "Tem seis morangos na cesta. Tire dois para fora!",
+     "a": 6,
+     "b": 2,
+     "item": {
+      "t": "art",
+      "set": "foods",
+      "id": "strawberry"
+     },
+     "total": "Seis menos dois: sobraram quatro!",
+     "lvl": 3
+    },
+    {
+     "k": "take",
+     "say": "Tem seis bolas na cesta. Tire quatro para fora!",
+     "a": 6,
+     "b": 4,
+     "item": {
+      "t": "art",
+      "set": "words",
+      "id": "bola"
+     },
+     "total": "Seis menos quatro: sobraram duas!",
+     "lvl": 3
+    }
+   ],
+   "n": 3,
+   "icon": "plus",
+   "group": "math"
   },
   {
    "id": "ordem_numeros",

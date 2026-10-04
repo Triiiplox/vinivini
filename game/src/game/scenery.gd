@@ -24,6 +24,9 @@ func _init(t: String = "moon") -> void:
 
 func _ready() -> void:
 	z_index = -50
+	# Chão da Lua pede céu da Lua (preto e estrelado), em qualquer tela.
+	if theme == "moon" and is_instance_valid(Router.sky):
+		Router.sky.set_theme("moon", 0.3)
 	if PAINTED.has(theme):
 		_build_painted()
 		return

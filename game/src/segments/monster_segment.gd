@@ -67,7 +67,7 @@ func _next_round() -> void:
 			card.payload = Lines.word_entry(str(opts[i])).get("syllables", ["?"])[0]
 		else:
 			card = SyllableCard.new(str(opts[i]), "", [Palette.TEAL, Palette.PINK, Palette.ORANGE][i % 3])
-		card.position = Vector2(640 - (n - 1) * 110 + i * 220, 620)
+		card.position = Vector2(640 - (n - 1) * 110 + i * 220, 585)
 		card.scale = Vector2.ZERO
 		world.add_child(card)
 		card.dropped.connect(_on_drop)

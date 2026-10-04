@@ -102,10 +102,9 @@ func _run() -> void:
 			Router.reset_to("galaxy", {})
 			await wait(0.3)
 			var g: Node = Router.current_screen
-			g._on_node(g.nodes[mid])
-			g._on_node(g.nodes[mid])
-			await wait(0.3)
-			check(MissionFlow.mission_id == mid, "mapa inicia %s" % mid)
+			g._on_node(g.nodes[mid])  # um toque só: a nave voa, diz o nome e a missão começa
+			await wait(1.4)
+			check(MissionFlow.mission_id == mid, "mapa inicia %s com um toque" % mid)
 		var t0 := Time.get_ticks_msec()
 		print("== missão ", mid)
 		if await play_until("reward", MISSION_TIMEOUT):

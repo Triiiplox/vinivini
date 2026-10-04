@@ -23,7 +23,7 @@ var used: Array = []
 
 func build() -> void:
 	rounds = int(params.get("rounds", 3))
-	set_sky("space")
+	set_sky("moon")
 	AudioService.play_music("puzzle")
 	world.add_child(Scenery.new("moon"))
 	add_cosmo(Vector2(1150, 180), 120.0)
