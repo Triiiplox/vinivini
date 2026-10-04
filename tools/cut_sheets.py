@@ -23,6 +23,9 @@ OUT = os.path.join(ROOT, "art_src/v5/cut")
 
 # folha -> (itens por linha, nomes em ordem de leitura)
 SHEETS = {
+    # Lote 3 (04/10): recompensas e interface; carroceria do jipe sem rodas.
+    "ui_lote3": ([4, 4], ["chest_closed", "chest_open", "hand_point", "medal", "check", "portal", "slot", "rock"]),
+    "rover_corpo": ([1], ["rover_body"]),
     "vini_caras_3": ([3], ["angry", "scared", "tired"]),
     "astro_folha": ([4, 4, 4], ["front", "three_q", "side", "back",
                                 "happy", "big_smile", "calm", "surprised",

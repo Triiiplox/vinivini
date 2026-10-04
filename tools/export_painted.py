@@ -40,6 +40,32 @@ CHARS = {
 }
 
 
+# Lote 3: folha A (interface/recompensas) e a carroceria do jipe, agora sem rodas.
+# Nomes no jogo = os que o ArtSprite já pede (ui/chest, ui/hand, ...): a pintura entra no lugar do vetor.
+for n, (g, gn) in {"chest_closed": ("ui", "chest"), "chest_open": ("ui", "chest_open"), "hand_point": ("ui", "hand"),
+                   "medal": ("ui", "medal"), "check": ("ui", "check"), "portal": ("props", "portal"),
+                   "slot": ("props", "slot")}.items():
+    MAP[("ui_lote3", n)] = (g, gn, 480 if n in ("chest_closed", "chest_open", "portal") else FIG)
+MAP[("rover_corpo", "rover_body")] = ("build", "rover_body", 640)
+# O miolo do portal é fundo cinza preso dentro do anel (o recorte só tira o cinza que encosta na borda).
+HOLES = {("props", "portal")}
+
+
+def punch_hole(im):
+    import numpy as np
+    from scipy import ndimage
+    a = np.array(im).astype(float)
+    d = np.sqrt(((a[..., :3] - [200, 200, 200]) ** 2).sum(-1))
+    lab, _ = ndimage.label(d < 22)
+    c = lab[a.shape[0] // 2, a.shape[1] // 2]
+    if c == 0:
+        return im
+    hole = lab == c
+    edge = ndimage.binary_dilation(hole, iterations=3) & ~hole
+    a[..., 3] = np.where(hole, 0, np.where(edge, np.minimum(a[..., 3], np.clip((d - 8) / 40.0, 0, 1) * 255), a[..., 3]))
+    return Image.fromarray(a.astype("uint8"))
+
+
 # A navezinha da folha veio com o bico para a esquerda; o jogo voa para a direita (era o desenho antigo).
 MIRROR = {("props", "ship_side"), ("words", "nave")}
 
@@ -48,6 +74,8 @@ def put(src, group, name, side):
     im = Image.open(src).convert("RGBA")
     if (group, name) in MIRROR:
         im = im.transpose(Image.FLIP_LEFT_RIGHT)
+    if (group, name) in HOLES:
+        im = punch_hole(im)
     k = min(1.0, side / max(im.size))
     if k < 1.0:
         im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)

@@ -109,7 +109,7 @@ func build() -> void:
 	next_btn.position = Vector2(1080, 580)
 	next_btn.visible = false
 	next_btn.pressed.connect(_advance)
-	hud.root.add_child(next_btn)
+	hud.stage.add_child(next_btn)
 	idle_hint_sec = 10.0
 	_plan()
 	hint_fn = _hint

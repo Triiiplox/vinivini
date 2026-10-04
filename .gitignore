@@ -2,3 +2,7 @@ build/
 game/.godot/
 __pycache__/
 *.tmp
+
+# Fotos e rostos das crianças convidadas: só locais até o repositório ficar privado.
+art_src/kids/
+game/assets/characters/kids/

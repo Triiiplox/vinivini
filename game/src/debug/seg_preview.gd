@@ -44,6 +44,27 @@ func _want(n: String) -> bool:
 
 
 func _run() -> void:
+	if _want("lote3"):
+		for th in ["mars", "ice"]:
+			Router.reset_to("seg_explore", {"theme": th, "screens": 2, "collect": {"item": "sample", "count": 3}})
+			await shot("lote3_" + th, 1.5)
+		Router.reset_to("seg_flight", {"theme": "space", "play": "portals", "goal": 4, "portal_skill": "numbers"})
+		await shot("lote3_portal", 5.0)
+		Router.reset_to("seg_build", {"blueprint": "rover", "count": 4})
+		await shot("lote3_rover", 1.2)
+		var r3: Node = Router.current_screen
+		for it in r3.tray.duplicate():
+			if str(it.payload) != "wheel" or r3.placed["wheel"] < r3.need["wheel"] - 1:
+				r3._on_drop(it, r3.zone)
+		r3.hand.show_tap(Vector2(640, 400))
+		await shot("lote3_rover2_mao", 1.0)
+		Router.reset_to("seg_cook", {"customers": 2})
+		await shot("lote3_cozinha", 4.5)
+		Router.reset_to("seg_build", {"blueprint": "rocket"})
+		await shot("lote3_oficina", 1.2)
+		Router.reset_to("reward", {"mission": ContentService.repo.missions["m03"], "stars": 3, "reward": {}})
+		await shot("lote3_bau", 1.4)
+		await shot("lote3_bau_aberto", 7.5)
 	if _want("explore"):
 		Router.reset_to("seg_explore", {"theme": "moon", "screens": 3, "collect": {"item": "moon_rock", "count": 4}, "door": true,
 			"rescue": {"kind": "robot", "mood": "sad"}})

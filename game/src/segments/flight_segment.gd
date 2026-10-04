@@ -273,7 +273,13 @@ func _spawn_portals() -> void:
 		p.position = Vector2(1500, y)
 		p.set_meta("kind", "portal")
 		p.set_meta("label", str(picks[i]))
-		var ring := ArtSprite.new("props", "portal", 92.0 if n == 3 else 125.0, SvgArt.tint_colors(colors[i]))
+		var ring: ArtSprite
+		if ArtSprite.painted_tex("props", "portal"):
+			# Portal pintado (lote 3): redondo, com a cor de cada um como um leve tom por cima.
+			ring = ArtSprite.new("props", "portal", 150.0 if n == 3 else 170.0)
+			ring.modulate = Color.WHITE.lerp(colors[i], 0.35)
+		else:
+			ring = ArtSprite.new("props", "portal", 92.0 if n == 3 else 125.0, SvgArt.tint_colors(colors[i]))
 		p.add_child(ring)
 		_portal_label(p, str(picks[i]))
 		world.add_child(p)
@@ -473,7 +479,7 @@ func _complete() -> void:
 	tl.size = Vector2(160, 60)
 	tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI.child_ok(tl)
-	hud.root.add_child(tl)
+	hud.stage.add_child(tl)
 	after(3.4 if mode == "boss" else 3.2, func(): finish({"stars": stars,
 		"skills": [_skill] if mode != "collect" else ["math.counting"]}))
 
@@ -508,7 +514,7 @@ func _build_goal_ui() -> void:
 	bar.size = Vector2(620, 70)
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	bar.draw.connect(_draw_bar)
-	hud.root.add_child(bar)
+	hud.stage.add_child(bar)
 	var fb := ColorRect.new()
 	fb.color = Color(0, 0, 0, 0.45)
 	fb.position = Vector2(150, 110)
@@ -530,7 +536,7 @@ func _build_goal_ui() -> void:
 	calc_label.size = Vector2(500, 80)
 	calc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI.child_ok(calc_label)
-	hud.root.add_child(calc_label)
+	hud.stage.add_child(calc_label)
 	_update_goal_ui()
 
 

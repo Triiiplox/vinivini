@@ -59,8 +59,14 @@ static func set_nine_state(n: NinePatchRect, fam: String, state: String) -> void
 ## Ajusta o NinePatch para cobrir o controle + transbordo do glow.
 static func fit(n: NinePatchRect, size: Vector2) -> void:
 	var pad := int(n.get_meta("pad", 0))
+	var full := size + Vector2(pad, pad) * 2.0
+	# O NinePatch não encolhe abaixo da soma das margens (botão redondo: 148 px). Sem isso, um botão de 92 px
+	# era desenhado com 148 e deslocado para a direita/baixo da área de toque. Desenha no mínimo e escala.
+	var least := Vector2(n.patch_margin_left + n.patch_margin_right, n.patch_margin_top + n.patch_margin_bottom)
+	var drawn := Vector2(maxf(full.x, least.x), maxf(full.y, least.y))
 	n.position = -Vector2(pad, pad)
-	n.size = size + Vector2(pad, pad) * 2.0
+	n.size = drawn
+	n.scale = full / drawn
 
 
 static func font(kind: String = "body", weight: int = 700) -> Font:

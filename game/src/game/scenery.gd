@@ -15,7 +15,20 @@ const PAINTED := {
 	"ship": [["ship_interior", 1.0, 0.8, 0.0, Color.WHITE]],
 	# Sala da escola (trilhas de lição): outro ambiente da nave, para "estudar" não parecer a ponte de comando.
 	"school": [["school_room", 1.0, 0.8, 0.0, Color.WHITE]],
+	# Lote 3: Marte e Europa (lua de Júpiter) com o horizonte na mesma altura do chão da Lua; cozinha e oficina.
+	"mars": [
+		["mars_ground", 0.45, 0.55, -120.0, Color(0.62, 0.5, 0.5)],
+		["mars_ground", 1.0, 0.8, 110.0, Color.WHITE],
+	],
+	"ice": [
+		["ice_ground", 0.45, 0.55, -120.0, Color(0.6, 0.66, 0.85)],
+		["ice_ground", 1.0, 0.8, 95.0, Color.WHITE],
+	],
+	"kitchen": [["kitchen", 1.0, 0.8, 0.0, Color.WHITE]],
+	"workshop": [["workshop", 1.0, 0.8, 0.0, Color.WHITE]],
 }
+## Céu de cada chão pintado (o chão é recortado; o céu do jogo aparece por trás).
+const SKY := {"moon": "moon", "mars": "mars", "ice": "ice"}
 
 var theme := "moon"
 
@@ -26,9 +39,9 @@ func _init(t: String = "moon") -> void:
 
 func _ready() -> void:
 	z_index = -50
-	# Chão da Lua pede céu da Lua (preto e estrelado), em qualquer tela.
-	if theme == "moon" and is_instance_valid(Router.sky):
-		Router.sky.set_theme("moon", 0.3)
+	# Chão de Lua/Marte/Europa pede o céu dele, em qualquer tela.
+	if SKY.has(theme) and is_instance_valid(Router.sky):
+		Router.sky.set_theme(SKY[theme], 0.3)
 	if PAINTED.has(theme):
 		_build_painted()
 		return

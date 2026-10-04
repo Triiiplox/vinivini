@@ -38,18 +38,19 @@ func build() -> void:
 	foods = params.get("foods", ["strawberry", "mushroom", "cheese", "carrot", "apple", "egg"])
 	set_sky("space")
 	AudioService.play_music("kitchen")
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("kitchen"))
 	var counter := Panel.new()
-	counter.add_theme_stylebox_override("panel", UITheme.rounded(Color("#8D5524"), 26, 6, Color("#22204A")))
-	counter.position = Vector2(-20, 470)
-	counter.size = Vector2(1320, 300)
+	# Balcão nas cores da cozinha pintada (azul-marinho com filete ciano), da largura de qualquer tela.
+	counter.add_theme_stylebox_override("panel", UITheme.rounded(Color("#1F3F8F"), 26, 6, Color("#5CE1FF")))
+	counter.position = Vector2(-400, 470)
+	counter.size = Vector2(2080, 300)
 	counter.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	counter.z_index = 2
 	world.add_child(counter)
 	var top := Panel.new()
-	top.add_theme_stylebox_override("panel", UITheme.rounded(Color("#C98A5A"), 18, 6, Color("#22204A")))
-	top.position = Vector2(-20, 450)
-	top.size = Vector2(1320, 48)
+	top.add_theme_stylebox_override("panel", UITheme.rounded(Color("#EEF1F7"), 18, 4, Color("#B8C2D8")))
+	top.position = Vector2(-400, 450)
+	top.size = Vector2(2080, 48)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.z_index = 3
 	world.add_child(top)

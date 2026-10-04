@@ -23,7 +23,7 @@ func build() -> void:
 	nxt.name = "NextPage"
 	nxt.position = Vector2(1150, 610)
 	nxt.pressed.connect(_next_page)
-	hud.root.add_child(nxt)
+	hud.stage.add_child(nxt)
 	add_cosmo(Vector2(1180, 150), 100.0)
 	hint_fn = func(): hand.show_tap(Vector2(1200, 660))
 

@@ -8,9 +8,20 @@ var _tw: Tween
 
 func _ready() -> void:
 	z_index = 900
-	_art = ArtSprite.new("ui", "hand", 96.0)
-	add_child(_art)
-	_art.position = Vector2(26, 62)
+	if ArtSprite.painted_tex("ui", "hand"):
+		# Mão pintada (lote 3) aponta para a direita: espelha e gira para o dedo apontar para cima e para a
+		# esquerda, com a ponta do dedo na origem (o ponto a tocar).
+		var pivot := Node2D.new()
+		pivot.rotation_degrees = 60.0
+		add_child(pivot)
+		_art = ArtSprite.new("ui", "hand", 120.0)
+		_art.scale = Vector2(-1, 1)
+		_art.position = Vector2(57, 4)
+		pivot.add_child(_art)
+	else:
+		_art = ArtSprite.new("ui", "hand", 96.0)
+		add_child(_art)
+		_art.position = Vector2(26, 62)
 	visible = false
 
 

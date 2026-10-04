@@ -493,7 +493,7 @@ func _stage_panel(stars: int) -> void:
 	_end_panel.name = "StageEnd"
 	_end_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_end_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hud.root.add_child(_end_panel)
+	hud.stage.add_child(_end_panel)
 	for i in 3:
 		var st := ArtSprite.new("props", "star_token", 150.0)
 		st.position = Vector2(640 + (i - 1) * 170, 250)
@@ -580,15 +580,15 @@ func _gen_round() -> void:
 
 
 func _level_chip(lv: int) -> void:
-	var chip := hud.root.get_node_or_null("EndlessLevel") as Label
+	var chip := hud.stage.get_node_or_null("EndlessLevel") as Label
 	if chip == null:
 		chip = UI.label("", 34, Palette.YELLOW)
 		chip.name = "EndlessLevel"
-		chip.position = Vector2(560, 22)
+		chip.position = Vector2(490, 22)
 		chip.size = Vector2(300, 50)
 		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		UI.child_ok(chip)
-		hud.root.add_child(chip)
+		hud.stage.add_child(chip)
 	chip.text = "Nível %d" % lv
 
 

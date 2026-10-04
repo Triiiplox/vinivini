@@ -37,7 +37,7 @@ func build() -> void:
 	cont.position = Vector2(1010, 520)
 	cont.visible = false
 	cont.pressed.connect(_continue)
-	hud.root.add_child(cont)
+	hud.stage.add_child(cont)
 	if params.has("mission"):
 		var bar := add_journey_bar()
 		if bool(params.get("first_time", false)):
@@ -62,6 +62,8 @@ func _open() -> void:
 	opened = true
 	hand.hide_hint()
 	AudioService.play_sfx("unlock")
+	if ArtSprite.painted_tex("ui", "chest_open"):
+		chest.set_item("chest_open")
 	chest.bounce(0.4)
 	Fx.sparkle(world, chest.position + Vector2(0, -60), 60, Palette.YELLOW, 420.0)
 	avatar.play("celebrate")

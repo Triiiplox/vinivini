@@ -34,7 +34,7 @@ func build() -> void:
 	done_btn.name = "DoneButton"
 	done_btn.position = Vector2(1100, 590)
 	done_btn.pressed.connect(_save)
-	hud.root.add_child(done_btn)
+	hud.stage.add_child(done_btn)
 	match mode:
 		"planet":
 			_build_planet()

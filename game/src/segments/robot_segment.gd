@@ -41,7 +41,7 @@ func build() -> void:
 	play_btn = DSButton.new("primary", "play", Vector2(150, 110))
 	play_btn.position = Vector2(1100, 590)
 	play_btn.speak_text = ""
-	hud.root.add_child(play_btn)
+	hud.stage.add_child(play_btn)
 	play_btn.pressed.connect(_run)
 	hud.set_counter("props", "star_token", 0, rounds)
 	hint_fn = _hint

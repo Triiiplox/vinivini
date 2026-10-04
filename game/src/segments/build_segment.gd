@@ -22,7 +22,7 @@ func build() -> void:
 	blueprint = str(params.get("blueprint", "rocket"))
 	set_sky(str(params.get("sky", "space")))
 	AudioService.play_music("puzzle")
-	world.add_child(Scenery.new("ship" if blueprint != "rover" else str(params.get("theme", "moon"))))
+	world.add_child(Scenery.new("workshop" if blueprint != "rover" else str(params.get("theme", "moon"))))
 	add_cosmo(Vector2(1120, 200), 130.0)
 	var lvl := difficulty("math.counting")
 	var n := int(params.get("count", 0))
@@ -88,14 +88,25 @@ func _make_slots(lvl: int) -> void:
 				slots["thruster"] = arr
 		"rover":
 			machine.position = Vector2(640, 280)
-			slots["rover_body"] = [{"pos": Vector2(0, 40), "w": 330.0}]
-			slots["antenna"] = [{"pos": Vector2(90, -68), "w": 70.0}]
 			var n2: int = need["wheel"]
-			var gap2 := minf(80.0, 360.0 / n2)
-			var arr2: Array = []
-			for i in n2:
-				arr2.append({"pos": Vector2(-((n2 - 1) * gap2) / 2.0 + i * gap2, 118), "w": minf(78.0, gap2 * 0.98)})
-			slots["wheel"] = arr2
+			# Carroceria pintada (lote 3): rodas nos furos de eixo da pintura (4 furos, em dois pares).
+			var holes: Array = {2: [-0.324, 0.408], 4: [-0.324, -0.174, 0.273, 0.408],
+				6: [-0.324, -0.174, -0.02, 0.12, 0.273, 0.408]}.get(n2, [])
+			if ArtSprite.painted_tex("build", "rover_body") and not holes.is_empty():
+				slots["rover_body"] = [{"pos": Vector2(0, 40), "w": 440.0}]
+				slots["antenna"] = [{"pos": Vector2(150, -64), "w": 70.0}]
+				var wheels: Array = []
+				for fx in holes:
+					wheels.append({"pos": Vector2(float(fx) * 440.0, 94), "w": 62.0})
+				slots["wheel"] = wheels
+			else:
+				slots["rover_body"] = [{"pos": Vector2(0, 40), "w": 330.0}]
+				slots["antenna"] = [{"pos": Vector2(90, -68), "w": 70.0}]
+				var gap2 := minf(80.0, 360.0 / n2)
+				var arr2: Array = []
+				for i in n2:
+					arr2.append({"pos": Vector2(-((n2 - 1) * gap2) / 2.0 + i * gap2, 118), "w": minf(78.0, gap2 * 0.98)})
+				slots["wheel"] = arr2
 		"reactor":
 			machine.position = Vector2(640, 300)
 			var reactor := ArtSprite.new("props", "reactor", 260.0)
@@ -201,6 +212,8 @@ func _on_drop(it: Interactable, z: DropZone) -> void:
 	var k: float = float(sl["w"]) / TRAY_W.get(part, 70.0)
 	it.snap_to(machine.position + slot, true, Vector2(-k if sl.get("flip", false) else k, k))
 	it.z_index = 10 if part in ["rocket_fin", "thruster", "wheel"] else 12
+	if part == "wheel" and ArtSprite.painted_tex("build", "rover_body"):
+		it.z_index = 13  # carroceria pintada não tem caixa de roda: a roda vai por cima, no furo do eixo
 	AudioService.play_sfx("snap")
 	Fx.sparkle(world, machine.position + slot, 10)
 	if part == counted:

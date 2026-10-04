@@ -66,6 +66,28 @@ def cover_crystals(img):
     return out
 
 
+def key_sky(img):
+    """Chão com céu cinza liso (lote 3): o cinza ligado à borda de cima vira transparente, com borda suave."""
+    from scipy import ndimage
+    a = np.array(img.convert("RGBA")).astype(float)
+    bg = np.median(a[:40, :, :3].reshape(-1, 3), 0)
+    d = np.sqrt(((a[..., :3] - bg) ** 2).sum(-1))
+    near = d < 26
+    lab, _ = ndimage.label(near)
+    top = set(np.unique(lab[0])) - {0}
+    sky = np.isin(lab, list(top))
+    # Borda: alfa proporcional à distância do cinza numa faixa de 3 px em volta do céu.
+    ring = ndimage.binary_dilation(sky, iterations=3) & ~sky
+    alpha = np.where(sky, 0.0, 255.0)
+    alpha = np.where(ring, np.clip((d - 10) / 40.0, 0, 1) * 255, alpha)
+    a[..., 3] = alpha
+    # Tira o cinza misturado da borda (cor não pré-multiplicada pelo fundo).
+    k = (alpha / 255.0)[..., None]
+    mix = np.where(k > 0.05, (a[..., :3] - bg * (1 - k)) / np.maximum(k, 0.05), a[..., :3])
+    a[..., :3] = np.where(ring[..., None], np.clip(mix, 0, 255), a[..., :3])
+    return Image.fromarray(a.astype(np.uint8))
+
+
 def main():
     os.makedirs(DST, exist_ok=True)
     Image.open(os.path.join(SRC, "space_sky.png")).convert("RGB").resize((1600, 900), Image.LANCZOS).save(
@@ -78,6 +100,14 @@ def main():
     g = cover_crystals(Image.fromarray(a))
     g = no_crystals(g).resize((1600, 900), Image.LANCZOS)
     g.save(os.path.join(DST, "moon_ground.png"), optimize=True)
+    # Lote 3 (04/10): Marte e Europa (céu cinza vira transparente; o céu do jogo aparece por trás).
+    for src, dst in (("mars_ground_src", "mars_ground"), ("ice_ground_src", "ice_ground")):
+        key_sky(Image.open(os.path.join(SRC, src + ".png"))).resize((1600, 900), Image.LANCZOS).save(
+            os.path.join(DST, dst + ".png"), optimize=True)
+    # Cozinha e oficina da nave (cenários inteiros, sem transparência).
+    for n in ("kitchen", "workshop"):
+        Image.open(os.path.join(SRC, n + ".png")).convert("RGB").resize((1600, 900), Image.LANCZOS).save(
+            os.path.join(DST, n + ".jpg"), quality=90)
     # Props: o cristal brilhante também sai da Lua (fica só no jogo onde é real: gelo/minério na Terra).
     print("cenários exportados")
 
