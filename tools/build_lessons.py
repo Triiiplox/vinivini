@@ -6,7 +6,7 @@ Rodadas: teach {say, fig} · pick {say, opts, ok, read?, after?, lvl} · order {
 sort {say, bins, items[[fig, bin]], lvl}. Figuras = specs do Figure (game/src/game/figure.gd).
 Uso: python3 tools/build_lessons.py
 """
-import json, os, random
+import json, os, random, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 OUT = os.path.join(ROOT, "game", "content", "lessons", "lessons.json")
@@ -847,6 +847,10 @@ lesson("quiz_story_star_light_001", "A Saudade da Astronauta: perguntas", "readi
           [{"t": "crew", "suit": "suit_orange"}, icon("voice", "#60A5FA"), face("big_smile")], 2)],
        n=3, icon_id="book", group="reading")
 
+# ------------------------------------------------------------------ v4: 1º/2º ano em muitos estágios
+import content_v4  # noqa: E402
+content_v4.build(sys.modules[__name__])
+
 # ------------------------------------------------------------------ pós-processamento
 for les in L:
     for r in les["teach"] + les["ask"]:
@@ -871,6 +875,9 @@ SKILLS = {
     "science.body": ("Corpo humano", "science"), "science.physics": ("Luz, cores e materiais", "science"),
     "emotion.regulation": ("Lidar com sentimentos", "emotion"), "social.respect": ("Convivência", "emotion"),
 }
+
+
+SKILLS.update(content_v4.SKILLS)
 
 
 def main():

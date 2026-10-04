@@ -207,6 +207,21 @@ func _run() -> void:
 				s._advance()
 				await get_tree().process_frame
 			await shot("lesson_%s_2" % id, 3.0)
+	if _want("v4"):
+		# Conteúdo v4: primeira pergunta de cada estágio de cada lição nova (só com "--only=v4").
+		for les in ContentService.repo.lessons.values():
+			if not les.has("levels"):
+				continue
+			for st in range(1, int(les["levels"]) + 1):
+				Router.reset_to("seg_lesson", {"lesson": str(les["id"]), "stage": st})
+				await get_tree().create_timer(9.0).timeout
+				var s2: Node = Router.current_screen
+				for k in 40:
+					if s2.rd.get("k", "") != "teach":
+						break
+					s2._advance()
+					await get_tree().process_frame
+				await shot("v4_%s_%d" % [les["id"], st], 3.5)
 	if _want("extra"):
 		for sc in [["books", {}], ["diary", {}], ["studio", {}], ["maker", {"mode": "planet"}], ["maker", {"mode": "scene"}],
 				["story_maker", {}], ["rest", {}], ["parent", {"tab": "summary"}], ["parent", {"tab": "settings"}], ["wardrobe", {}]]:

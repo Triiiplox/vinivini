@@ -198,3 +198,30 @@ contar até 10) cansam e passam a sensação de jogo fraco. Elas ganharam `"basi
 (`vogais`, `consoantes`, `tracar_vogais`, `contar_tocando`) e saem da trilha e da recomendação quando a chave
 "Já conhece letras e números" da área dos pais está ligada (padrão: ligada). Leitura começa em escrever letras,
 depois sons, sílabas e palavras; matemática começa em juntar e tirar com objetos. Desligar a chave traz tudo de volta.
+
+## ADR-035 - Trilha por fases (lição × estágio) e teste para pular
+O Vini terminou todo o conteúdo em um dia: 56 lições com cerca de 340 perguntas e 3 níveis por habilidade. Os apps de referência têm de 700 a 5.000 atividades em 8 a 50 etapas visíveis, com nivelamento e teste para pular (docs/PESQUISA_APPS_PROGRESSAO.md).
+- **Fases:** cada lição tem N estágios (`levels`, ou o maior `lvl` das perguntas), e cada par lição × estágio é uma fase da trilha (`id@estágio`).
+- **Progresso:** fica em `progress.stages_done`, guardando a melhor nota (1 a 3 estrelas).
+- **Migração:** lição já feita antes conta como o estágio 1 feito.
+- **Perguntas da fase:** saem do próprio estágio, mais ~25% de revisão do estágio anterior (revisão espaçada).
+- **Teste para pular:** é o botão dourado da trilha. São 5 perguntas tiradas das próximas 3 fases; quem erra no máximo uma pula as 3 com 2 estrelas. É o que resolve o "muito básico" para uma criança adiantada sem tirar o conteúdo de quem precisa dele.
+- **Desempenho:** a trilha só monta os cartões perto da fase atual, porque pode ter centenas de fases.
+
+## ADR-036 - Evolução visível: patentes e nível por matéria
+- **Patentes:** 9 (Cadete Espacial → Comandante das Estrelas), ganhas por **fases concluídas**, ou seja, por mestria. Nunca por tempo de jogo nem por compra.
+- **Insígnia:** escudo com 1 a 9 estrelas, que se lê sem saber ler. Promoção = tela própria com festa e fala do Astro.
+- **Tela principal:** mostra a patente com a barra até a próxima, e o número de fases feitas em cada matéria (ele já lê números).
+- **Na trilha:** cada fase mostra seu número e as estrelas ganhas, com uma barra "feitas / total".
+- **Sem padrões manipulativos (Radesky 2022):** sem sequência diária que pune quem falta, sem contagem regressiva, sem personagem que cobra.
+
+## ADR-037 - Conteúdo de 1º/2º ano gerado com conferência automática
+O Andro informou que o Vini lê palavras inteiras e faz mais que contas até 20. O conteúdo novo (`tools/content_v4.py`) cobre:
+- **Matemática:** reta numérica até 100 (de 2, 5 e 10), dezenas e centenas com blocos, comparar até 999, somar e subtrair (com "vai um"), número escondido, multiplicar (grupos e tabuadas), dividir, metade e dobro, horas (inteira, meia e quartos), dinheiro em real (moedas, notas e troco), frações e problemas.
+- **Lógica:** sequências e "pensar e descobrir".
+- **Leitura:** escrita certa (dígrafos, encontros consonantais, nasais), frases com posição, montar frases e textos curtos com fatos reais.
+
+Como foi feito:
+- **Figuras desenhadas no código** (`MathFigures`, cena com posição): número e posição exatos.
+- **Fala genérica nas contas** ("Quanto dá essa conta?"), com a conta escrita na tela. Ele lê números, e isso segura o tamanho do APK.
+- **Conferência automática:** toda resposta marcada como certa é recalculada antes de gerar o APK, e perguntas repetidas são removidas.

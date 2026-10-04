@@ -230,8 +230,16 @@ func _pick() -> void:
 		shown.tappable = false
 		k *= 0.82
 		y = 500.0
+	# Opções largas (conta montada, dinheiro, blocos): espaço pela largura real e encolhe se não couber.
+	var wmax := 1.0
+	for o in opts:
+		wmax = maxf(wmax, _wide(o))
+	var step := CARD * k * wmax + gap
+	if step * n > 1180.0:
+		k *= 1180.0 / (step * n)
+		step = CARD * k * wmax + gap
 	for i in n:
-		var x := 640.0 + (i - (n - 1) / 2.0) * (CARD * k + gap)
+		var x := 640.0 + (i - (n - 1) / 2.0) * step
 		var c := _card(opts[i], Vector2(x, y), k)
 		c.payload = i
 		c.name = "Opt_%d" % i
@@ -475,6 +483,11 @@ func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:
 		wf = clampf(n * 0.72, 1.0, 3.2)
 		spec = spec.duplicate()
 		spec["w"] = wf
+	elif _wide(spec) > 1.0:
+		# Frase/conta escrita, blocos, dinheiro, reta: cartão largo (ele lê; e o desenho precisa de espaço).
+		wf = _wide(spec)
+		spec = spec.duplicate()
+		spec["w"] = wf
 	it.radius = CARD * 0.5 * k * maxf(1.0, wf * 0.8)
 	var bg := DS.nine("card", "normal")
 	bg.name = "Bg"
@@ -487,6 +500,22 @@ func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:
 	it.scale = Vector2.ZERO
 	it.create_tween().tween_property(it, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	return it
+
+
+## Largura do cartão (em cartões) para figuras que precisam de espaço.
+func _wide(spec: Dictionary) -> float:
+	match str(spec.get("t", "")):
+		"text":
+			var t := str(spec.get("s", ""))
+			if t.length() > 6 or (t.contains(" ") and t.length() > 3):
+				return clampf(t.length() * 0.11, 1.15, 4.6)
+		"tens":
+			return clampf(0.7 + int(spec.get("n", 0)) / 100 * 1.1 + (int(spec.get("n", 0)) / 10 % 10) * 0.14, 1.0, 3.6)
+		"money":
+			return clampf((spec.get("v", []) as Array).size() * 0.55, 1.2, 3.0)
+		"numline":
+			return 3.4
+	return 1.0
 
 
 func _clear() -> void:

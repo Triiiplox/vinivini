@@ -22,26 +22,29 @@ static func handles(t: String) -> bool:
 
 
 static func draw(ci: CanvasItem, spec: Dictionary, box: float) -> void:
+	var bw := box * float(spec.get("w", 1.0))
 	match str(spec.get("t", "")):
 		"tens":
-			_tens(ci, int(spec.get("n", 0)), box)
+			_tens(ci, int(spec.get("n", 0)), box, bw)
 		"clock":
 			_clock(ci, int(spec.get("h", 3)), int(spec.get("m", 0)), box)
 		"money":
-			_money(ci, spec.get("v", []), box)
+			_money(ci, spec.get("v", []), box, bw)
 		"frac":
 			_frac(ci, int(spec.get("n", 1)), int(spec.get("d", 2)), box)
 		"numline":
-			_numline(ci, int(spec.get("a", 0)), int(spec.get("b", 10)), int(spec.get("step", 1)), spec.get("mark", null), box)
+			_numline(ci, int(spec.get("a", 0)), int(spec.get("b", 10)), int(spec.get("step", 1)), spec.get("mark", null), box, bw)
 
 
 # ------------------------------------------------------------------ blocos de base 10
-static func _tens(ci: CanvasItem, n: int, box: float) -> void:
+static func _tens(ci: CanvasItem, n: int, box: float, bw: float) -> void:
 	var h := n / 100
 	var t := (n / 10) % 10
 	var u := n % 10
-	var cell := box * 0.07
-	var groups_w := h * (10 * cell + cell) + t * (cell * 1.5) + (ceili(u / 5.0) * (cell * 1.25))
+	# largura em "cubinhos": placa = 11, barra = 1.5, coluna de unidades = 1.25
+	var units := h * 11.0 + t * 1.5 + ceili(u / 5.0) * 1.25
+	var cell := minf(box * 0.95 / 10.0, bw * 0.95 / maxf(units, 1.0))
+	var groups_w := units * cell
 	var x := -groups_w / 2.0
 	var top := -5 * cell
 	for i in h:
@@ -87,14 +90,14 @@ static func _clock(ci: CanvasItem, h: int, m: int, box: float) -> void:
 
 
 # ------------------------------------------------------------------ dinheiro (real)
-static func _money(ci: CanvasItem, vals: Array, box: float) -> void:
+static func _money(ci: CanvasItem, vals: Array, box: float, bw: float) -> void:
 	var n := vals.size()
 	if n == 0:
 		return
 	var notes: Array = vals.filter(func(v): return int(v) >= 200)
 	var coins: Array = vals.filter(func(v): return int(v) < 200)
 	var font := ThemeDB.fallback_font
-	var nw := box * (0.42 if notes.size() <= 2 else 0.3)
+	var nw := minf(box * 0.8, bw * 0.92 / maxf(1.0, notes.size()) / 1.08)
 	var nh := nw * 0.5
 	var y0 := -box * 0.22 if not coins.is_empty() and not notes.is_empty() else 0.0
 	for i in notes.size():
@@ -107,7 +110,7 @@ static func _money(ci: CanvasItem, vals: Array, box: float) -> void:
 		var txt := "R$ %d" % (int(notes[i]) / 100)
 		var fs := int(nh * 0.36)
 		ci.draw_string(font, c + Vector2(-nw * 0.44, fs * 0.35), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
-	var cr := box * (0.1 if coins.size() <= 6 else 0.075)
+	var cr := minf(box * (0.2 if notes.is_empty() else 0.13), bw * 0.95 / (mini(coins.size(), 5) * 2.3))
 	var yc := box * 0.2 if not notes.is_empty() else 0.0
 	for i in coins.size():
 		var row := i / 5
@@ -141,13 +144,13 @@ static func _frac(ci: CanvasItem, n: int, d: int, box: float) -> void:
 
 
 # ------------------------------------------------------------------ reta numérica
-static func _numline(ci: CanvasItem, a: int, b: int, step: int, mark: Variant, box: float) -> void:
-	var w := box * 0.92
+static func _numline(ci: CanvasItem, a: int, b: int, step: int, mark: Variant, box: float, bw: float) -> void:
+	var w := bw * 0.9
 	var x0 := -w / 2.0
 	var cnt := maxi(1, (b - a) / maxi(1, step))
 	ci.draw_line(Vector2(x0 - 10, 0), Vector2(x0 + w + 10, 0), INK, 5.0, true)
 	var font := ThemeDB.fallback_font
-	var fs := int(box * 0.075)
+	var fs := int(box * 0.2)
 	for i in cnt + 1:
 		var v := a + i * step
 		var x := x0 + w * i / float(cnt)
