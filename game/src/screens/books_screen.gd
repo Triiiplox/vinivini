@@ -9,7 +9,7 @@ func build() -> void:
 	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("story", 0.5)
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("library"))
 	var shelf := Polygon2D.new()
 	var ids: Array = ContentService.repo.story_order.duplicate()
 	ids.append("__create")

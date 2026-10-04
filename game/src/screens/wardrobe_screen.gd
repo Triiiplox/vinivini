@@ -16,7 +16,7 @@ var tabs: Array[Interactable] = []
 func build() -> void:
 	set_sky("space")
 	AudioService.play_music("hub", 0.4)
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("bedroom"))
 	av = AppState.avatar().duplicate(true)
 	var mirror := Panel.new()
 	mirror.add_theme_stylebox_override("panel", UITheme.rounded(Color("#BFE7FF", 0.25), 120, 10, Color("#FFD23F")))

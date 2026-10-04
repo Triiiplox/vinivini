@@ -6,7 +6,7 @@ extends GameScreen
 func build() -> void:
 	set_sky("space")
 	AudioService.play_music("map", 0.3)
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("bedroom"))
 	# Noite na nave: véu escuro cobrindo também as laterais das telas largas.
 	var dim := Polygon2D.new()
 	dim.polygon = PackedVector2Array([Vector2(-1000, -400), Vector2(2280, -400), Vector2(2280, 1200), Vector2(-1000, 1200)])

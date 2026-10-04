@@ -33,11 +33,12 @@ func build() -> void:
 	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("hub", 0.5)
-	var bg := Scenery.new("school")
-	world.add_child(bg)
 	area = str(params.get("area", last_area))
 	if area == "":
 		area = str(ContentService.repo.lessons.get(Recommend.next_lesson(), {}).get("group", "reading"))
+	# Cada matéria tem o seu ambiente da nave (biblioteca, ponte de comando, laboratório...).
+	var bg := Scenery.new(str(Scenery.AREA.get(area, "school")))
+	world.add_child(bg)
 	last_area = area
 	_build_trail()
 	# Teste para pular (3 fases) e treino sem fim (matemática e lógica): botões com palavra + ícone.

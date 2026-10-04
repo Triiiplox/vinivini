@@ -25,8 +25,23 @@ const PAINTED := {
 		["ice_ground", 1.0, 0.8, 95.0, Color.WHITE],
 	],
 	"kitchen": [["kitchen", 1.0, 0.8, 0.0, Color.WHITE]],
+	# Universo visual: um ambiente por matéria e por tela (imagem 3:2, alinhada pelo chão; o teto sobra em cima).
+	"bridge": [["bridge", 1.0, 0.8, 0.0, Color.WHITE]],
+	"lab": [["lab", 1.0, 0.8, 0.0, Color.WHITE]],
+	"greenhouse": [["greenhouse", 1.0, 0.8, 0.0, Color.WHITE]],
+	"bedroom": [["bedroom", 1.0, 0.8, 0.0, Color.WHITE]],
+	"hangar": [["hangar", 1.0, 0.8, 0.0, Color.WHITE]],
+	"library": [["library", 1.0, 0.8, 0.0, Color.WHITE]],
+	"calm": [["calm", 1.0, 0.8, 0.0, Color.WHITE]],
+	"dock": [["dock", 1.0, 0.8, 0.0, Color.WHITE]],
+	"cave": [["cave", 1.0, 0.8, 0.0, Color.WHITE]],
+	"observatory": [["observatory", 1.0, 0.8, 0.0, Color.WHITE]],
+	"menu": [["menu", 1.0, 0.8, 0.0, Color.WHITE]],
 	"workshop": [["workshop", 1.0, 0.8, 0.0, Color.WHITE]],
 }
+## Ambiente de cada matéria (trilha e lições que acontecem "na nave").
+const AREA := {"reading": "library", "math": "bridge", "logic": "dock", "science": "lab", "astronomy": "observatory",
+	"emotion": "calm"}
 ## Céu de cada chão pintado (o chão é recortado; o céu do jogo aparece por trás).
 const SKY := {"moon": "moon", "mars": "mars", "ice": "ice"}
 

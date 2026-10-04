@@ -23,7 +23,7 @@ var data := {"shape": "round", "color": "#6BCB77", "eyes": [], "legs": 0, "anten
 func build() -> void:
 	set_sky("ice")
 	AudioService.play_music("puzzle")
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("lab"))
 	creature = CreatureView.new(data, 120.0)
 	creature.position = Vector2(640, 330)
 	creature.z_index = 3

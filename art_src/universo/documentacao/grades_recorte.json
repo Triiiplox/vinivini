@@ -1,0 +1,282 @@
+[
+  {
+    "png": "01_pinturas_novas/folhas/13_objetos_interativos_4x3.png",
+    "columns": 4,
+    "rows": 3,
+    "note": "Retângulos de célula; não são contornos automáticos dos objetos. Remova o fundo cinza no recorte.",
+    "cells": [
+      {
+        "item": "console",
+        "cell": 1,
+        "x": 0,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "alavanca",
+        "cell": 2,
+        "x": 384,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "caixa",
+        "cell": 3,
+        "x": 768,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "cilindro_oxigenio",
+        "cell": 4,
+        "x": 1152,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "scanner",
+        "cell": 5,
+        "x": 0,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "microscopio",
+        "cell": 6,
+        "x": 384,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "telescopio",
+        "cell": 7,
+        "x": 768,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "regador",
+        "cell": 8,
+        "x": 1152,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "lupa",
+        "cell": 9,
+        "x": 0,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "prancheta",
+        "cell": 10,
+        "x": 384,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "chave",
+        "cell": 11,
+        "x": 768,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "sementes",
+        "cell": 12,
+        "x": 1152,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      }
+    ]
+  },
+  {
+    "png": "01_pinturas_novas/folhas/14_coletaveis_4x3.png",
+    "columns": 4,
+    "rows": 3,
+    "note": "Retângulos de célula; não são contornos automáticos dos objetos. Remova o fundo cinza no recorte.",
+    "cells": [
+      {
+        "item": "cristal_ciano",
+        "cell": 1,
+        "x": 0,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "cristal_roxo",
+        "cell": 2,
+        "x": 384,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "cristal_ambar",
+        "cell": 3,
+        "x": 768,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "cristal_verde",
+        "cell": 4,
+        "x": 1152,
+        "y": 0,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "engrenagem",
+        "cell": 5,
+        "x": 0,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "parafuso",
+        "cell": 6,
+        "x": 384,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "circuito",
+        "cell": 7,
+        "x": 768,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "amostra_agua",
+        "cell": 8,
+        "x": 1152,
+        "y": 341,
+        "width": 384,
+        "height": 342
+      },
+      {
+        "item": "amostra_folha",
+        "cell": 9,
+        "x": 0,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "po_estelar",
+        "cell": 10,
+        "x": 384,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "ima",
+        "cell": 11,
+        "x": 768,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      },
+      {
+        "item": "kit_reparo",
+        "cell": 12,
+        "x": 1152,
+        "y": 683,
+        "width": 384,
+        "height": 341
+      }
+    ]
+  },
+  {
+    "png": "01_pinturas_novas/folhas/15_efeitos_recompensa_4x2.png",
+    "columns": 4,
+    "rows": 2,
+    "note": "Retângulos de célula; não são contornos automáticos dos objetos. Remova o fundo cinza no recorte.",
+    "cells": [
+      {
+        "item": "estrelas",
+        "cell": 1,
+        "x": 0,
+        "y": 0,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "pulso",
+        "cell": 2,
+        "x": 384,
+        "y": 0,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "confete",
+        "cell": 3,
+        "x": 768,
+        "y": 0,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "poeira",
+        "cell": 4,
+        "x": 1152,
+        "y": 0,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "rastro",
+        "cell": 5,
+        "x": 0,
+        "y": 512,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "brilho",
+        "cell": 6,
+        "x": 384,
+        "y": 512,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "portal",
+        "cell": 7,
+        "x": 768,
+        "y": 512,
+        "width": 384,
+        "height": 512
+      },
+      {
+        "item": "aura",
+        "cell": 8,
+        "x": 1152,
+        "y": 512,
+        "width": 384,
+        "height": 512
+      }
+    ]
+  }
+]

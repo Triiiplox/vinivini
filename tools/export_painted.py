@@ -36,7 +36,7 @@ for n in ["plant_0", "plant_1", "plant_2", "plant_3", "plant_4", "sun", "rain", 
     MAP[("ciencia", n)] = ("science", n, FIG)
 CHARS = {
     "astro_folha": "astro", "bip_folha": "bip", "gato": "cat", "reciclador": "recycler", "rover": "rover",
-    "tripulacao": "crew",
+    "tripulacao": "crew", "tripulacao_acao": "crew",
 }
 
 
@@ -47,6 +47,47 @@ for n, (g, gn) in {"chest_closed": ("ui", "chest"), "chest_open": ("ui", "chest_
                    "slot": ("props", "slot")}.items():
     MAP[("ui_lote3", n)] = (g, gn, 480 if n in ("chest_closed", "chest_open", "portal") else FIG)
 MAP[("rover_corpo", "rover_body")] = ("build", "rover_body", 640)
+# Universo visual: objetos e coletáveis (para as missões da v5) e a cliente da cozinha (trainee de chef).
+for n in ["screen_stand", "lever", "toolbox", "oxygen_tank", "scanner", "microscope", "telescope", "watering_can",
+          "magnifier", "clipboard", "wrench", "seed_bag"]:
+    MAP[("objetos_interativos", n)] = ("props", n, FIG)
+for n in ["crystal_blue", "crystal_purple", "crystal_gold", "crystal_green", "gear", "bolt", "chip", "capsule_water",
+          "capsule_leaf", "stardust_jar", "magnet", "star_box"]:
+    MAP[("coletaveis", n)] = ("props", n, FIG)
+for n in ["wait", "eat", "surprised"]:
+    MAP[("cliente_cozinha", n)] = ("chars/crew", "chef_" + n, CHAR)
+# Folhas com brilho e sombra no chão sobre o cinza: o recorte deixa poeira e sombra cinza semitransparente.
+CLEAN = {"objetos_interativos", "coletaveis"}
+
+
+# Itens sem metal prateado/branco perto do chão: aqui a sombra cinza sai sem comer o objeto.
+NO_SHADOW = {"crystal_blue", "crystal_purple", "crystal_gold", "crystal_green", "star_box", "toolbox", "telescope",
+             "magnifier", "magnet", "capsule_leaf", "capsule_water", "chip", "watering_can", "seed_bag"}
+
+
+def clean(im, name=""):
+    import numpy as np
+    from scipy import ndimage
+    a = np.array(im).astype(float)
+    rgb = a[..., :3]
+    sat = rgb.max(-1) - rgb.min(-1)
+    lum = rgb.mean(-1)
+    grey = (sat < 30) & (a[..., 3] < 245) & (lum > 110)
+    a[..., 3] = np.where(grey, 0, a[..., 3])
+    # Sombra no chão (cinza mais escuro que o fundo, opaca): some só a que encosta no transparente, espalhando
+    # por pixels cinzentos; o contorno escuro/colorido do objeto segura o espalhamento (metal prateado fica).
+    if name in NO_SHADOW:
+        shadowy = (sat < 22) & (lum > 95) & (lum < 222)
+        seed = (a[..., 3] < 20)
+        gone = ndimage.binary_propagation(seed, mask=seed | shadowy)
+        a[..., 3] = np.where(gone, 0, a[..., 3])
+    lab, n = ndimage.label(a[..., 3] > 60)
+    if n > 1:
+        big = 1 + int(np.argmax(ndimage.sum(a[..., 3] > 60, lab, range(1, n + 1))))
+        a[..., 3] = np.where(ndimage.binary_dilation(lab == big, iterations=3), a[..., 3], 0)
+    return Image.fromarray(a.astype("uint8"))
+
+
 # O miolo do portal é fundo cinza preso dentro do anel (o recorte só tira o cinza que encosta na borda).
 HOLES = {("props", "portal")}
 
@@ -70,8 +111,10 @@ def punch_hole(im):
 MIRROR = {("props", "ship_side"), ("words", "nave")}
 
 
-def put(src, group, name, side):
+def put(src, group, name, side, sheet=""):
     im = Image.open(src).convert("RGBA")
+    if sheet in CLEAN:
+        im = clean(im, name)
     if (group, name) in MIRROR:
         im = im.transpose(Image.FLIP_LEFT_RIGHT)
     if (group, name) in HOLES:
@@ -87,7 +130,7 @@ def put(src, group, name, side):
 def main():
     n = 0
     for (sheet, item), (group, name, side) in MAP.items():
-        put(os.path.join(CUT, sheet, item.split("#")[0] + ".png"), group, name, side)
+        put(os.path.join(CUT, sheet, item.split("#")[0] + ".png"), group, name, side, sheet)
         n += 1
     for sheet, ch in CHARS.items():
         for f in sorted(os.listdir(os.path.join(CUT, sheet))):

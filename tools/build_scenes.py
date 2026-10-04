@@ -108,6 +108,14 @@ def main():
     for n in ("kitchen", "workshop"):
         Image.open(os.path.join(SRC, n + ".png")).convert("RGB").resize((1600, 900), Image.LANCZOS).save(
             os.path.join(DST, n + ".jpg"), quality=90)
+    # Universo visual (04/10): ambientes da nave, caverna, observatório e fundos (3:2; o cenário alinha pelo chão).
+    uni = os.path.join(ROOT, "art_src", "universo")
+    for src, dst in (("01_ponte_comando", "bridge"), ("02_laboratorio_ciencias", "lab"), ("03_estufa_espacial", "greenhouse"),
+                     ("04_quarto_tripulacao", "bedroom"), ("05_hangar_nave", "hangar"), ("06_biblioteca_leitura", "library"),
+                     ("07_sala_calma_emocoes", "calm"), ("08_doca_cargas", "dock"), ("09_caverna_cristais", "cave"),
+                     ("10_observatorio", "observatory"), ("12_fundo_menu_inicial", "menu"), ("11_mapa_fundo_cosmico", "map_bg")):
+        Image.open(os.path.join(uni, src + ".png")).convert("RGB").resize((1600, 1067), Image.LANCZOS).save(
+            os.path.join(DST, dst + ".jpg"), quality=88)
     # Props: o cristal brilhante também sai da Lua (fica só no jogo onde é real: gelo/minério na Terra).
     print("cenários exportados")
 

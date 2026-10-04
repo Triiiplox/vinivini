@@ -11,7 +11,7 @@ const FOODS := {
 	"carrot": ["cenoura", "cenouras", "f"], "apple": ["maçã", "maçãs", "f"], "egg": ["ovo", "ovos", "m"],
 	"tomato": ["tomate", "tomates", "m"], "banana": ["banana", "bananas", "f"], "bread": ["pão", "pães", "m"],
 }
-const CREW_SUITS := ["suit_orange", "suit_blue", "suit_green", "suit_moon", "suit_saturn"]
+const CREW_SUITS := ["suit_orange", "chef", "suit_blue", "suit_green", "chef", "suit_saturn"]
 
 var foods: Array = []
 var customers_total := 3

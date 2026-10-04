@@ -92,7 +92,9 @@ func build() -> void:
 	set_sky("deep" if th in ["ship", "space"] else th)
 	AudioService.play_music(str(lesson.get("music", "puzzle")))
 	if th != "space":
-		world.add_child(Scenery.new(th))
+		# Lição "na nave": o ambiente da matéria (biblioteca, ponte, laboratório...).
+		var scene := str(Scenery.AREA.get(str(lesson.get("group", "")), th)) if th == "ship" else th
+		world.add_child(Scenery.new(scene))
 	# Fundo mais escuro e calmo: as peças da lição precisam saltar aos olhos (o interior da nave é claro e cheio).
 	var dim := Polygon2D.new()
 	dim.polygon = PackedVector2Array([Vector2(-1000, -400), Vector2(2280, -400), Vector2(2280, 1200), Vector2(-1000, 1200)])

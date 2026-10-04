@@ -26,6 +26,16 @@ SHEETS = {
     # Lote 3 (04/10): recompensas e interface; carroceria do jipe sem rodas.
     "ui_lote3": ([4, 4], ["chest_closed", "chest_open", "hand_point", "medal", "check", "portal", "slot", "rock"]),
     "rover_corpo": ([1], ["rover_body"]),
+    # Universo visual (04/10): tripulação em ação, cliente da cozinha, objetos e coletáveis.
+    "tripulacao_acao": ([4, 4], ["ana_wave", "ana_talk", "ana_thumbs", "ana_think",
+                                 "leo_wave", "leo_talk", "leo_thumbs", "leo_think"]),
+    "cliente_cozinha": ([3], ["wait", "eat", "surprised"]),
+    "objetos_interativos": ([4, 4, 4], ["screen_stand", "lever", "toolbox", "oxygen_tank",
+                                        "scanner", "microscope", "telescope", "watering_can",
+                                        "magnifier", "clipboard", "wrench", "seed_bag"]),
+    "coletaveis": ([4, 4, 4], ["crystal_blue", "crystal_purple", "crystal_gold", "crystal_green",
+                               "gear", "bolt", "chip", "capsule_water",
+                               "capsule_leaf", "stardust_jar", "magnet", "star_box"]),
     "vini_caras_3": ([3], ["angry", "scared", "tired"]),
     "astro_folha": ([4, 4, 4], ["front", "three_q", "side", "back",
                                 "happy", "big_smile", "calm", "surprised",

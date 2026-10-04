@@ -10,7 +10,7 @@ var _picked := false
 func build() -> void:
 	set_sky("space")
 	AudioService.play_music("title", 0.5)
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("menu"))
 	hud.root.get_node("HomeButton").visible = false
 	var kids := Kids.available()
 	var gap := minf(300.0, 1180.0 / kids.size())

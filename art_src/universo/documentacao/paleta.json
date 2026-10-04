@@ -1,0 +1,15 @@
+{
+  "navy": "#17345F",
+  "cyan": "#40D6F2",
+  "gold": "#FFD264",
+  "white": "#F8FBFF",
+  "green": "#79DDB0",
+  "lavender": "#B7ABFF",
+  "minimum_touch_area_logical_pixels": 48,
+  "button_states": [
+    "normal",
+    "foco",
+    "pressionado",
+    "desativado"
+  ]
+}

@@ -1,0 +1,372 @@
+[
+  {
+    "id": "01_ponte_comando",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/01_ponte_comando.png",
+    "label": "ponte comando",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "257ce25c3af5bd33208eaf33c2c8e359104c6383f7bcebf46fb3191130580d17"
+  },
+  {
+    "id": "02_laboratorio_ciencias",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/02_laboratorio_ciencias.png",
+    "label": "laboratorio ciencias",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "2a7a392f47b36aaa0c6fbead71889a82b479dfd0ce2e0ff2a86df4e3f0b04bd1"
+  },
+  {
+    "id": "03_estufa_espacial",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/03_estufa_espacial.png",
+    "label": "estufa espacial",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "f282a53b2803b334262eb5dd0137404936451604e29bfd27e980a045ddeef684"
+  },
+  {
+    "id": "04_quarto_tripulacao",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/04_quarto_tripulacao.png",
+    "label": "quarto tripulacao",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "0068c5ba6fdc063e67033608d399591cc0e4b615bc1744678f57ca2c26a02344"
+  },
+  {
+    "id": "05_hangar_nave",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/05_hangar_nave.png",
+    "label": "hangar nave",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "a7de5b9b88c043c594547c7efe009328573f523ffb86300309360a2a6089f2c2"
+  },
+  {
+    "id": "06_biblioteca_leitura",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/06_biblioteca_leitura.png",
+    "label": "biblioteca leitura",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "50ad3926825c6d886f37bac0e40caffc1d616ca2551d14addf9421e976ae11a3"
+  },
+  {
+    "id": "07_sala_calma_emocoes",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/07_sala_calma_emocoes.png",
+    "label": "sala calma emocoes",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "bd9a3b3f9e4693c3afc63356a3ca38cd8212be2ba4e40e26be09d427a815a1c5"
+  },
+  {
+    "id": "08_doca_cargas",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/08_doca_cargas.png",
+    "label": "doca cargas",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "5d0effbc4a670e321368ec9b2231f79f466d53c0da7b24963e9382931ae92bdf"
+  },
+  {
+    "id": "09_caverna_cristais",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/09_caverna_cristais.png",
+    "label": "caverna cristais",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "734a2fbe73830fe4aabcbd985e5009afa9d297aff2e4f031aa87c9df259893d2"
+  },
+  {
+    "id": "10_observatorio",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/10_observatorio.png",
+    "label": "observatorio",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "f5ea3063bfac1d5b23b4249ca79e8b3a94143662b0e2939eb1045c57caa8608a"
+  },
+  {
+    "id": "11_mapa_fundo_cosmico",
+    "category": "mapa",
+    "png": "01_pinturas_novas/mapa/11_mapa_fundo_cosmico.png",
+    "label": "mapa fundo cosmico",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "9e471f227f11333b1c0ade64e52d002502f48e9602f832792098c1aac9d6ddbc"
+  },
+  {
+    "id": "12_fundo_menu_inicial",
+    "category": "cenarios",
+    "png": "01_pinturas_novas/cenarios/12_fundo_menu_inicial.png",
+    "label": "fundo menu inicial",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "39fac9c10ce4688b0a73dc5af2d5c162ec905c026f66aa7dc001880330817df6"
+  },
+  {
+    "id": "13_objetos_interativos_4x3",
+    "category": "folhas",
+    "png": "01_pinturas_novas/folhas/13_objetos_interativos_4x3.png",
+    "label": "objetos interativos 4x3",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "b4a2056bebea67daf7e02fa9cee424e774479a46c85976be0c01d105fbeba72c"
+  },
+  {
+    "id": "14_coletaveis_4x3",
+    "category": "folhas",
+    "png": "01_pinturas_novas/folhas/14_coletaveis_4x3.png",
+    "label": "coletaveis 4x3",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "157caa47f01e39abd48d6baac28006020f8d977473417a61a421a29fab6f3748"
+  },
+  {
+    "id": "15_efeitos_recompensa_4x2",
+    "category": "folhas",
+    "png": "01_pinturas_novas/folhas/15_efeitos_recompensa_4x2.png",
+    "label": "efeitos recompensa 4x2",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "9adfa8c9dcf76a2dfd390bca4c2653e66494456ac0270c7804f632dce1403fc7"
+  },
+  {
+    "id": "01_vini_3_expressoes",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/01_vini_3_expressoes.png",
+    "label": "01 vini 3 expressoes",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "2473249780baccff905e6166adb1502abf89f48ecde7e2ce7b8ff9c0145df29f"
+  },
+  {
+    "id": "02_astro_personagem",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/02_astro_personagem.png",
+    "label": "02 astro personagem",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "1a6c98655fa77cdac11ae4b67486a64142f11f719e7b4cc8c74ef3792a88b4bc"
+  },
+  {
+    "id": "03_astro_pecas",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/03_astro_pecas.png",
+    "label": "03 astro pecas",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "1f866f83409582e7546a77bfc85ee5605f7f8706af303be950eaf465c4780ab6"
+  },
+  {
+    "id": "04_palavras_5x4",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/04_palavras_5x4.png",
+    "label": "04 palavras 5x4",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "7c5d6498de4d7a0e0524e79ccc130f36cd85243470e9e3438d002fc117deef74"
+  },
+  {
+    "id": "05_bip_personagem",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/05_bip_personagem.png",
+    "label": "05 bip personagem",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "eb72e7069660ca4c48dfd649b5f1edafdc66cb7ca547b4fc106f227bedf139e3"
+  },
+  {
+    "id": "06_bip_pecas",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/06_bip_pecas.png",
+    "label": "06 bip pecas",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "63dbcc190faafceacc7150489244d6b21dfdb89cc24843072a5b5502536dc3fb"
+  },
+  {
+    "id": "07_tripulacao_ana_colega",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/07_tripulacao_ana_colega.png",
+    "label": "07 tripulacao ana colega",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "c67c911c6e0203cd4313d43eaa285edd4465a1205aaf7f800bbd3352f95bdb12"
+  },
+  {
+    "id": "08_comidas_5x2",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/08_comidas_5x2.png",
+    "label": "08 comidas 5x2",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "10163622bbfc9d989ee65229330b3e4e5718b224d49c3ca01e87a898672aa8b5"
+  },
+  {
+    "id": "09_robo_reciclador_4_poses",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/09_robo_reciclador_4_poses.png",
+    "label": "09 robo reciclador 4 poses",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "79bf38dca4f47ab247ed26b9ad0957c62164ea72699adf96679135695d386731"
+  },
+  {
+    "id": "10_rover_setas_4_direcoes",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/10_rover_setas_4_direcoes.png",
+    "label": "10 rover setas 4 direcoes",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "bd95ff544a6d729a623a2818aed3954ca9d98ab1fd4e4250c663dc040fffc898"
+  },
+  {
+    "id": "11_ciencia_4x4",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/11_ciencia_4x4.png",
+    "label": "11 ciencia 4x4",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "167432208600d2cd38961ae03bd01028a9e6b430b5ccae3be44974835f9bda11"
+  },
+  {
+    "id": "12_gato_tripulacao_3_poses",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/12_gato_tripulacao_3_poses.png",
+    "label": "12 gato tripulacao 3 poses",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "bebb48c82f891965f788eae7809f7605ba6f04b156d2373810b0b455fba2637f"
+  },
+  {
+    "id": "13_objetos_missao_4x3",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/13_objetos_missao_4x3.png",
+    "label": "13 objetos missao 4x3",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "b82100eb0d7890fe2c6b020bdb82eac48e0f37934ae33872a999dc3551051c8d"
+  },
+  {
+    "id": "14_pecas_montar_4x2",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_1/14_pecas_montar_4x2.png",
+    "label": "14 pecas montar 4x2",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "235724aa3ffde1feb4ac5d636b7a036c2df5c350b0462c84505edb4b36dfcdda"
+  },
+  {
+    "id": "A_recompensas_interface_4x2",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/A_recompensas_interface_4x2.png",
+    "label": "A recompensas interface 4x2",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "8caa2acb933b513b9086cb89afcb446e8c13e2fc95c78874c626f778ea703c21"
+  },
+  {
+    "id": "B_tripulacao_acao_4x2",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/B_tripulacao_acao_4x2.png",
+    "label": "B tripulacao acao 4x2",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "80046b45bd5a9fff200a47f0045435d83d64263e009e0aea73224bf6c09e32fe"
+  },
+  {
+    "id": "C_cliente_cozinha_3x1",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/C_cliente_cozinha_3x1.png",
+    "label": "C cliente cozinha 3x1",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "842054727328dff38b954620b11f8e8e7f4a94b4e2f73fde2e2eac53e77022fb"
+  },
+  {
+    "id": "D_chao_marte",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/D_chao_marte.png",
+    "label": "D chao marte",
+    "original": true,
+    "width": 1672,
+    "height": 941,
+    "sha256": "e769959eb6e8a8eb2aed6d2fcccd725a576d783da5b398b029773ef3f0fbcd26"
+  },
+  {
+    "id": "E_chao_europa",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/E_chao_europa.png",
+    "label": "E chao europa",
+    "original": true,
+    "width": 1672,
+    "height": 941,
+    "sha256": "42bcc8b48267588a606893529915e29c149077ac0ae0ebcdab88a7afe743deaa"
+  },
+  {
+    "id": "F_jipe_carroceria_sem_rodas",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/lote_3/F_jipe_carroceria_sem_rodas.png",
+    "label": "F jipe carroceria sem rodas",
+    "original": true,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "5b30993eb8bfe200caf8185e9c02a784eb032ea898a9d6cf02ccec7193499481"
+  },
+  {
+    "id": "G_cozinha_estacao",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/extras_lote_3/G_cozinha_estacao.png",
+    "label": "G cozinha estacao",
+    "original": true,
+    "width": 1672,
+    "height": 941,
+    "sha256": "50b9c6ec7022925f3f3735aa989b88e016b230c41ec28d18a788fd64fe1d0d77"
+  },
+  {
+    "id": "H_oficina_estacao",
+    "category": "anteriores",
+    "png": "08_artes_anteriores/extras_lote_3/H_oficina_estacao.png",
+    "label": "H oficina estacao",
+    "original": true,
+    "width": 1672,
+    "height": 941,
+    "sha256": "643abd4bb7f30a215a292dd7d62efc9b3bd2734f25f34d992f4242e438e830a7"
+  }
+]

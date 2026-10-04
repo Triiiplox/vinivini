@@ -25,7 +25,7 @@ func build() -> void:
 	rounds = int(params.get("rounds", 4))
 	set_sky("ice")
 	AudioService.play_music("puzzle")
-	world.add_child(Scenery.new("ship"))
+	world.add_child(Scenery.new("dock"))
 	lvl = difficulty(SKILL)
 	add_cosmo(Vector2(1150, 160), 110.0)
 	hud.set_counter("props", "star_token", 0, rounds)

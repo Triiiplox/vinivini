@@ -54,6 +54,23 @@ func _run() -> void:
 		Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 3, "back": "academy"})
 		await shot("perfis_licao_aylinha", 3.0)
 		Kids.select("vini")
+	if _want("universo"):
+		for a in ["reading", "math", "logic", "science", "astronomy", "emotion"]:
+			Router.reset_to("academy", {"area": a})
+			await shot("universo_trilha_%s" % a, 2.0)
+		Router.reset_to("seg_lesson", {"lesson": "frases_posicao", "stage": 2, "back": "academy"})
+		await shot("universo_licao_leitura", 3.0)
+		Router.reset_to("rest", {})
+		await shot("universo_quarto", 1.5)
+		Router.reset_to("seg_cook", {"customers": 3})
+		await shot("universo_cozinha_ana", 1.0)
+		await shot("universo_cozinha_ana2", 2.0)
+		var ck: Node = Router.current_screen
+		ck.served = 1
+		ck._next_customer()
+		await shot("universo_cozinha_chef", 2.5)
+		ck.customer.set_mood("happy")
+		await shot("universo_cozinha_chef_come", 0.6)
 	if _want("lote3"):
 		for th in ["mars", "ice"]:
 			Router.reset_to("seg_explore", {"theme": th, "screens": 2, "collect": {"item": "sample", "count": 3}})
