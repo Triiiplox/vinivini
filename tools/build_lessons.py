@@ -114,6 +114,37 @@ def shuffled_pick(say, correct, wrong, lvl=1, read=None, after=""):
 L = []
 
 
+
+
+# ------------------------------------------------------------------ mão na massa (v3.1)
+NUMW = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez"]
+
+
+def numw(n, fem=False):
+    if fem and n == 1:
+        return "uma"
+    if fem and n == 2:
+        return "duas"
+    return NUMW[n]
+
+
+def TR(say, letter, done, lvl=1):  # traçar a letra com o dedo
+    return {"k": "trace", "say": say, "letter": letter, "done": done, "lvl": lvl}
+
+
+def CNT(say, n, item, total, lvl=1):  # contar tocando em cada um
+    return {"k": "count", "say": say, "n": n, "item": item, "total": total, "lvl": lvl}
+
+
+def BASK(kind, say, a, b, item, total, lvl=1):  # juntar (join) ou tirar (take) com a cesta
+    return {"k": kind, "say": say, "a": a, "b": b, "item": item, "total": total, "lvl": lvl}
+
+
+def BW(say, word, parts, sounds, done, extra=None, lvl=1):  # montar a palavra com sílabas
+    return {"k": "build", "say": say, "word_say": NAME.get(word, word), "pic": W(word), "parts": parts,
+            "sounds": dict(zip(parts, sounds)) | ({e: sx for e, sx in (extra or [])}), "extra": [e for e, _ in (extra or [])],
+            "done": done, "lvl": lvl}
+
 def lesson(id_, name, skill, theme, intro, teach, ask, n=4, icon_id="star", group=""):
     L.append({"id": id_, "name": name, "skill": skill, "theme": theme, "intro": intro, "teach": teach, "ask": ask,
               "n": n, "icon": icon_id, "group": group or skill.split(".")[0]})
@@ -145,6 +176,14 @@ lesson("vogais", "As vogais", "reading.letters", "ship", "Vamos conhecer as voga
         shuffled_pick("Qual figura começa com a letra U?", W("uva"), [W("bola"), W("pato")], 2)],
        n=5, icon_id="abc", group="reading")
 
+
+# Traçar com o dedo (letra bastão): logo depois de conhecer as vogais.
+lesson("tracar_vogais", "Escrever as vogais", "reading.letters", "ship", "Agora você vai escrever as vogais com o dedo!",
+       [T("Para escrever, a gente começa na bolinha verde e vai seguindo as bolinhas brancas.", txt("A"))],
+       [TR("Passe o dedo na letra %s, seguindo as bolinhas!" % v, v, "%s! Você escreveu a letra %s!" % (v, v), 1 if v in "AIO" else 2)
+        for v in "AEIOU"],
+       n=3, icon_id="abc", group="reading")
+
 CONS = ["B", "C", "D", "F", "G", "L", "M", "N", "P", "R", "S", "V"]
 EX = {"B": "bola", "C": "casa", "D": "dado", "G": "gato", "L": "lua", "M": "mala", "N": "nave", "P": "pato", "R": "robo",
       "S": "sol", "V": "vaca", "F": "foguete"}
@@ -156,6 +195,17 @@ lesson("consoantes", "Letras e figuras", "reading.letters", "ship", "Cada letra 
        [shuffled_pick("Toque na letra %s!" % c, txt(c), [txt(x) for x in random.sample([y for y in CONS if y != c], 3)], 2)
         for c in ["C", "D", "G", "N", "R", "F"]],
        n=5, icon_id="abc", group="reading")
+
+
+lesson("tracar_letras", "Escrever letras", "reading.letters", "ship", "Vamos escrever mais letras com o dedo!",
+       [T("Toda letra começa na bolinha verde. Devagar, seguindo o caminho!", txt("L"))],
+       [TR("Escreva a letra %s com o dedo!" % c, c, "%s de %s! Muito bem!" % (c, NAME.get(EX[c], EX[c])), lv)
+        for c, lv in [("L", 1), ("T", 1), ("V", 1), ("M", 2), ("N", 2), ("F", 2), ("P", 2), ("B", 3), ("D", 3), ("R", 3),
+                      ("S", 3), ("C", 2), ("G", 3)] if c in EX or c == "T"] ,
+       n=3, icon_id="abc", group="reading")
+for q in L[-1]["ask"]:
+    if q["letter"] == "T":
+        q["done"] = "T! Muito bem!"
 
 lesson("som_das_letras", "O som das letras", "reading.letter_sounds", "ship",
        "Toda palavra começa com um som. Escute bem o comecinho!",
@@ -169,6 +219,23 @@ lesson("som_das_letras", "O som das letras", "reading.letter_sounds", "ship",
                       [txt(x) for x in random.sample([y for y in CONS + list("AEIOU") if y != FIRST[w]], 2)], 2)
         for w in ["pato", "dado", "nave", "robo", "casa", "uva"]],
        n=5, icon_id="voice", group="reading")
+
+
+# Montar palavras com sílabas (tocar na sílaba faz ouvir o som dela).
+SYL = [("bola", ["BO", "LA"], ["bó", "lá"], 1), ("pato", ["PA", "TO"], ["pá", "tô"], 1), ("uva", ["U", "VA"], ["ú", "vá"], 1),
+       ("lua", ["LU", "A"], ["lú", "á"], 1), ("mala", ["MA", "LA"], ["má", "lá"], 1), ("gato", ["GA", "TO"], ["gá", "tô"], 1),
+       ("dado", ["DA", "DO"], ["dá", "dô"], 2), ("sapo", ["SA", "PO"], ["sá", "pô"], 2), ("vaca", ["VA", "CA"], ["vá", "cá"], 2),
+       ("pipa", ["PI", "PA"], ["pí", "pá"], 2), ("bolo", ["BO", "LO"], ["bô", "lô"], 2), ("nave", ["NA", "VE"], ["ná", "vê"], 2),
+       ("foguete", ["FO", "GUE", "TE"], ["fô", "guê", "tê"], 3)]
+DISTRACT = [("MA", "má"), ("PE", "pé"), ("LI", "lí"), ("RO", "rô"), ("SU", "sú"), ("TA", "tá")]
+lesson("montar_palavras", "Montar palavras", "reading.build_word", "ship",
+       "Vamos montar palavras juntando pedacinhos! Toque num pedacinho para ouvir o som dele.",
+       [T("Bola tem dois pedacinhos: bó, lá. Juntando: bola!", row(txt("BO"), txt("LA"), W("bola")))],
+       [BW("Monte a palavra %s! Arraste os pedacinhos para os quadrados." % NAME.get(w, w), w, p, snd,
+           "%s: %s!" % (", ".join(x.capitalize() for x in snd), NAME.get(w, w)),
+           extra=None if lv == 1 else [d for d in DISTRACT if d[0] not in p][:1], lvl=lv)
+        for w, p, snd, lv in SYL],
+       n=3, icon_id="blocks", group="reading")
 
 lesson("ler_palavras", "Ler palavras", "reading.words", "moon", "Vamos ler palavras inteiras!",
        [T("Aqui está escrito BOLA. Bo, la: bola!", row(txt("BOLA"), W("bola"))),
@@ -258,6 +325,34 @@ lesson("recontar", "Recontar a história", "reading.comprehension", "ship",
        n=3, icon_id="book", group="reading")
 
 # ================================================================== MATEMÁTICA
+# Contar tocando (correspondência um a um) e juntar/tirar com objetos: o começo da trilha de matemática.
+ITEMS = [("estrela", W("estrela"), True), ("bola", W("bola"), True), ("peixe", W("peixe"), False),
+         ("maçã", F("apple"), True), ("morango", F("strawberry"), False), ("ovo", F("egg"), False)]
+PL = {"estrela": "estrelas", "bola": "bolas", "peixe": "peixes", "maçã": "maçãs", "morango": "morangos", "ovo": "ovos"}
+lesson("contar_tocando", "Contar tocando", "math.counting", "ship", "Vamos contar tocando em cada um!",
+       [T("Para contar, toque em cada um uma vez só, e fale junto: um, dois, três!", cnt(3))],
+       [CNT("Toque em cada %s para contar!" % nm, n, fig, "São %s %s!" % (numw(n, fem), PL[nm]), lv)
+        for (nm, fig, fem), n, lv in [(ITEMS[0], 3, 1), (ITEMS[1], 4, 1), (ITEMS[3], 5, 1), (ITEMS[2], 4, 1),
+                                      (ITEMS[4], 6, 2), (ITEMS[5], 7, 2), (ITEMS[0], 8, 3), (ITEMS[1], 9, 3), (ITEMS[3], 10, 3)]],
+       n=3, icon_id="123", group="math")
+
+lesson("juntar", "Juntar e contar", "math.addition.concrete", "ship", "Juntar é colocar tudo na cesta e contar quantos ficaram!",
+       [T("Duas maçãs na cesta e mais uma: juntando, ficam três!", row(cnt(2, "foods", "apple"), txt("+"), cnt(1, "foods", "apple")))],
+       [BASK("join", "A cesta tem %s %s. Arraste %s para dentro!" % (numw(a, fem), PL[nm] if a > 1 else nm,
+                                                                    "mais %s" % (numw(b, fem) if b > 1 else ("uma" if fem else "um"))),
+             a, b, fig, "%s mais %s: %s %s!" % (numw(a, fem).capitalize(), numw(b, fem), numw(a + b, fem), PL[nm]), lv)
+        for (nm, fig, fem), a, b, lv in [(ITEMS[3], 2, 1, 1), (ITEMS[1], 1, 2, 1), (ITEMS[0], 2, 2, 1), (ITEMS[5], 3, 1, 2),
+                                         (ITEMS[4], 2, 3, 2), (ITEMS[2], 3, 2, 2), (ITEMS[3], 4, 2, 3), (ITEMS[1], 3, 3, 3)]],
+       n=3, icon_id="plus", group="math")
+
+lesson("tirar_objetos", "Tirar e contar", "math.subtraction", "ship", "Tirar é levar para fora da cesta e contar quantos sobraram!",
+       [T("Três bolas na cesta. Tirando uma, sobram duas!", row(cnt(3, "words", "bola"), txt("−1"), cnt(2, "words", "bola")))],
+       [BASK("take", "Tem %s %s na cesta. Tire %s para fora!" % (numw(a, fem), PL[nm], numw(b, fem)),
+             a, b, fig, "%s menos %s: sobraram %s!" % (numw(a, fem).capitalize(), numw(b, fem), numw(a - b, fem)), lv)
+        for (nm, fig, fem), a, b, lv in [(ITEMS[1], 3, 1, 1), (ITEMS[3], 4, 1, 1), (ITEMS[0], 4, 2, 1), (ITEMS[2], 5, 2, 2),
+                                         (ITEMS[5], 5, 3, 2), (ITEMS[4], 6, 2, 3), (ITEMS[1], 6, 4, 3)]],
+       n=3, icon_id="plus", group="math")
+
 lesson("ordem_numeros", "Ordem dos números", "math.order", "space", "Os números têm uma ordem: um, dois, três...",
        [T("Contando em ordem: um, dois, três, quatro, cinco!", row(txt("1"), txt("2"), txt("3"), txt("4"), txt("5")))],
        [O("Toque nos números do menor para o maior!", [txt(str(n)) for n in seq], lvl)

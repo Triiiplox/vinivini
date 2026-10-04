@@ -146,3 +146,48 @@ rosto em slots e lip-sync por markers. Skins por slot + recolor por shader. Synf
 se precisar. Spine e DragonBones descartados. Classes conferidas no Godot 4.5.1 do projeto.
 Trade-off: mais trabalho manual de rig; a qualidade visual exigida pelas pranchas não muda.
 Detalhes: `v3/arte/RIG_GODOT.md`.
+
+## ADR-026 - Tela principal por matérias (botões grandes), nave andável vira passeio
+Contexto: no teste com o Andro (S23/S10e), escolher "leitura" ou "contas" exigia andar pela nave até a Escola,
+escolher a área e depois a lição — passos demais para 4 anos. Decisão: a raiz do jogo (`Router.home()`) é a tela
+`home`: 10 botões grandes (Leitura, Números, Lógica, Ciências, Espaço, Sentimentos, Inglês, Criar, Missões, Nave),
+ícone + voz, um toque abre. A nave continua como passeio opcional. Consequência: todo "voltar ao início" vai para
+`home`; testes de navegação esperam `home`.
+
+## ADR-027 - Trilha linear por matéria com desbloqueio sequencial
+Cada matéria abre numa trilha (`academy` com `params.area`): lições na ordem do conteúdo; a primeira não feita
+brilha e pulsa; feitas mostram estrelas; as seguintes ficam apagadas com cadeado grande e, ao toque, a voz explica e
+a mão aponta a próxima. Progressão clara substitui a grade de cartões soltos. A ordem das lições no
+`tools/build_lessons.py` É a progressão pedagógica (ex.: vogais → escrever vogais → consoantes → escrever letras →
+som das letras → montar palavras → ler palavras).
+
+## ADR-028 - Entrada por toque: nada pode "consumir" o toque antes do mundo; posição vem do evento
+Bug real (v1–v2.3.5): o `ScreenHost` (Control com MOUSE_FILTER_STOP) engolia todo toque que atravessava as telas
+de jogo (que são IGNORE e tratam o dedo em `_unhandled_input`). Decisão: raiz e host com IGNORE; o ponto do mundo
+vem de `event.position` transformado pela câmera (`GameScreen._event_point`), não do cursor do mouse.
+Obrigatório: `tools/run_checks.sh` roda `--touchcheck` (toques/arrastos reais via `Input.parse_input_event`, tela
+2340×1080) — teste que dispara sinais por código não conta como teste de toque.
+
+## ADR-029 - Gestos permitidos: tocar, arrastar e deslizar na horizontal (com inércia)
+Para 4 anos: tocar e arrastar são os gestos confiáveis; deslizar horizontal rola trilha/mapa/nave/biblioteca
+(`GameScreen.swipe_scroll`, limiar 18 px, inércia com decaimento). Nada de pinça, dois dedos ou toque longo para a
+criança (toque longo só no cadeado dos pais). Alvos de toque grandes (raio ≥ 70 px no mundo 1280×720).
+
+## ADR-030 - Lições "mão na massa" e "eu faço, você faz"
+Rodadas novas no motor `seg_lesson`: `trace` (traçar letra bastão com o dedo, pontos de controle, ≥ 85%),
+`count` (tocar em cada objeto; a voz conta), `join`/`take` (arrastar para dentro/fora da cesta; depois contagem
+guiada item a item e o total falado), `build` (arrastar sílabas para formar a palavra; tocar na sílaba faz ouvir o
+som). Na primeira rodada de cada tipo, a mão demonstra o gesto depois da fala. Erro nunca é punido: o item volta,
+balança, e na 2ª tentativa a mão mostra.
+
+## ADR-031 - Telas largas (19,5:9) com stretch "expand"
+Celulares atuais mostram mais que 1280 px de largura. Fundos e céu precisam cobrir o viewport visível
+(`SkyLayer._fit_painted`); conteúdo jogável fica dentro de 1280×720 para funcionar também em 16:9.
+
+## ADR-032 - Vídeos de apresentação podem ter fantasia; o conteúdo ensinado não
+Os vídeos de abertura/momentos (Gemini/Grok, editados) são apresentação e podem ter elementos de fantasia
+(decisão do Andro). Lições, missões e textos ensinados continuam só com ciência real.
+
+## ADR-033 - Validação visual obrigatória antes de cada APK
+Toda entrega passa por captura de todas as telas no formato 2340×1080 (`--segpreview`, `--touchcheck`) e revisão
+crítica tela a tela (o que está feio, confuso ou cortado) antes de gerar o APK.
