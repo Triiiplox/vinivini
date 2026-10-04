@@ -93,7 +93,8 @@ func _run() -> void:
 		await shot("universo_cozinha_chef_come", 0.6)
 	if _want("lote3"):
 		for th in ["mars", "ice"]:
-			Router.reset_to("seg_explore", {"theme": th, "screens": 2, "collect": {"item": "sample", "count": 3}})
+			Router.reset_to("seg_explore", {"theme": th, "screens": 2, "collect": {"item": "sample" if th == "mars" else "ice",
+				"count": 3}})
 			await shot("lote3_" + th, 1.5)
 		Router.reset_to("seg_flight", {"theme": "space", "play": "portals", "goal": 4, "portal_skill": "numbers"})
 		await shot("lote3_portal", 5.0)

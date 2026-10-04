@@ -100,7 +100,9 @@ func _build_trail() -> void:
 
 func _node_pos(i: int) -> Vector2:
 	var j := i - _first
-	return Vector2(400 + j * 270, 330 + (50.0 if i % 2 == 0 else -45.0))
+	# A fase atual é 1,5x maior: as vizinhas abrem espaço para ela (antes encostavam).
+	var gap := (-40.0 if i < path_done else (60.0 if i > path_done else 0.0))
+	return Vector2(400 + j * 270 + gap, 330 + (50.0 if i % 2 == 0 else -45.0))
 
 
 func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:

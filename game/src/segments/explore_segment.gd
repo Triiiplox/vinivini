@@ -81,7 +81,7 @@ func build() -> void:
 		deco.z_index = 25 if randf() < 0.4 else 5
 		world.add_child(deco)
 	hint_fn = _hint
-	hud.set_counter("props", collect_item, 0, count if count > 0 else -1)
+	hud.set_counter("props", _art_id(collect_item), 0, count if count > 0 else -1)
 
 
 ## Enfeites pintados da Lua: pedras e planta na frente (passam por cima dos pés) e atrás; bandeira no fim.
@@ -136,7 +136,7 @@ func _spawn_collectibles(n: int) -> void:
 			fl.tween_property(pp, "position:y", -10.0, 1.1 + i * 0.07).set_trans(Tween.TRANS_SINE)
 			fl.tween_property(pp, "position:y", 0.0, 1.1 + i * 0.07).set_trans(Tween.TRANS_SINE)
 		else:
-			var art := ArtSprite.new("props", collect_item, 74.0)
+			var art := ArtSprite.new("props", _art_id(collect_item), 74.0)
 			art.idle = "float"
 			it.add_child(art)
 		var x := lerpf(520.0, end_x, (i + 0.5) / maxf(1, n))
@@ -287,7 +287,7 @@ func _collect(it: Interactable) -> void:
 		0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tw.tween_property(it, "scale", Vector2(0.3, 0.3), 0.5)
 	tw.chain().tween_callback(it.queue_free)
-	hud.set_counter("props", collect_item, collected, int(params.get("collect", {}).get("count", -1)) if not door else -1)
+	hud.set_counter("props", _art_id(collect_item), collected, int(params.get("collect", {}).get("count", -1)) if not door else -1)
 	if door == null and collectibles.is_empty() and signs.is_empty() and rescue_npc == null:
 		_all_collected()
 
@@ -310,7 +310,7 @@ func _offer_bag() -> void:
 		if PaintedProp.has_art(collect_item):
 			it.add_child(PaintedProp.new(collect_item, 70.0))
 		else:
-			it.add_child(ArtSprite.new("props", collect_item, 62.0))
+			it.add_child(ArtSprite.new("props", _art_id(collect_item), 62.0))
 		it.position = Vector2(door_x - 520 + (k % 5) * 70, Scenery.GROUND_Y - 300 + (k / 5) * 74)
 		it.z_index = 60
 		world.add_child(it)
@@ -439,3 +439,11 @@ func _hint() -> void:
 				hand.show_tap(s.global_position + Vector2(0, -100))
 	elif rescue_npc and not rescued:
 		hand.show_tap(Vector2(rescue_x - 200, Scenery.GROUND_Y + 40))
+
+
+## Pintura do item (contador e chão): gelo de Europa = cristal azul; amostra de Marte = pedra (no contador).
+static func _art_id(item: String) -> String:
+	var alias := {"ice": "crystal_blue", "sample": "moon_rock"}
+	if alias.has(item) and ArtSprite.painted_tex("props", str(alias[item])):
+		return str(alias[item])
+	return item
