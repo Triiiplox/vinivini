@@ -19,6 +19,11 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "game")
 OUT = os.path.join(ROOT, "assets", "voice")
 CONTENT = os.path.join(ROOT, "content")
 NAME_SPOKEN = "Víni"  # grafia que faz a voz acentuar certo
+# "Víni" vira os fonemas vˈini, e a voz pt-BR abre o i tônico em "é/ê" no fim de frase ("comandante Vêni").
+# Medido por formantes (F1/F2) da vogal: com vˈiːnˌi o i fica fechado (F1≈330, F2≈2400, como em "vida") e a
+# tônica continua na primeira sílaba. Falas com o nome são sintetizadas a partir dos fonemas corrigidos.
+NAME_PH = ("vˈini", "vˈiːnˌi")
+PRON = 2  # versão da pronúncia do nome: falas com o nome de versão menor são refeitas
 VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa", "hoppy": "af_heart", "hoppy_slow": "af_heart"}
 SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95, "hoppy": 0.92, "hoppy_slow": 0.68}
 # Planeta Hello: o Hoppy só fala inglês (en-US nativo); "hoppy_slow" = a mesma palavra devagar (modelo de escuta).
@@ -176,6 +181,21 @@ def spoken(text, lang="pt-br"):
     return t
 
 
+def has_name(text):
+    return "{name}" in text or re.search(r"\bVini\b", text) is not None
+
+
+def phonemes_pt(text):
+    """Fonemas pt-BR da fala, com o nome do Vini na pronúncia corrigida."""
+    global _TOK
+    try:
+        _TOK
+    except NameError:
+        from kokoro_onnx.tokenizer import Tokenizer
+        _TOK = Tokenizer()
+    return _TOK.phonemize(spoken(text), "pt-br").replace(*NAME_PH)
+
+
 # ---------------------------------------------------------------- lip-sync (markers de boca)
 VIS_A = set("aɐæʌɑ")
 VIS_E = set("eɛiɪjyəɜɝɚ")
@@ -192,6 +212,8 @@ def visemes_for(text, lang="pt-br"):
     except NameError:
         _TOK = Tokenizer()
     ph = _TOK.phonemize(spoken(text, lang), lang)
+    if lang == "pt-br":
+        ph = ph.replace(*NAME_PH)
     seq = []
     for ch in ph:
         if ch in VIS_A:
@@ -259,7 +281,8 @@ def main():
     for (who, text) in lines:
         k = key_for(who, text)
         f = k + ".ogg"
-        if k in old and os.path.exists(os.path.join(OUT, f)):
+        stale = LANG.get(who, "pt-br") == "pt-br" and has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON
+        if k in old and os.path.exists(os.path.join(OUT, f)) and not stale:
             manifest[k] = old[k]
         else:
             todo.append((k, who, text))
@@ -268,7 +291,10 @@ def main():
     def synth(job):
         k, who, text = job
         lang = LANG.get(who, "pt-br")
-        samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
+        if lang == "pt-br" and has_name(text):
+            samples, sr = kok.create(phonemes_pt(text), voice=VOICES[who], speed=SPEED[who], lang=lang, is_phonemes=True)
+        else:
+            samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
         with tempfile.TemporaryDirectory() as td:
             wav = os.path.join(td, "a.wav")
             sf.write(wav, samples, sr)
@@ -290,6 +316,8 @@ def main():
         e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
         if lang != "pt-br":
             e["lang"] = lang
+        elif has_name(text):
+            e["p"] = PRON
         return k, e
 
     done = 0
@@ -303,8 +331,10 @@ def main():
     # Lip-sync: markers para falas que ainda não têm.
     nv = 0
     for k, e in manifest.items():
-        if not e.get("v") or force:
+        if not e.get("v") or force or (e.get("p") == PRON and e.get("vp") != PRON):
             e["v"] = markers_for(os.path.join(OUT, e["f"]), e["t"], e.get("lang", "pt-br"))
+            if e.get("p"):
+                e["vp"] = e["p"]
             nv += 1
     if nv:
         print("lip-sync: %d falas marcadas" % nv)
