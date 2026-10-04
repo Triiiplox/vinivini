@@ -145,9 +145,15 @@ def BW(say, word, parts, sounds, done, extra=None, lvl=1):  # montar a palavra c
             "sounds": dict(zip(parts, sounds)) | ({e: sx for e, sx in (extra or [])}), "extra": [e for e, _ in (extra or [])],
             "done": done, "lvl": lvl}
 
+# Lições só de apresentar letra/número: somem da trilha quando os pais marcam "Já conhece letras e números".
+BASIC = {"vogais", "consoantes", "tracar_vogais", "contar_tocando"}
+
+
 def lesson(id_, name, skill, theme, intro, teach, ask, n=4, icon_id="star", group=""):
     L.append({"id": id_, "name": name, "skill": skill, "theme": theme, "intro": intro, "teach": teach, "ask": ask,
               "n": n, "icon": icon_id, "group": group or skill.split(".")[0]})
+    if id_ in BASIC:
+        L[-1]["basic"] = True
 
 
 WORDS = ["bola", "bolo", "casa", "copo", "dado", "estrela", "foguete", "gato", "lua", "mala", "nave", "ovo", "pato",
@@ -197,7 +203,7 @@ lesson("consoantes", "Letras e figuras", "reading.letters", "ship", "Cada letra 
        n=5, icon_id="abc", group="reading")
 
 
-lesson("tracar_letras", "Escrever letras", "reading.letters", "ship", "Vamos escrever mais letras com o dedo!",
+lesson("tracar_letras", "Escrever letras", "reading.letters", "ship", "Vamos escrever letras com o dedo!",
        [T("Toda letra começa na bolinha verde. Devagar, seguindo o caminho!", txt("L"))],
        [TR("Escreva a letra %s com o dedo!" % c, c,
            ("%s de %s! Muito bem!" % (c, NAME.get(EX[c], EX[c]))) if c in EX else "%s! Muito bem!" % c, lv)

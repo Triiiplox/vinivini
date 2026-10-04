@@ -552,6 +552,10 @@ func _settings() -> void:
 	var dm := LearningService.difficulty_mode()
 	body.add_child(_choice_row("Dificuldade:", DIFF_NAMES.values(), str(DIFF_NAMES[dm]), _set_difficulty))
 	body.add_child(_txt(str(DIFF_NOTES[dm]) + " O progresso é registrado em qualquer modo.", 20, Palette.TEXT_SOFT))
+	var kb := bool(SaveService.settings.get_value("knows_basics"))
+	body.add_child(_toggle("Já conhece letras e números", kb, func(v): SaveService.settings.set_value("knows_basics", v)))
+	var kb_note := "Ligado: a trilha pula as lições que só apresentam letras e números e começa em escrever, sons e contas."
+	body.add_child(_txt(kb_note, 20, Palette.TEXT_SOFT))
 	var lim := str(SaveService.settings.get_value("daily_limit_min"))
 	body.add_child(_choice_row("Limite de tempo por dia (min):", ["0", "20", "30", "45", "60"], lim, _set_limit))
 	var lim_note := "0 = sem limite. Ao chegar no limite, o Vini vai descansar e só um adulto libera mais tempo."

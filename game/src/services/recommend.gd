@@ -32,6 +32,12 @@ static func due_skills(now: float = -1.0) -> Array:
 	return out
 
 
+## Lição só de apresentar letras/números ("Essa é a letra A"): some da trilha quando a criança já sabe
+## (chave "Já conhece letras e números" na área dos pais, ligada por padrão).
+static func skipped(les: Dictionary) -> bool:
+	return bool(les.get("basic", false)) and bool(SaveService.settings.get_value("knows_basics"))
+
+
 static func next_lesson(now: float = -1.0) -> String:
 	if now < 0:
 		now = Time.get_unix_time_from_system()
@@ -44,7 +50,7 @@ static func next_lesson(now: float = -1.0) -> String:
 	var disabled: Array = SaveService.settings.get_value("disabled_areas")
 	for id in repo.lesson_order:
 		var les: Dictionary = repo.lessons[id]
-		if str(id).begins_with("quiz_") or disabled.has(str(les.get("group", ""))):
+		if str(id).begins_with("quiz_") or disabled.has(str(les.get("group", ""))) or skipped(les):
 			continue
 		var skill := str(les["skill"])
 		var m := _mastery(skill)

@@ -245,3 +245,20 @@ func test_tapping_vini_on_splash_starts_game() -> void:
 	await get_tree().create_timer(0.7).timeout
 	await frames(2)
 	check(Router.current_id != "splash", "tocar no Vini começa o jogo (%s)" % Router.current_id)
+
+
+func test_knows_basics_skips_intro_lessons() -> void:
+	SaveService.reset_profile()
+	eq(bool(SaveService.settings.get_value("knows_basics")), true, "padrão: já conhece letras e números")
+	Router.reset_to("academy", {"area": "reading"})
+	await frames(2)
+	var s := Router.current_screen
+	check(s.find_child("Lesson_vogais", true, false) == null, "trilha de leitura pula 'As vogais'")
+	check(s.find_child("Lesson_tracar_letras", true, false) != null, "trilha começa em escrever letras")
+	eq(str(s.get("next_id")), "tracar_letras", "a primeira que brilha é escrever letras")
+	check(not ["vogais", "consoantes", "tracar_vogais", "contar_tocando"].has(Recommend.next_lesson()), "recomendação não sugere básicas")
+	SaveService.settings.set_value("knows_basics", false)
+	Router.reset_to("academy", {"area": "math"})
+	await frames(2)
+	check(Router.current_screen.find_child("Lesson_contar_tocando", true, false) != null, "desligado: contar tocando volta")
+	SaveService.settings.set_value("knows_basics", true)

@@ -15,7 +15,7 @@ func _ready() -> void:
 	SaveService.configure(JsonFileStorage.new("user://lessoncheck_save"))
 	SaveService.reset_profile()
 	RewardService.ensure_starter_items()
-	for id in ["tracar_vogais", "contar_tocando", "juntar", "tirar_objetos", "montar_palavras"]:
+	for id in ["tracar_letras", "contar_tocando", "juntar", "tirar_objetos", "montar_palavras"]:
 		results[id] = await _play(id)
 	var ok := not results.values().has(false)
 	print("LESSON %s: %s" % ["PASS" if ok else "FAIL", results])

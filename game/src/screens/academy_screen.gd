@@ -51,7 +51,8 @@ func build() -> void:
 func _build_trail() -> void:
 	var ids: Array = []
 	for id in ContentService.repo.lesson_order:
-		if str(ContentService.repo.lessons[id].get("group", "")) == area and not str(id).begins_with("quiz_"):
+		var les0: Dictionary = ContentService.repo.lessons[id]
+		if str(les0.get("group", "")) == area and not str(id).begins_with("quiz_") and not Recommend.skipped(les0):
 			ids.append(id)
 	var done: Dictionary = SaveService.progress.data(SaveService.profile_id).get("lessons_done", {})
 	var next_i := ids.size()

@@ -378,7 +378,8 @@
    ],
    "n": 5,
    "icon": "abc",
-   "group": "reading"
+   "group": "reading",
+   "basic": true
   },
   {
    "id": "tracar_vogais",
@@ -436,7 +437,8 @@
    ],
    "n": 3,
    "icon": "abc",
-   "group": "reading"
+   "group": "reading",
+   "basic": true
   },
   {
    "id": "consoantes",
@@ -813,14 +815,15 @@
    ],
    "n": 5,
    "icon": "abc",
-   "group": "reading"
+   "group": "reading",
+   "basic": true
   },
   {
    "id": "tracar_letras",
    "name": "Escrever letras",
    "skill": "reading.letters",
    "theme": "ship",
-   "intro": "Vamos escrever mais letras com o dedo!",
+   "intro": "Vamos escrever letras com o dedo!",
    "teach": [
     {
      "k": "teach",
@@ -3447,7 +3450,8 @@
    ],
    "n": 3,
    "icon": "123",
-   "group": "math"
+   "group": "math",
+   "basic": true
   },
   {
    "id": "juntar",
