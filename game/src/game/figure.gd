@@ -5,7 +5,8 @@ extends Node2D
 ##   color{c}, rainbow, count{n, set?, id?}, art{set,id}, planet{id, r?}, vini, vini_part{part}, shape{s, c?},
 ##   size{s}, face{mood}, icon{id,c}, text{s, c?}, npc{kind,mood}, crew, moon{phase 0..7}, daynight{side},
 ##   constellation{id}, galaxy, comet, satellite, blackhole, plant{stage}, water{state}, weather{w},
-##   shadow{light}, pair{a,b}, row{items}, painted{id}, float{obj, sinks}, scale{heavy,light}, near_far{near}
+##   shadow{light}, pair{a,b}, row{items}, painted{id}, float{obj, sinks}, scale{heavy,light}, near_far{near},
+##   scene{a, rel, b} (frase com posição) e as de MathFigures: tens, clock, money, frac, numline
 
 const SHAPE_COLOR := Color("#22D3EE")
 const INK := Color(0.03, 0.06, 0.15, 0.9)
@@ -116,12 +117,49 @@ func _ready() -> void:
 				var f := Figure.new(items[i], minf(cell, box) * 0.95)
 				f.position = Vector2((i - (n - 1) / 2.0) * cell, 0)
 				add_child(f)
+		"scene":
+			_scene()
 		"float":
 			var obj: Dictionary = spec.get("obj", {})
 			var f2 := Figure.new(obj, box * 0.42)
 			f2.position = Vector2(0, box * (0.22 if bool(spec.get("sinks", false)) else -0.08))
 			add_child(f2)
 	queue_redraw()
+
+
+## Cena com posição (leitura de frases): a em relação a b — em_cima, embaixo, dentro, ao_lado, atras, na_frente.
+func _scene() -> void:
+	var a := Figure.new(spec.get("a", {}), box * 0.42)
+	var b := Figure.new(spec.get("b", {}), box * 0.62)
+	b.position = Vector2(0, box * 0.12)
+	match str(spec.get("rel", "ao_lado")):
+		"em_cima":
+			a.position = Vector2(0, -box * 0.3)
+		"embaixo":
+			b.position = Vector2(0, -box * 0.14)
+			a.position = Vector2(0, box * 0.3)
+		"dentro":
+			a.scale = Vector2.ONE * 0.6
+			a.position = b.position + Vector2(0, box * 0.04)
+			b.modulate.a = 0.6
+		"atras":
+			a.position = b.position + Vector2(box * 0.2, -box * 0.16)
+			a.modulate = Color(0.85, 0.85, 0.9)
+		"na_frente":
+			b.position = Vector2(box * 0.06, 0)
+			a.position = Vector2(-box * 0.1, box * 0.22)
+		_:
+			b.position = Vector2(-box * 0.18, box * 0.06)
+			a.position = Vector2(box * 0.28, box * 0.12)
+	if str(spec.get("rel", "")) in ["atras"]:
+		add_child(a)
+		add_child(b)
+	elif str(spec.get("rel", "")) == "dentro":
+		add_child(a)
+		add_child(b)
+	else:
+		add_child(b)
+		add_child(a)
 
 
 func _count(n: int) -> void:
@@ -141,6 +179,9 @@ func _count(n: int) -> void:
 
 func _draw() -> void:
 	if _painted:
+		return
+	if MathFigures.handles(str(spec.get("t", ""))):
+		MathFigures.draw(self, spec, box)
 		return
 	var r := box * 0.4
 	match str(spec.get("t", "")):
