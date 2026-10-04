@@ -44,7 +44,8 @@ STR = r'"((?:[^"\\]|\\.)*)"'
 SENTENCE_FILES = [os.path.join(ROOT, "src", "segments", "*.gd")] + [
     os.path.join(ROOT, "src", "screens", f) for f in
     ["ship_screen.gd", "opening_screen.gd", "galaxy_screen.gd", "reward_screen.gd", "draw_screen.gd", "academy_screen.gd",
-     "studio_screen.gd", "story_maker_screen.gd", "library_screen.gd", "diary_screen.gd", "creator_screen.gd", "rest_screen.gd"]]
+     "studio_screen.gd", "story_maker_screen.gd", "library_screen.gd", "diary_screen.gd", "creator_screen.gd", "rest_screen.gd",
+     "home_screen.gd"]]
 sentence_files = set()
 for g in SENTENCE_FILES:
     sentence_files.update(glob.glob(g))

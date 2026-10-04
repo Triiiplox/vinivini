@@ -154,7 +154,7 @@ func _run() -> void:
 	# Escola de astronautas: recomendação → lição → recompensa → volta para a escola.
 	Router.reset_to("academy")
 	await wait(1.0)
-	check(Router.current_screen.recommended != "", "escola recomenda uma lição")
+	check(Router.current_screen.next_id != "", "trilha mostra a próxima lição")
 	if await play_until("reward", MISSION_TIMEOUT):
 		check(not (SaveService.progress.data(SaveService.profile_id).get("lessons_done", {}) as Dictionary).is_empty(), "lição registrada")
 		Router.current_screen._continue()

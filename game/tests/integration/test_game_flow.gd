@@ -117,7 +117,7 @@ func test_story_reward_and_return_to_hub() -> void:
 	check(SaveService.inventory.is_unlocked(SaveService.profile_id, "acc_cape"), "capa liberada")
 	Router.home()
 	await frames(2)
-	eq(Router.current_id, "ship")
+	eq(Router.current_id, "home")
 
 
 func test_back_navigation_never_dead_ends() -> void:
@@ -131,7 +131,7 @@ func test_back_navigation_never_dead_ends() -> void:
 		eq(Router.current_id, "ship", "voltar de %s retorna à nave" % id)
 	Router.back()
 	await frames(2)
-	eq(Router.current_id, "ship", "voltar na nave não sai do jogo nem quebra")
+	eq(Router.current_id, "home", "voltar na nave leva à tela principal, sem sair do jogo")
 
 
 func test_every_screen_opens_without_errors() -> void:
@@ -186,7 +186,7 @@ func test_boss_segment_runs_flight_in_boss_mode() -> void:
 	eq(str(Router.current_params.get("play", "")), "boss")
 	MissionFlow.abort()
 	await frames(2)
-	eq(Router.current_id, "ship")
+	eq(Router.current_id, "home")
 
 
 func test_intro_video_asset_and_flow() -> void:
@@ -209,13 +209,13 @@ func test_daily_hello_video_once_per_day() -> void:
 	await frames(2)
 	Router.current_screen.call("_on_play")
 	await frames(3)
-	eq(Router.current_id, "ship", "bom dia (vídeo) e segue para a nave")
+	eq(Router.current_id, "home", "bom dia (vídeo) e segue para a tela principal")
 	eq(str(SaveService.settings.get_value("hello_day")), AppState.today(), "marcado o dia")
 	Router.reset_to("splash")
 	await frames(2)
 	Router.current_screen.call("_on_play")
 	await frames(2)
-	eq(Router.current_id, "ship", "no mesmo dia vai direto para a nave")
+	eq(Router.current_id, "home", "no mesmo dia vai direto para a tela principal")
 
 
 func test_campaign_completion_plays_celebration() -> void:

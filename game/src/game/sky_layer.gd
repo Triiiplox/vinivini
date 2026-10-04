@@ -23,6 +23,7 @@ var rect: ColorRect
 var painted: TextureRect
 var mat: ShaderMaterial
 var theme := "space"
+var _vp := Vector2(1280, 720)
 
 
 func _ready() -> void:
@@ -40,12 +41,19 @@ func _ready() -> void:
 	painted.texture = load("res://assets/scenes/space_sky.jpg")
 	painted.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	painted.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	painted.size = Vector2(1440, 810)
-	painted.position = Vector2(-80, -45)
 	painted.modulate.a = 0.0
 	add_child(painted)
+	# Celulares largos (19,5:9) mostram mais que 1280 de largura: o céu pintado cobre a tela inteira + folga.
+	get_viewport().size_changed.connect(_fit_painted)
+	_fit_painted()
 	set_theme("space", 0.0)
 	set_quality(not bool(SaveService.settings.get_value("reduced_effects")))
+
+
+func _fit_painted() -> void:
+	_vp = get_viewport().get_visible_rect().size
+	painted.size = _vp + Vector2(160, 90)
+	painted.position = Vector2(-80, -45)
 
 
 func set_parallax(v: Vector2) -> void:

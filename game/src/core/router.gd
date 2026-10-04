@@ -45,6 +45,7 @@ const SCREENS := {
 	"hello": "res://src/screens/hello_screen.gd",
 	"reward": "res://src/screens/reward_screen.gd",
 	"ship": "res://src/screens/ship_screen.gd",
+	"home": "res://src/screens/home_screen.gd",
 	"galaxy": "res://src/screens/galaxy_screen.gd",
 	"opening": "res://src/screens/opening_screen.gd",
 	"intro_video": "res://src/screens/intro_video_screen.gd",
@@ -90,10 +91,10 @@ func replace(id: String, params: Dictionary = {}) -> void:
 	_show(id, params)
 
 
-## Limpa o histórico e vai para a nave (hub explorável).
+## Limpa o histórico e vai para a tela principal (matérias em botões grandes).
 func home() -> void:
 	_stack.clear()
-	_show("ship", {})
+	_show("home", {})
 
 
 ## Reseta a pilha deixando `id` como raiz.
@@ -108,8 +109,8 @@ func back() -> void:
 	if current_screen and current_screen.has_method("on_back") and current_screen.on_back():
 		return
 	if _stack.is_empty():
-		if current_id != "ship" and current_id != "splash" and current_id != "opening" and current_id != "intro_video":
-			_show("ship", {})
+		if current_id not in ["home", "splash", "opening", "intro_video"]:
+			_show("home", {})
 		return
 	var prev: Dictionary = _stack.pop_back()
 	_show(prev["id"], prev["params"])
@@ -135,11 +136,11 @@ func _show(id: String, params: Dictionary) -> void:
 	_fader.mouse_filter = Control.MOUSE_FILTER_STOP
 	var mat := _fader.material as ShaderMaterial
 	var t := create_tween()
-	t.tween_method(func(v): mat.set_shader_parameter("progress", v), 0.0, 1.0, 0.32).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	t.tween_method(func(v): mat.set_shader_parameter("progress", v), 0.0, 1.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	await t.finished
 	_swap(id, params)
 	var t2 := create_tween()
-	t2.tween_method(func(v): mat.set_shader_parameter("progress", v), 1.0, 0.0, 0.38).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	t2.tween_method(func(v): mat.set_shader_parameter("progress", v), 1.0, 0.0, 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	await t2.finished
 	_fader.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_busy = false

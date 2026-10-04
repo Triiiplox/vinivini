@@ -83,6 +83,6 @@ func _on_play() -> void:
 	elif str(SaveService.settings.get_value("hello_day")) != AppState.today():
 		# Primeira vez no dia: "bom dia, comandante" (3 s) e segue para a nave.
 		SaveService.settings.set_value("hello_day", AppState.today())
-		Router.reset_to("intro_video", {"clip": "oi", "next": "ship"})
+		Router.reset_to("intro_video", {"clip": "oi", "next": "home"})
 	else:
-		Router.reset_to("ship")
+		Router.reset_to("home")

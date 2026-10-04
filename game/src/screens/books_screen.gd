@@ -6,15 +6,19 @@ var books: Array[Interactable] = []
 
 
 func build() -> void:
+	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("story", 0.5)
 	world.add_child(Scenery.new("ship"))
 	var shelf := Polygon2D.new()
-	shelf.polygon = PackedVector2Array([Vector2(170, 470), Vector2(1110, 470), Vector2(1110, 500), Vector2(170, 500)])
-	shelf.color = Color("#8B5A2B")
-	world.add_child(shelf)
 	var ids: Array = ContentService.repo.story_order.duplicate()
 	ids.append("__create")
+	var right := maxf(1110.0, 320 + (ids.size() - 1) * 300 + 150.0)
+	shelf.polygon = PackedVector2Array([Vector2(170, 470), Vector2(right, 470), Vector2(right, 500), Vector2(170, 500)])
+	shelf.color = Color("#8B5A2B")
+	world.add_child(shelf)
+	camera.limit_left = 0
+	camera.limit_right = int(maxf(1280.0, right + 170.0))
 	var endings: Dictionary = SaveService.progress.data(SaveService.profile_id).get("story_endings", {})
 	for i in ids.size():
 		var b := Interactable.new()

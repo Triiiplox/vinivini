@@ -56,6 +56,7 @@ var _going := ""
 
 func build() -> void:
 	world_taps_meaningful = true
+	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("rocket")  # instrumental "Rocket to the Moon"
 	AudioService.play_ambience("ship")
@@ -76,6 +77,17 @@ func build() -> void:
 	pet.z_index = 22
 	world.add_child(pet)
 	add_cosmo(vini.position + Vector2(160, -260), 120.0)
+	# Tocar no cachorrinho ou no Astro faz eles reagirem (antes não faziam nada).
+	var pet_tap := Interactable.new()
+	pet_tap.name = "PetTap"
+	pet_tap.radius = 75.0
+	pet_tap.tapped.connect(_on_pet)
+	pet.add_child(pet_tap)
+	var astro_tap := Interactable.new()
+	astro_tap.name = "AstroTap"
+	astro_tap.radius = 75.0
+	astro_tap.tapped.connect(_on_astro)
+	cosmo.add_child(astro_tap)
 	_spawn_creatures()
 	_spawn_parent_gift()
 	camera.limit_left = 0
@@ -268,10 +280,27 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if vini == null:
 		return
-	camera.position.x = clampf(vini.position.x, 640.0, WIDTH - 640.0)
+	# A câmera acompanha o Vini enquanto ele anda; deslizar o dedo rola a nave livremente.
+	if _walk_tw and _walk_tw.is_valid() and _walk_tw.is_running() and not swiping:
+		_set_cam_x(vini.position.x)
 	if cosmo:
 		var target := vini.position + Vector2(170 * vini.facing, -270)
 		cosmo.position = cosmo.position.lerp(target, minf(1.0, delta * 2.0))
+
+
+func _on_pet(_it: Interactable) -> void:
+	pet.flip_trick()
+	AudioService.play_sfx("boing")
+
+
+func _on_astro(_it: Interactable) -> void:
+	var tw := cosmo.create_tween()
+	tw.tween_property(cosmo, "rotation", TAU, 0.6).set_trans(Tween.TRANS_BACK)
+	tw.tween_callback(func(): cosmo.rotation = 0.0)
+	AudioService.play_sfx("beep")
+	var lines := [Lines.c("Oi, comandante! Toque nas portas para entrar nas salas!"),
+		Lines.c("Deslize o dedo para ver a nave inteira!"), Lines.c("Eu adoro voar com você!")]
+	cosmo_say(lines[randi() % lines.size()])
 
 
 func on_world_tap(p: Vector2) -> void:
@@ -284,7 +313,7 @@ func on_world_tap(p: Vector2) -> void:
 func _walk(x: float) -> Tween:
 	if _walk_tw:
 		_walk_tw.kill()
-	_walk_tw = vini.walk_to(x, 360.0)
+	_walk_tw = vini.walk_to(x, 560.0)
 	AudioService.play_sfx("step")
 	return _walk_tw
 

@@ -21,12 +21,19 @@ var finished := false
 var world_taps_meaningful := false
 var mission_step := -1
 var mission_steps := 0
+## Deslizar o dedo rola a câmera na horizontal (com inércia). Limites: camera.limit_left/right.
+var swipe_scroll := false
+var swiping := false
 
 var _press_item: Interactable
 var _drag_item: Interactable
 var _press_pos := Vector2.ZERO
 var _drag_offset := Vector2.ZERO
 var _shake := 0.0
+var _swipe_from := Vector2.ZERO
+var _swipe_cam := 0.0
+var _swipe_vel := 0.0
+var _inertia := 0.0
 
 
 func _init() -> void:
@@ -192,6 +199,9 @@ func _process(delta: float) -> void:
 		_shake *= 0.86
 	else:
 		camera.offset = Vector2.ZERO
+	if swipe_scroll and absf(_inertia) > 8.0 and not swiping:
+		_set_cam_x(camera.position.x + _inertia * delta)
+		_inertia *= pow(0.05, delta)
 	if is_instance_valid(Router.sky):
 		Router.sky.set_parallax(camera.get_screen_center_position() - Vector2(640, 360))
 
@@ -204,15 +214,17 @@ func _unhandled_input(e: InputEvent) -> void:
 		if e.pressed:
 			_poke()
 			_press_pos = p
+			_swipe_from = e.position
+			_swipe_cam = camera.position.x
+			swiping = false
+			_inertia = 0.0
 			_press_item = _topmost(p)
 			if _press_item and _press_item.draggable:
 				_drag_item = _press_item
 				_drag_offset = _drag_item.global_position - p
 				_drag_item.on_pick()
-			elif _press_item == null:
-				if not world_taps_meaningful:
-					Telemetry.missed_tap()
-				on_world_tap(p)
+			elif _press_item == null and not swipe_scroll:
+				_world_tap(p)
 		else:
 			if _drag_item:
 				var it := _drag_item
@@ -224,13 +236,41 @@ func _unhandled_input(e: InputEvent) -> void:
 					it.tapped.emit(it)
 				else:
 					it.dropped.emit(it, zone)
+			elif swiping:
+				_inertia = _swipe_vel
 			elif _press_item and _press_item.tappable and _press_pos.distance_to(p) < 40.0:
 				_press_item.tapped.emit(_press_item)
+			elif _press_item == null and swipe_scroll:
+				_world_tap(p)
+			swiping = false
 			_press_item = null
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseMotion and _drag_item:
 		_drag_item.global_position = _event_point(e) + _drag_offset
 		get_viewport().set_input_as_handled()
+	elif e is InputEventMouseMotion and swipe_scroll and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
+		var dx: float = e.position.x - _swipe_from.x
+		if not swiping and absf(dx) > 18.0:
+			swiping = true
+			hand.hide_hint()
+		if swiping:
+			_set_cam_x(_swipe_cam - dx / camera.zoom.x)
+			_swipe_vel = -float(e.velocity.x) / camera.zoom.x
+		get_viewport().set_input_as_handled()
+
+
+func _world_tap(p: Vector2) -> void:
+	if not world_taps_meaningful:
+		Telemetry.missed_tap()
+	on_world_tap(p)
+
+
+## Posiciona a câmera respeitando os limites e a largura visível (telas largas de celular).
+func _set_cam_x(x: float) -> void:
+	var half := get_viewport_rect().size.x * 0.5 / camera.zoom.x
+	var lo := float(camera.limit_left) + half
+	var hi := float(camera.limit_right) - half
+	camera.position.x = clampf(x, lo, maxf(lo, hi))
 
 
 ## Toque em área vazia do mundo (ex.: andar até lá). Subclasses sobrescrevem.

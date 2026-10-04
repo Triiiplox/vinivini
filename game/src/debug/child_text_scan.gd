@@ -14,6 +14,7 @@ const CHILD_SCREENS := [
 	"draw",
 	"hello",
 	"academy",
+	"home",
 	"seg_lesson",
 	"books",
 	"diary",

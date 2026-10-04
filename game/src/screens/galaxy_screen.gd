@@ -17,13 +17,11 @@ var play_btn: DSButton
 var path_node: Node2D
 var path_pts: PackedVector2Array = PackedVector2Array()
 var width := 1280.0
-var _drag_from := Vector2.ZERO
-var _cam_from := 0.0
-var _dragging := false
 
 
 func build() -> void:
 	world_taps_meaningful = true
+	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("rocket")  # mesma trilha da nave: continuidade nave ↔ mapa
 	var repo := ContentService.repo
@@ -141,8 +139,26 @@ func _make_node(m: Dictionary, p: Vector2) -> void:
 			st.modulate = Color.WHITE if k < n else Color(0.3, 0.3, 0.4, 0.8)
 			it.add_child(st)
 	elif unlocked:
-		var glow := Fx.glow(it, Vector2.ZERO, 200.0, Color(1, 0.95, 0.5, 0.5), 1.4)
+		# Próxima missão: brilho e pulso (é "aqui que eu toco").
+		var glow := Fx.glow(it, Vector2.ZERO, 220.0, Color(1, 0.95, 0.5, 0.6), 1.4)
 		glow.z_index = -1
+		var pulse := it.create_tween().set_loops()
+		pulse.tween_property(it, "scale", Vector2.ONE * 1.12, 0.55).set_trans(Tween.TRANS_SINE)
+		pulse.tween_property(it, "scale", Vector2.ONE, 0.55).set_trans(Tween.TRANS_SINE)
+	if not unlocked:
+		# Trancada: apagada e com cadeado grande dourado por cima (dá para ver de longe).
+		disc.modulate = Color(0.45, 0.45, 0.55, 0.85)
+		ic.visible = false
+		var badge := Panel.new()
+		badge.add_theme_stylebox_override("panel", UITheme.rounded(Color("#2A2550"), 44, 6, Palette.YELLOW))
+		badge.size = Vector2(88, 88)
+		badge.position = Vector2(-44, -44)
+		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		it.add_child(badge)
+		var padlock := IconDraw.new("lock", Palette.YELLOW)
+		padlock.size = Vector2(64, 64)
+		padlock.position = Vector2(-32, -32)
+		it.add_child(padlock)
 	world.add_child(it)
 	it.tapped.connect(_on_node)
 	nodes[id] = it
@@ -167,19 +183,20 @@ func _on_node(it: Interactable) -> void:
 		it.wiggle()
 		AudioService.play_sfx("retry")
 		narrate(Lines.n("Essa missão ainda está trancada. Termine a missão anterior primeiro!"))
+		# Mostra qual é a missão que abre o caminho.
+		var cur: Interactable = nodes[_current_mission()]
+		_set_cam_x(cur.position.x)
+		hand.show_tap(cur.global_position)
 		return
-	if selected == id:
-		_start()
+	if selected != "":
 		return
+	# Um toque só: a nave voa até a missão, diz o nome e já começa.
 	selected = id
 	AudioService.play_sfx("whoosh")
 	var tw := ship_icon.create_tween()
-	tw.tween_property(ship_icon, "position", it.position + Vector2(0, -110), 0.6).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(ship_icon, "position", it.position + Vector2(0, -110), 0.5).set_trans(Tween.TRANS_SINE)
 	narrate(str(m["name"]))
-	play_btn.visible = true
-	play_btn.scale = Vector2.ZERO
-	play_btn.create_tween().tween_property(play_btn, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	hint_fn = func(): hand.show_tap(play_btn.global_position + play_btn.size / 2.0)
+	after(0.9, _start)
 
 
 ## Coroa dourada: rejoga a missão em modo comandante (um nível acima, sem punição).
@@ -196,27 +213,6 @@ func _start() -> void:
 		return
 	AudioService.play_sfx("launch")
 	MissionFlow.start(selected)
-
-
-func _unhandled_input(e: InputEvent) -> void:
-	# Arrastar o mapa (sem pegar itens) + toques nos nós via GameScreen.
-	if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-		if e.pressed:
-			_drag_from = e.position
-			_cam_from = camera.position.x
-			_dragging = false
-		elif _dragging:
-			_dragging = false
-			get_viewport().set_input_as_handled()
-			return
-	elif e is InputEventMouseMotion and e.button_mask & MOUSE_BUTTON_MASK_LEFT:
-		if absf(e.position.x - _drag_from.x) > 24.0:
-			_dragging = true
-		if _dragging:
-			camera.position.x = clampf(_cam_from - (e.position.x - _drag_from.x), 640, width - 640)
-			get_viewport().set_input_as_handled()
-			return
-	super._unhandled_input(e)
 
 
 func _on_home() -> void:
