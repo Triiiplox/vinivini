@@ -16,6 +16,9 @@ func _ready() -> void:
 	Router.instant = true
 	SaveService.configure(JsonFileStorage.new("user://smoke2_save"))
 	SaveService.reset_profile()
+	# Nivelamento já feito (estes testes olham a trilha; o nivelamento tem teste próprio).
+	SaveService.progress.data(SaveService.profile_id)["placed"] = {"reading": true, "math": true, "logic": true,
+		"astronomy": true, "science": true}
 	RewardService.ensure_starter_items()
 	Engine.time_scale = TIME_SCALE
 	Autoplay.mistakes = OS.get_cmdline_user_args().has("--mistakes")

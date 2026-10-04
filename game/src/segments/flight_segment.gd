@@ -2,8 +2,15 @@ extends GameScreen
 ## Pilotagem: a nave segue o dedo (arraste vertical em qualquer lugar). Cristais para pegar,
 ## asteroides para desviar (bater só sacode, sem punição) e portais pedidos por voz
 ## (números, sílabas ou formas). params: theme, play (collect|portals|boss), goal, portal_skill.
+## v4.1 (o Andro achou "sem objetivo"): o planeta de destino cresce no horizonte e a barra do topo mostra a nave
+## chegando; a nave gasta energia (baterias recarregam; sem energia ela fica lenta, nunca perde); pedra tira energia;
+## quem já sabe contas (chave "já conhece letras e números") recebe portais de conta no nível do treino;
+## acertar dá turbo; no fim a nave pousa e o tempo vira recorde da missão.
 
 const SHIP_X := 250.0
+## Destino de cada campanha (planeta real que aparece crescendo no horizonte).
+const DEST := {"nave": "moon", "lua": "moon", "marte": "mars", "gigantes": "saturn", "terra": "earth", "escola": "earth"}
+const FUEL_DRAIN := 0.035
 
 var mode := "collect"
 var goal := 6
@@ -26,6 +33,16 @@ var invuln := 0.0
 var done := false
 var boss: PaintedProp
 var boss_hp := 3
+var fuel := 1.0
+var hits := 0
+var empty_said := false
+var t_start := 0.0
+var dest: ShaderPlanet
+var dest_id := "moon"
+var bar: Control
+var fuel_bar: ColorRect
+var calc := false
+var calc_label: Label
 var _pressing := false
 var _trail: GPUParticles2D
 var _sets_spawned := 0
@@ -72,10 +89,13 @@ func build() -> void:
 		world.add_child(boss)
 		AudioService.play_music("boss")
 	hud.set_counter("props", "energy_cell" if mode == "collect" else "star_token", 0, goal)
+	calc = portal_skill == "numbers" and mode != "collect" and bool(SaveService.settings.get_value("knows_basics"))
+	_build_goal_ui()
 	hint_fn = _hint
 
 
 func begin() -> void:
+	t_start = Time.get_ticks_msec() / 1000.0
 	if mode == "collect":
 		narrate(Lines.n("Arraste o dedo para cima e para baixo para pilotar. Pegue as baterias de energia e desvie das pedras!"))
 	elif mode == "boss":
@@ -83,7 +103,10 @@ func begin() -> void:
 			"Um asteroide está no caminho! Passe pelos portais certos para lançar sondas e empurrar a rocha, como a missão DART da NASA."))
 		spawn_t = 5.5
 	else:
-		narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal certo!"))
+		if calc:
+			narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal com o resultado da conta!"))
+		else:
+			narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal certo!"))
 		spawn_t = 3.5
 
 
@@ -103,7 +126,8 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if done or ship == null:
 		return
-	var spd := speed * (1.9 if turbo_t > 0.0 else 1.0)
+	_fuel_tick(delta)
+	var spd := speed * (1.9 if turbo_t > 0.0 else 1.0) * (0.45 if fuel <= 0.0 else 1.0) * _hardness()
 	turbo_t = maxf(0.0, turbo_t - delta)
 	invuln = maxf(0.0, invuln - delta)
 	scroll += spd * delta
@@ -156,12 +180,16 @@ func _spawn(delta: float) -> void:
 	if mode == "collect" and spawn_t <= 0.0:
 		spawn_t = randf_range(0.9, 1.5)
 		_spawn_crystal()
+	if mode != "collect" and portal_set.is_empty() and randf() < delta * 0.25:
+		_spawn_crystal()  # baterias também nos portais: a energia importa
 	if mode != "collect" and spawn_t <= 0.0 and portal_set.is_empty():
 		spawn_t = 2.2
 		_spawn_portals()
 	if asteroid_t <= 0.0:
-		asteroid_t = randf_range(1.6, 2.8) if mode == "collect" else randf_range(2.8, 4.0)
+		asteroid_t = (randf_range(1.6, 2.8) if mode == "collect" else randf_range(2.8, 4.0)) / _hardness()
 		_spawn_asteroid()
+		if _hardness() > 1.3 and randf() < 0.5:
+			_spawn_asteroid()  # missões adiantadas: pedras em dupla
 
 
 func _spawn_crystal() -> void:
@@ -211,7 +239,24 @@ func _spawn_portals() -> void:
 	pool.shuffle()
 	var n := 2 if difficulty(_skill) == 1 else 3
 	var picks := pool.slice(0, n)
-	if _retry_target != "":
+	if calc:
+		var g := EndlessGen.math(_calc_level())
+		var ans := int(g["ans"])
+		calc_label.text = str(g["show"]["s"])
+		calc_label.add_theme_color_override("font_color", Palette.YELLOW)
+		var wrong: Array = []
+		for dlt in [1, -1, 10, -10, 2, -2]:
+			if ans + dlt >= 0 and wrong.size() < 2:
+				wrong.append(str(ans + dlt))
+		n = 3
+		picks = [str(ans)] + wrong
+		picks.shuffle()
+		portal_target = str(ans)
+		_retry_target = ""
+	if calc:
+		portal_t0 = Time.get_ticks_msec() / 1000.0
+		portal_tries = 0
+	elif _retry_target != "":
 		if not picks.has(_retry_target):
 			picks[randi() % n] = _retry_target
 		portal_target = _retry_target
@@ -260,6 +305,9 @@ func _portal_label(p: Node2D, label: String) -> void:
 
 
 func _say_target() -> void:
+	if calc:
+		narrate(Lines.n("Qual é o resultado? Passe pelo portal certo!"))
+		return
 	match portal_skill:
 		"syllables":
 			narrate_seq([Lines.n("Passe pelo portal do"), Lines.syllable_say(portal_target)])
@@ -278,16 +326,24 @@ func _check_hit(o: Node2D) -> void:
 	var d := o.position.distance_to(ship.position)
 	if kind == "crystal" and d < 85.0:
 		objects.erase(o)
+		fuel = minf(1.0, fuel + 0.35)
+		empty_said = false
+		Fx.sparkle(world, o.position, 16, Color(0.6, 0.95, 1.0))
+		o.queue_free()
+		if mode != "collect":
+			AudioService.play_sfx("collect")
+			return
 		progress += 1
 		AudioService.play_sfx("collect", 1.0 + progress * 0.04)
-		Fx.sparkle(world, o.position, 16, Color(0.6, 0.95, 1.0))
 		Voice.say(Lines.number(progress))
 		hud.set_counter("props", "energy_cell", progress, goal)
-		o.queue_free()
+		_update_goal_ui()
 		if progress >= goal:
 			_complete()
 	elif kind == "asteroid" and d < 90.0 and invuln <= 0.0:
 		invuln = 1.2
+		hits += 1
+		fuel = maxf(0.0, fuel - 0.15)
 		AudioService.play_sfx("bump")
 		AudioService.haptic(60)
 		shake_camera(14.0)
@@ -318,6 +374,8 @@ func _check_portals() -> void:
 		AudioService.haptic(30)
 		Fx.sparkle(world, best.position, 40)
 		hud.set_counter("props", "star_token", progress, goal)
+		_update_goal_ui()
+		turbo_t = 1.6  # acertou: turbo de prêmio
 		if mode == "boss":
 			_boss_light(best.position)
 		else:
@@ -337,6 +395,14 @@ func _check_portals() -> void:
 			objects.erase(p)
 			p.queue_free()
 		portal_set.clear()
+		if calc:
+			# conta: mostra a certa por um instante e traz outra conta (não repete a mesma decorada)
+			calc_label.text = "%s = %s" % [calc_label.text.trim_suffix(" = ?"), portal_target]
+			calc_label.add_theme_color_override("font_color", Color("#86EFAC"))
+			cosmo_say(Lines.c("Olha a conta certa!"))
+			_retry_target = ""
+			spawn_t = 2.6
+			return
 		_retry_target = portal_target
 		cosmo_say(Lines.c("Quase! Vamos tentar de novo."))
 		spawn_t = 1.6
@@ -379,13 +445,132 @@ func _complete() -> void:
 	done = true
 	hint_fn = Callable()
 	AudioService.play_sfx("launch")
+	var secs := Time.get_ticks_msec() / 1000.0 - t_start
+	var stars := 3 if hits <= 2 else (2 if hits <= 5 else 1)
+	# Pouso: o planeta chega perto e a nave desce até ele, diminuindo.
 	var tw := ship.create_tween()
-	tw.tween_property(ship, "position", Vector2(1500, 300), 1.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	if mode != "boss":
-		cosmo_say(Lines.c("Uhuu! Pilotagem de comandante!"))
+	if is_instance_valid(dest):
+		var dtw := dest.create_tween()
+		dtw.tween_property(dest, "position", Vector2(1000, 430), 1.2).set_trans(Tween.TRANS_SINE)
+		dtw.parallel().tween_property(dest, "scale", Vector2.ONE * 2.2, 1.2).set_trans(Tween.TRANS_SINE)
+		tw.tween_interval(0.6)
+		tw.tween_property(ship, "position", Vector2(1000, 250), 1.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		tw.parallel().tween_property(ship, "scale", Vector2.ONE * 0.45, 1.2)
+		tw.parallel().tween_property(ship, "rotation", 0.5, 1.2)
+	else:
+		tw.tween_property(ship, "position", Vector2(1500, 300), 1.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	var rec := _save_record(secs)
+	if rec:
+		after(1.8, func():
+			AudioService.play_sfx("fanfare")
+			cosmo_say(Lines.c("Novo recorde de pilotagem!")))
+	elif mode != "boss":
+		cosmo_say(Lines.c("Pouso perfeito! Pilotagem de comandante!"))
 	if mode == "collect":
 		record("math.counting", "flight_collect_%d" % goal, true, 1, 5.0)
-	after(2.6 if mode == "boss" else 2.2, func(): finish({"stars": 3, "skills": [_skill] if mode != "collect" else ["math.counting"]}))
+	var tl := UI.label("%d s" % int(secs), 48, Palette.YELLOW if rec else Color.WHITE)
+	tl.position = Vector2(560, 120)
+	tl.size = Vector2(160, 60)
+	tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UI.child_ok(tl)
+	hud.root.add_child(tl)
+	after(3.4 if mode == "boss" else 3.2, func(): finish({"stars": stars,
+		"skills": [_skill] if mode != "collect" else ["math.counting"]}))
+
+
+## Recorde de tempo por missão (ou tema + modo fora de missão). Devolve true se bateu.
+func _save_record(secs: float) -> bool:
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	if not pd.get("flight_records") is Dictionary:
+		pd["flight_records"] = {}
+	var key := str(params.get("mission", "%s_%s" % [params.get("theme", "space"), mode]))
+	var best := float(pd["flight_records"].get(key, 0.0))
+	var beat := best > 0.0 and secs < best
+	if best <= 0.0 or secs < best:
+		pd["flight_records"][key] = snappedf(secs, 0.1)
+	SaveService.progress.persist(SaveService.profile_id)
+	return beat
+
+
+# ------------------------------------------------------------------ objetivo visível, energia, dificuldade
+func _build_goal_ui() -> void:
+	var camp := ""
+	if params.has("mission"):
+		camp = str(ContentService.repo.missions.get(str(params["mission"]), {}).get("campaign", ""))
+	dest_id = str(params.get("dest", DEST.get(camp, "moon")))
+	dest = ShaderPlanet.new(dest_id, 60.0)
+	dest.position = Vector2(1150, 190)
+	dest.z_index = -3
+	world.add_child(dest)
+	bar = Control.new()
+	bar.name = "JourneyToPlanet"
+	bar.position = Vector2(330, 22)
+	bar.size = Vector2(620, 70)
+	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bar.draw.connect(_draw_bar)
+	hud.root.add_child(bar)
+	var fb := ColorRect.new()
+	fb.color = Color(0, 0, 0, 0.45)
+	fb.position = Vector2(150, 110)
+	fb.size = Vector2(220, 26)
+	fb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.root.add_child(fb)
+	fuel_bar = ColorRect.new()
+	fuel_bar.color = Color("#4ADE80")
+	fuel_bar.position = Vector2(153, 113)
+	fuel_bar.size = Vector2(214, 20)
+	fuel_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.root.add_child(fuel_bar)
+	var cell := ArtSprite.new("props", "energy_cell", 52.0)
+	cell.position = Vector2(126, 123)
+	hud.root.add_child(cell)
+	calc_label = UI.label("", 64, Palette.YELLOW, true)
+	calc_label.name = "FlightCalc"
+	calc_label.position = Vector2(390, 96)
+	calc_label.size = Vector2(500, 80)
+	calc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UI.child_ok(calc_label)
+	hud.root.add_child(calc_label)
+	_update_goal_ui()
+
+
+func _draw_bar() -> void:
+	var f := clampf(float(progress) / maxf(1.0, goal), 0.0, 1.0)
+	bar.draw_line(Vector2(30, 35), Vector2(560, 35), Color(1, 1, 1, 0.3), 8.0, true)
+	bar.draw_line(Vector2(30, 35), Vector2(30 + 530 * f, 35), DS.STAR_GOLD, 8.0, true)
+	bar.draw_circle(Vector2(590, 35), 26, Color(PlanetView.PRESETS.get(dest_id, {}).get("color", "#D9DCE3")))
+	bar.draw_circle(Vector2(30 + 530 * f, 35), 14, Color.WHITE)
+
+
+func _update_goal_ui() -> void:
+	if is_instance_valid(bar):
+		bar.queue_redraw()
+	if is_instance_valid(dest):
+		var f := clampf(float(progress) / maxf(1.0, goal), 0.0, 1.0)
+		dest.create_tween().tween_property(dest, "scale", Vector2.ONE * (1.0 + f * 1.6), 0.6).set_trans(Tween.TRANS_SINE)
+
+
+func _fuel_tick(delta: float) -> void:
+	if not portal_set.is_empty() and calc:
+		delta *= 0.4  # pensando na conta: gasta menos
+	fuel = maxf(0.0, fuel - FUEL_DRAIN * delta)
+	if is_instance_valid(fuel_bar):
+		fuel_bar.size.x = 214.0 * fuel
+		fuel_bar.color = Color("#4ADE80") if fuel > 0.3 else Color("#F87171")
+	if fuel <= 0.0 and not empty_said:
+		empty_said = true
+		cosmo_say(Lines.c("Sem energia! Pegue uma bateria verde!"))
+
+
+## Missões mais adiante = pedras mais rápidas e mais frequentes (1,0 a 1,6).
+func _hardness() -> float:
+	var done_n := (SaveService.progress.data(SaveService.profile_id).get("missions_done", {}) as Dictionary).size()
+	return 1.0 + minf(done_n, 12) * 0.05
+
+
+func _calc_level() -> int:
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	return clampi(int((pd.get("endless", {}) as Dictionary).get("math", 3)), 2, 9)
 
 
 func _hint() -> void:

@@ -15,6 +15,9 @@ func _ready() -> void:
 	Router.instant = true
 	SaveService.configure(JsonFileStorage.new("user://segprev_save"))
 	SaveService.reset_profile()
+	# Nivelamento já feito (estes testes olham a trilha; o nivelamento tem teste próprio).
+	SaveService.progress.data(SaveService.profile_id)["placed"] = {"reading": true, "math": true, "logic": true,
+		"astronomy": true, "science": true}
 	RewardService.ensure_starter_items()
 	var av := AppState.avatar().duplicate()
 	av["helmet"] = "helmet_bubble"

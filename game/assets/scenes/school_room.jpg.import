@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/school_room.jpg-0c719e1683d42d5dbe0593cfe698b
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.85
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

@@ -9,7 +9,16 @@ static var _t := {}
 
 
 static func step(id: String, s: Node) -> void:
-	if s == null or not is_instance_valid(s) or s.get("finished"):
+	if s == null or not is_instance_valid(s):
+		return
+	if id == "seg_lesson" and s.get("finished"):
+		# Fim de fase no meio da lição: segue para a próxima fase (o baú vem ao fechar a lição).
+		var nb := s.find_child("NextStage", true, false) as DSButton
+		if nb and not nb.has_meta("pressed"):
+			nb.set_meta("pressed", true)
+			nb.pressed.emit()
+		return
+	if s.get("finished"):
 		return
 	if mistakes and randf() < 0.3 and _mistake(id, s):
 		return

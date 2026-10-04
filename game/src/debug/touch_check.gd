@@ -13,6 +13,9 @@ func _ready() -> void:
 			out = a.substr(13)
 	DirAccess.make_dir_recursive_absolute(out)
 	SaveService.reset_profile()
+	# Nivelamento já feito (estes testes olham a trilha; o nivelamento tem teste próprio).
+	SaveService.progress.data(SaveService.profile_id)["placed"] = {"reading": true, "math": true, "logic": true,
+		"astronomy": true, "science": true}
 	SaveService.settings.set_value("intro_video_seen", false)
 	Router.reset_to("splash")
 	await _wait(1.5)

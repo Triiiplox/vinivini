@@ -16,6 +16,7 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(out)
 	SaveService.configure(JsonFileStorage.new("user://ux_save"))
 	SaveService.reset_profile()
+	SaveService.progress.data(SaveService.profile_id)["placed"] = {"math": true}
 	SaveService.settings.set_value("intro_video_seen", true)
 	var p := AppState.profile()
 	p["intro_seen"] = true
@@ -66,16 +67,17 @@ func _run() -> void:
 	await get_tree().create_timer(1.0).timeout
 	await shot("02_trilha")
 	for phase in 3:
-		var scr: Node = Router.current_screen
-		var nt: Interactable = scr.call("next_tile")
-		taps += 1
-		nt.tapped.emit(nt)
-		note("toque na fase %d" % (phase + 1))
+		if Router.current_id == "academy":
+			var scr: Node = Router.current_screen
+			var nt: Interactable = scr.call("next_tile")
+			taps += 1
+			nt.tapped.emit(nt)
+			note("toque na fase %d" % (phase + 1))
 		await wait_until(func(): return Router.current_id == "seg_lesson", 5.0)
 		var les: Node = Router.current_screen
 		var first_q := true
 		var guard := 0
-		while Router.current_id == "seg_lesson" and guard < 1500:
+		while Router.current_id == "seg_lesson" and guard < 1500 and not les.finished:
 			guard += 1
 			var k := str(les.rd.get("k", ""))
 			if k == "teach" and les.next_btn.visible:
@@ -107,8 +109,16 @@ func _run() -> void:
 				await get_tree().create_timer(0.4).timeout
 				continue
 			await get_tree().create_timer(0.1).timeout
+		await wait_until(func(): return Router.current_id != "seg_lesson" or les.find_child("NextStage", true, false) != null, 10.0)
 		note("fim da fase → %s" % Router.current_id)
 		await shot("04_fase%d_fim" % (phase + 1))
+		var nb := les.find_child("NextStage", true, false) as DSButton
+		if nb and phase < 2:
+			taps += 1
+			nb.pressed.emit()
+			note("toque em Próxima fase")
+			await wait_until(func(): return Router.current_screen != les, 5.0)
+			continue
 		if Router.current_id == "reward":
 			await get_tree().create_timer(0.5).timeout
 			await wait_until(func(): return Router.current_screen.has_method("_continue"), 3.0)
