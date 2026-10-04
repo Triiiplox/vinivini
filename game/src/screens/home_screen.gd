@@ -69,7 +69,12 @@ func _rank_chip() -> void:
 	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.85), 26, 4, Palette.YELLOW))
 	box.size = Vector2(300, 96)
 	box.position = Vector2(20, 120)
-	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Tocar na patente abre os troféus e medalhas (antes era uma estação do corredor da nave).
+	box.mouse_filter = Control.MOUSE_FILTER_STOP
+	box.gui_input.connect(func(e: InputEvent):
+		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
+			AudioService.play_sfx("tap")
+			Router.go("gallery"))
 	hud.root.add_child(box)
 	var badge := RankBadge.new(Stages.rank_index())
 	badge.size = Vector2(84, 84)
