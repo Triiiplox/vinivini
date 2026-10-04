@@ -76,13 +76,8 @@ func _on_play() -> void:
 		return
 	_started = true
 	AudioService.play_sfx("whoosh")
-	if not bool(SaveService.settings.get_value("intro_video_seen")):
-		Router.reset_to("intro_video", {"next": "opening"})
-	elif not AppState.has_profile() or not bool(AppState.profile().get("intro_seen", false)):
-		Router.reset_to("opening")
-	elif str(SaveService.settings.get_value("hello_day")) != AppState.today():
-		# Primeira vez no dia: "bom dia, comandante" (3 s) e segue para a nave.
-		SaveService.settings.set_value("hello_day", AppState.today())
-		Router.reset_to("intro_video", {"clip": "oi", "next": "home"})
+	# Mais de uma criança no aparelho: primeiro "quem vai jogar?".
+	if Kids.available().size() > 1:
+		Router.reset_to("who")
 	else:
-		Router.reset_to("home")
+		Kids.start()

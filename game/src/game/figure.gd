@@ -74,8 +74,7 @@ func _ready() -> void:
 			add_child(cr)
 		"face":
 			var sp := Sprite2D.new()
-			var path := "res://assets/characters/vini/parts/head__%s.png" % str(spec.get("mood", "happy"))
-			sp.texture = load(path) if ResourceLoader.exists(path) else load("res://assets/characters/vini/parts/head__happy.png")
+			sp.texture = load(Kids.head_path(str(spec.get("mood", "happy"))))
 			var k := box * 0.95 / maxf(sp.texture.get_width(), sp.texture.get_height())
 			sp.scale = Vector2(k, k)
 			add_child(sp)

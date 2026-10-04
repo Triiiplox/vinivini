@@ -16,7 +16,7 @@ func build() -> void:
 	av = AppState.avatar().duplicate(true)
 	if not AppState.has_profile():
 		AppState.save_avatar(av)
-		AppState.set_child_name("Vini")
+		AppState.set_child_name(Kids.name_of(SaveService.profile_id))
 	ship = Node2D.new()
 	ship.position = Vector2(-300, 300)
 	var art := ArtSprite.new("props", "ship_side", 320.0)

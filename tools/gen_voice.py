@@ -23,6 +23,9 @@ NAME_SPOKEN = "Víni"  # grafia que faz a voz acentuar certo
 # Medido por formantes (F1/F2) da vogal: com vˈiːnˌi o i fica fechado (F1≈330, F2≈2400, como em "vida") e a
 # tônica continua na primeira sílaba. Falas com o nome são sintetizadas a partir dos fonemas corrigidos.
 NAME_PH = ("vˈini", "vˈiːnˌi")
+# Crianças convidadas (perfis): cada fala com o nome ganha uma versão com o nome delas. Grafia = como a voz
+# pt-BR acentua certo ("Ênzo" com E fechado; "Ailinha" como se fala "Aylinha").
+KIDS = {"manuzita": "Manuzita", "enzo": "Ênzo", "aylinha": "Ailinha"}
 PRON = 2  # versão da pronúncia do nome: falas com o nome de versão menor são refeitas
 VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa", "hoppy": "af_heart", "hoppy_slow": "af_heart"}
 SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95, "hoppy": 0.92, "hoppy_slow": 0.68}
@@ -165,17 +168,19 @@ for les in J("lessons/lessons.json")["lessons"]:
             add("narrator", t, "lesson")
 
 # ---------------------------------------------------------------- síntese
-def key_for(who, text):
-    # Igual a VoiceService.key_for: o nome da criança no texto vira "{name}" (normalize).
+def key_for(who, text, kid=""):
+    # Igual a VoiceService.key_for: o nome da criança no texto vira "{name}" (normalize); fala com o nome de
+    # uma criança convidada leva o id dela na chave.
     t = re.sub(r"\bVini\b", "{name}", text.strip())
-    return hashlib.md5(("%s|%s" % (who, t)).encode("utf-8")).hexdigest()[:12]
+    base = "%s|%s" % (who, t) + ("|" + kid if kid else "")
+    return hashlib.md5(base.encode("utf-8")).hexdigest()[:12]
 
 
-def spoken(text, lang="pt-br"):
+def spoken(text, lang="pt-br", name=NAME_SPOKEN):
     if lang.startswith("en"):
         return re.sub(r"\bVini\b", "Vinny", text.replace("{name}", "Vinny"))
-    t = text.replace("{name}", NAME_SPOKEN)
-    t = re.sub(r"\bVini\b", NAME_SPOKEN, t)
+    t = text.replace("{name}", name)
+    t = re.sub(r"\bVini\b", name, t)
     t = t.replace("—", ",")
     t = t.replace("Cosmo", "Cósmo")  # nome antigo (legado)
     return t
@@ -185,14 +190,16 @@ def has_name(text):
     return "{name}" in text or re.search(r"\bVini\b", text) is not None
 
 
-def phonemes_pt(text):
-    """Fonemas pt-BR da fala, com o nome do Vini na pronúncia corrigida."""
+def phonemes_pt(text, kid=""):
+    """Fonemas pt-BR da fala, com o nome do Vini na pronúncia corrigida (ou o nome da criança convidada)."""
     global _TOK
     try:
         _TOK
     except NameError:
         from kokoro_onnx.tokenizer import Tokenizer
         _TOK = Tokenizer()
+    if kid:
+        return _TOK.phonemize(spoken(text, name=KIDS[kid]), "pt-br")
     return _TOK.phonemize(spoken(text), "pt-br").replace(*NAME_PH)
 
 
@@ -285,14 +292,22 @@ def main():
         if k in old and os.path.exists(os.path.join(OUT, f)) and not stale:
             manifest[k] = old[k]
         else:
-            todo.append((k, who, text))
+            todo.append((k, who, text, ""))
+        if LANG.get(who, "pt-br") == "pt-br" and has_name(text):
+            for kid in KIDS:
+                kk = key_for(who, text, kid)
+                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")):
+                    manifest[kk] = old[kk]
+                else:
+                    todo.append((kk, who, text, kid))
     print("falas: %d (novas: %d)" % (len(lines), len(todo)), flush=True)
 
     def synth(job):
-        k, who, text = job
+        k, who, text, kid = job
         lang = LANG.get(who, "pt-br")
         if lang == "pt-br" and has_name(text):
-            samples, sr = kok.create(phonemes_pt(text), voice=VOICES[who], speed=SPEED[who], lang=lang, is_phonemes=True)
+            samples, sr = kok.create(phonemes_pt(text, kid), voice=VOICES[who], speed=SPEED[who], lang=lang,
+                                     is_phonemes=True)
         else:
             samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
         with tempfile.TemporaryDirectory() as td:
@@ -316,6 +331,8 @@ def main():
         e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
         if lang != "pt-br":
             e["lang"] = lang
+        elif kid:
+            e["kid"] = kid
         elif has_name(text):
             e["p"] = PRON
         return k, e

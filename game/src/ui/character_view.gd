@@ -51,7 +51,7 @@ static func painted_face(k_name: String, m: String, blink: bool, talk_open: bool
 				"calm": "curious"}
 			path = "res://assets/art/painted/chars/bip/%s.png" % str(b.get(m, "happy"))
 		"vini":
-			path = "res://assets/characters/vini/parts/head__%s.png" % m
+			path = Kids.head_path(m)
 	if path == "" or not ResourceLoader.exists(path):
 		return null
 	return load(path)

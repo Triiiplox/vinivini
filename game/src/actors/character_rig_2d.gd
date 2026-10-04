@@ -117,6 +117,8 @@ func _ready() -> void:
 	anim.add_animation_library("", lib)
 	anim.animation_finished.connect(_on_anim_finished)
 	_painted = slots.has("head")
+	if _painted and char_id == "vini" and Kids.is_guest():
+		_guest_face()
 	if _painted:
 		_show("lids", false)
 		_show("mouth", false)
@@ -125,6 +127,20 @@ func _ready() -> void:
 		ViniOutfit.apply(self, AppState.avatar())
 	anim.play("idle")
 	_prev_x = position.x
+
+
+## Criança convidada: o rosto dela em todos os humores; sem pálpebras nem bocas de fala (são da pele do Vini).
+func _guest_face() -> void:
+	var t: Texture2D = load(Kids.head_path())
+	for st in slots["head"]:
+		slots["head"][st] = t
+	slots.erase("mouth")
+	slots.erase("lids")
+	for s in ["mouth", "lids"]:
+		if sprites.has(s):
+			(sprites[s] as Sprite2D).texture = null
+	if sprites.has("head"):
+		(sprites["head"] as Sprite2D).texture = t
 
 
 ## Caminho do osso relativo ao Body (para trilhas de animação).

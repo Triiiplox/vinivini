@@ -6,6 +6,7 @@ var backend: MemoryStorage
 
 
 func before_each() -> void:
+	Kids.guests_enabled = false  # fluxo do Vini; o "quem vai jogar?" tem teste próprio (test_kids)
 	backend = MemoryStorage.new()
 	SaveService.configure(backend)
 	RewardService.ensure_starter_items()

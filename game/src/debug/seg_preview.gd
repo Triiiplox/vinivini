@@ -44,6 +44,16 @@ func _want(n: String) -> bool:
 
 
 func _run() -> void:
+	if _want("perfis"):
+		Router.reset_to("who", {})
+		await shot("perfis_quem", 1.5)
+		for kid in ["enzo", "manuzita", "aylinha"]:
+			Kids.select(kid)
+			Router.reset_to("home", {})
+			await shot("perfis_home_" + kid, 1.5)
+		Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 3, "back": "academy"})
+		await shot("perfis_licao_aylinha", 3.0)
+		Kids.select("vini")
 	if _want("lote3"):
 		for th in ["mars", "ice"]:
 			Router.reset_to("seg_explore", {"theme": th, "screens": 2, "collect": {"item": "sample", "count": 3}})

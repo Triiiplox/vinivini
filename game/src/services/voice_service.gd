@@ -35,7 +35,12 @@ func _ready() -> void:
 
 
 static func key_for(text: String, who: String = "narrator") -> String:
-	return ("%s|%s" % [who, normalize(text)]).md5_text().substr(0, 12)
+	var t := normalize(text)
+	var base := "%s|%s" % [who, t]
+	# Criança convidada: as falas com o nome têm versão própria (gerada com o nome dela).
+	if t.contains("{name}") and Engine.get_main_loop() and SaveService.profile_id != "vini":
+		base += "|" + SaveService.profile_id
+	return base.md5_text().substr(0, 12)
 
 
 ## O áudio é gerado com o modelo "{name}"; textos já personalizados voltam ao modelo.

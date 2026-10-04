@@ -73,6 +73,8 @@ func _start_debug_tool() -> bool:
 	for a in args:
 		for flag in TOOLS:
 			if a == flag or (flag.ends_with("=") and a.begins_with(flag)):
+				# Robôs de QA jogam como o Vini, sem a tela "quem vai jogar?" (as capturas ligam os convidados).
+				Kids.guests_enabled = TOOLS[flag] == "seg_preview"
 				add_child(load("res://src/debug/%s.gd" % TOOLS[flag]).new())
 				return true
 	return false

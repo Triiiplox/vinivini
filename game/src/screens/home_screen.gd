@@ -39,7 +39,27 @@ func build() -> void:
 	hud.root.add_child(lock)
 	add_journey_bar()
 	_rank_chip()
+	if Kids.available().size() > 1:
+		_who_button()
 	hint_fn = _hint
+
+
+## Trocar quem está jogando: botão redondo com o rosto de quem joga agora (ao lado do alto-falante).
+func _who_button() -> void:
+	var b := DSButton.new("icon", "", Vector2(92, 92), "gold")
+	b.name = "WhoButton"
+	b.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	b.position = Vector2(-92 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 108, 16)
+	var face := TextureRect.new()
+	face.texture = load(Kids.head_path("big_smile"))
+	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	face.size = Vector2(80, 80)
+	face.position = Vector2(6, 4)
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.pressed.connect(func(): Router.reset_to("who"))
+	hud.root.add_child(b)
+	b.add_child(face)  # depois do fundo do botão (criado no _ready), senão o fundo cobre o rosto
 
 
 ## Patente do comandante (acima do Vini): insígnia + barra até a próxima promoção.
