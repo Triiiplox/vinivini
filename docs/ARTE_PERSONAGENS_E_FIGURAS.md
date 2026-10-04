@@ -20,6 +20,24 @@ Plain flat light gray background, no text, no labels, no shadows touching other 
 
 ---
 
+## PRIORIDADE 0: 3 expressões que faltam no Vini (rosto corrigido, 04/10)
+A folha `vini_v4_heads_sheet.png` entrou no jogo, mas não tem as caras **bravo**, **com medo** e **cansado**.
+- Hoje "bravo" mostra a cara "pensando" e "com medo" mostra "surpreso".
+- "Cansado" ainda é o rosto antigo.
+- As lições de emoção pedem essas três.
+
+Gere uma grade 3×1 com o mesmo rosto da folha corrigida (anexe a folha como referência). As regras:
+- cabeça de frente, olhando reto;
+- mesmo tamanho e enquadramento das outras;
+- **espaço entre as cabeças**: na folha anterior o queixo de uma encostava no cabelo da de baixo e cortou o topo do cabelo.
+```
+Same boy, same face, hair and lighting as the reference expression sheet. A 3 columns x 1 row grid of 3
+heads only (no body), front view, looking straight at the camera, same size, with big empty space between
+heads, transparent or plain light gray background: 1 GRUMPY/ANGRY (frowning brows, pouting lips, cute not
+scary), 2 SCARED (eyes wide, eyebrows up, mouth small and tense), 3 TIRED/SLEEPY (heavy half-closed eyes,
+small yawn).
+```
+
 ## PRIORIDADE 1: personagens que aparecem o tempo todo
 
 ### 1. Astro, o robô ajudante (2 imagens)
