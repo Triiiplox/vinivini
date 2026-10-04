@@ -20,14 +20,16 @@ func _draw() -> void:
 	var s := minf(size.x, size.y)
 	var c := size / 2.0
 	var r := s * 0.47
-	# escudo: círculo com ponta embaixo
-	var pts := PackedVector2Array()
-	for i in 40:
-		var a := PI * 0.75 + (PI * 1.5) * i / 39.0  # de baixo-esquerda até baixo-direita passando por cima
-		pts.append(c + Vector2.from_angle(a + PI) * r * Vector2(1, 0.92))
-	pts.append(c + Vector2(0, r * 1.05))
-	draw_colored_polygon(pts, Color("#1E3A8A"))
-	draw_polyline(pts + PackedVector2Array([pts[0]]), Color("#FACC15"), maxf(3.0, s * 0.05), true)
+	# medalha: fitas atrás, disco azul com aro dourado
+	var rib := PackedVector2Array([c + Vector2(-r * 0.55, r * 0.35), c + Vector2(-r * 0.15, r * 0.35),
+		c + Vector2(-r * 0.3, r * 1.05), c + Vector2(-r * 0.5, r * 0.85), c + Vector2(-r * 0.7, r * 1.0)])
+	draw_colored_polygon(rib, Color("#DC2626"))
+	var rib2 := PackedVector2Array()
+	for p in rib:
+		rib2.append(Vector2(2.0 * c.x - p.x, p.y))
+	draw_colored_polygon(rib2, Color("#DC2626"))
+	draw_circle(c, r * 0.86, Color("#FACC15"))
+	draw_circle(c, r * 0.74, Color("#1E3A8A"))
 	var n := clampi(rank + 1, 1, 9)
 	# estrelas em fileiras de até 3, de cima para baixo
 	var rows := ceili(n / 3.0)

@@ -7,7 +7,7 @@ config_version=5
 
 config/name="Vini: Comandante das Estrelas"
 config/description="Jogo educativo infantil offline-first com tema espacial."
-config/version="3.2.1"
+config/version="4.0.0"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/icon/icon.png"

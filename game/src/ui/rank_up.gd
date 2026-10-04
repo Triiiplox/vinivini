@@ -24,7 +24,8 @@ func _play(idx: int) -> float:
 	var badge := RankBadge.new(idx)
 	badge.size = Vector2(300, 300)
 	badge.pivot_offset = badge.size / 2.0
-	badge.position = Vector2(640, 330) - badge.size / 2.0
+	var vp := get_viewport_rect().size
+	badge.position = Vector2(vp.x / 2.0, vp.y * 0.44) - badge.size / 2.0
 	badge.scale = Vector2.ZERO
 	add_child(badge)
 	var tw := create_tween()
@@ -33,8 +34,8 @@ func _play(idx: int) -> float:
 	tw.tween_property(badge, "scale", Vector2.ONE, 0.2)
 	var lbl := UI.label(Stages.rank_name(idx), 54, Palette.YELLOW)
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.size = Vector2(1000, 80)
-	lbl.position = Vector2(140, 520)
+	lbl.size = Vector2(vp.x, 80)
+	lbl.position = Vector2(0, vp.y * 0.72)
 	UI.child_ok(lbl)
 	lbl.modulate.a = 0.0
 	add_child(lbl)

@@ -207,6 +207,17 @@ func _run() -> void:
 				s._advance()
 				await get_tree().process_frame
 			await shot("lesson_%s_2" % id, 3.0)
+	if _want("evolucao"):
+		# Trilha com progresso, tela principal com patente e a promoção.
+		var ns := Stages.nodes("math")
+		for i in 17:
+			Stages.record(str(ns[i]["key"]), 1 + i % 3)
+		Router.reset_to("academy", {"area": "math"})
+		await shot("evolucao_trilha", 2.5)
+		Router.reset_to("home", {})
+		await shot("evolucao_home", 2.5)
+		RankUp.present(Router.current_screen.hud.root, 3)
+		await shot("evolucao_promocao", 1.6)
 	if _want("v4"):
 		# Conteúdo v4: primeira pergunta de cada estágio de cada lição nova (só com "--only=v4").
 		for les in ContentService.repo.lessons.values():
