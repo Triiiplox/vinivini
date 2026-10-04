@@ -5,12 +5,13 @@ extends RefCounted
 ## na ordem do conteúdo. Progresso por fase: melhor nota em estrelas (1–3) em progress.stages_done.
 ## Também calcula o nível da matéria (fases feitas) e a patente do comandante (fases feitas no total).
 
-## Patentes: [fases feitas para chegar, nome falado, estrelas/divisas da insígnia].
+## Patentes: [fração das fases do jogo para chegar, nome falado]. A última pede ~97% de tudo
+## (antes eram números fixos e a última pedia mais fases do que o jogo tinha).
 const RANKS := [
-	[0, "Cadete Espacial", 1], [6, "Aprendiz de Piloto", 2], [15, "Piloto", 3], [30, "Navegador", 4],
-	[50, "Tenente", 5], [80, "Capitão", 6], [120, "Comandante", 7], [170, "Almirante", 8],
-	[240, "Comandante das Estrelas", 9],
+	[0.0, "Cadete Espacial"], [0.03, "Aprendiz de Piloto"], [0.08, "Piloto"], [0.15, "Navegador"],
+	[0.25, "Tenente"], [0.4, "Capitão"], [0.6, "Comandante"], [0.8, "Almirante"], [0.97, "Comandante das Estrelas"],
 ]
+const AREAS := ["reading", "math", "logic", "science", "astronomy", "emotion"]
 
 
 static func lesson_levels(les: Dictionary) -> int:
@@ -105,11 +106,19 @@ static func total_done() -> int:
 	return n
 
 
+## Fases necessárias para a patente i (sobre o total de fases que existem hoje).
+static func threshold(i: int) -> int:
+	var total := 0
+	for a in AREAS:
+		total += nodes(a).size()
+	return int(round(float(RANKS[i][0]) * total))
+
+
 static func rank_index() -> int:
 	var t := total_done()
 	var r := 0
 	for i in RANKS.size():
-		if t >= int(RANKS[i][0]):
+		if t >= threshold(i):
 			r = i
 	return r
 
@@ -124,4 +133,4 @@ static func rank_progress() -> Vector2i:
 	if i >= RANKS.size() - 1:
 		return Vector2i.ZERO
 	var t := total_done()
-	return Vector2i(t - int(RANKS[i][0]), int(RANKS[i + 1][0]) - int(RANKS[i][0]))
+	return Vector2i(t - threshold(i), threshold(i + 1) - threshold(i))

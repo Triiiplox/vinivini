@@ -9,10 +9,9 @@ const AREA_SAY := {
 	"emotion": "Sentimentos e amizade!",
 }
 
-const AREA_LOOK := {
-	"reading": ["abc", "#2563FF"], "math": ["123", "#FB923C"], "logic": ["puzzle", "#A855F7"],
-	"science": ["flask", "#22C55E"], "astronomy": ["planet", "#22D3EE"], "emotion": ["heart", "#F472B6"],
-}
+## Treino sem fim (contas/sequências geradas na hora): lição base de cada matéria.
+const ENDLESS := {"math": "somar", "logic": "sequencias"}
+const PLACEMENT := ["reading", "math", "logic", "astronomy", "science"]
 
 ## Última matéria aberta (a lição volta para cá ao terminar).
 static var last_area := ""
@@ -41,14 +40,20 @@ func build() -> void:
 		area = str(ContentService.repo.lessons.get(Recommend.next_lesson(), {}).get("group", "reading"))
 	last_area = area
 	_build_trail()
-	_area_badge()
-	# Desafio difícil: a próxima lição da trilha, um nível acima.
-	var hard := DSButton.new("icon", "next", Vector2(120, 120), "gold")
+	# Teste para pular (3 fases) e treino sem fim (matemática e lógica): botões com palavra + ícone.
+	var hard := DSButton.new("primary", "rocket", Vector2(230, 100), "normal", "PULAR")
 	hard.name = "HardChallenge"
 	hard.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	hard.position = Vector2(-150, -150)
+	hard.position = Vector2(-260, -130)
 	hard.pressed.connect(_hard)
 	hud.root.add_child(hard)
+	if area in ENDLESS:
+		var tr := DSButton.new("secondary", "refresh", Vector2(230, 100), "normal", "TREINO")
+		tr.name = "EndlessButton"
+		tr.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+		tr.position = Vector2(-260, -250)
+		tr.pressed.connect(_endless)
+		hud.root.add_child(tr)
 	hint_fn = _hint
 
 
@@ -111,7 +116,7 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 	DS.fit(bg, Vector2(200, 200))
 	bg.position += Vector2(-100, -100)
 	it.add_child(bg)
-	var fig := Figure.new(AcademyCover.cover(les), 130.0)
+	var fig := Figure.new(_stage_cover(les, int(nd["stage"])), 130.0)
 	it.add_child(fig)
 	# número da fase (canto de cima): a criança vê que está avançando
 	var num := Panel.new()
@@ -132,6 +137,8 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 		star.position = Vector2((st - 1) * 40, 104)
 		it.add_child(star)
 	if i > next_i:
+		# Trancada: menor e apagada (o que importa é a fase que brilha).
+		it.scale = Vector2.ONE * 0.62
 		bg.modulate = Color(0.45, 0.45, 0.55)
 		fig.visible = false
 		var badge := Panel.new()
@@ -145,13 +152,30 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 		padlock.position = Vector2(-29, -29)
 		it.add_child(padlock)
 	elif i == next_i:
+		# A fase de agora: maior, com o botão de jogar em cima.
+		var play := DSButton.new("primary", "play", Vector2(110, 110))
+		play.position = Vector2(-55, 40)
+		play.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		it.add_child(play)
 		Fx.glow(it, Vector2.ZERO, 250.0, Color(DS.STAR_GOLD, 0.5), 1.0).z_index = -1
 		var tw := it.create_tween().set_loops()
-		tw.tween_property(it, "scale", Vector2.ONE * 1.1, 0.55).set_trans(Tween.TRANS_SINE)
-		tw.tween_property(it, "scale", Vector2.ONE, 0.55).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(it, "scale", Vector2.ONE * 1.32, 0.55).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(it, "scale", Vector2.ONE * 1.2, 0.55).set_trans(Tween.TRANS_SINE)
 	it.tapped.connect(_on_lesson)
 	world.add_child(it)
 	tiles.append(it)
+
+
+## Desenho da fase: na 1ª, a capa da lição; nas outras, uma pergunta daquela fase (mostra o que vem).
+func _stage_cover(les: Dictionary, stage: int) -> Dictionary:
+	if stage > 1:
+		for q in les.get("ask", []):
+			if int(q.get("lvl", 1)) == stage:
+				if q.has("show"):
+					return q["show"]
+				if q.has("opts"):
+					return q["opts"][int(q.get("ok", 0))]
+	return AcademyCover.cover(les)
 
 
 ## Barra de cima: fases feitas na matéria / total (o "nível" da matéria).
@@ -160,7 +184,7 @@ func _level_bar(done: int, total: int) -> void:
 	box.name = "AreaLevel"
 	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.85), 26, 4, Palette.YELLOW))
 	box.size = Vector2(430, 64)
-	box.position = Vector2(236, 30)
+	box.position = Vector2(140, 30)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.root.add_child(box)
 	var track := ColorRect.new()
@@ -182,23 +206,6 @@ func _level_bar(done: int, total: int) -> void:
 	box.add_child(l)
 
 
-## Selo da matéria ao lado do botão de casa: a criança sabe em que matéria está (mesma cor/ícone da tela principal).
-func _area_badge() -> void:
-	var look: Array = AREA_LOOK.get(area, ["star", "#FACC15"])
-	var badge := Panel.new()
-	badge.name = "AreaBadge"
-	badge.add_theme_stylebox_override("panel", UITheme.rounded(Color(str(look[1])), 46, 5, Color.WHITE))
-	badge.size = Vector2(92, 92)
-	badge.position = Vector2(124, 16)
-	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hud.root.add_child(badge)
-	var ic := IconDraw.new(str(look[0]), Color.WHITE)
-	ic.size = Vector2(64, 64)
-	ic.position = Vector2(14, 14)
-	ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	badge.add_child(ic)
-
-
 func _draw_path(n: Node2D) -> void:
 	for i in range(_first, mini(_last, path_pts.size() - 1)):
 		var a := path_pts[i]
@@ -210,8 +217,21 @@ func _draw_path(n: Node2D) -> void:
 
 
 func begin() -> void:
+	# Primeira vez na matéria: nivelamento rápido (8 perguntas do fácil ao difícil) para começar no lugar certo.
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	if area in PLACEMENT and not (pd.get("placed", {}) as Dictionary).has(area) and not nodes_cache.is_empty() \
+			and not bool(params.get("no_placement", false)):
+		finished = true
+		var d0 := narrate(Lines.n("Primeiro, um teste rapidinho para eu saber onde você começa!"))
+		var samples: Array = []
+		var n := nodes_cache.size()
+		for i in 8:
+			samples.append(nodes_cache[int(round(i * (n - 1) / 7.0))])
+		after(d0 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples,
+			"back": "academy"}))
+		return
 	if params.has("area"):
-		narrate(Lines.n("Toque na lição que está brilhando!"))
+		narrate(Lines.n("Toque na fase que está brilhando!"))
 	else:
 		narrate(str(AREA_SAY.get(area, "")))
 
@@ -238,6 +258,15 @@ func _hard() -> void:
 	var jump: Array = nodes_cache.slice(next_index, next_index + 3)
 	var d := narrate(Lines.n("Teste para pular! Acerte quase tudo e pule três fases!"))
 	after(d + 0.2, Router.go.bind("seg_lesson", {"lesson": str(jump[0]["id"]), "jump": jump, "n": 5, "back": "academy"}))
+
+
+func _endless() -> void:
+	if finished:
+		return
+	finished = true
+	AudioService.play_sfx("whoosh")
+	var d := narrate(Lines.n("Treino sem fim: contas novas toda vez, do seu tamanho!"))
+	after(d + 0.2, Router.go.bind("seg_lesson", {"lesson": str(ENDLESS[area]), "endless": area, "back": "academy"}))
 
 
 ## Cartão da fase que brilha (testes e dica).

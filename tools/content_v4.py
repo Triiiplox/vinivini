@@ -22,7 +22,28 @@ def opts_num(correct, spread, lo=0, k=3):
     return wrong
 
 
-def pick_num(m, say, show, correct, spread, lvl, after="", fmt="%d", lo=0, why=""):
+QS = ["Quanto dá essa conta?", "Faça a conta: quanto dá?", "E agora, quanto dá?", "Qual é o resultado?",
+      "Resolva a conta!"]
+
+
+def num_q(say, show, ans, lvl, unit="", after=""):
+    """Rodada de teclado: a criança digita a resposta (sem alternativas para chutar)."""
+    d = {"k": "num", "say": say, "ans": int(ans), "lvl": lvl}
+    if show is not None:
+        d["show"] = show
+    if unit:
+        d["unit"] = unit
+    if after:
+        d["after"] = after
+    return d
+
+
+def pick_num(m, say, show, correct, spread, lvl, after="", fmt="%d", lo=0, why="", kp=99):
+    if say == "Q":
+        say = R.choice(QS)
+    if lvl >= kp:
+        unit = "R$ " if fmt.startswith("R$") else (" centavos" if "centavos" in fmt else "")
+        return num_q(say, show, correct, lvl, unit, after)
     wrong = opts_num(correct, spread, lo)
     d = m.shuffled_pick(say, m.txt(fmt % correct), [m.txt(fmt % w) for w in wrong], lvl, after=after)
     if show is not None:
@@ -38,6 +59,7 @@ def build(m):
     logic(m)
     reading(m)
     science(m)
+    fix_quality(m)
     # Sem perguntas repetidas dentro da lição (o sorteio pode repetir uma conta).
     import json
     for les in m.L[first:]:
@@ -54,7 +76,7 @@ def build(m):
 # ====================================================================== MATEMÁTICA
 def math(m):
     lesson, T, txt = m.lesson, m.T, m.txt
-    Q = "Quanto dá essa conta?"
+    Q = "Q"  # sorteia uma das falas de QS
 
     # ---------------- reta numérica (números até 100, contar de 2, 5 e 10)
     ask = []
@@ -65,7 +87,7 @@ def math(m):
             b = a + 5 * step
             mark = a + step * R.randint(1, 4)
             ask.append(pick_num(m, "Qual número está faltando na reta?",
-                                {"t": "numline", "a": a, "b": b, "step": step, "mark": mark}, mark, [step, 2 * step], lvl))
+                                {"t": "numline", "a": a, "b": b, "step": step, "mark": mark}, mark, [step, 2 * step], lvl, kp=4))
     lesson("reta_numerica", "Números até 100", "math.numbers100", "space", "Os números moram numa reta, um depois do outro!",
            [T("Na reta, cada número fica no seu lugar: 21, 22, 23... O que falta?",
               {"t": "numline", "a": 20, "b": 25, "step": 1, "mark": 23})], ask, n=5, icon_id="123", group="math")
@@ -78,7 +100,7 @@ def math(m):
             n = R.randint(lo, hi)
             ask.append(pick_num(m, "Quantos cubinhos tem aqui? Conte as barras de dez!" if lvl < 3 else
                                 "Quantos cubinhos? A placa tem cem, a barra tem dez!",
-                                {"t": "tens", "n": n}, n, [10, 1, 100] if lvl == 3 else [10, 1], lvl))
+                                {"t": "tens", "n": n}, n, [10, 1, 100] if lvl == 3 else [10, 1], lvl, kp=2))
     for _ in range(8):
         n = R.randint(12, 89)
         wrong = []
@@ -121,7 +143,7 @@ def math(m):
     def add(lvl, gen, k=9):
         for _ in range(k):
             a, b = gen()
-            ask.append(pick_num(m, Q, txt("%d + %d = ?" % (a, b)), a + b, [1, 10, 2] if a + b > 20 else [1, 2], lvl))
+            ask.append(pick_num(m, Q, txt("%d + %d = ?" % (a, b)), a + b, [1, 10, 2] if a + b > 20 else [1, 2], lvl, kp=3))
     add(1, lambda: (R.randint(1, 9), R.randint(1, 9)))
     add(2, lambda: (R.randint(6, 9), R.randint(5, 9)))
     add(3, lambda: (R.randint(1, 8) * 10 + R.randint(0, 5), R.randint(1, 4)))
@@ -139,7 +161,7 @@ def math(m):
     def sub(lvl, gen, k=9):
         for _ in range(k):
             a, b = gen()
-            ask.append(pick_num(m, Q, txt("%d − %d = ?" % (a, b)), a - b, [1, 10, 2] if a > 20 else [1, 2], lvl))
+            ask.append(pick_num(m, Q, txt("%d − %d = ?" % (a, b)), a - b, [1, 10, 2] if a > 20 else [1, 2], lvl, kp=3))
     sub(1, lambda: (lambda a: (a, R.randint(1, a - 1)))(R.randint(4, 10)))
     sub(2, lambda: (lambda a: (a, R.randint(2, 9)))(R.randint(11, 18)))
     sub(3, lambda: (lambda t, u: (t * 10 + u, R.randint(1, u) if u else 0))(R.randint(2, 9), R.randint(3, 9)))
@@ -162,7 +184,7 @@ def math(m):
                 c = R.randint(5, hi)
                 a = R.randint(1, c - 1)
             ask.append(pick_num(m, "Qual número falta para a conta ficar certa?", txt("%d + ? = %d" % (a, c)), c - a,
-                                [1, 2, 10] if lvl == 3 else [1, 2], lvl))
+                                [1, 2, 10] if lvl == 3 else [1, 2], lvl, kp=2))
     lesson("numero_que_falta", "O número escondido", "math.missing", "space", "Tem um número escondido na conta!",
            [T("7 mais quanto dá 10? Faltam 3!", txt("7 + 3 = 10"))], ask, n=5, icon_id="puzzle", group="math")
     m.L[-1]["levels"] = 3
@@ -175,7 +197,7 @@ def math(m):
     for lvl, tab in [(2, [2]), (3, [5, 10]), (4, [3, 4]), (5, [6, 7, 8, 9])]:
         for _ in range(9):
             a, b = R.choice(tab), R.randint(1, 10)
-            ask.append(pick_num(m, Q, txt("%d × %d = ?" % (a, b)), a * b, [a, 1, 10], lvl))
+            ask.append(pick_num(m, Q, txt("%d × %d = ?" % (a, b)), a * b, [a, 1, 10], lvl, kp=3))
     lesson("multiplicar", "Multiplicar", "math.multiply2", "ship",
            "Multiplicar é somar grupos iguais: três grupos de dois é dois mais dois mais dois!",
            [T("Três grupos de duas estrelas: 3 × 2 = 6!", m.row(m.cnt(2), m.cnt(2), m.cnt(2)))], ask, n=5,
@@ -198,7 +220,7 @@ def math(m):
         ask.append(pick_num(m, say, m.cnt(tot, "foods", food), tot // n, [1, 2], 1))
     for _ in range(9):
         d, q = R.choice([2, 3, 4, 5, 10]), R.randint(2, 9)
-        ask.append(pick_num(m, Q, txt("%d ÷ %d = ?" % (d * q, d)), q, [1, 2], 2))
+        ask.append(pick_num(m, Q, txt("%d ÷ %d = ?" % (d * q, d)), q, [1, 2], 2, kp=2))
     for _ in range(8):
         n = R.randint(2, 20) * 2
         half = R.random() < 0.5
@@ -258,7 +280,7 @@ def math(m):
     ]
     for say, a, b in change:
         res = a - b
-        ask.append(pick_num(m, say, None, res, [1, 2, 5], 3, fmt="R$ %d"))
+        ask.append(pick_num(m, say, None, res, [1, 2, 5], 3, fmt="R$ %d", kp=3))
     lesson("dinheiro", "Dinheiro de verdade", "math.money", "ship",
            "O dinheiro do Brasil é o real. Cem centavos valem um real!",
            [T("Uma nota de dois reais e uma de cinco: sete reais!", {"t": "money", "v": [200, 500]})], ask, n=5,
@@ -301,7 +323,7 @@ def math(m):
         ("Uma semana tem sete dias. Quantos dias têm duas semanas?", 14, 3),
         ("A estação tem cem painéis solares. Dezenove quebraram. Quantos funcionam?", 81, 3),
     ]
-    ask = [pick_num(m, s, None, r, [1, 10, 2], lvl) for s, r, lvl in probs]
+    ask = [pick_num(m, s, None, r, [1, 10, 2], lvl, kp=2) for s, r, lvl in probs]
     lesson("problemas_grandes", "Problemas da estação", "math.problems2", "ship",
            "Escute o problema com calma: juntar, tirar ou repartir?", [], ask, n=4, icon_id="puzzle", group="math")
     m.L[-1]["levels"] = 3
@@ -578,8 +600,8 @@ SCI = [
      [("sci", "ice"), ("w", "dado")]),
     ("sol", 3, "O Sol é a estrela mais perto da Terra. Qual é a estrela mais perto de nós?", ("p", "sun"),
      [("p", "moon"), ("p", "jupiter")]),
-    ("sol", 3, "Nunca olhe direto para o Sol: ele machuca os olhos. O Sol é quente ou frio?", ("t", "QUENTE"),
-     [("t", "FRIO")]),
+    ("sol", 3, "A luz do Sol viaja até a Terra. Quanto tempo ela leva para chegar aqui?", ("t", "8 MINUTOS"),
+     [("t", "1 DIA"), ("t", "1 ANO")]),
     # Lua
     ("lua", 1, "A Lua gira em volta da Terra. Em volta de quem a Lua gira?", ("p", "earth"), [("p", "mars"), ("p", "jupiter")]),
     ("lua", 1, "A Lua tem buracos chamados crateras. Toque na Lua!", ("p", "moon"), [("p", "earth"), ("p", "mars")]),
@@ -623,8 +645,7 @@ SCI = [
      {"t": "constellation", "id": "cruzeiro"}, [{"t": "galaxy"}, {"t": "comet"}]),
     ("estrelas", 2, "O Cruzeiro do Sul está na bandeira do Brasil. Toque no Cruzeiro do Sul!",
      {"t": "constellation", "id": "cruzeiro"}, [{"t": "constellation", "id": "tres_marias"}]),
-    ("estrelas", 3, "O Sol também é uma estrela. Ele parece maior porque está muito mais perto. Qual estrela é o Sol?",
-     ("p", "sun"), [("p", "moon"), ("p", "earth")]),
+    ("estrelas", 3, "Qual é a estrela mais perto da Terra?", ("p", "sun"), [("p", "moon"), ("p", "jupiter")]),
     # Galáxias
     ("galaxias", 1, "Nós moramos numa galáxia chamada Via Láctea. Qual destes é uma galáxia?", {"t": "galaxy"},
      [{"t": "comet"}, ("p", "earth")]),
@@ -713,3 +734,117 @@ def science(m):
     for lid, lvl, say, ok, wrong in SCI:
         les = by_id[lid]
         les["ask"].append(m.shuffled_pick(say, _f(m, ok), [_f(m, w) for w in wrong], lvl))
+
+
+# ====================================================================== qualidade das perguntas (auditoria v4.1)
+# 1) a resposta não pode estar dita no enunciado: o fato vai para depois do acerto ("after");
+# 2) erradas absurdas (bola, pão) em ciências viram erradas do mesmo assunto;
+# 3) toda escolha tem pelo menos 3 opções quando existe uma 3ª plausível.
+NAMES = {"sun": ["sol"], "moon": ["lua"], "earth": ["terra"], "mars": ["marte", "planeta vermelho"],
+         "jupiter": ["júpiter"], "saturn": ["saturno"], "neptune": ["netuno"], "mercury": ["mercúrio"],
+         "venus": ["vênus"], "uranus": ["urano"], "comet": ["cometa"], "blackhole": ["buraco negro"],
+         "galaxy": ["galáxia"], "satellite": ["satélite"], "asteroid": ["asteroide"]}
+PLANETS = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "moon", "sun"]
+SCI_POOL = [{"t": "comet"}, {"t": "satellite"}, {"t": "blackhole"}, {"t": "galaxy"}, {"t": "water", "state": "ice"},
+            {"t": "water", "state": "liquid"}, {"t": "water", "state": "steam"}, {"t": "weather", "w": "rain"},
+            {"t": "weather", "w": "snow"}, {"t": "weather", "w": "sun"}, {"t": "planet", "id": "moon"},
+            {"t": "planet", "id": "mars"}, {"t": "art", "set": "props", "id": "asteroid"}]
+SILLY = {"bola", "dado", "pipa", "bolo", "casa", "mala", "vaca", "gato", "pato", "peixe", "bread", "cheese", "apple",
+         "carrot", "strawberry"}
+
+
+def _labels(o):
+    t = o.get("t")
+    if t == "text":
+        return [o.get("s", "").lower()]
+    if t == "art":
+        return NAMES.get(o.get("id"), [o.get("id", "")])
+    if t == "planet":
+        return NAMES.get(o.get("id"), [o.get("id", "")])
+    return NAMES.get(t, [])
+
+
+def _said(say, o):
+    s = say.lower()
+    return any(lb and len(lb) > 2 and lb in s for lb in _labels(o))
+
+
+def _key(o):
+    import json
+    return json.dumps(o, sort_keys=True)
+
+
+def _third(o, have):
+    """Uma opção a mais do mesmo tipo de o, que ainda não está em have (ou None)."""
+    t = o.get("t")
+    cands = []
+    if t == "planet":
+        cands = [{"t": "planet", "id": p} for p in PLANETS]
+    elif t == "art" and o.get("set") == "words":
+        cands = [{"t": "art", "set": "words", "id": w} for w in ["bola", "gato", "sol", "lua", "casa", "pato", "uva", "sapo"]]
+    elif t == "art" and o.get("set") == "foods":
+        cands = [{"t": "art", "set": "foods", "id": f} for f in ["apple", "banana", "carrot", "egg", "bread", "milk"]]
+    elif t == "face":
+        cands = [{"t": "face", "mood": x} for x in ["happy", "sad", "surprised", "angry", "scared", "calm"]]
+    elif t == "moon":
+        cands = [{"t": "moon", "phase": x} for x in [0, 2, 4, 6]]
+    elif t == "shape":
+        cands = [{"t": "shape", "s": x} for x in ["circle", "square", "triangle", "star", "heart"]]
+    elif t == "color":
+        cands = [{"t": "color", "c": x} for x in ["#EF4444", "#3B82F6", "#22C55E", "#FACC15", "#A855F7", "#FB923C"]]
+    elif t == "text" and o.get("s", "").isdigit():
+        n = int(o["s"])
+        cands = [{"t": "text", "s": str(x), "c": o.get("c", "#FFFFFF")} for x in [n + 1, n - 1, n + 2, n + 10] if x >= 0]
+    elif t in ("plant", "water", "weather", "comet", "satellite", "blackhole", "galaxy"):
+        cands = list(SCI_POOL)
+    hk = {_key(h) for h in have}
+    for c in cands:
+        if _key(c) not in hk and not (c.get("t") == o.get("t") and c.get("id") == o.get("id") and c.get("s") == o.get("s")):
+            return c
+    return None
+
+
+def fix_quality(m):
+    moved = dropped = silly = third = 0
+    for les in m.L:
+        if les["group"] not in ("astronomy", "science", "logic", "emotion"):
+            continue
+        keep = []
+        for q in les["ask"]:
+            if q.get("k") != "pick":
+                keep.append(q)
+                continue
+            ok = q["opts"][q["ok"]]
+            if _said(q["say"], ok):
+                parts = [p.strip() for p in q["say"].replace("!", "!|").replace(". ", ".|").replace("? ", "?|").split("|")
+                         if p.strip()]
+                if len(parts) > 1 and not _said(parts[-1], ok):
+                    q["after"] = " ".join(parts[:-1])
+                    q["say"] = parts[-1]
+                    moved += 1
+                elif len([x for x in les["ask"] if x.get("lvl") == q.get("lvl")]) > 2:
+                    dropped += 1
+                    continue
+            wrong = [o for i, o in enumerate(q["opts"]) if i != q["ok"]]
+            if les["group"] in ("astronomy", "science") and ok.get("t") != "art" and wrong and all(
+                    o.get("t") == "art" and o.get("id") in SILLY for o in wrong):
+                new = []
+                for c in R.sample(SCI_POOL, len(SCI_POOL)):
+                    if _key(c) != _key(ok) and len(new) < len(wrong):
+                        new.append(c)
+                q["opts"] = [ok] + new
+                R.shuffle(q["opts"])
+                q["ok"] = [_key(o) for o in q["opts"]].index(_key(ok))
+                q.pop("read", None)
+                silly += 1
+            keep.append(q)
+        les["ask"] = keep
+    for les in m.L:
+        for q in les["ask"]:
+            if q.get("k") == "pick" and len(q["opts"]) == 2 and not q.get("read"):
+                c = _third(q["opts"][q["ok"]], q["opts"])
+                if c is not None:
+                    q["opts"].append(c)
+                    third += 1
+    print("qualidade: fato depois do acerto %d, removidas %d, erradas plausíveis %d, 3ª opção %d" %
+          (moved, dropped, silly, third))

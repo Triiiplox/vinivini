@@ -45,11 +45,15 @@ func test_record_keeps_best_and_ranks_up() -> void:
 	eq(Stages.stars(str(ns[0]["key"])), 3, "guarda a melhor nota")
 	eq(Stages.next_index("math"), 1, "a próxima fase abre")
 	var r := {}
-	for i in range(1, 6):
+	var need := Stages.threshold(1)
+	for i in range(1, need):
 		r = Stages.record(str(ns[i]["key"]), 2)
-	eq(Stages.total_done(), 6)
-	eq(int(r["before"]), 0)
-	eq(int(r["after"]), 1, "6 fases = Aprendiz de Piloto")
+	eq(Stages.total_done(), need)
+	eq(int(r["after"]), 1, "%d fases = Aprendiz de Piloto" % need)
+	var total := 0
+	for a in Stages.AREAS:
+		total += Stages.nodes(a).size()
+	check(Stages.threshold(Stages.RANKS.size() - 1) <= total, "última patente alcançável")
 	eq(Stages.rank_name(), "Aprendiz de Piloto")
 	eq(Stages.area_level("math").x, 6)
 
@@ -91,3 +95,76 @@ func test_stage_lesson_uses_that_stage() -> void:
 	s.first_ok = s.asked
 	s._end()
 	eq(Stages.stars("somar@4"), 3, "fase somar@4 registrada")
+
+
+func test_stage_end_shows_next_stage_without_chest() -> void:
+	Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 1, "back": "academy"})
+	await frames(3)
+	var s := Router.current_screen
+	s.first_ok = s.asked
+	s._end()
+	var t := 0.0
+	while s.find_child("NextStage", true, false) == null and t < 12.0:
+		await get_tree().create_timer(0.25).timeout
+		t += 0.25
+	eq(Router.current_id, "seg_lesson", "fase no meio da lição não vai para o baú")
+	var nb := s.find_child("NextStage", true, false) as DSButton
+	check(nb != null, "botão próxima fase")
+	var want: Dictionary = Stages.nodes("math")[Stages.next_index("math")]
+	nb.pressed.emit()
+	await frames(3)
+	eq(str(Router.current_params.get("lesson", "")) + "@" + str(Router.current_params.get("stage", 0)), str(want["key"]),
+		"próxima = primeira fase aberta da trilha")
+
+
+func test_keypad_round_checks_typed_answer() -> void:
+	Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 4, "back": "academy"})
+	await frames(3)
+	var s := Router.current_screen
+	var guard := 0
+	while str(s.rd.get("k", "")) != "num" and guard < 30:
+		s._advance()
+		guard += 1
+		await frames(1)
+	eq(str(s.rd.get("k", "")), "num", "estágio 4 de somar é digitado")
+	var ok: Interactable = s._key_card("OK")
+	s.typed = str(int(s.rd["ans"]) + 1)
+	s._on_key(ok)
+	eq(s.tries, 1, "errou uma vez")
+	eq(s.typed, "", "visor limpo depois do erro")
+	for ch in str(int(s.rd["ans"])):
+		s._on_key(s._key_card(ch))
+	s._on_key(ok)
+	check(s.busy, "acertou digitando")
+
+
+func test_placement_marks_known_stages() -> void:
+	var ns := Stages.nodes("math")
+	var samples: Array = []
+	for i in 8:
+		samples.append(ns[int(round(i * (ns.size() - 1) / 7.0))])
+	Router.reset_to("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples, "back": "academy"})
+	await frames(3)
+	var s := Router.current_screen
+	s.results = [true, true, true, false, true, false, false, false]
+	s._placement_result()
+	check(Stages.is_done(str(samples[2]["key"])), "fases até a 3ª amostra feitas")
+	check(not Stages.is_done(str(samples[3]["key"])), "a partir da 1ª errada continua aberta")
+	check((SaveService.progress.data(SaveService.profile_id)["placed"] as Dictionary).has("math"), "nivelamento registrado")
+
+
+func test_endless_generates_and_levels_up() -> void:
+	for lv in range(1, 11):
+		var g := EndlessGen.math(lv)
+		check(int(g["ans"]) >= 0, "conta do nível %d com resposta >= 0" % lv)
+		var l := EndlessGen.logic(lv)
+		check(str(l["show"]["s"]).ends_with("?"), "sequência do nível %d" % lv)
+	Router.reset_to("seg_lesson", {"lesson": "somar", "endless": "math", "back": "academy"})
+	await frames(3)
+	var s := Router.current_screen
+	eq(s.asked, 10, "treino tem 10 contas")
+	for i in 3:
+		s._endless_after(true, false)
+	eq(s._endless_level(), 2, "3 acertos seguidos sobem o nível")
+	s._endless_after(false, true)
+	eq(s._endless_level(), 1, "errar duas vezes desce")

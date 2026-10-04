@@ -304,6 +304,9 @@ static func validate_lesson(l: Variant) -> Array[String]:
 					e.append("escolha com resposta inválida: %s" % str(r.get("say", "")))
 				if r.has("read") and (r["read"] as Array).size() != opts.size():
 					e.append("opções lidas não batem: %s" % str(r.get("say", "")))
+			"num":
+				if not r.has("ans") or int(r["ans"]) < 0 or int(r["ans"]) > 9999:
+					e.append("conta digitada sem resposta válida: %s" % str(r.get("say", "")))
 			"order":
 				if (r.get("items", []) as Array).size() < 2:
 					e.append("ordem com menos de 2 itens")

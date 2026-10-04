@@ -251,6 +251,12 @@ static func _lesson(s: Node, wrong: bool) -> bool:
 				if is_instance_valid(c) and c.draggable and str(c.payload) == want:
 					s._on_basket_drop(c, s.outside if wrong == (want == "out") else s.basket)
 					return true
+		"num":
+			var key: Interactable = s._key_card("OK")
+			if key:
+				s.typed = str(int(s.rd.get("ans", 0)) + (1 if wrong else 0))
+				s._on_key(key)
+				return true
 		"build":
 			var parts: Array = s.rd.get("parts", [])
 			if s.placed < parts.size():

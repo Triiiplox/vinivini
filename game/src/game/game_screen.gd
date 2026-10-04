@@ -11,6 +11,8 @@ var hud: GameHud
 var hand: HintHand
 var cosmo: CosmoRig
 var idle_time := 0.0
+## Segundos parado até a dica aparecer (as lições usam mais: a criança precisa de tempo para pensar).
+var idle_hint_sec := IDLE_HINT_SEC
 var last_line := ""
 var last_who := "narrator"
 var last_seq: Array = []
@@ -192,7 +194,8 @@ func _process(delta: float) -> void:
 	if world == null or hand == null:
 		return
 	idle_time += delta
-	if idle_time > IDLE_HINT_SEC and not hand.visible and not finished:
+	if idle_time > idle_hint_sec and not hand.visible and not finished:
+		idle_time = 0.0
 		show_hint()
 	if _shake > 0.1:
 		camera.offset = Vector2(randf_range(-_shake, _shake), randf_range(-_shake, _shake))
