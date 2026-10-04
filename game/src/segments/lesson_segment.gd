@@ -111,19 +111,46 @@ func _plan() -> void:
 	var lvl := difficulty(skill)
 	if bool(params.get("hard", false)):
 		lvl = mini(lvl + 1, 3)  # desafio difícil: um nível acima do atual
+	var stage := int(params.get("stage", 0))
+	if stage > 0:
+		lvl = stage  # fase da trilha: o estágio manda (ADR-035)
 	var teach: Array = lesson.get("teach", [])
 	var done := int(SaveService.progress.data(SaveService.profile_id).get("lessons_done", {}).get(str(lesson["id"]), 0))
 	# Na 1ª vez, toda a explicação; depois, só a primeira (lembrete) — o resto é prática.
-	queue = teach.duplicate() if done == 0 else teach.slice(0, 1)
-	var asks: Array = []
-	for want in [lvl, lvl - 1, lvl + 1, 1, 2, 3]:
-		for q in lesson.get("ask", []):
-			if int(q.get("lvl", 1)) == want and not asks.has(q):
-				asks.append(q)
+	queue = teach.duplicate() if done == 0 and stage <= 1 else teach.slice(0, 1)
 	var n := int(params.get("n", lesson.get("n", 4)))
-	var pick := asks.slice(0, maxi(n * 2, n))
-	pick.shuffle()
-	pick = pick.slice(0, n)
+	var pick: Array = []
+	if params.has("jump"):
+		# Teste para pular: perguntas das próximas fases (podem ser de lições diferentes), sem explicação.
+		queue = []
+		var pool: Array = []
+		for nd in params["jump"]:
+			var les2: Dictionary = ContentService.repo.lessons.get(str(nd["id"]), {})
+			var qs: Array = les2.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == int(nd["stage"]))
+			qs.shuffle()
+			pool += qs.slice(0, 2)
+		pool.shuffle()
+		pick = pool.slice(0, 5)
+	elif stage > 0:
+		var cur: Array = lesson.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == stage)
+		var prev: Array = lesson.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == stage - 1)
+		cur.shuffle()
+		prev.shuffle()
+		# ~1 de revisão do estágio anterior a cada 4 (revisão espaçada), o resto do estágio atual
+		var n_prev := mini(prev.size(), n / 4)
+		pick = cur.slice(0, n - n_prev) + prev.slice(0, n_prev)
+		if pick.size() < n:
+			pick += prev.slice(n_prev, n_prev + n - pick.size())
+		pick.shuffle()
+	else:
+		var asks: Array = []
+		for want in [lvl, lvl - 1, lvl + 1, 1, 2, 3]:
+			for q in lesson.get("ask", []):
+				if int(q.get("lvl", 1)) == want and not asks.has(q):
+					asks.append(q)
+		pick = asks.slice(0, maxi(n * 2, n))
+		pick.shuffle()
+		pick = pick.slice(0, n)
 	queue += pick
 	asked = pick.size()
 	hud.set_counter("props", "star_token", 0, maxi(1, asked))
@@ -401,10 +428,39 @@ func _end() -> void:
 		pd["lessons_done"] = {}
 	pd["lessons_done"][str(lesson["id"])] = int(pd["lessons_done"].get(str(lesson["id"]), 0)) + 1
 	SaveService.progress.persist(SaveService.profile_id)
-	vini.play("celebrate")
 	var stars := 3 if first_ok >= asked - 1 else (2 if first_ok * 2 >= asked else 1)
-	var d := cosmo_say(RewardService.praise.pick("hard" if bool(params.get("hard", false)) else "mission_complete"))
-	after(d + 0.5, func(): finish({"stars": stars, "skills": [skill], "back": str(params.get("back", ""))}))
+	var rk := {}
+	var line := RewardService.praise.pick("hard" if bool(params.get("hard", false)) else "mission_complete")
+	if params.has("jump"):
+		if first_ok >= asked - 1:
+			for nd in params["jump"]:
+				rk = _merge_rank(rk, Stages.record(str(nd["key"]), 2))
+			line = Lines.c("Uau! Você sabia tudo! Pulou essas fases!")
+		else:
+			stars = 1
+			line = Lines.c("Quase! Essas fases ainda têm coisa nova. Vamos fazer uma de cada vez!")
+	elif int(params.get("stage", 0)) > 0:
+		rk = Stages.record(Stages.key(str(lesson["id"]), int(params["stage"])), stars)
+	else:
+		rk = Stages.record(Stages.key(str(lesson["id"]), 1), stars)
+	vini.play("celebrate")
+	var d := cosmo_say(line)
+	if not rk.is_empty() and int(rk["after"]) > int(rk["before"]):
+		after(d + 0.3, func():
+			var d2 := RankUp.present(hud.root, int(rk["after"]))
+			after(d2 + 0.4, _finish.bind(stars)))
+		return
+	after(d + 0.5, _finish.bind(stars))
+
+
+func _merge_rank(a: Dictionary, b: Dictionary) -> Dictionary:
+	if a.is_empty():
+		return b
+	return {"before": a["before"], "after": b["after"]}
+
+
+func _finish(stars: int) -> void:
+	finish({"stars": stars, "skills": [skill], "back": str(params.get("back", ""))})
 
 
 func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:

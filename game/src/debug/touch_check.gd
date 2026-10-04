@@ -65,7 +65,7 @@ func _ready() -> void:
 		ok_swipe = absf(x1 - x0) > 100.0
 		await _swipe(Vector2(300, 400), Vector2(1200, 400))
 		await _wait(1.2)
-		var next: Node = scr.find_child("Lesson_%s" % scr.next_id, true, false)
+		var next: Node = scr.call("next_tile")
 		await _tap_node(next, "trilha/próxima lição")
 		await _until_not("academy", 6.0)
 		ok_lesson = Router.current_id == "seg_lesson"
