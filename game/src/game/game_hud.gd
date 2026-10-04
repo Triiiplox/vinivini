@@ -6,6 +6,8 @@ signal home_pressed
 signal speak_pressed
 
 const EDGE := 24.0
+## Botões redondos do HUD (casa, alto-falante): maiores para dedo de criança (antes 92).
+const BTN := 116.0
 
 var counter_icon := ""
 var root: Control
@@ -32,16 +34,16 @@ func _ready() -> void:
 	stage.offset_top = -360
 	stage.offset_bottom = 360
 	root.add_child(stage)
-	var home := DSButton.new("icon", "home", Vector2(92, 92))
+	var home := DSButton.new("icon", "home", Vector2(BTN, BTN))
 	home.name = "HomeButton"
 	var inset := safe_x(get_viewport())
 	home.position = Vector2(EDGE + inset.x, 16)
 	home.pressed.connect(func(): home_pressed.emit())
 	root.add_child(home)
-	var spk := DSButton.new("icon", "speaker", Vector2(92, 92), "purple")
+	var spk := DSButton.new("icon", "speaker", Vector2(BTN, BTN), "purple")
 	spk.name = "SpeakButton"
 	spk.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	spk.position = Vector2(-92 - EDGE - inset.y, 16)
+	spk.position = Vector2(-BTN - EDGE - inset.y, 16)
 	spk.pressed.connect(func(): speak_pressed.emit())
 	root.add_child(spk)
 	_pips = HBoxContainer.new()
@@ -53,7 +55,7 @@ func _ready() -> void:
 	root.add_child(_pips)
 	_counter_box = HBoxContainer.new()
 	_counter_box.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	_counter_box.position = Vector2(-330 - inset.y, 24)
+	_counter_box.position = Vector2(-BTN - EDGE - inset.y - 18 - 240, 28)
 	_counter_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_counter_box.visible = false
 	root.add_child(_counter_box)
@@ -75,23 +77,23 @@ func set_counter(icon_group: String, icon: String, value: int, target: int = -1)
 	if _counter_box.get_child_count() == 0:
 		# Chip do design system: fundo 9-slice + ícone ilustrado + numeral.
 		var chip := Control.new()
-		chip.custom_minimum_size = Vector2(200, 76)
+		chip.custom_minimum_size = Vector2(240, 92)
 		chip.size = chip.custom_minimum_size
 		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var bgc := DS.nine("chip", "gold")
 		chip.add_child(bgc)
 		DS.fit(bgc, chip.size)
-		var ic := ArtSprite.new(icon_group, icon, 62.0)
-		ic.position = Vector2(40, 38)
+		var ic := ArtSprite.new(icon_group, icon, 74.0)
+		ic.position = Vector2(48, 46)
 		chip.add_child(ic)
 		_counter_label = Label.new()
 		_counter_label.add_theme_font_override("font", DS.font("body", 900))
-		_counter_label.add_theme_font_size_override("font_size", 44)
+		_counter_label.add_theme_font_size_override("font_size", 52)
 		_counter_label.add_theme_color_override("font_color", DS.STAR_GOLD)
 		_counter_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_counter_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_counter_label.position = Vector2(74, 0)
-		_counter_label.size = Vector2(120, 76)
+		_counter_label.position = Vector2(88, 0)
+		_counter_label.size = Vector2(146, 92)
 		UI.child_ok(_counter_label)
 		chip.add_child(_counter_label)
 		_counter_box.add_child(chip)

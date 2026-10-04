@@ -1,0 +1,1450 @@
+{
+ "worlds": [
+  {
+   "id": "j_lua",
+   "name": "Lua",
+   "planet": "moon",
+   "theme": "moon",
+   "item": "gear",
+   "item_name": "engrenagens",
+   "missions": [
+    "j01",
+    "j02",
+    "j03",
+    "j04",
+    "j05",
+    "j06",
+    "j07",
+    "j08"
+   ]
+  },
+  {
+   "id": "j_marte",
+   "name": "Marte",
+   "planet": "mars",
+   "theme": "mars",
+   "item": "chip",
+   "item_name": "chips",
+   "missions": [
+    "j09",
+    "j10",
+    "j11",
+    "j12",
+    "j13",
+    "j14",
+    "j15",
+    "j16"
+   ]
+  },
+  {
+   "id": "j_europa",
+   "name": "Europa",
+   "planet": "jupiter",
+   "theme": "ice",
+   "item": "capsule_water",
+   "item_name": "cápsulas de gelo",
+   "missions": [
+    "j17",
+    "j18",
+    "j19",
+    "j20",
+    "j21",
+    "j22",
+    "j23",
+    "j24"
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "j01",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 1,
+   "label": "Leitura",
+   "name": "Palavras na Lua",
+   "area": "",
+   "requires": "",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 1 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "O jipe lunar quebrou! Cada missão traz engrenagens para consertar o jipe.",
+       "mood": "worry"
+      },
+      {
+       "who": "cosmo",
+       "say": "Missão 1 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "lesson",
+     "lesson": "ler_palavras",
+     "stage": 2
+    },
+    {
+     "type": "explore",
+     "theme": "moon",
+     "screens": 2,
+     "collect": {
+      "item": "moon_rock",
+      "count": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "j02",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 2,
+   "label": "Números",
+   "name": "Contas da Base Lunar",
+   "area": "math",
+   "requires": "j01",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 2 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 2 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "lesson",
+     "lesson": "somar",
+     "stage": 2
+    },
+    {
+     "type": "build",
+     "blueprint": "reactor"
+    }
+   ]
+  },
+  {
+   "id": "j03",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 3,
+   "label": "Ciência",
+   "name": "Pedras da Lua",
+   "area": "",
+   "requires": "j02",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 3 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 3 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "explore",
+     "theme": "moon",
+     "screens": 2,
+     "collect": {
+      "item": "moon_rock",
+      "count": 3
+     }
+    },
+    {
+     "type": "lesson",
+     "lesson": "lua",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j04",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 4,
+   "label": "Histórias",
+   "name": "Histórias na Lua",
+   "area": "",
+   "requires": "j03",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 4 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 4 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "lesson",
+     "lesson": "ler_frases",
+     "stage": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "entender_historias",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j05",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 5,
+   "label": "Oficina",
+   "name": "Oficina Lunar",
+   "area": "",
+   "requires": "j04",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 5 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 5 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "build",
+     "blueprint": "rover",
+     "theme": "moon"
+    },
+    {
+     "type": "lesson",
+     "lesson": "sequencias",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j06",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 6,
+   "label": "Alimentos",
+   "name": "Lanche na Base Lunar",
+   "area": "math",
+   "requires": "j05",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 6 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 6 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "cook",
+     "customers": 2
+    },
+    {
+     "type": "lesson",
+     "lesson": "problemas",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j07",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 7,
+   "label": "Emoções",
+   "name": "Amigos na Lua",
+   "area": "",
+   "requires": "j06",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 7 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 7 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "lesson",
+     "lesson": "emocoes",
+     "stage": 2
+    },
+    {
+     "type": "robot",
+     "rounds": 2,
+     "theme": "moon"
+    }
+   ]
+  },
+  {
+   "id": "j08",
+   "campaign": "j_lua",
+   "world": "moon",
+   "n": 8,
+   "label": "Exploração",
+   "name": "A Cratera Escura",
+   "area": "",
+   "requires": "j07",
+   "goal": {
+    "icon": "gear",
+    "count": 3,
+    "say": "Missão 8 na Lua: traga 3 engrenagens para o jipe!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 8 na Lua: traga 3 engrenagens para o jipe!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 3,
+     "theme": "space",
+     "dest": "moon"
+    },
+    {
+     "type": "explore",
+     "theme": "moon",
+     "screens": 3,
+     "collect": {
+      "item": "moon_rock",
+      "count": 3
+     },
+     "door": true
+    },
+    {
+     "type": "boss",
+     "portal_skill": "numbers",
+     "goal": 3
+    }
+   ]
+  },
+  {
+   "id": "j09",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 1,
+   "label": "Leitura",
+   "name": "Frases em Marte",
+   "area": "",
+   "requires": "j08",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 1 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "O robô explorador de Marte parou. Ele precisa de chips novos para voltar a andar.",
+       "mood": "worry"
+      },
+      {
+       "who": "cosmo",
+       "say": "Missão 1 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "lesson",
+     "lesson": "frases_posicao",
+     "stage": 2
+    },
+    {
+     "type": "explore",
+     "theme": "mars",
+     "screens": 2,
+     "collect": {
+      "item": "sample",
+      "count": 4
+     }
+    }
+   ]
+  },
+  {
+   "id": "j10",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 2,
+   "label": "Números",
+   "name": "Contas Vermelhas",
+   "area": "math",
+   "requires": "j09",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 2 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 2 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "lesson",
+     "lesson": "subtrair",
+     "stage": 3
+    },
+    {
+     "type": "build",
+     "blueprint": "reactor"
+    }
+   ]
+  },
+  {
+   "id": "j11",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 3,
+   "label": "Ciência",
+   "name": "Amostras de Marte",
+   "area": "",
+   "requires": "j10",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 3 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 3 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "explore",
+     "theme": "mars",
+     "screens": 2,
+     "collect": {
+      "item": "sample",
+      "count": 4
+     }
+    },
+    {
+     "type": "lesson",
+     "lesson": "planetas",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j12",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 4,
+   "label": "Histórias",
+   "name": "O Robozinho Perdido",
+   "area": "",
+   "requires": "j11",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 4 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 4 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "story",
+     "story": "story_robot_lost_001"
+    },
+    {
+     "type": "lesson",
+     "lesson": "quiz_story_robot_lost_001",
+     "stage": 1
+    }
+   ]
+  },
+  {
+   "id": "j13",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 5,
+   "label": "Oficina",
+   "name": "Jipe Marciano",
+   "area": "",
+   "requires": "j12",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 5 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 5 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "build",
+     "blueprint": "rover",
+     "theme": "mars"
+    },
+    {
+     "type": "lesson",
+     "lesson": "sequencias",
+     "stage": 3
+    }
+   ]
+  },
+  {
+   "id": "j14",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 6,
+   "label": "Alimentos",
+   "name": "Cozinha de Marte",
+   "area": "math",
+   "requires": "j13",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 6 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 6 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "cook",
+     "customers": 3
+    },
+    {
+     "type": "lesson",
+     "lesson": "dinheiro",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j15",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 7,
+   "label": "Emoções",
+   "name": "Coragem em Marte",
+   "area": "",
+   "requires": "j14",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 7 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 7 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "lesson",
+     "lesson": "convivencia",
+     "stage": 2
+    },
+    {
+     "type": "robot",
+     "rounds": 2,
+     "theme": "mars"
+    }
+   ]
+  },
+  {
+   "id": "j16",
+   "campaign": "j_marte",
+   "world": "mars",
+   "n": 8,
+   "label": "Exploração",
+   "name": "O Grande Cânion",
+   "area": "",
+   "requires": "j15",
+   "goal": {
+    "icon": "chip",
+    "count": 3,
+    "say": "Missão 8 em Marte: traga 3 chips para o robô!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 8 em Marte: traga 3 chips para o robô!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 4,
+     "theme": "space",
+     "dest": "mars"
+    },
+    {
+     "type": "explore",
+     "theme": "mars",
+     "screens": 3,
+     "collect": {
+      "item": "sample",
+      "count": 4
+     },
+     "door": true
+    },
+    {
+     "type": "boss",
+     "portal_skill": "numbers",
+     "goal": 3
+    }
+   ]
+  },
+  {
+   "id": "j17",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 1,
+   "label": "Leitura",
+   "name": "Textos no Gelo",
+   "area": "",
+   "requires": "j16",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 1 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Europa é uma lua de Júpiter coberta de gelo. Os cientistas acham que tem um oceano embaixo do gelo!",
+       "mood": "worry"
+      },
+      {
+       "who": "cosmo",
+       "say": "Missão 1 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "lesson",
+     "lesson": "textos_curtos",
+     "stage": 2
+    },
+    {
+     "type": "explore",
+     "theme": "ice",
+     "screens": 2,
+     "collect": {
+      "item": "ice",
+      "count": 5
+     }
+    }
+   ]
+  },
+  {
+   "id": "j18",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 2,
+   "label": "Números",
+   "name": "Contas Geladas",
+   "area": "math",
+   "requires": "j17",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 2 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 2 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "lesson",
+     "lesson": "multiplicar",
+     "stage": 2
+    },
+    {
+     "type": "build",
+     "blueprint": "reactor"
+    }
+   ]
+  },
+  {
+   "id": "j19",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 3,
+   "label": "Ciência",
+   "name": "Gelo de Europa",
+   "area": "",
+   "requires": "j18",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 3 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 3 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "explore",
+     "theme": "ice",
+     "screens": 2,
+     "collect": {
+      "item": "ice",
+      "count": 5
+     }
+    },
+    {
+     "type": "lesson",
+     "lesson": "agua",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j20",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 4,
+   "label": "Histórias",
+   "name": "A Luz das Estrelas",
+   "area": "",
+   "requires": "j19",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 4 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 4 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "story",
+     "story": "story_star_light_001"
+    },
+    {
+     "type": "lesson",
+     "lesson": "quiz_story_star_light_001",
+     "stage": 1
+    }
+   ]
+  },
+  {
+   "id": "j21",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 5,
+   "label": "Oficina",
+   "name": "Foguete de Europa",
+   "area": "",
+   "requires": "j20",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 5 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 5 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "build",
+     "blueprint": "rocket",
+     "theme": "ice"
+    },
+    {
+     "type": "lesson",
+     "lesson": "quebra_cabeca",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j22",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 6,
+   "label": "Alimentos",
+   "name": "Sopa Quente em Europa",
+   "area": "math",
+   "requires": "j21",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 6 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 6 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "cook",
+     "customers": 4
+    },
+    {
+     "type": "lesson",
+     "lesson": "fracoes",
+     "stage": 2
+    }
+   ]
+  },
+  {
+   "id": "j23",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 7,
+   "label": "Emoções",
+   "name": "Juntos em Europa",
+   "area": "",
+   "requires": "j22",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 7 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 7 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "lesson",
+     "lesson": "sentimentos_dificeis",
+     "stage": 2
+    },
+    {
+     "type": "robot",
+     "rounds": 2,
+     "theme": "ice"
+    }
+   ]
+  },
+  {
+   "id": "j24",
+   "campaign": "j_europa",
+   "world": "ice",
+   "n": 8,
+   "label": "Exploração",
+   "name": "O Oceano Escondido",
+   "area": "",
+   "requires": "j23",
+   "goal": {
+    "icon": "capsule_water",
+    "count": 3,
+    "say": "Missão 8 em Europa: traga 3 cápsulas de gelo para o laboratório!"
+   },
+   "segments": [
+    {
+     "type": "cutscene",
+     "theme": "bridge",
+     "music": "story",
+     "actors": [
+      {
+       "id": "avatar",
+       "x": 420
+      },
+      {
+       "id": "cosmo",
+       "x": 860
+      }
+     ],
+     "lines": [
+      {
+       "who": "cosmo",
+       "say": "Missão 8 em Europa: traga 3 cápsulas de gelo para o laboratório!",
+       "mood": "happy"
+      }
+     ]
+    },
+    {
+     "type": "flight",
+     "play": "portals",
+     "goal": 5,
+     "theme": "space",
+     "dest": "jupiter"
+    },
+    {
+     "type": "explore",
+     "theme": "ice",
+     "screens": 3,
+     "collect": {
+      "item": "ice",
+      "count": 5
+     },
+     "door": true
+    },
+    {
+     "type": "boss",
+     "portal_skill": "numbers",
+     "goal": 3
+    }
+   ]
+  }
+ ]
+}

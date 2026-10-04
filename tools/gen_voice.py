@@ -128,6 +128,14 @@ for m in camp["missions"]:
             add("narrator", sg["intro"], "explore")
         if sg.get("rescue", {}).get("say"):
             add("cosmo", sg["rescue"]["say"], "explore")
+# Jornada (3 mundos x 8 missões): nomes, briefing do Astro.
+jr = J("campaign/journey.json")
+for m in jr["missions"]:
+    add("narrator", m["name"], "journey")
+    for sg in m["segments"]:
+        if sg["type"] == "cutscene":
+            for l in sg["lines"]:
+                add("cosmo" if l.get("who") == "cosmo" else "narrator", l["say"], "cutscene")
 for path in glob.glob(os.path.join(CONTENT, "stories", "*.json")):
     st = json.load(open(path, encoding="utf-8"))
     for n in st["nodes"].values():

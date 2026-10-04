@@ -14,6 +14,10 @@ var mission_id := ""
 var index := 0
 var results: Array = []
 var mode := "mission"
+## Jornada: peças do objetivo já ganhas nesta missão (cada etapa que não é cena = 1 peça) e quantas o chip
+## já mostrou (para animar o "+1" na tela seguinte).
+var pieces := 0
+var shown_pieces := 0
 
 
 func start(id: String, run_mode: String = "mission") -> void:
@@ -24,6 +28,8 @@ func start(id: String, run_mode: String = "mission") -> void:
 	mission_id = id
 	mode = run_mode
 	index = 0
+	pieces = 0
+	shown_pieces = 0
 	results.clear()
 	EventBus.activity_started.emit({"id": id, "type": "mission"})
 	_go(true)
@@ -52,11 +58,18 @@ func _go(first: bool) -> void:
 
 func segment_done(result: Dictionary) -> void:
 	results.append(result)
+	if not goal().is_empty() and str((mission["segments"] as Array)[index].get("type", "")) != "cutscene":
+		pieces += 1
 	index += 1
 	if index < (mission.get("segments", []) as Array).size():
 		_go(false)
 	else:
 		_finish()
+
+
+## Objetivo da missão da Jornada ({icon, count, say}); vazio nas missões antigas.
+func goal() -> Dictionary:
+	return mission.get("goal", {})
 
 
 func abort() -> void:

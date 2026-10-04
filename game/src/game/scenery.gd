@@ -37,6 +37,7 @@ const PAINTED := {
 	"cave": [["cave", 1.0, 0.8, 0.0, Color.WHITE]],
 	"observatory": [["observatory", 1.0, 0.8, 0.0, Color.WHITE]],
 	"menu": [["menu", 1.0, 0.8, 0.0, Color.WHITE]],
+	"map": [["map_bg", 1.0, 0.8, 0.0, Color.WHITE]],
 	"workshop": [["workshop", 1.0, 0.8, 0.0, Color.WHITE]],
 }
 ## Ambiente de cada matéria (trilha e lições que acontecem "na nave").

@@ -8,6 +8,11 @@ extends GameScreen
 ## acertar dá turbo; no fim a nave pousa e o tempo vira recorde da missão.
 
 const SHIP_X := 250.0
+## Três faixas fixas (em cima, no meio, embaixo): tocar numa altura leva a nave para a faixa dela na hora.
+## Antes a nave seguia o dedo com atraso (~0,4 s) e criança de 4 anos errava o portal mesmo sabendo a conta.
+const LANES := [200.0, 390.0, 580.0]
+## Velocidade da troca de faixa (px/s): uma faixa em ~0,1 s.
+const LANE_SPEED := 2000.0
 ## Destino de cada campanha (planeta real que aparece crescendo no horizonte).
 const DEST := {"nave": "moon", "lua": "moon", "marte": "mars", "gigantes": "saturn", "terra": "earth", "escola": "earth"}
 const FUEL_DRAIN := 0.035
@@ -18,7 +23,7 @@ var portal_skill := "numbers"
 var speed := 300.0
 var ship: Node2D
 var ship_art: ArtSprite
-var target_y := 360.0
+var target_y := 390.0
 var scroll := 0.0
 var progress := 0
 var objects: Array[Node2D] = []
@@ -64,7 +69,7 @@ func build() -> void:
 	AudioService.play_ambience("space")
 	camera.position = Vector2(640, 360)
 	ship = Node2D.new()
-	ship.position = Vector2(SHIP_X, 360)
+	ship.position = Vector2(SHIP_X, 390)
 	ship.z_index = 50
 	world.add_child(ship)
 	_trail = Fx.trail(ship)
@@ -78,6 +83,17 @@ func build() -> void:
 	turbo.position = Vector2(-160, -160)
 	turbo.pressed.connect(_turbo)
 	hud.root.add_child(turbo)
+	# Casa no voo: o botão continua visível, mas só sai segurando (anel amarelo enche); toque ou arrasto sem querer
+	# no canto não tira mais a criança do voo.
+	var home: Control = hud.root.get_node("HomeButton")
+	home.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var hold := HoldButton.new("home", 0.8)
+	hold.name = "HoldHome"
+	hold.plain = true
+	hold.position = home.position
+	hold.size = home.size
+	hold.held.connect(_on_home)
+	hud.root.add_child(hold)
 	if mode == "boss":
 		goal = int(params.get("goal", 3))
 		boss_hp = goal
@@ -97,16 +113,16 @@ func build() -> void:
 func begin() -> void:
 	t_start = Time.get_ticks_msec() / 1000.0
 	if mode == "collect":
-		narrate(Lines.n("Arraste o dedo para cima e para baixo para pilotar. Pegue as baterias de energia e desvie das pedras!"))
+		narrate(Lines.n("Toque em cima, no meio ou embaixo para mudar a nave de lugar. Pegue as baterias e desvie das pedras!"))
 	elif mode == "boss":
 		narrate(Lines.n(
 			"Um asteroide está no caminho! Passe pelos portais certos para lançar sondas e empurrar a rocha, como a missão DART da NASA."))
 		spawn_t = 5.5
 	else:
 		if calc:
-			narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal com o resultado da conta!"))
+			narrate(Lines.n("Toque no portal com o resultado da conta. A nave vai até ele!"))
 		else:
-			narrate(Lines.n("Arraste o dedo para pilotar. Passe pelo portal certo!"))
+			narrate(Lines.n("Toque no portal certo. A nave vai até ele!"))
 		spawn_t = 3.5
 
 
@@ -115,11 +131,20 @@ func _unhandled_input(e: InputEvent) -> void:
 		_pressing = e.pressed
 		if e.pressed:
 			_poke()
-			target_y = clampf(_event_point(e).y, 120, 660)
+			target_y = lane_y(_event_point(e).y)
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseMotion and _pressing:
-		target_y = clampf(_event_point(e).y, 120, 660)
+		target_y = lane_y(_event_point(e).y)
 		get_viewport().set_input_as_handled()
+
+
+## Altura da faixa mais perto de y.
+static func lane_y(y: float) -> float:
+	var best: float = LANES[0]
+	for l in LANES:
+		if absf(float(l) - y) < absf(best - y):
+			best = float(l)
+	return best
 
 
 func _process(delta: float) -> void:
@@ -128,14 +153,16 @@ func _process(delta: float) -> void:
 		return
 	_fuel_tick(delta)
 	var spd := speed * (1.9 if turbo_t > 0.0 else 1.0) * (0.45 if fuel <= 0.0 else 1.0) * _hardness()
+	if not portal_set.is_empty() and turbo_t <= 0.0:
+		spd *= 0.5  # portais na tela: tempo para pensar na conta (o turbo continua valendo se ele quiser)
 	turbo_t = maxf(0.0, turbo_t - delta)
 	invuln = maxf(0.0, invuln - delta)
 	scroll += spd * delta
 	if is_instance_valid(Router.sky):
 		Router.sky.set_parallax(Vector2(scroll, (ship.position.y - 360) * 0.3))
 	var dy := target_y - ship.position.y
-	ship.position.y += dy * minf(1.0, delta * 6.0)
-	ship.rotation = clampf(dy * 0.002, -0.35, 0.35)
+	ship.position.y = move_toward(ship.position.y, target_y, LANE_SPEED * delta)
+	ship.rotation = lerpf(ship.rotation, clampf(dy * 0.004, -0.3, 0.3), minf(1.0, delta * 14.0))
 	ship_art.modulate.a = 0.4 if invuln > 0.0 and fmod(invuln, 0.2) < 0.1 else 1.0
 	for o in objects.duplicate():
 		o.position.x -= spd * delta
@@ -194,7 +221,7 @@ func _spawn(delta: float) -> void:
 
 func _spawn_crystal() -> void:
 	var c := Node2D.new()
-	c.position = Vector2(1400, randf_range(150, 640))
+	c.position = Vector2(1400, float(LANES.pick_random()))
 	c.set_meta("kind", "crystal")
 	var a := ArtSprite.new("props", "energy_cell", 70.0)
 	a.idle = "spin"
@@ -206,7 +233,7 @@ func _spawn_crystal() -> void:
 
 func _spawn_asteroid() -> void:
 	var c := Node2D.new()
-	var y := randf_range(140, 650)
+	var y := float(LANES.pick_random())
 	if not portal_set.is_empty():
 		return
 	c.position = Vector2(1420, y)
@@ -269,7 +296,7 @@ func _spawn_portals() -> void:
 	var colors := [Palette.TEAL, Palette.PINK, Palette.YELLOW]
 	for i in n:
 		var p := Node2D.new()
-		var y := lerpf(120.0, 640.0, (i + 0.5) / float(n)) if n > 1 else 360.0
+		var y: float = LANES[i] if n == 3 else ([LANES[0], LANES[2]][i] if n == 2 else LANES[1])
 		p.position = Vector2(1500, y)
 		p.set_meta("kind", "portal")
 		p.set_meta("label", str(picks[i]))
@@ -354,7 +381,7 @@ func _check_hit(o: Node2D) -> void:
 		AudioService.haptic(60)
 		shake_camera(14.0)
 		Fx.dust(world, ship.position, Color(1, 0.8, 0.6))
-		target_y = clampf(ship.position.y + (120 if o.position.y < ship.position.y else -120), 120, 660)
+		target_y = lane_y(ship.position.y + (190 if o.position.y <= ship.position.y else -190))
 		if randf() < 0.5:
 			cosmo_say(Lines.c("Cuidado com as pedras!"))
 
@@ -505,7 +532,8 @@ func _build_goal_ui() -> void:
 		camp = str(ContentService.repo.missions.get(str(params["mission"]), {}).get("campaign", ""))
 	dest_id = str(params.get("dest", DEST.get(camp, "moon")))
 	dest = ShaderPlanet.new(dest_id, 60.0)
-	dest.position = Vector2(1150, 190)
+	# Fora da tela até o pouso (no meio do voo ele parecia um 4º portal); durante o voo o destino fica na barra.
+	dest.position = Vector2(1800, 390)
 	dest.z_index = -3
 	world.add_child(dest)
 	bar = Control.new()
@@ -517,18 +545,18 @@ func _build_goal_ui() -> void:
 	hud.stage.add_child(bar)
 	var fb := ColorRect.new()
 	fb.color = Color(0, 0, 0, 0.45)
-	fb.position = Vector2(150, 110)
+	fb.position = Vector2(170, 130)
 	fb.size = Vector2(220, 26)
 	fb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.root.add_child(fb)
 	fuel_bar = ColorRect.new()
 	fuel_bar.color = Color("#4ADE80")
-	fuel_bar.position = Vector2(153, 113)
+	fuel_bar.position = Vector2(173, 133)
 	fuel_bar.size = Vector2(214, 20)
 	fuel_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.root.add_child(fuel_bar)
 	var cell := ArtSprite.new("props", "energy_cell", 52.0)
-	cell.position = Vector2(126, 123)
+	cell.position = Vector2(146, 143)
 	hud.root.add_child(cell)
 	calc_label = UI.label("", 64, Palette.YELLOW, true)
 	calc_label.name = "FlightCalc"
@@ -553,7 +581,7 @@ func _update_goal_ui() -> void:
 		bar.queue_redraw()
 	if is_instance_valid(dest):
 		var f := clampf(float(progress) / maxf(1.0, goal), 0.0, 1.0)
-		dest.create_tween().tween_property(dest, "scale", Vector2.ONE * (1.0 + f * 1.6), 0.6).set_trans(Tween.TRANS_SINE)
+		dest.scale = Vector2.ONE * (1.0 + f * 0.2)
 
 
 func _fuel_tick(delta: float) -> void:
@@ -591,4 +619,4 @@ func _hint() -> void:
 			if str(o.get_meta("kind")) == "crystal":
 				tgt = o.position.y
 				break
-	hand.show_drag(Vector2(640, ship.position.y), Vector2(640, tgt))
+	hand.show_tap(Vector2(640, lane_y(tgt)))

@@ -11,7 +11,7 @@ const TILES := [
 	["emotion", "heart", "#F472B6", "academy", "Sentimentos e amizade!"],
 	["english", {"t": "crew"}, "#60A5FA", "hello", "Inglês com o Hoppy!"],
 	["create", "palette", "#FACC15", "studio", "Vamos criar!"],
-	["missions", "rocket", "#EE4266", "galaxy", "Missões no espaço!"],
+	["missions", "rocket", "#EE4266", "journey", "A jornada pelo espaço!"],
 	["ship", {"t": "art", "set": "props", "id": "ship_side"}, "#475569", "ship", "Vamos passear pela nave!"],
 ]
 
@@ -46,16 +46,16 @@ func build() -> void:
 
 ## Trocar quem está jogando: botão redondo com o rosto de quem joga agora (ao lado do alto-falante).
 func _who_button() -> void:
-	var b := DSButton.new("icon", "", Vector2(92, 92), "gold")
+	var b := DSButton.new("icon", "", Vector2(GameHud.BTN, GameHud.BTN), "gold")
 	b.name = "WhoButton"
 	b.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	b.position = Vector2(-92 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 108, 16)
+	b.position = Vector2(-2 * GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 18, 16)
 	var face := TextureRect.new()
 	face.texture = load(Kids.head_path("big_smile"))
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	face.size = Vector2(80, 80)
-	face.position = Vector2(6, 4)
+	face.size = Vector2(100, 100)
+	face.position = Vector2(8, 6)
 	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.pressed.connect(func(): Router.reset_to("who"))
 	hud.root.add_child(b)

@@ -42,17 +42,17 @@ func build() -> void:
 	last_area = area
 	_build_trail()
 	# Teste para pular (3 fases) e treino sem fim (matemática e lógica): botões com palavra + ícone.
-	var hard := DSButton.new("primary", "rocket", Vector2(230, 100), "normal", "PULAR")
+	var hard := DSButton.new("primary", "rocket", Vector2(300, 124), "normal", "PULAR")
 	hard.name = "HardChallenge"
 	hard.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	hard.position = Vector2(-260, -130)
+	hard.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -142)
 	hard.pressed.connect(_hard)
 	hud.root.add_child(hard)
 	if area in ENDLESS:
-		var tr := DSButton.new("secondary", "refresh", Vector2(230, 100), "normal", "TREINO")
+		var tr := DSButton.new("secondary", "refresh", Vector2(300, 124), "normal", "TREINO")
 		tr.name = "EndlessButton"
 		tr.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-		tr.position = Vector2(-260, -250)
+		tr.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -278)
 		tr.pressed.connect(_endless)
 		hud.root.add_child(tr)
 	hint_fn = _hint
@@ -84,9 +84,9 @@ func _build_trail() -> void:
 	next_index = next_i
 	# O Vini fica ao lado da fase que brilha ("é aqui que eu vou").
 	if not path_pts.is_empty():
-		var vini := CharacterRig2D.new("vini", 170.0)
+		var vini := CharacterRig2D.new("vini", 215.0)
 		var cur := path_pts[mini(next_i, path_pts.size() - 1)]
-		vini.position = Vector2(cur.x - 40, 712)
+		vini.position = Vector2(cur.x - 150, 712)
 		vini.z_index = 20
 		world.add_child(vini)
 		vini.play("point")
@@ -100,7 +100,7 @@ func _build_trail() -> void:
 
 func _node_pos(i: int) -> Vector2:
 	var j := i - _first
-	return Vector2(400 + j * 250, 360 + (60.0 if i % 2 == 0 else -50.0))
+	return Vector2(400 + j * 270, 330 + (50.0 if i % 2 == 0 else -45.0))
 
 
 func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
@@ -122,9 +122,9 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 	it.add_child(fig)
 	# número da fase (canto de cima): a criança vê que está avançando
 	var num := Panel.new()
-	num.add_theme_stylebox_override("panel", UITheme.rounded(Palette.YELLOW if i < next_i else Color("#2A2550"), 30, 4, Color.WHITE))
-	num.size = Vector2(76, 60)
-	num.position = Vector2(-112, -118)
+	num.add_theme_stylebox_override("panel", UITheme.rounded(Palette.YELLOW if i < next_i else Color("#1B2A6B"), 34, 5, Color.WHITE))
+	num.size = Vector2(68, 68)
+	num.position = Vector2(-124, -128)
 	num.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	it.add_child(num)
 	var nl := UI.label(str(i + 1), 34, Color("#1A1240") if i < next_i else Color.WHITE)
@@ -140,29 +140,23 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 		it.add_child(star)
 	if i > next_i:
 		# Trancada: menor e apagada (o que importa é a fase que brilha).
-		it.scale = Vector2.ONE * 0.62
-		bg.modulate = Color(0.45, 0.45, 0.55)
+		it.scale = Vector2.ONE * 0.72
+		bg.modulate = Color(0.5, 0.52, 0.65)
 		fig.visible = false
-		var badge := Panel.new()
-		badge.add_theme_stylebox_override("panel", UITheme.rounded(Color("#2A2550"), 40, 6, Palette.YELLOW))
-		badge.size = Vector2(80, 80)
-		badge.position = Vector2(-40, -40)
-		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		it.add_child(badge)
-		var padlock := IconDraw.new("lock", Palette.YELLOW)
-		padlock.size = Vector2(58, 58)
-		padlock.position = Vector2(-29, -29)
+		var padlock := IconDraw.new("lock", DS.STAR_GOLD)
+		padlock.size = Vector2(96, 96)
+		padlock.position = Vector2(-48, -48)
 		it.add_child(padlock)
 	elif i == next_i:
 		# A fase de agora: maior, com o botão de jogar em cima.
-		var play := DSButton.new("primary", "play", Vector2(84, 84))
-		play.position = Vector2(42, 42)
+		var play := DSButton.new("primary", "play", Vector2(104, 104))
+		play.position = Vector2(46, 46)
 		play.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(play)
 		Fx.glow(it, Vector2.ZERO, 250.0, Color(DS.STAR_GOLD, 0.5), 1.0).z_index = -1
 		var tw := it.create_tween().set_loops()
-		tw.tween_property(it, "scale", Vector2.ONE * 1.32, 0.55).set_trans(Tween.TRANS_SINE)
-		tw.tween_property(it, "scale", Vector2.ONE * 1.2, 0.55).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(it, "scale", Vector2.ONE * 1.58, 0.55).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(it, "scale", Vector2.ONE * 1.45, 0.55).set_trans(Tween.TRANS_SINE)
 	it.tapped.connect(_on_lesson)
 	world.add_child(it)
 	tiles.append(it)
@@ -182,24 +176,27 @@ func _level_bar(done: int, total: int) -> void:
 	var box := Panel.new()
 	box.name = "AreaLevel"
 	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.85), 26, 4, Palette.YELLOW))
-	box.size = Vector2(430, 64)
-	box.position = Vector2(140, 30)
+	box.size = Vector2(470, 84)
+	box.position = Vector2(GameHud.EDGE + GameHud.BTN + 18 + GameHud.safe_x(get_viewport()).x, 32)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.root.add_child(box)
 	var track := ColorRect.new()
 	track.color = Color(1, 1, 1, 0.15)
-	track.size = Vector2(250, 18)
-	track.position = Vector2(20, 23)
+	var star := ArtSprite.new("props", "star_token", 58.0)
+	star.position = Vector2(44, 42)
+	box.add_child(star)
+	track.size = Vector2(230, 24)
+	track.position = Vector2(84, 30)
 	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(track)
 	var fill := ColorRect.new()
 	fill.color = DS.STAR_GOLD
-	fill.size = Vector2(250.0 * done / maxf(1.0, total), 18)
+	fill.size = Vector2(230.0 * done / maxf(1.0, total), 24)
 	fill.position = track.position
 	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(fill)
-	var l := UI.label("%d / %d" % [done, total], 30, Color.WHITE)
-	l.position = Vector2(286, 10)
+	var l := UI.label("%d / %d" % [done, total], 36, Color.WHITE)
+	l.position = Vector2(330, 14)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(l)  # número/patente: ele já lê
 	box.add_child(l)

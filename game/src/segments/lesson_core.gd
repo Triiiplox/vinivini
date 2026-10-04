@@ -517,7 +517,8 @@ func _merge_rank(a: Dictionary, b: Dictionary) -> Dictionary:
 
 ## Fim: fase no meio da lição → painel "próxima fase" na própria tela (sem baú); lição inteira feita → baú.
 func _finish(stars: int) -> void:
-	var trail_flow := params.has("stage") or params.has("jump") or params.has("placement") or params.has("endless")
+	var trail_flow := (params.has("stage") or params.has("jump") or params.has("placement") or params.has("endless")) \
+		and not params.has("mission")  # dentro de missão: segue para a próxima etapa, sem o painel da trilha
 	if trail_flow and not _lesson_complete():
 		_stage_panel(stars)
 		return

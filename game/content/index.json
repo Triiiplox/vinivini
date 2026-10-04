@@ -27,5 +27,6 @@
  },
  "english": "english/units.json",
  "speech": "speech/words.json",
- "lessons": "lessons/lessons.json"
+ "lessons": "lessons/lessons.json",
+ "journey": "campaign/journey.json"
 }

@@ -112,7 +112,9 @@ func _show_items() -> void:
 
 func _continue() -> void:
 	AudioService.play_sfx("whoosh")
-	if params.has("mission"):
+	if params.has("mission") and str(params["mission"].get("campaign", "")).begins_with("j_"):
+		Router.reset_to("journey", {"focus": str(params["mission"].get("id", ""))})
+	elif params.has("mission"):
 		Router.reset_to("galaxy", {"focus": str(params["mission"].get("id", ""))})
 	elif str((params.get("result", {}) as Dictionary).get("back", "")) != "":
 		Router.reset_to(str(params["result"]["back"]))

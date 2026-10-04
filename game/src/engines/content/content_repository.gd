@@ -16,6 +16,8 @@ var praise: Dictionary = {}
 var avatar_options: Dictionary = {}
 var campaigns: Array = []
 var missions: Dictionary = {}
+## Jornada (3 mundos x 8 missões com objetivo); as missões dela também ficam em `missions` (MissionFlow).
+var journey: Array = []
 ## Bancos dos jogos v2 (sílabas, palavras, pedidos, plantas, robô...).
 var banks: Dictionary = {}
 ## Sala de Inglês (inglês): unidades validadas, por id, na ordem do currículo.
@@ -104,6 +106,16 @@ func load_index(index_path: String) -> bool:
 					missions[m["id"]] = m
 				else:
 					errors.append("missions: %s" % ", ".join(me))
+	if idx.has("journey"):
+		var jr: Variant = _read(base.path_join(str(idx["journey"])))
+		if jr is Dictionary:
+			journey = jr.get("worlds", [])
+			for m in jr.get("missions", []):
+				var je := ContentValidator.validate_mission(m)
+				if je.is_empty():
+					missions[m["id"]] = m
+				else:
+					errors.append("journey: %s" % ", ".join(je))
 	for bank_name in idx.get("banks", {}):
 		var b: Variant = _read(base.path_join(str(idx["banks"][bank_name])))
 		if b != null:

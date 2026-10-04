@@ -225,3 +225,30 @@ Como foi feito:
 - **Figuras desenhadas no código** (`MathFigures`, cena com posição): número e posição exatos.
 - **Fala genérica nas contas** ("Quanto dá essa conta?"), com a conta escrita na tela. Ele lê números, e isso segura o tamanho do APK.
 - **Conferência automática:** toda resposta marcada como certa é recalculada antes de gerar o APK, e perguntas repetidas são removidas.
+
+## ADR-038 - Jornada com um objetivo, nave em corte e pilotagem em faixas
+
+**Contexto (feedback do Andro, 04/10):**
+- Pilotar estava ruim.
+- Andar na nave estava ruim.
+- As missões estavam confusas e não despertaram interesse no Vini.
+
+**Fatos no código:**
+- **Pilotagem:** a nave seguia o dedo com cerca de 0,4 s de atraso.
+- **Portais:** os portais da conta chegavam em cerca de 3,8 s.
+- **Saída sem querer:** arrastando o dedo até o canto, ele apertava a casa e saía do voo.
+- **Nave:** era um corredor de cerca de 7.000 px, com 13 estações e o mesmo fundo repetido.
+- **Missões:** eram 18, e cada uma misturava jogos sem ligação entre si e sem objetivo comum.
+
+**Decisão:**
+- **Pilotagem em 3 faixas fixas:**
+  - tocar em cima, no meio ou embaixo leva a nave para a faixa em cerca de 0,1 s;
+  - com portais na tela, o jogo anda na metade da velocidade;
+  - a casa, no voo, só funciona segurando o botão.
+- **Nave em corte, como casa de boneca:** 3 andares × 3 cômodos pintados. Tocar no cômodo entra direto, sem andar.
+- **Jornada:**
+  - são 3 mundos (Lua, Marte, Europa) com 8 missões cada (`tools/build_journey.py` gera `content/campaign/journey.json`);
+  - cada missão segue sempre a mesma forma: briefing do Astro, voo até o planeta e 2 atividades do tema;
+  - cada etapa concluída vale 1 peça do objetivo do mundo (engrenagens para o jipe, chips para o robô, cápsulas de gelo para o laboratório);
+  - o chip do objetivo fica na tela o tempo todo.
+- As missões antigas continuam nos dados (desafios da família, testes), mas o botão de missões da tela principal agora leva à Jornada.

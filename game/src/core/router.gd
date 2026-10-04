@@ -49,6 +49,7 @@ const SCREENS := {
 	"galaxy": "res://src/screens/galaxy_screen.gd",
 	"opening": "res://src/screens/opening_screen.gd",
 	"who": "res://src/screens/who_screen.gd",
+	"journey": "res://src/screens/journey_screen.gd",
 	"intro_video": "res://src/screens/intro_video_screen.gd",
 	"draw": "res://src/screens/draw_screen.gd",
 	"wardrobe": "res://src/screens/wardrobe_screen.gd",

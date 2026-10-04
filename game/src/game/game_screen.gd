@@ -60,9 +60,12 @@ func on_enter() -> void:
 	add_child(hud)
 	hud.home_pressed.connect(_on_home)
 	hud.speak_pressed.connect(repeat_line)
-	if mission_steps > 0:
+	var journey_goal := params.has("mission") and not MissionFlow.goal().is_empty()
+	if mission_steps > 0 and not journey_goal:
 		hud.set_progress(mission_step, mission_steps)
 	build()
+	if journey_goal:
+		_goal_chip()
 	Telemetry.game_started(str(get_meta("screen_id", name)), not params.has("mission"))
 	begin.call_deferred()
 
@@ -74,6 +77,38 @@ func on_exit() -> void:
 		Telemetry.game_ended(not str(get_meta("screen_id", "")).begins_with("seg_"))
 	if is_instance_valid(Router.sky):
 		Router.sky.set_parallax(Vector2.ZERO)
+
+
+## Jornada: o objetivo da missão sempre visível (ícone da peça + quantas já tem). Peça nova pula com brilho.
+func _goal_chip() -> void:
+	var g := MissionFlow.goal()
+	var box := Panel.new()
+	box.name = "GoalChip"
+	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.88), 30, 4, DS.STAR_GOLD))
+	box.size = Vector2(240, 92)
+	box.position = Vector2(GameHud.EDGE + GameHud.BTN + 18 + GameHud.safe_x(get_viewport()).x, 18)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.root.add_child(box)
+	var ic := ArtSprite.new("props", str(g.get("icon", "gear")), 74.0)
+	ic.position = Vector2(50, 46)
+	box.add_child(ic)
+	var have := MissionFlow.pieces
+	var l := UI.label("%d/%d" % [MissionFlow.shown_pieces, int(g.get("count", 3))], 46, Color.WHITE)
+	l.position = Vector2(96, 10)
+	l.size = Vector2(136, 72)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(l)  # número: ele já lê
+	box.add_child(l)
+	if have > MissionFlow.shown_pieces:
+		MissionFlow.shown_pieces = have
+		var tw := ic.create_tween()
+		tw.tween_interval(0.5)
+		tw.tween_callback(func():
+			l.text = "%d/%d" % [have, int(g.get("count", 3))]
+			AudioService.play_sfx("collect"))
+		tw.tween_property(ic, "scale", Vector2.ONE * 1.6, 0.18).set_trans(Tween.TRANS_BACK)
+		tw.tween_property(ic, "scale", Vector2.ONE, 0.25)
 
 
 ## Subclasses: montar cena.

@@ -54,6 +54,26 @@ func _run() -> void:
 		Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 3, "back": "academy"})
 		await shot("perfis_licao_aylinha", 3.0)
 		Kids.select("vini")
+	if _want("jornada"):
+		Router.reset_to("ship", {"quiet": true})
+		await shot("jornada_nave", 2.0)
+		Router.reset_to("journey", {})
+		await shot("jornada_mapa", 2.0)
+		var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+		for i in 10:
+			pd["missions_done"]["j%02d" % (i + 1)] = 3
+		Router.reset_to("journey", {})
+		await shot("jornada_mapa_marte", 2.0)
+		MissionFlow.start("j11")
+		await shot("jornada_brief", 2.5)
+		MissionFlow.segment_done({})
+		await shot("jornada_voo", 4.0)
+		MissionFlow.segment_done({"stars": 3})
+		await shot("jornada_explorar", 2.5)
+		MissionFlow.segment_done({"stars": 3})
+		await shot("jornada_licao", 3.0)
+		for i in 10:
+			pd["missions_done"].erase("j%02d" % (i + 1))
 	if _want("universo"):
 		for a in ["reading", "math", "logic", "science", "astronomy", "emotion"]:
 			Router.reset_to("academy", {"area": a})
