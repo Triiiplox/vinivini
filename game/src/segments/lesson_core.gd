@@ -186,7 +186,7 @@ func _plan() -> void:
 
 func begin() -> void:
 	var intro := str(lesson.get("intro", ""))
-	if int(params.get("stage", 0)) > 1 or params.has("jump") or params.has("placement"):
+	if int(params.get("stage", 0)) > 1 or params.has("jump") or params.has("placement") or params.has("endless"):
 		intro = ""  # fase seguinte da mesma lição: sem repetir a apresentação
 	var d := narrate(intro) if intro != "" else 0.0
 	after(d + 0.2, _advance)

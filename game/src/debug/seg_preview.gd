@@ -210,6 +210,26 @@ func _run() -> void:
 				s._advance()
 				await get_tree().process_frame
 			await shot("lesson_%s_2" % id, 3.0)
+	if _want("v41"):
+		# Fim de fase (Próxima), teclado numérico, treino sem fim e trilha nova.
+		Router.reset_to("academy", {"area": "math"})
+		await shot("v41_trilha", 2.5)
+		Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 4, "back": "academy"})
+		await get_tree().create_timer(3.0).timeout
+		var s3: Node = Router.current_screen
+		for k in 40:
+			if str(s3.rd.get("k", "")) == "num":
+				break
+			s3._advance()
+			await get_tree().process_frame
+		for ch in "4":
+			s3._on_key(s3._key_card(ch))
+		await shot("v41_teclado", 1.5)
+		s3.first_ok = s3.asked
+		s3._end()
+		await shot("v41_fim_fase", 4.5)
+		Router.reset_to("seg_lesson", {"lesson": "somar", "endless": "math", "back": "academy"})
+		await shot("v41_treino", 3.0)
 	if _want("evolucao"):
 		# Trilha com progresso, tela principal com patente e a promoção.
 		var ns := Stages.nodes("math")

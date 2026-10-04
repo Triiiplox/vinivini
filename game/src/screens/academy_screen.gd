@@ -84,7 +84,7 @@ func _build_trail() -> void:
 	# O Vini fica ao lado da fase que brilha ("é aqui que eu vou").
 	if not path_pts.is_empty():
 		var vini := CharacterRig2D.new("vini", 220.0)
-		vini.position = Vector2(path_pts[mini(next_i, path_pts.size() - 1)].x - 150, 690)
+		vini.position = Vector2(path_pts[mini(next_i, path_pts.size() - 1)].x - 210, 700)
 		vini.z_index = 20
 		world.add_child(vini)
 		vini.play("point")
@@ -98,7 +98,7 @@ func _build_trail() -> void:
 
 func _node_pos(i: int) -> Vector2:
 	var j := i - _first
-	return Vector2(330 + j * 250, 360 + (60.0 if i % 2 == 0 else -50.0))
+	return Vector2(400 + j * 250, 360 + (60.0 if i % 2 == 0 else -50.0))
 
 
 func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
@@ -153,8 +153,8 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 		it.add_child(padlock)
 	elif i == next_i:
 		# A fase de agora: maior, com o botão de jogar em cima.
-		var play := DSButton.new("primary", "play", Vector2(110, 110))
-		play.position = Vector2(-55, 40)
+		var play := DSButton.new("primary", "play", Vector2(84, 84))
+		play.position = Vector2(42, 42)
 		play.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(play)
 		Fx.glow(it, Vector2.ZERO, 250.0, Color(DS.STAR_GOLD, 0.5), 1.0).z_index = -1

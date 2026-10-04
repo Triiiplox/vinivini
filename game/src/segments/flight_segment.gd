@@ -296,7 +296,7 @@ func _portal_label(p: Node2D, label: String) -> void:
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	p.add_child(l)
-	if portal_skill == "numbers" and difficulty(_skill) == 1:
+	if portal_skill == "numbers" and difficulty(_skill) == 1 and not calc:
 		var n := int(label)
 		for k in n:
 			var d := ArtSprite.new("props", "star_token", 22.0)

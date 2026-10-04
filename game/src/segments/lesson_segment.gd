@@ -401,15 +401,15 @@ func _count_star() -> void:
 func _num() -> void:
 	typed = ""
 	if rd.has("show"):
-		var shown := _card(rd["show"], Vector2(640, 175), 0.95)
+		var shown := _card(rd["show"], Vector2(640, 165), 0.85)
 		shown.name = "Shown"
 		shown.tappable = false
-	var disp := _card({"t": "text", "s": "?"}, Vector2(640, 345), 0.62)
+	var disp := _card({"t": "text", "s": "?"}, Vector2(640, 368), 0.5)
 	disp.name = "NumDisplay"
 	disp.tappable = false
 	for i in PAD_KEYS.size():
 		var key: String = PAD_KEYS[i]
-		var pos := Vector2(640 + (i % 6 - 2.5) * 118, 480 + (i / 6) * 112)
+		var pos := Vector2(640 + (i % 6 - 2.5) * 118, 505 + (i / 6) * 112)
 		var c := _card({"t": "text", "s": "⌫" if key == "<" else key, "c": "#86EFAC" if key == "OK" else "#FFFFFF"}, pos, 0.5)
 		c.name = "Key_%s" % ("del" if key == "<" else key)
 		c.payload = key
@@ -438,7 +438,7 @@ func _num_display() -> void:
 	var unit := str(rd.get("unit", ""))
 	var t := typed if typed != "" else "?"
 	t = (unit + t) if unit.ends_with(" ") else (t + unit)
-	disp.add_child(Figure.new({"t": "text", "s": t, "c": "#FDE68A"}, CARD * 0.8 * 0.62))
+	disp.add_child(Figure.new({"t": "text", "s": t, "c": "#FDE68A"}, CARD * 0.8 * 0.5))
 
 
 func _on_key(c: Interactable) -> void:
@@ -554,7 +554,11 @@ func _placement_result() -> Dictionary:
 ## com 2 erros na mesma conta: mira em ~80% de acerto (como o GraphoGame do MEC).
 func _endless_level() -> int:
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	return int((pd.get("endless", {}) as Dictionary).get(str(params["endless"]), 1))
+	var kind := str(params["endless"])
+	if not (pd.get("endless", {}) as Dictionary).has(kind):
+		# 1ª vez: começa perto do que ele já mostrou na trilha (não em 5 + 4 para quem já faz conta de 2 dígitos)
+		return clampi(1 + Stages.area_level(kind).x / 8, 1, 8)
+	return int((pd["endless"] as Dictionary)[kind])
 
 
 func _set_endless_level(v: int) -> void:
