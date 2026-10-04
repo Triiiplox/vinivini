@@ -40,8 +40,14 @@ CHARS = {
 }
 
 
+# A navezinha da folha veio com o bico para a esquerda; o jogo voa para a direita (era o desenho antigo).
+MIRROR = {("props", "ship_side"), ("words", "nave")}
+
+
 def put(src, group, name, side):
     im = Image.open(src).convert("RGBA")
+    if (group, name) in MIRROR:
+        im = im.transpose(Image.FLIP_LEFT_RIGHT)
     k = min(1.0, side / max(im.size))
     if k < 1.0:
         im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
