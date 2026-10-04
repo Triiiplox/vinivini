@@ -13,6 +13,8 @@ const PAINTED := {
 		["moon_ground", 1.0, 0.8, 0.0, Color.WHITE],
 	],
 	"ship": [["ship_interior", 1.0, 0.8, 0.0, Color.WHITE]],
+	# Sala da escola (trilhas de lição): outro ambiente da nave, para "estudar" não parecer a ponte de comando.
+	"school": [["school_room", 1.0, 0.8, 0.0, Color.WHITE]],
 }
 
 var theme := "moon"

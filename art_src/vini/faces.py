@@ -10,16 +10,23 @@ Saída: parts/head_<humor>.png, parts/mouth_<v>.png, parts/lids_<humor>.png, tod
 Uso: cd art_src/vini && python3 faces.py  (depois de cut_figure.py)
 """
 import json
-from PIL import Image, ImageDraw, ImageFilter
+import os
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 import numpy as np
 from scipy import ndimage
 
 SRC = "vini_v3_heads.png"
+# v4 (04/10): 9 cabeças da folha corrigida do Andro (vini_v4_heads_sheet.png), já recortadas e limpas
+# (halo removido; topo do cabelo das linhas 2–3 enxertado da cabeça de cima, que a grade cortava).
+# Se a pasta existir, usa ela no lugar de recortar SRC. A 9 agora é piscadinha (só o olho direito fechado).
+HEADS_DIR = "heads_v4"
+WINK = True
+KEEP = {"tired"}  # sem cabeça nova equivalente: mantém o arquivo anterior
 PAD = 40
 COLS = [(90, 510), (515, 930), (940, 1370)]
 ROWS = [(0, 378), (378, 738), (738, 1086)]
 # Ordem da grade (prompt 3): 1 happy, 2 big laugh, 3 curious, 4 surprised, 5 sad, 6 thinking,
-# 7 proud, 8 talking, 9 olhos fechados.
+# 7 proud, 8 talking, 9 olhos fechados (v4: piscadinha).
 MOODS = {"happy": 1, "big_smile": 2, "curious": 3, "surprised": 4, "sad": 5, "thinking": 6,
          "angry": 6, "scared": 4, "calm": 7, "tired": 9, "proud": 0}  # 0 = cabeça da própria figura frontal
 VISEMES = {"a": 8, "e": 1, "o": 4, "mbp": 7}
@@ -90,11 +97,18 @@ def main():
     bpd = bpts[1][0] - bpts[0][0]
     banc = anchor(bpts, bbox)
 
-    sheet = Image.open(SRC).convert("RGBA")
     raw = {}
-    for r, (y0, y1) in enumerate(ROWS):
-        for c, (x0, x1) in enumerate(COLS):
-            raw[r * 3 + c + 1] = isolate(np.array(sheet.crop((x0, y0, x1, y1))))
+    if os.path.isdir(HEADS_DIR):
+        for k in range(1, 10):
+            im = Image.open(os.path.join(HEADS_DIR, "%d.png" % k)).convert("RGBA")
+            padded = Image.new("RGBA", (im.width + 40, im.height + 40), (0, 0, 0, 0))
+            padded.alpha_composite(im, (20, 20))
+            raw[k] = isolate(np.array(padded))
+    else:
+        sheet = Image.open(SRC).convert("RGBA")
+        for r, (y0, y1) in enumerate(ROWS):
+            for c, (x0, x1) in enumerate(COLS):
+                raw[r * 3 + c + 1] = isolate(np.array(sheet.crop((x0, y0, x1, y1))))
     lm = {k: landmarks(a) for k, a in raw.items()}
     scale = bpd / float(np.median([lm[k][0][1][0] - lm[k][0][0][0] for k in STRAIGHT]))
     heads = {0: base}
@@ -112,12 +126,20 @@ def main():
     rx_m, ry_m = bpd * 0.62, bpd * 0.36
     for v, k in VISEMES.items():
         patch(heads[k], base, mouth_c, rx_m, ry_m, bpd * 0.07).save("parts/mouth_%s.png" % v, optimize=True)
+    closed = {}
+    if WINK:
+        # Olho direito (da imagem) fechado vem da piscadinha; o esquerdo é o mesmo olho espelhado no eixo do rosto.
+        mir = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        mir.alpha_composite(ImageOps.mirror(heads[9]), (int(round(2 * banc[0] - (W - 1))), 0))
+        closed = {0: mir, 1: heads[9]}
     for mood, k in MOODS.items():
+        if mood in KEEP and os.path.exists("parts/head_%s.png" % mood):
+            continue
         h = heads[k]
         h.save("parts/head_%s.png" % mood, optimize=True)
         lids = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        for (px, py) in bpts:
-            lids.alpha_composite(patch(heads[9], h, (px, py), bpd * 0.36, bpd * 0.22, bpd * 0.05))
+        for i, (px, py) in enumerate(bpts):
+            lids.alpha_composite(patch(closed.get(i, heads[9]), h, (px, py), bpd * 0.42, bpd * 0.30, bpd * 0.06))
         lids.save("parts/lids_%s.png" % mood, optimize=True)
     json.dump({"canvas": [W, H], "pad": PAD, "moods": {m: str(k) for m, k in MOODS.items()},
                "visemes": sorted(VISEMES), "scale": round(scale, 4), "pupils": [list(map(float, p)) for p in bpts]},

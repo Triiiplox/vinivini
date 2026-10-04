@@ -29,7 +29,7 @@ func build() -> void:
 	swipe_scroll = true
 	set_sky("space")
 	AudioService.play_music("hub", 0.5)
-	var bg := Scenery.new("ship")
+	var bg := Scenery.new("school")
 	world.add_child(bg)
 	area = str(params.get("area", last_area))
 	if area == "":
