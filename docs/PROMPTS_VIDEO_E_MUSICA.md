@@ -171,54 +171,5 @@ O que a letra ensina (tudo real):
 
 **Entrega:** mande o `.mp3` ou o `.wav`. Eu corto o loop, normalizo o volume (o mesmo nível das outras faixas) e converto para `.ogg`.
 
-## Personagens: Astro e o pet (substituem os desenhos em vetor)
-
-Use o mesmo processo do Vini, para que eu recorte as peças e monte o rig (esqueleto de animação 2D) do mesmo jeito.
-- **Gerador:** o mesmo que você usou para o Vini.
-- **Referência de estilo:** anexe `art_src/vini/vini_character_sheet_v2.png` como imagem de referência.
-- **Duas imagens por personagem, em 1536×1024:**
-  1. A folha do personagem.
-  2. A folha de peças.
-- **Fundo:** cinza liso e sem texto nas peças. As legendas da folha 1 podem ficar.
-
-### Astro (robô ajudante, quem mais fala no jogo)
-
-Folha 1:
-```
-Character turnaround sheet, same 3D animated feature-film style and lighting as the reference image of
-Vini. "Astro", a small friendly flying helper robot inspired by NASA's Astrobee free-flying robot on the
-International Space Station: rounded cube body in white and navy blue with glowing cyan light lines and a
-small golden star (matching Vini's suit), a rounded screen on the front that shows a simple cute face (two
-big oval cyan eyes and a small smile, drawn as light on a dark screen), two short rounded arms with simple
-three-finger grippers, a soft cyan propeller glow underneath instead of legs. Cute, round, not scary,
-toddler-friendly. Views: FRONT, 3/4 FRONT, SIDE, BACK. Second row, 8 face-screen expressions: HAPPY, BIG
-SMILE, CURIOUS, SURPRISED, SAD, THINKING, PROUD, TALKING. Plain light gray background, 1536x1024.
-```
-Folha 2:
-```
-Same robot "Astro", same style, exploded parts sheet for 2D animation on a plain light gray background,
-every part separated with space around it, no overlap, no text: body without face, the empty face screen,
-left arm, right arm (each as one rounded piece), the cyan propeller glow, then 8 separate face-screen
-expressions (eyes + mouth only, cyan light on transparent/dark): happy, big smile, curious, surprised, sad,
-thinking, proud, talking (mouth open), plus eyes closed (blink). 1536x1024.
-```
-
-### Pet (cachorrinho da tripulação)
-
-Folha 1:
-```
-Character turnaround sheet, same 3D animated feature-film style and lighting as the reference image of
-Vini. Vini's puppy: a small round fluffy light-brown puppy with floppy ears, big shiny dark eyes and a
-short wagging tail, wearing a tiny white and navy-blue space vest with glowing cyan lines and a small
-golden star (matching Vini's suit), and a cyan collar. Cute, chubby, toddler-friendly. Views: FRONT, 3/4
-FRONT, SIDE (walking), BACK. Second row, 8 expressions: HAPPY, TONGUE OUT, CURIOUS (head tilt), SURPRISED,
-SAD, SLEEPY, BARKING, LICKING NOSE. Plain light gray background, 1536x1024.
-```
-Folha 2:
-```
-Same puppy, same style, exploded parts sheet for 2D animation on a plain light gray background, every
-part separated with space around it, no overlap, no text: side-view body with vest (no head, no legs),
-head side view without ears, left ear, right ear, front left leg, front right leg, back left leg, back
-right leg, tail, then 6 separate eye pairs (open, closed, happy arcs, surprised, sad, looking up) and 6
-mouths (smile, tongue out, open bark, small o, sad, closed). 1536x1024.
-```
+## Personagens e figuras
+Os prompts de personagens e figuras ficam em `docs/ARTE_PERSONAGENS_E_FIGURAS.md`, com a lista completa e a prioridade.
