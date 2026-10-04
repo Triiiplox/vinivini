@@ -188,9 +188,13 @@ func _run() -> void:
 		for t in ["speech", "english"]:
 			Router.reset_to("parent", {"tab": t})
 			await shot("parent_%s" % t, 1.0)
+	if _want("home"):
+		Router.reset_to("home", {})
+		await shot("home_1", 2.0)
 	if _want("academy"):
-		Router.reset_to("academy", {})
-		await shot("academy_1", 2.0)
+		for a in ["reading", "math", "logic", "science", "astronomy", "emotion"]:
+			Router.reset_to("academy", {"area": a})
+			await shot("academy_%s" % a, 2.0)
 	if _want("lesson"):
 		for id in ["vogais", "ler_frases", "fases_da_lua", "classificar", "ordem_numeros", "dia_e_noite", "emocoes",
 				"convivencia", "plantas", "medidas", "estrelas", "agua"]:
