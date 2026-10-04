@@ -46,3 +46,29 @@ Cada passo abaixo só fecha quando passou em três provas:
 | 17 | Arte do Astro e do cachorrinho no estilo pintado do Vini. Depende de imagens; os prompts ficam em `docs/PROMPTS_VIDEO_E_MUSICA.md`. |
 | 18 | Explicar o porquê do erro nas perguntas de matemática (campo `why` por pergunta). |
 | 19 | Mais conteúdo por trilha: pelo menos 8 lições por matéria. |
+
+## v4.0: Conteúdo de 1º/2º ano e evolução visível (feito)
+O retorno do Andro (04/10) que originou esta etapa:
+- o Vini terminou tudo em um dia;
+- não dava para ver a evolução;
+- era básico e raso demais.
+
+Ele lê palavras inteiras e faz mais que contas até 20.
+
+| Passo | O quê | Prova |
+|---|---|---|
+| 20 | Pesquisa de apps de referência e sequência de conteúdo (docs/PESQUISA_APPS_PROGRESSAO.md) | documento com fontes |
+| 21 | Trilha por fases (lição × estágio), número e estrelas em cada fase, barra "feitas/total" (ADR-035) | teste test_stages; captura da trilha |
+| 22 | Teste para pular: 5 perguntas, quem acerta quase tudo pula 3 fases | teste test_jump_test_skips_three_stages |
+| 23 | 9 patentes por fases concluídas, medalha, promoção com festa e voz (ADR-036) | captura evolucao_promocao |
+| 24 | 18 lições novas (matemática até tabuada, horas, dinheiro e frações; leitura com dígrafos, frases e textos; lógica) | conferência automática das respostas; 70 capturas revisadas |
+| 25 | Ciências e astronomia: +84 perguntas com fatos verificáveis | — |
+
+## v4.1: Próximo
+| Passo | O quê | Depende de |
+|---|---|---|
+| 26 | Leitura com figuras: 100 palavras novas (ler palavra → figura; frases com mais objetos) | lote 2 de arte (docs/ARTE_LOTE_2_PALAVRAS.md) |
+| 27 | Mais lógica: quebra-cabeça 4×4 com figuras, labirinto com setas, memória com mais pares | — |
+| 28 | Álbum de coleção: um cartão por lição concluída (planeta, bicho, missão) | — |
+| 29 | Nivelamento inicial por matéria: 8 perguntas que já colocam a criança na fase certa | — |
+| 30 | Relatório para os pais: fases por matéria, erros mais comuns, tempo | — |
