@@ -210,6 +210,12 @@ func _run() -> void:
 				s._advance()
 				await get_tree().process_frame
 			await shot("lesson_%s_2" % id, 3.0)
+	if _want("v41nivel"):
+		# Nivelamento: primeira entrada numa matéria ainda não nivelada.
+		(SaveService.progress.data(SaveService.profile_id)["placed"] as Dictionary).erase("reading")
+		Router.reset_to("academy", {"area": "reading"})
+		await get_tree().create_timer(9.0).timeout
+		await shot("v41_nivelamento", 4.0)
 	if _want("v41"):
 		# Fim de fase (Próxima), teclado numérico, treino sem fim e trilha nova.
 		Router.reset_to("academy", {"area": "math"})
@@ -230,6 +236,10 @@ func _run() -> void:
 		await shot("v41_fim_fase", 4.5)
 		Router.reset_to("seg_lesson", {"lesson": "somar", "endless": "math", "back": "academy"})
 		await shot("v41_treino", 3.0)
+		Router.reset_to("seg_lesson", {"lesson": "frases_posicao", "stage": 2, "back": "academy"})
+		await shot("v41_leitura", 4.0)
+		Router.reset_to("seg_lesson", {"lesson": "planetas", "stage": 2, "back": "academy"})
+		await shot("v41_astronomia", 4.0)
 	if _want("evolucao"):
 		# Trilha com progresso, tela principal com patente e a promoção.
 		var ns := Stages.nodes("math")

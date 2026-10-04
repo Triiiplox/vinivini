@@ -6698,15 +6698,16 @@
      "say": "Astronautas pisaram na Lua em 1969, na missão Apollo 11. Quem já andou na Lua?",
      "opts": [
       {
-       "t": "planet",
-       "id": "mars"
+       "t": "weather",
+       "w": "rain"
       },
       {
        "t": "crew",
        "suit": "suit_blue"
       },
       {
-       "t": "galaxy"
+       "t": "water",
+       "state": "steam"
       }
      ],
      "ok": 1,
@@ -6739,17 +6740,16 @@
      "opts": [
       {
        "t": "water",
-       "state": "ice"
+       "state": "steam"
+      },
+      {
+       "t": "galaxy"
       },
       {
        "t": "vini"
-      },
-      {
-       "t": "weather",
-       "w": "rain"
       }
      ],
-     "ok": 1,
+     "ok": 2,
      "lvl": 3
     }
    ],
@@ -7060,18 +7060,20 @@
      "say": "A Terra gira em volta de si mesma uma vez por dia. Por isso existe o quê?",
      "opts": [
       {
+       "t": "planet",
+       "id": "moon"
+      },
+      {
+       "t": "art",
+       "set": "props",
+       "id": "asteroid"
+      },
+      {
        "t": "daynight",
        "side": "night"
-      },
-      {
-       "t": "weather",
-       "w": "snow"
-      },
-      {
-       "t": "blackhole"
       }
      ],
-     "ok": 0,
+     "ok": 2,
      "lvl": 3
     }
    ],
@@ -8027,20 +8029,19 @@
      "say": "Os cometas são feitos de gelo e poeira. Do que é feito um cometa?",
      "opts": [
       {
-       "t": "weather",
-       "w": "rain"
-      },
-      {
-       "t": "art",
-       "set": "props",
-       "id": "asteroid"
+       "t": "water",
+       "state": "ice"
       },
       {
        "t": "water",
-       "state": "ice"
+       "state": "steam"
+      },
+      {
+       "t": "water",
+       "state": "liquid"
       }
      ],
-     "ok": 2,
+     "ok": 0,
      "lvl": 3
     }
    ],
@@ -8098,7 +8099,7 @@
        "w": "sun"
       },
       {
-       "t": "satellite"
+       "t": "blackhole"
       },
       {
        "t": "comet"
@@ -8285,7 +8286,8 @@
        "t": "satellite"
       },
       {
-       "t": "blackhole"
+       "t": "planet",
+       "id": "mars"
       }
      ],
      "ok": 1,
@@ -8360,17 +8362,17 @@
      "say": "O que protege o astronauta no espaço?",
      "opts": [
       {
-       "t": "weather",
-       "w": "rain"
-      },
-      {
        "t": "vini"
       },
       {
-       "t": "galaxy"
+       "t": "planet",
+       "id": "mars"
+      },
+      {
+       "t": "satellite"
       }
      ],
-     "ok": 1,
+     "ok": 0,
      "lvl": 1,
      "after": "O traje espacial!"
     },
@@ -8408,19 +8410,18 @@
      "say": "O astronauta usa traje espacial. Quem é o astronauta?",
      "opts": [
       {
-       "t": "water",
-       "state": "steam"
+       "t": "crew",
+       "suit": "suit_orange"
       },
       {
        "t": "planet",
-       "id": "mars"
+       "id": "moon"
       },
       {
-       "t": "crew",
-       "suit": "suit_orange"
+       "t": "comet"
       }
      ],
-     "ok": 2,
+     "ok": 0,
      "lvl": 1
     },
     {
@@ -8448,18 +8449,17 @@
      "say": "O primeiro brasileiro a ir ao espaço foi Marcos Pontes, em 2006. Ele era o quê?",
      "opts": [
       {
-       "t": "galaxy"
-      },
-      {
-       "t": "weather",
-       "w": "snow"
+       "t": "comet"
       },
       {
        "t": "crew",
        "suit": "suit_blue"
+      },
+      {
+       "t": "blackhole"
       }
      ],
-     "ok": 2,
+     "ok": 1,
      "lvl": 3
     }
    ],
@@ -8728,14 +8728,15 @@
      "say": "O que o telescópio James Webb fotografa?",
      "opts": [
       {
-       "t": "water",
-       "state": "steam"
+       "t": "planet",
+       "id": "moon"
       },
       {
        "t": "galaxy"
       },
       {
-       "t": "satellite"
+       "t": "water",
+       "state": "liquid"
       }
      ],
      "ok": 1,
@@ -8858,15 +8859,14 @@
      "opts": [
       {
        "t": "weather",
-       "w": "snow"
+       "w": "rain"
       },
       {
        "t": "water",
        "state": "liquid"
       },
       {
-       "t": "planet",
-       "id": "mars"
+       "t": "galaxy"
       }
      ],
      "ok": 1,
@@ -8938,11 +8938,12 @@
      "say": "Do que a planta precisa para crescer?",
      "opts": [
       {
-       "t": "planet",
-       "id": "mars"
+       "t": "water",
+       "state": "steam"
       },
       {
-       "t": "galaxy"
+       "t": "planet",
+       "id": "mars"
       },
       {
        "t": "water",
@@ -10136,12 +10137,11 @@
      "say": "O que afunda na água?",
      "opts": [
       {
-       "t": "weather",
-       "w": "rain"
+       "t": "galaxy"
       },
       {
-       "t": "water",
-       "state": "ice"
+       "t": "weather",
+       "w": "snow"
       },
       {
        "t": "painted",
@@ -10222,14 +10222,14 @@
        "state": "steam"
       },
       {
-       "t": "satellite"
-      },
-      {
        "t": "weather",
        "w": "sun"
+      },
+      {
+       "t": "satellite"
       }
      ],
-     "ok": 2,
+     "ok": 1,
      "lvl": 1
     },
     {
@@ -21966,7 +21966,7 @@
         "set": "words",
         "id": "estrela"
        },
-       "rel": "ao_lado",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
@@ -21980,7 +21980,7 @@
         "set": "words",
         "id": "estrela"
        },
-       "rel": "na_frente",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -22019,7 +22019,76 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "bola"
+        "id": "peixe"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "O PEIXE ESTÁ AO LADO DA CASA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
        },
        "rel": "ao_lado",
        "b": {
@@ -22033,21 +22102,7 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "bola"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "bola"
+        "id": "estrela"
        },
        "rel": "em_cima",
        "b": {
@@ -22057,11 +22112,11 @@
        }
       }
      ],
-     "ok": 0,
+     "ok": 2,
      "lvl": 1,
      "show": {
       "t": "text",
-      "s": "A BOLA ESTÁ AO LADO DA VACA.",
+      "s": "A ESTRELA ESTÁ EM CIMA DA VACA.",
       "c": "#FFFFFF"
      }
     },
@@ -22076,7 +22131,7 @@
         "set": "words",
         "id": "bola"
        },
-       "rel": "na_frente",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -22090,7 +22145,7 @@
         "set": "words",
         "id": "bola"
        },
-       "rel": "ao_lado",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
@@ -22129,6 +22184,61 @@
        "a": {
         "t": "art",
         "set": "words",
+        "id": "dado"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "dado"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "dado"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 1,
+     "show": {
+      "t": "text",
+      "s": "O DADO ESTÁ AO LADO DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
         "id": "pato"
        },
        "rel": "ao_lado",
@@ -22145,7 +22255,7 @@
         "set": "words",
         "id": "pato"
        },
-       "rel": "dentro",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
@@ -22184,13 +22294,13 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "bola"
+        "id": "dado"
        },
        "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       },
       {
@@ -22198,13 +22308,13 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "bola"
+        "id": "dado"
        },
-       "rel": "na_frente",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       },
       {
@@ -22212,13 +22322,13 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "bola"
+        "id": "dado"
        },
-       "rel": "atras",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       }
      ],
@@ -22226,7 +22336,7 @@
      "lvl": 1,
      "show": {
       "t": "text",
-      "s": "A BOLA ESTÁ AO LADO DO COPO.",
+      "s": "O DADO ESTÁ AO LADO DA CASA.",
       "c": "#FFFFFF"
      }
     },
@@ -22239,117 +22349,7 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "peixe"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "dentro",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      }
-     ],
-     "ok": 2,
-     "lvl": 1,
-     "show": {
-      "t": "text",
-      "s": "O PEIXE ESTÁ EM CIMA DA MALA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 1,
-     "show": {
-      "t": "text",
-      "s": "A UVA ESTÁ EM CIMA DA VACA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
+        "id": "ovo"
        },
        "rel": "embaixo",
        "b": {
@@ -22363,9 +22363,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "ovo"
        },
-       "rel": "em_cima",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -22377,9 +22377,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "ovo"
        },
-       "rel": "atras",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
@@ -22391,7 +22391,7 @@
      "lvl": 1,
      "show": {
       "t": "text",
-      "s": "A ESTRELA ESTÁ EM CIMA DA VACA.",
+      "s": "O OVO ESTÁ AO LADO DA VACA.",
       "c": "#FFFFFF"
      }
     },
@@ -22404,13 +22404,13 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "uva"
        },
-       "rel": "dentro",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "casa"
+        "id": "mala"
        }
       },
       {
@@ -22418,15 +22418,262 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "uva"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
        },
        "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "casa"
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "A UVA ESTÁ EM CIMA DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
        }
       },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "O SAPO ESTÁ EMBAIXO DO COPO.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "A UVA ESTÁ EMBAIXO DA VACA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "O PATO ESTÁ EM CIMA DA VACA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 2,
+     "lvl": 2,
+     "show": {
+      "t": "text",
+      "s": "O GATO ESTÁ EM CIMA DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
       {
        "t": "scene",
        "a": {
@@ -22440,20 +22687,7 @@
         "set": "words",
         "id": "casa"
        }
-      }
-     ],
-     "ok": 0,
-     "lvl": 2,
-     "show": {
-      "t": "text",
-      "s": "A ESTRELA ESTÁ DENTRO DA CASA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
+      },
       {
        "t": "scene",
        "a": {
@@ -22465,7 +22699,7 @@
        "b": {
         "t": "art",
         "set": "words",
-        "id": "foguete"
+        "id": "casa"
        }
       },
       {
@@ -22479,21 +22713,7 @@
        "b": {
         "t": "art",
         "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
-       },
-       "rel": "dentro",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
+        "id": "casa"
        }
       }
      ],
@@ -22501,7 +22721,7 @@
      "lvl": 2,
      "show": {
       "t": "text",
-      "s": "A ESTRELA ESTÁ DENTRO DO FOGUETE.",
+      "s": "A ESTRELA ESTÁ EM CIMA DA CASA.",
       "c": "#FFFFFF"
      }
     },
@@ -22516,21 +22736,7 @@
         "set": "words",
         "id": "estrela"
        },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
-       },
-       "rel": "embaixo",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -22550,9 +22756,23 @@
         "set": "words",
         "id": "copo"
        }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
       }
      ],
-     "ok": 1,
+     "ok": 2,
      "lvl": 2,
      "show": {
       "t": "text",
@@ -22571,11 +22791,11 @@
         "set": "words",
         "id": "uva"
        },
-       "rel": "dentro",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       },
       {
@@ -22589,7 +22809,7 @@
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       },
       {
@@ -22603,7 +22823,7 @@
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
+        "id": "casa"
        }
       }
      ],
@@ -22611,62 +22831,7 @@
      "lvl": 2,
      "show": {
       "t": "text",
-      "s": "A UVA ESTÁ DENTRO DO COPO.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      }
-     ],
-     "ok": 2,
-     "lvl": 2,
-     "show": {
-      "t": "text",
-      "s": "O GATO ESTÁ EMBAIXO DO COPO.",
+      "s": "A UVA ESTÁ EM CIMA DA CASA.",
       "c": "#FFFFFF"
      }
     },
@@ -22680,67 +22845,12 @@
         "t": "art",
         "set": "words",
         "id": "sapo"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      }
-     ],
-     "ok": 2,
-     "lvl": 2,
-     "show": {
-      "t": "text",
-      "s": "O SAPO ESTÁ EM CIMA DA MALA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
        },
        "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "mala"
+        "id": "casa"
        }
       },
       {
@@ -22748,142 +22858,582 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "gato"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "dentro",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      }
-     ],
-     "ok": 2,
-     "lvl": 2,
-     "show": {
-      "t": "text",
-      "s": "O GATO ESTÁ DENTRO DA MALA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "bola"
-       },
-       "rel": "dentro",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "bola"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "bola"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 2,
-     "show": {
-      "t": "text",
-      "s": "A BOLA ESTÁ DENTRO DO FOGUETE.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
+        "id": "sapo"
        },
        "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "vaca"
+        "id": "casa"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
        }
       }
      ],
      "ok": 1,
      "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "O SAPO ESTÁ EMBAIXO DA CASA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "A ESTRELA ESTÁ AO LADO DO FOGUETE.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "bola"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "A BOLA ESTÁ EMBAIXO DO COPO.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "A ESTRELA ESTÁ EMBAIXO DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "O GATO ESTÁ EM CIMA DO COPO.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "ovo"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "ovo"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "ovo"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "O OVO ESTÁ EM CIMA DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "casa"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "O SAPO ESTÁ AO LADO DA CASA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "mala"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 3,
+     "show": {
+      "t": "text",
+      "s": "O GATO ESTÁ EMBAIXO DA MALA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "pato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "copo"
+       }
+      }
+     ],
+     "ok": 1,
+     "lvl": 4,
+     "show": {
+      "t": "text",
+      "s": "O GATO ESTÁ AO LADO DO COPO.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "estrela"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       },
+       "rel": "embaixo",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      }
+     ],
+     "ok": 0,
+     "lvl": 4,
+     "show": {
+      "t": "text",
+      "s": "A ESTRELA ESTÁ EMBAIXO DA VACA.",
+      "c": "#FFFFFF"
+     }
+    },
+    {
+     "k": "pick",
+     "say": "Leia a frase e toque na figura certa.",
+     "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       "rel": "em_cima",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "sapo"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "peixe"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "vaca"
+       }
+      }
+     ],
+     "ok": 2,
+     "lvl": 4,
      "show": {
       "t": "text",
       "s": "O PEIXE ESTÁ AO LADO DA VACA.",
@@ -22899,9 +23449,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "peixe"
+        "id": "dado"
        },
-       "rel": "atras",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
@@ -22913,9 +23463,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "peixe"
+        "id": "gato"
        },
-       "rel": "ao_lado",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
@@ -22927,9 +23477,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "peixe"
+        "id": "gato"
        },
-       "rel": "na_frente",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
@@ -22937,11 +23487,11 @@
        }
       }
      ],
-     "ok": 1,
-     "lvl": 3,
+     "ok": 2,
+     "lvl": 4,
      "show": {
       "t": "text",
-      "s": "O PEIXE ESTÁ AO LADO DA VACA.",
+      "s": "O GATO ESTÁ EMBAIXO DA VACA.",
       "c": "#FFFFFF"
      }
     },
@@ -22949,6 +23499,34 @@
      "k": "pick",
      "say": "Leia a frase e toque na figura certa.",
      "opts": [
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "gato"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       }
+      },
+      {
+       "t": "scene",
+       "a": {
+        "t": "art",
+        "set": "words",
+        "id": "uva"
+       },
+       "rel": "ao_lado",
+       "b": {
+        "t": "art",
+        "set": "words",
+        "id": "foguete"
+       }
+      },
       {
        "t": "scene",
        "a": {
@@ -22962,38 +23540,10 @@
         "set": "words",
         "id": "foguete"
        }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "dentro",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
       }
      ],
      "ok": 1,
-     "lvl": 3,
+     "lvl": 4,
      "show": {
       "t": "text",
       "s": "A UVA ESTÁ AO LADO DO FOGUETE.",
@@ -23011,295 +23561,6 @@
         "set": "words",
         "id": "peixe"
        },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "vaca"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 3,
-     "show": {
-      "t": "text",
-      "s": "O PEIXE ESTÁ ATRÁS DA VACA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "dado"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "dado"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "dado"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      }
-     ],
-     "ok": 1,
-     "lvl": 3,
-     "show": {
-      "t": "text",
-      "s": "O DADO ESTÁ NA FRENTE DO FOGUETE.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 3,
-     "show": {
-      "t": "text",
-      "s": "O GATO ESTÁ NA FRENTE DO FOGUETE.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "uva"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "foguete"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 3,
-     "show": {
-      "t": "text",
-      "s": "A UVA ESTÁ ATRÁS DO FOGUETE.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "peixe"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 3,
-     "show": {
-      "t": "text",
-      "s": "O PEIXE ESTÁ ATRÁS DO COPO.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "ovo"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "ovo"
-       },
        "rel": "embaixo",
        "b": {
         "t": "art",
@@ -23312,138 +23573,15 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "dado"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      }
-     ],
-     "ok": 1,
-     "lvl": 4,
-     "show": {
-      "t": "text",
-      "s": "O OVO ESTÁ EMBAIXO DA MALA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
+        "id": "peixe"
        },
        "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "casa"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "gato"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "casa"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "ovo"
-       },
-       "rel": "em_cima",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "casa"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 4,
-     "show": {
-      "t": "text",
-      "s": "O GATO ESTÁ EM CIMA DA CASA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "pato"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
         "id": "mala"
        }
       },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "pato"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "mala"
-       }
-      }
-     ],
-     "ok": 2,
-     "lvl": 4,
-     "show": {
-      "t": "text",
-      "s": "O PATO ESTÁ AO LADO DA MALA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
       {
        "t": "scene",
        "a": {
@@ -23451,47 +23589,19 @@
         "set": "words",
         "id": "bolo"
        },
-       "rel": "ao_lado",
+       "rel": "embaixo",
        "b": {
         "t": "art",
         "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
-       },
-       "rel": "ao_lado",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
+        "id": "mala"
        }
       }
      ],
-     "ok": 2,
+     "ok": 0,
      "lvl": 4,
      "show": {
       "t": "text",
-      "s": "A ESTRELA ESTÁ AO LADO DO COPO.",
+      "s": "O PEIXE ESTÁ EMBAIXO DA MALA.",
       "c": "#FFFFFF"
      }
     },
@@ -23504,64 +23614,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "peixe"
+        "id": "estrela"
        },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "casa"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "ovo"
-       },
-       "rel": "embaixo",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "casa"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "ovo"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "casa"
-       }
-      }
-     ],
-     "ok": 1,
-     "lvl": 4,
-     "show": {
-      "t": "text",
-      "s": "O OVO ESTÁ EMBAIXO DA CASA.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "atras",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -23573,9 +23628,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "sapo"
+        "id": "estrela"
        },
-       "rel": "na_frente",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
@@ -23589,7 +23644,7 @@
         "set": "words",
         "id": "ovo"
        },
-       "rel": "atras",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -23601,7 +23656,7 @@
      "lvl": 4,
      "show": {
       "t": "text",
-      "s": "O SAPO ESTÁ ATRÁS DA VACA.",
+      "s": "A ESTRELA ESTÁ AO LADO DA VACA.",
       "c": "#FFFFFF"
      }
     },
@@ -23614,64 +23669,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "sapo"
+        "id": "gato"
        },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "atras",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      },
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "estrela"
-       },
-       "rel": "na_frente",
-       "b": {
-        "t": "art",
-        "set": "words",
-        "id": "copo"
-       }
-      }
-     ],
-     "ok": 0,
-     "lvl": 4,
-     "show": {
-      "t": "text",
-      "s": "O SAPO ESTÁ NA FRENTE DO COPO.",
-      "c": "#FFFFFF"
-     }
-    },
-    {
-     "k": "pick",
-     "say": "Leia a frase e toque na figura certa.",
-     "opts": [
-      {
-       "t": "scene",
-       "a": {
-        "t": "art",
-        "set": "words",
-        "id": "sapo"
-       },
-       "rel": "embaixo",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -23683,9 +23683,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "ovo"
        },
-       "rel": "embaixo",
+       "rel": "ao_lado",
        "b": {
         "t": "art",
         "set": "words",
@@ -23697,9 +23697,9 @@
        "a": {
         "t": "art",
         "set": "words",
-        "id": "estrela"
+        "id": "ovo"
        },
-       "rel": "atras",
+       "rel": "em_cima",
        "b": {
         "t": "art",
         "set": "words",
@@ -23711,7 +23711,7 @@
      "lvl": 4,
      "show": {
       "t": "text",
-      "s": "A ESTRELA ESTÁ EMBAIXO DA CASA.",
+      "s": "O OVO ESTÁ AO LADO DA CASA.",
       "c": "#FFFFFF"
      }
     }

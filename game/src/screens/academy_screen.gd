@@ -83,8 +83,9 @@ func _build_trail() -> void:
 	next_index = next_i
 	# O Vini fica ao lado da fase que brilha ("é aqui que eu vou").
 	if not path_pts.is_empty():
-		var vini := CharacterRig2D.new("vini", 220.0)
-		vini.position = Vector2(path_pts[mini(next_i, path_pts.size() - 1)].x - 210, 700)
+		var vini := CharacterRig2D.new("vini", 170.0)
+		var cur := path_pts[mini(next_i, path_pts.size() - 1)]
+		vini.position = Vector2(cur.x - 40, 712)
 		vini.z_index = 20
 		world.add_child(vini)
 		vini.play("point")
@@ -170,11 +171,8 @@ func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
 func _stage_cover(les: Dictionary, stage: int) -> Dictionary:
 	if stage > 1:
 		for q in les.get("ask", []):
-			if int(q.get("lvl", 1)) == stage:
-				if q.has("show"):
-					return q["show"]
-				if q.has("opts"):
-					return q["opts"][int(q.get("ok", 0))]
+			if int(q.get("lvl", 1)) == stage and q.has("show") and str((q["show"] as Dictionary).get("s", "")).length() < 14:
+				return q["show"]  # a conta/figura daquela fase (não a resposta solta)
 	return AcademyCover.cover(les)
 
 

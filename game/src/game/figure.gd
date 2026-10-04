@@ -171,7 +171,7 @@ static func _fit_font(t: String, bw: float, bh: float) -> int:
 	var max_lines := 1 if t.length() <= 16 else 6
 	for lines in range(1, max_lines + 1):
 		var per := maxf(float(longest), ceilf(t.length() / float(lines)) * 1.12) if lines > 1 else float(t.length())
-		var fs := minf(bw * 0.94 / (per * 0.6), bh * 0.9 / (lines * 1.28))
+		var fs := minf(bw * 0.9 / (per * 0.64), bh * 0.86 / (lines * 1.42))
 		best = maxf(best, fs)
 	return int(minf(best, bh * 0.62))
 

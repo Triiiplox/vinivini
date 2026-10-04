@@ -426,8 +426,10 @@ BIG = {"casa": ("casa", "DA"), "mala": ("mala", "DA"), "copo": ("copo", "DO"), "
        "vaca": ("vaca", "DA")}
 REL = {"em_cima": "EM CIMA", "embaixo": "EMBAIXO", "dentro": "DENTRO", "ao_lado": "AO LADO", "atras": "ATRÁS",
        "na_frente": "NA FRENTE"}
-REL_STAGE = {1: ["em_cima", "ao_lado"], 2: ["embaixo", "dentro", "em_cima"], 3: ["atras", "na_frente", "ao_lado"],
-             4: list(REL)}
+# Só posições que o desenho mostra sem dúvida (dentro/atrás/na frente ficavam ambíguos na tela).
+REL_STAGE = {1: ["em_cima", "ao_lado"], 2: ["embaixo", "em_cima"], 3: ["em_cima", "embaixo", "ao_lado"],
+             4: ["em_cima", "embaixo", "ao_lado"]}
+CLEAR_REL = ["em_cima", "embaixo", "ao_lado"]
 
 TEXTS = [
     ("A LUA GIRA EM VOLTA DA TERRA. ELA NÃO TEM LUZ PRÓPRIA: ELA BRILHA COM A LUZ DO SOL.",
@@ -502,7 +504,7 @@ def reading(m):
                         "dentro": "DENTRO " + de_b, "ao_lado": "AO LADO " + de_b, "atras": "ATRÁS " + de_b,
                         "na_frente": "NA FRENTE " + de_b}[rel]
             sentence = "%s %s %s %s %s." % (art_a, a.upper(), verb, prep, b.upper())
-            others = R.sample([r for r in REL if r != rel and not (r == "dentro" and b == "vaca")], 2)
+            others = [r for r in CLEAR_REL if r != rel]
             if lvl == 4:
                 # distrator: objeto trocado na mesma posição
                 a2 = R.choice([x for x in OBJ if x != a])
