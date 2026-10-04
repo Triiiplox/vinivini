@@ -12,6 +12,7 @@ const INK := Color(0.03, 0.06, 0.15, 0.9)
 
 var spec: Dictionary = {}
 var box := 200.0
+var _painted := false
 
 
 func _init(s: Dictionary = {}, size_px: float = 200.0) -> void:
@@ -19,8 +20,35 @@ func _init(s: Dictionary = {}, size_px: float = 200.0) -> void:
 	box = size_px
 
 
+## Figuras de ciência com pintura (assets/art/painted/science): planta por estágio, tempo, estados da água,
+## cometa, satélite, buraco negro e galáxia. Sem pintura, o desenho do código continua valendo.
+func _science_name() -> String:
+	match str(spec.get("t", "")):
+		"plant":
+			return "plant_%d" % clampi(int(spec.get("stage", 3)), 0, 4)
+		"weather":
+			return str(spec.get("w", "sun"))
+		"water":
+			return str(spec.get("state", "liquid"))
+		"comet", "satellite", "blackhole", "galaxy":
+			return str(spec["t"])
+	return ""
+
+
 func _ready() -> void:
 	var t := str(spec.get("t", ""))
+	var sci := _science_name()
+	if sci != "":
+		var tex := ArtSprite.painted_tex("science", sci)
+		if tex:
+			var sp := Sprite2D.new()
+			sp.texture = tex
+			sp.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+			var k := box * 0.82 / float(maxi(tex.get_width(), tex.get_height()))
+			sp.scale = Vector2(k, k)
+			add_child(sp)
+			_painted = true
+			return
 	match t:
 		"art":
 			var a := ArtSprite.new(str(spec["set"]), str(spec["id"]), box * float(spec.get("k", 0.86)))
@@ -112,6 +140,8 @@ func _count(n: int) -> void:
 
 
 func _draw() -> void:
+	if _painted:
+		return
 	var r := box * 0.4
 	match str(spec.get("t", "")):
 		"color":

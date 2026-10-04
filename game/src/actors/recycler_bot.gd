@@ -10,6 +10,9 @@ var hatch: Polygon2D
 var glow: Polygon2D
 var _state := "monster_open"
 var _chew_t := 0.0
+## Arte pintada: boca fechada, aberta, mastigando e cuspindo (errou: cospe o cartão).
+var _painted: Sprite2D
+var _tex: Dictionary = {}
 
 
 func _init(h: float = 330.0) -> void:
@@ -17,6 +20,15 @@ func _init(h: float = 330.0) -> void:
 
 
 func _ready() -> void:
+	var dir := "res://assets/art/painted/chars/recycler/"
+	if ResourceLoader.exists(dir + "closed.png"):
+		for n in ["closed", "open", "chew", "spit"]:
+			_tex[n] = load(dir + n + ".png")
+		_painted = Sprite2D.new()
+		_painted.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		add_child(_painted)
+		set_item(_state)
+		return
 	body = NpcActor.new("robot", "happy", height_px)
 	body.position = Vector2(0, height_px * 0.5)
 	add_child(body)
@@ -44,6 +56,10 @@ func _rect(c: Vector2, size: Vector2, col: Color, r: float) -> Polygon2D:
 
 func set_item(n: String, _cols: Dictionary = {}) -> void:
 	_state = n
+	if _painted:
+		var key: String = {"monster_open": "open", "monster_chew": "chew", "monster_spit": "spit"}.get(n, "closed")
+		_set_tex(str(key))
+		return
 	if hatch == null:
 		return
 	var open := n == "monster_open"
@@ -59,7 +75,20 @@ func bounce(strength: float = 0.25) -> void:
 	tw.tween_property(self, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
+func _set_tex(key: String) -> void:
+	var tex: Texture2D = _tex[key]
+	_painted.texture = tex
+	var k := height_px / float(tex.get_height())
+	_painted.scale = Vector2(k, k)
+
+
+## Errou: cospe o cartão (pose "cuspindo") e volta a fechar.
 func shake(px: float = 8.0) -> void:
+	if _painted:
+		_set_tex("spit")
+		get_tree().create_timer(0.6).timeout.connect(func():
+			if _state == "monster_closed" or _state == "monster_chew":
+				_set_tex("closed"))
 	var x0 := position.x
 	var tw := create_tween()
 	for i in 4:
@@ -68,6 +97,11 @@ func shake(px: float = 8.0) -> void:
 
 
 func _process(delta: float) -> void:
+	if _painted:
+		if _state == "monster_chew":
+			_chew_t += delta * 9.0
+			_painted.scale.y = _painted.scale.x * (1.0 + 0.05 * sin(_chew_t))
+		return
 	if _state == "monster_chew" and hatch:
 		_chew_t += delta * 14.0
 		hatch.scale.y = 0.35 + 0.25 * absf(sin(_chew_t))

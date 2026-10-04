@@ -1,0 +1,28 @@
+{
+ "size": [
+  312,
+  440
+ ],
+ "neck": [
+  156.5,
+  250
+ ],
+ "shoulder_l": [
+  80,
+  290
+ ],
+ "shoulder_r": [
+  232,
+  290
+ ],
+ "heads": {
+  "happy": "head_happy.png",
+  "big_smile": "head_big_smile.png",
+  "calm": "head_calm.png",
+  "surprised": "head_surprised.png",
+  "sad": "head_sad.png",
+  "thinking": "head_thinking.png",
+  "angry": "head_angry.png",
+  "scared": "head_scared.png"
+ }
+}

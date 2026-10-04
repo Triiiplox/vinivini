@@ -21,16 +21,17 @@ SRC = "vini_v3_heads.png"
 # Se a pasta existir, usa ela no lugar de recortar SRC. A 9 agora é piscadinha (só o olho direito fechado).
 HEADS_DIR = "heads_v4"
 WINK = True
-KEEP = {"tired"}  # sem cabeça nova equivalente: mantém o arquivo anterior
+KEEP = set()  # humores sem cabeça nova equivalente: mantém o arquivo anterior
 PAD = 40
 COLS = [(90, 510), (515, 930), (940, 1370)]
 ROWS = [(0, 378), (378, 738), (738, 1086)]
 # Ordem da grade (prompt 3): 1 happy, 2 big laugh, 3 curious, 4 surprised, 5 sad, 6 thinking,
 # 7 proud, 8 talking, 9 olhos fechados (v4: piscadinha).
 MOODS = {"happy": 1, "big_smile": 2, "curious": 3, "surprised": 4, "sad": 5, "thinking": 6,
-         "angry": 6, "scared": 4, "calm": 7, "tired": 9, "proud": 0}  # 0 = cabeça da própria figura frontal
+         "angry": 10, "scared": 11, "calm": 7, "tired": 12, "proud": 0}  # 10–12: folha v5 (bravo, medo, cansado)  # 0 = cabeça da própria figura frontal
 VISEMES = {"a": 8, "e": 1, "o": 4, "mbp": 7}
 STRAIGHT = [1, 2, 4, 5, 7, 8]  # olhar reto: valem para medir a escala
+STRAIGHT_V5 = [10, 11]  # cabeças 10–12 vêm de outra folha (outro tamanho): escala própria
 
 
 def soft_ellipse(size, c, rx, ry, feather):
@@ -99,7 +100,9 @@ def main():
 
     raw = {}
     if os.path.isdir(HEADS_DIR):
-        for k in range(1, 10):
+        for k in range(1, 13):
+            if not os.path.exists(os.path.join(HEADS_DIR, "%d.png" % k)):
+                continue
             im = Image.open(os.path.join(HEADS_DIR, "%d.png" % k)).convert("RGBA")
             padded = Image.new("RGBA", (im.width + 40, im.height + 40), (0, 0, 0, 0))
             padded.alpha_composite(im, (20, 20))
@@ -111,14 +114,24 @@ def main():
                 raw[r * 3 + c + 1] = isolate(np.array(sheet.crop((x0, y0, x1, y1))))
     lm = {k: landmarks(a) for k, a in raw.items()}
     scale = bpd / float(np.median([lm[k][0][1][0] - lm[k][0][0][0] for k in STRAIGHT]))
+    scale_v5 = scale
+    if all(k in lm for k in STRAIGHT_V5):
+        scale_v5 = bpd / float(np.median([lm[k][0][1][0] - lm[k][0][0][0] for k in STRAIGHT_V5]))
     heads = {0: base}
     for k, a in raw.items():
         pts, box = lm[k]
+        if k >= 10:
+            # cansado (12): olhos quase fechados enganam as pupilas; usa a linha dos olhos da cabeça 11
+            if k == 12:
+                pts = [(p[0], p[1]) for p in lm[11][0]]
+                pts = [(pts[0][0] - lm[11][1][0] + box[0], pts[0][1] - lm[11][1][1] + box[1]),
+                       (pts[1][0] - lm[11][1][0] + box[0], pts[1][1] - lm[11][1][1] + box[1])]
         anc = anchor(pts, box)
+        sc = scale_v5 if k >= 10 else scale
         im = Image.fromarray(a)
-        im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
+        im = im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS)
         out = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        out.alpha_composite(im, (int(round(banc[0] - anc[0] * scale)), int(round(banc[1] - anc[1] * scale))))
+        out.alpha_composite(im, (int(round(banc[0] - anc[0] * sc)), int(round(banc[1] - anc[1] * sc))))
         heads[k] = out
 
     # Boca da base: centro entre a linha dos olhos e o queixo (≈ 62% do caminho).

@@ -11,10 +11,10 @@
   "surprised": "4",
   "sad": "5",
   "thinking": "6",
-  "angry": "6",
-  "scared": "4",
+  "angry": "10",
+  "scared": "11",
   "calm": "7",
-  "tired": "9",
+  "tired": "12",
   "proud": "0"
  },
  "visemes": [

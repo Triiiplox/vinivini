@@ -13,6 +13,8 @@ var _s: RigSprite
 var _blink := false
 var _blink_t := 2.0
 var _phase := randf() * TAU
+## Robô pintado = o Astro (mesma arte e humores); os outros tipos continuam vetoriais.
+var _astro: CosmoRig
 
 
 func _init(k: String = "robot", m: String = "happy", h: float = 160.0) -> void:
@@ -24,10 +26,19 @@ func _init(k: String = "robot", m: String = "happy", h: float = 160.0) -> void:
 func _ready() -> void:
 	_s = RigSprite.new()
 	add_child(_s)
+	if kind == "robot" and ResourceLoader.exists(CosmoRig.PAINTED_DIR + "rig_body.png"):
+		_astro = CosmoRig.new(height_px)
+		_astro.position.y = 0.0 if floating else -height_px * 0.5
+		_s.add_child(_astro)
+		_astro.set_mood(mood)
+		return
 	_refresh()
 
 
 func _refresh() -> void:
+	if _astro:
+		_astro.set_mood(mood)
+		return
 	var m := "blink" if _blink and mood == "happy" else mood
 	var piv := Vector2(150, 150 if floating else 285)
 	_s.configure("npc|%s|%s" % [kind, m], [0, 0, 300, 300], piv, height_px / 300.0,

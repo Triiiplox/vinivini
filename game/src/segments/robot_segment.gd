@@ -81,7 +81,7 @@ func _next_round() -> void:
 	crystal = PaintedProp.new("rock_small", 60.0)
 	crystal.position = _cell_pos(goal)
 	board.add_child(crystal)
-	robot = NpcActor.new("robot", "happy", 96.0)
+	robot = RoverActor.new("robot", "happy", 96.0) if RoverActor.available() else NpcActor.new("robot", "happy", 96.0)
 	robot.position = _cell_pos(start) + Vector2(0, 40)
 	board.add_child(robot)
 	var dirs: Array[Vector2i] = [Vector2i.LEFT, Vector2i.UP, Vector2i.DOWN, Vector2i.RIGHT]
@@ -235,6 +235,8 @@ func _step(i: int, cell: Vector2i) -> void:
 	if not _inside(nx) or rocks.has(nx):
 		AudioService.play_sfx("bump")
 		robot.set_mood("scared")
+		if robot is RoverActor:
+			(robot as RoverActor).point(program[i])
 		var tw0 := robot.create_tween()
 		var bump := robot.position + Vector2(program[i]) * 26.0
 		tw0.tween_property(robot, "position", bump, 0.12)
@@ -242,7 +244,9 @@ func _step(i: int, cell: Vector2i) -> void:
 		after(0.5, func(): _fail("bump"))
 		return
 	AudioService.play_sfx("robot_step")
-	if program[i].x != 0:
+	if robot is RoverActor:
+		(robot as RoverActor).point(program[i])
+	elif program[i].x != 0:
 		robot.facing = 1 if program[i].x > 0 else -1
 	var tw := robot.create_tween()
 	tw.tween_property(robot, "position", _cell_pos(nx) + Vector2(0, 40), 0.42).set_trans(Tween.TRANS_SINE)

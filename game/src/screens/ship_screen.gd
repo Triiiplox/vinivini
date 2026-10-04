@@ -73,7 +73,7 @@ func build() -> void:
 	world.add_child(vini)
 	pet = PetActor.new(110.0, str(AppState.avatar().get("pet", "pet_bip")))
 	pet.follow = vini
-	pet.position = vini.position + Vector2(-150, -170)
+	pet.position = vini.position + pet.offset
 	pet.z_index = 22
 	world.add_child(pet)
 	add_cosmo(vini.position + Vector2(160, -260), 120.0)

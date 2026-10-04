@@ -20,7 +20,7 @@ func _ready() -> void:
 	add_child(h)
 	var left := UI.vbox(6)
 	h.add_child(left)
-	character = CharacterView.new(str(activity["character"]), str(activity["emotion"]))
+	character = CharacterView.new(_who(), str(activity["emotion"]))
 	character.custom_minimum_size = Vector2(320, 320)
 	left.add_child(character)
 	feeling_label = UI.label("", 36, Palette.YELLOW, true)
@@ -40,7 +40,7 @@ func _show_feelings() -> void:
 		b.name = "Feel_%s" % em
 		b.set_meta("em", em)
 		b.content_offset_top = 170
-		var face := CharacterView.new(str(activity["character"]), str(em))
+		var face := CharacterView.new(_who(), str(em))
 		face.bob = false
 		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		face.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
@@ -126,3 +126,12 @@ func auto_answer(correct: bool) -> void:
 			if bool((k.get_meta("act") as Dictionary).get("kind", false)) and not k.disabled:
 				_on_action(k)
 				return
+
+
+## Emoções se aprendem melhor em rosto de criança de verdade: alien e estrela viram o rosto do Vini
+## (pintado); robô/Astro continua o Astro.
+func _who() -> String:
+	var c := str(activity["character"])
+	if c in ["alien", "star"] and CharacterView.painted_face("vini", "happy", false, false):
+		return "vini"
+	return c

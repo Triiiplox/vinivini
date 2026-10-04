@@ -67,20 +67,25 @@ func _make_slots(lvl: int) -> void:
 	pad.add_theme_stylebox_override("panel", UITheme.rounded(Color("#5A6488"), 20, 6, Color("#22204A")))
 	pad.size = Vector2(420, 34)
 	pad.position = Vector2(-210, 186)
+	if blueprint == "rocket" and ArtSprite.painted_tex("build", "rocket_body"):
+		pad.position.y = 222.0  # foguete pintado é mais alto: a base fica abaixo dos motores
 	pad.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	machine.add_child(pad)
 	match blueprint:
 		"rocket":
-			machine.position = Vector2(640, 250)
-			slots["rocket_body"] = [{"pos": Vector2(0, 0), "w": 130.0}]
-			slots["rocket_nose"] = [{"pos": Vector2(0, -173), "w": 130.0}]
-			slots["rocket_fin"] = [{"pos": Vector2(-94, 86), "w": 90.0}, {"pos": Vector2(94, 86), "w": 90.0, "flip": true}]
-			var n: int = need["thruster"]
-			var gap := minf(56.0, 170.0 / n)
-			var arr: Array = []
-			for i in n:
-				arr.append({"pos": Vector2(-((n - 1) * gap) / 2.0 + i * gap, 150), "w": minf(56.0, gap * 1.05)})
-			slots["thruster"] = arr
+			if ArtSprite.painted_tex("build", "rocket_body"):
+				_rocket_slots_painted()
+			else:
+				machine.position = Vector2(640, 250)
+				slots["rocket_body"] = [{"pos": Vector2(0, 0), "w": 130.0}]
+				slots["rocket_nose"] = [{"pos": Vector2(0, -173), "w": 130.0}]
+				slots["rocket_fin"] = [{"pos": Vector2(-94, 86), "w": 90.0}, {"pos": Vector2(94, 86), "w": 90.0, "flip": true}]
+				var n: int = need["thruster"]
+				var gap := minf(56.0, 170.0 / n)
+				var arr: Array = []
+				for i in n:
+					arr.append({"pos": Vector2(-((n - 1) * gap) / 2.0 + i * gap, 150), "w": minf(56.0, gap * 1.05)})
+				slots["thruster"] = arr
 		"rover":
 			machine.position = Vector2(640, 280)
 			slots["rover_body"] = [{"pos": Vector2(0, 40), "w": 330.0}]
@@ -110,6 +115,27 @@ func _make_slots(lvl: int) -> void:
 			continue
 		for sl in slots[part]:
 			_ghost(_group(part), part, sl, a)
+
+
+## Foguete pintado (o "w" é o maior lado de cada peça): corpo alto no meio, bico encaixado em cima,
+## aletas presas na parte de baixo do corpo (o suporte dourado fica do lado do corpo) e motores embaixo.
+func _rocket_slots_painted() -> void:
+	machine.position = Vector2(640, 300)
+	var body_h := 250.0
+	var body_w := body_h * 216.0 / 360.0
+	slots["rocket_body"] = [{"pos": Vector2(0, 0), "w": body_h}]
+	slots["rocket_nose"] = [{"pos": Vector2(0, -body_h / 2.0 - 68.0), "w": 160.0}]
+	var fin := 130.0
+	var fin_w := fin * 273.0 / 321.0
+	var fx := body_w / 2.0 + fin_w / 2.0 - 10.0
+	slots["rocket_fin"] = [{"pos": Vector2(-fx, 62), "w": fin, "flip": true}, {"pos": Vector2(fx, 62), "w": fin}]
+	var n: int = need["thruster"]
+	var gap := minf(74.0, 230.0 / n)
+	var tw := minf(86.0, gap * 1.2)
+	var arr: Array = []
+	for i in n:
+		arr.append({"pos": Vector2(-((n - 1) * gap) / 2.0 + i * gap, body_h / 2.0 + tw / 2.0 - 12.0), "w": tw})
+	slots["thruster"] = arr
 
 
 func _ghost(g: String, part: String, sl: Dictionary, alpha: float) -> void:
