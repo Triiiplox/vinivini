@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Gera os APKs assinados (export sem Gradle) e verifica assinatura/manifest/permissões.
 # Saída: build/ViniComandante.apk (universal: arm64 + armv7) e build/ViniComandante-v<ver>-arm64.apk
-# (menor, para enviar por chat). Cópia versionada do universal em dist/.
+# (menor). Em dist/ vai só o arm64: o universal passou de 100 MB, o limite por arquivo do GitHub, e todo
+# celular Android dos últimos ~8 anos (S10e, S23) é arm64. O universal fica em build/ para quem precisar de armv7.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT/game"
@@ -28,6 +29,6 @@ sed -i '0,/architectures\/armeabi-v7a=true/s//architectures\/armeabi-v7a=false/'
 export_apk "$ROOT/build/ViniComandante-v${VERSION}-arm64.apk"
 cp /tmp/export_presets.bak export_presets.cfg
 rm -f "$ROOT"/dist/ViniComandante-v*.apk "$ROOT"/dist/ViniComandante-v*.apk.sha256
-cp "$ROOT/build/ViniComandante.apk" "$ROOT/dist/ViniComandante-v${VERSION}.apk"
-(cd "$ROOT/dist" && sha256sum "ViniComandante-v${VERSION}.apk" | tee "ViniComandante-v${VERSION}.apk.sha256")
-(cd "$ROOT/build" && sha256sum "ViniComandante-v${VERSION}-arm64.apk")
+cp "$ROOT/build/ViniComandante-v${VERSION}-arm64.apk" "$ROOT/dist/"
+(cd "$ROOT/dist" && sha256sum "ViniComandante-v${VERSION}-arm64.apk" | tee "ViniComandante-v${VERSION}-arm64.apk.sha256")
+(cd "$ROOT/build" && sha256sum ViniComandante.apk)
