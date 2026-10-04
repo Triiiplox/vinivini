@@ -93,6 +93,37 @@ shaped robot in green and white with cyan lights, big round eyes and a big mouth
 for food), CHEWING (cheeks puffed, happy), SPITTING (mouth open, eyes squinting, a small card flying out).
 ```
 
+
+### 3b. Rover, o robozinho do jogo das setas (1 imagem)
+- **Onde aparece:** no jogo de programar. A criança monta as setas, aperta play e ele anda.
+- **Hoje:** é o mesmo robô genérico feio. Vai virar um jipinho inspirado nos rovers reais de Marte (Curiosity e Perseverance).
+```
+[bloco de estilo] A cute small six-wheeled rover robot inspired by NASA's Mars rovers (Curiosity /
+Perseverance): white and navy body with cyan lights and a small golden star, a mast with a friendly
+"head" camera that has two big round lens-eyes, six chunky wheels. Show 5 separate poses, same size:
+FRONT, SIDE facing right (driving), BACK, HAPPY (head tilted up, lights bright), BUMPED (head shaking,
+small dust puff).
+```
+
+### 3c. Gato da tripulação (pet de 30 estrelas, 1 imagem)
+- **Hoje:** usa a figura parada do gato da folha de palavras. Como pet, precisa andar e reagir.
+```
+[bloco de estilo] Character sheet of the crew's cat: a small chubby orange tabby cat wearing a tiny white
+and navy space vest with cyan lines and a golden star. Poses side by side, same size: SITTING FRONT,
+WALKING SIDE facing right, JUMPING, HAPPY (eyes closed purring), SURPRISED (ears up, big eyes).
+```
+
+### 3d. Astronautas da tripulação (1 imagem)
+- **Onde aparecem:** a cozinha da estação (eles fazem os pedidos), as histórias (a astronauta Ana), as cenas das missões, a tripulação na nave e o professor do Planeta Hello (inglês).
+- **Hoje:** usam o corpo do Vini com a viseira abaixada. São adultos do tamanho de uma criança de 4 anos e sem rosto, por isso não convencem.
+```
+[bloco de estilo] Two friendly adult astronauts, realistic proportions but cartoon style, in modern white
+NASA-like spacesuits WITHOUT helmet so faces are visible: 1 "Ana", a Brazilian woman with dark curly hair
+in a bun and an orange suit; 2 a man with short dark hair, glasses and a blue suit. For EACH astronaut,
+5 poses in one row, same size: FRONT standing, WAVING, TALKING (mouth open, hand gesture), HAPPY (thumbs
+up), THINKING (hand on chin). Two rows total, big space between figures.
+```
+
 ---
 
 ## PRIORIDADE 2: figuras das lições (o que a criança lê e conta)
@@ -170,19 +201,23 @@ nozzle, 5 a rover wheel (side view), 6 a small antenna dish, 7 a blue solar pane
 - **Fases da Lua, constelações, dia e noite, sombra:** ficam desenhadas pelo código. Precisam de posição exata, e um gerador de imagem erra estrela e fase.
 - **Formas, cores, números, letras e ícones de botão:** ficam em vetor. São símbolos, e vetor fica nítido em qualquer tamanho.
 - **Robô Ajudante (pet de 15 estrelas):** eu faço a partir do Astro em outra cor. A NASA tem três Astrobees de cores diferentes: Bumble, Honey e Queen.
-- **Gato da tripulação (pet de 30 estrelas):** usa o gato da folha de palavras.
-- **Alien da atividade de emoções:** vou trocar pelos rostos do Vini. Rosto de criança real ensina emoção melhor que bicho inventado.
+- **Personagens das atividades de emoção** (alien, estrela com cara, robô): vou trocar pelos rostos do Vini. Rosto de criança real ensina emoção melhor que bicho inventado.
+- **Robô das lições de emoção e o robozinho acessório:** viram o Astro.
 
 ## Ordem sugerida
-| # | Imagem | Quantas | Impacto |
+| # | Imagem | Quantas | Onde aparece |
 |---|---|---|---|
-| 1 | Astro (folha do personagem + folha de peças) | 2 | Aparece em tudo |
-| 2 | Palavras (20) | 1 | Leitura inteira |
-| 3 | Bip (folha do personagem + folha de peças) | 2 | Nave |
-| 4 | Comidas (10) | 1 | Matemática e cozinha |
-| 5 | Robô Reciclador | 1 | Sílabas |
-| 6 | Ciência (16) | 1 | Ciências |
-| 7 | Objetos de missão (12) | 1 | Missões |
-| 8 | Peças de montar (8) | 1 | Oficina |
+| 0 | Vini: bravo, com medo, cansado | 1 | Lições de emoção |
+| 1 | Astro (folha do personagem + folha de peças) | 2 | Quase tudo e as emoções |
+| 2 | Palavras (20) | 1 | Toda a leitura |
+| 3 | Bip, o cachorrinho (folha do personagem + folha de peças) | 2 | Nave, segue o Vini |
+| 4 | Astronautas da tripulação (Ana e colega) | 1 | Cozinha, histórias, cenas, inglês |
+| 5 | Comidas (10) | 1 | Matemática e cozinha |
+| 6 | Robô Reciclador | 1 | Jogo das sílabas |
+| 7 | Rover das setas | 1 | Jogo de programar |
+| 8 | Ciência (16) | 1 | Ciências |
+| 9 | Gato da tripulação | 1 | Pet de 30 estrelas |
+| 10 | Objetos de missão (12) | 1 | Missões |
+| 11 | Peças de montar (8) | 1 | Oficina |
 
-São 10 imagens no total. Mande na ordem que conseguir: cada uma que chega eu recorto, encaixo, tiro print e julgo antes de subir.
+São 14 imagens no total. Mande na ordem que conseguir: cada uma que chega eu recorto, encaixo, tiro print e julgo antes de subir.
