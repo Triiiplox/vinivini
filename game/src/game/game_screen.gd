@@ -176,6 +176,11 @@ func world_pointer() -> Vector2:
 	return world.get_global_mouse_position()
 
 
+## Ponto do mundo a partir da posição do próprio evento (toque/clique), sem depender do cursor.
+func _event_point(e: InputEvent) -> Vector2:
+	return world.get_canvas_transform().affine_inverse() * (e as InputEventMouse).position
+
+
 func _process(delta: float) -> void:
 	if world == null or hand == null:
 		return
@@ -195,7 +200,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	if finished:
 		return
 	if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-		var p := world_pointer()
+		var p := _event_point(e)
 		if e.pressed:
 			_poke()
 			_press_pos = p
@@ -224,7 +229,7 @@ func _unhandled_input(e: InputEvent) -> void:
 			_press_item = null
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseMotion and _drag_item:
-		_drag_item.global_position = world_pointer() + _drag_offset
+		_drag_item.global_position = _event_point(e) + _drag_offset
 		get_viewport().set_input_as_handled()
 
 

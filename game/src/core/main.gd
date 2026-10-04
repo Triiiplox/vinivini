@@ -11,8 +11,12 @@ func _ready() -> void:
 	sky.name = "Sky"
 	add_child(sky)
 	Router.sky = sky
+	# Raiz e host não podem "consumir" toques: as telas de jogo são transparentes ao toque e tratam o dedo em
+	# _unhandled_input (mundo). Com STOP aqui, nenhum toque chegava ao mundo no celular.
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	host = Control.new()
 	host.name = "ScreenHost"
+	host.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.full(host)
 	add_child(host)
 	var fx := CelebrationLayer.new()
@@ -60,7 +64,7 @@ func _unhandled_input(e: InputEvent) -> void:
 func _start_debug_tool() -> bool:
 	const TOOLS := {"--segpreview=": "seg_preview", "--rigpreview=": "rig_preview", "--spike=": "spike_fx",
 		"--artpreview=": "art_preview", "--charpreview=": "char_preview", "--uigallery=": "ui_gallery", "--shots=": "screenshot_runner",
-		"--smoke2": "smoke_v2", "--smoke": "smoke_runner", "--film": "intro_film", "--playcheck=": "play_check"}
+		"--smoke2": "smoke_v2", "--smoke": "smoke_runner", "--film": "intro_film", "--playcheck=": "play_check", "--touchcheck=": "touch_check"}
 	var args := OS.get_cmdline_user_args()
 	if args.has("--checkscripts"):
 		_check_scripts()

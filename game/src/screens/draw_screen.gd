@@ -103,7 +103,7 @@ func _pick(it: Interactable) -> void:
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-		var p := world_pointer()
+		var p := _event_point(e)
 		if e.pressed and CANVAS.has_point(p) and _topmost(p) == null:
 			_poke()
 			if not stamp.is_empty():
@@ -134,7 +134,7 @@ func _unhandled_input(e: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 			return
 	elif e is InputEventMouseMotion and drawing and cur:
-		var p2 := world_pointer()
+		var p2 := _event_point(e)
 		p2 = Vector2(clampf(p2.x, CANVAS.position.x, CANVAS.end.x), clampf(p2.y, CANVAS.position.y, CANVAS.end.y))
 		if cur.get_point_count() == 0 or cur.get_point_position(cur.get_point_count() - 1).distance_to(p2) > 4.0:
 			cur.add_point(p2)

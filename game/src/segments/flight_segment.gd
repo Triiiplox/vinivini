@@ -92,10 +92,10 @@ func _unhandled_input(e: InputEvent) -> void:
 		_pressing = e.pressed
 		if e.pressed:
 			_poke()
-			target_y = clampf(world_pointer().y, 120, 660)
+			target_y = clampf(_event_point(e).y, 120, 660)
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseMotion and _pressing:
-		target_y = clampf(world_pointer().y, 120, 660)
+		target_y = clampf(_event_point(e).y, 120, 660)
 		get_viewport().set_input_as_handled()
 
 
