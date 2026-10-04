@@ -1,3 +1,25 @@
+# Checklist v4.2.0 (04/10)
+
+Legenda: ✅ feito e validado · 🟡 parcial · ⏳ depende do Andro ou do Vini jogando.
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Botões e conteúdo centrados em celular largo | ✅ | 9-slice escalado (o volume encostava na borda); caixa 1280x720 centrada no HUD; capturas 2340x1080. |
+| 2 | Tamanho maior (modelo do Andro) | ✅ | HUD 116 px, barra com estrela, fase atual 1,5x com ▶, cadeados dourados, Vini maior, vizinhas abrem espaço. |
+| 3 | Pilotagem | ✅ | 3 faixas (0,1 s), jogo pela metade com portais, casa no voo só segurando; teste `lane_y`. ⏳ sentir no dedo do Vini. |
+| 4 | Nave em corte (sem corredor) | ✅ | 9 cômodos pintados; robô abre cada um (smoke v2); teste 9 cômodos. |
+| 5 | Jornada com 1 objetivo | ✅ | 3 mundos x 8 missões; briefing → voo → 2 atividades; peça por etapa no chip; 5 testes `test_journey`. ⏳ ver se prende o Vini. |
+| 6 | Perfis Manuzita, Enzo, Aylinha | ✅ | Tela "Quem vai jogar?", progresso separado, rosto no traje, nome na voz (69 falas). Fotos fora do git. ⏳ ouvir a pronúncia de "Enzo" e "Aylinha". |
+| 7 | Lote 3 e universo visual | ✅ | Marte, Europa, 10 ambientes por matéria, cozinha/oficina, baú que abre, mãozinha, portal, jipe sem rodas, Ana/Léo em 4 poses, cliente da cozinha, 24 objetos/coletáveis. |
+| 8 | Troféus | ✅ | Tocar na patente (tela principal) abre a galeria. Diário saiu da navegação da criança. |
+| 9 | Validação | ✅ | 121 testes; smoke 93/93 (projeto e pacote); robô nas missões 82/82 (projeto e pacote) e 81/81 errando; toques reais e lições mão na massa em 2340x1080. |
+| 10 | APK | ✅ | v4.2.0 (code 20), arm64, 87,5 MB (< 100 MB), assinatura igual à anterior (instala por cima), só permissão VIBRATE. |
+| 11 | APK público sem fotos | ✅ | `dist/` leva a versão só com o Vini (0 rostos dos convidados no pacote). A versão com os 3 rostos fica fora do repositório até ele ficar privado. |
+| 12 | Repositório privado | ⏳ | Andro: deixar privado; depois disso o APK completo e os rostos sobem. |
+| 13 | Lote 2 (100 palavras) | ⏳ | Arte do Andro; a leitura é a matéria mais curta sem ela. |
+| 14 | Kit de interface e alfabeto do pacote | — | Não usados por decisão: botões chapados com texto pioram para quem não lê botão; o jogo já tem botões pintados com ícone. |
+| 15 | Instalação no S23 | ⏳ | Sem retorno ainda. |
+
 # Status honesto — MASTER PRODUCT CHECKLIST (v2.0.0)
 
 Legenda: ✅ feito e testado · 🟡 parcial (o que falta está dito) · ❌ não feito · ⏳ depende de aparelho/criança real.

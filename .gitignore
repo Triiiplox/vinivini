@@ -6,3 +6,6 @@ __pycache__/
 # Fotos e rostos das crianças convidadas: só locais até o repositório ficar privado.
 art_src/kids/
 game/assets/characters/kids/
+
+# APK com fotos das crianças convidadas: entregue direto, fora do repositório público.
+entrega/
