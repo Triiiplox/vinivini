@@ -13,7 +13,7 @@ Legenda: ✅ feito e validado · 🟡 parcial · ⏳ depende do Andro ou do Vini
 | 7 | Lote 3 e universo visual | ✅ | Marte, Europa, 10 ambientes por matéria, cozinha/oficina, baú que abre, mãozinha, portal, jipe sem rodas, Ana/Léo em 4 poses, cliente da cozinha, 24 objetos/coletáveis. |
 | 8 | Troféus | ✅ | Tocar na patente (tela principal) abre a galeria. Diário saiu da navegação da criança. |
 | 9 | Validação | ✅ | 121 testes; smoke 93/93 (projeto e pacote); robô nas missões 82/82 (projeto e pacote) e 81/81 errando; toques reais e lições mão na massa em 2340x1080. |
-| 10 | APK | ✅ | v4.2.0 (code 20), arm64, 87,5 MB (< 100 MB), assinatura igual à anterior (instala por cima), só permissão VIBRATE. |
+| 10 | APK | ✅ | v4.2.1 (code 21), arm64, 87,5 MB (< 100 MB), assinatura igual à anterior (instala por cima), só permissão VIBRATE. |
 | 11 | APK público sem fotos | ✅ | `dist/` leva a versão só com o Vini (0 rostos dos convidados no pacote). A versão com os 3 rostos fica fora do repositório até ele ficar privado. |
 | 12 | Repositório privado | ⏳ | Andro: deixar privado; depois disso o APK completo e os rostos sobem. |
 | 13 | Lote 2 (100 palavras) | ⏳ | Arte do Andro; a leitura é a matéria mais curta sem ela. |
