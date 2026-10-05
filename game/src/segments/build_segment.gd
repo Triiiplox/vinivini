@@ -26,6 +26,8 @@ func build() -> void:
 	add_cosmo(Vector2(1120, 200), 130.0)
 	var lvl := difficulty("math.counting")
 	var n := int(params.get("count", 0))
+	# Quem já sabe o básico: o total vem de uma conta ("o dobro de 3"), então sempre par.
+	var basics := bool(SaveService.settings.get_value("knows_basics"))
 	match blueprint:
 		"rover":
 			counted = "wheel"
@@ -35,12 +37,12 @@ func build() -> void:
 		"reactor":
 			counted = "energy_cell"
 			if n == 0:
-				n = [0, 3, 5, 7][lvl]
+				n = ([0, 4, 6, 8] if basics else [0, 3, 5, 7])[lvl]
 			need = {"energy_cell": n}
 		_:
 			counted = "thruster"
 			if n == 0:
-				n = [0, 2, 3, 5][lvl]
+				n = ([0, 2, 4, 4] if basics else [0, 2, 3, 5])[lvl]
 			need = {"rocket_nose": 1, "rocket_body": 1, "rocket_fin": 2, "thruster": n}
 	machine = Node2D.new()
 	machine.position = Vector2(640, 300)
@@ -62,7 +64,7 @@ func _group(part: String) -> String:
 
 func _make_slots(lvl: int) -> void:
 	# slots[part] = [{pos, w, flip}] em coordenadas locais da máquina (calculadas pelos viewBox das peças).
-	var ghost_alpha := 0.35 if lvl == 1 else 0.0
+	var ghost_alpha := 0.35 if lvl == 1 and not bool(SaveService.settings.get_value("knows_basics")) else 0.0
 	var pad := Panel.new()
 	pad.add_theme_stylebox_override("panel", UITheme.rounded(Color("#5A6488"), 20, 6, Color("#22204A")))
 	pad.size = Vector2(420, 34)
@@ -188,7 +190,15 @@ func begin() -> void:
 	var noun: String = {"thruster": Lines.n("propulsores"), "wheel": Lines.n("rodas"), "energy_cell": Lines.n("baterias")}[counted]
 	var intro: String = {"rocket": Lines.n("Vamos montar o foguete! Ele precisa de"),
 		"rover": Lines.n("Vamos montar o jipe lunar! Ele precisa de"), "reactor": Lines.n("Vamos ligar a nave! O motor precisa de")}[blueprint]
-	narrate_seq([intro, Lines.number(int(need[counted])), noun])
+	var n := int(need[counted])
+	if bool(SaveService.settings.get_value("knows_basics")) and n % 2 == 0 and n >= 4:
+		# Não fala o total: ele calcula o dobro (antes: "precisa de cinco baterias" e era só contar).
+		var dbl: String = {"rocket": Lines.n("Vamos montar o foguete! Ele precisa do dobro de"),
+			"rover": Lines.n("Vamos montar o jipe lunar! Ele precisa do dobro de"),
+			"reactor": Lines.n("Vamos ligar a nave! O motor precisa do dobro de")}[blueprint]
+		narrate_seq([dbl, Lines.number(n / 2), noun])
+		return
+	narrate_seq([intro, Lines.number(n), noun])
 
 
 func _on_drop(it: Interactable, z: DropZone) -> void:

@@ -54,6 +54,24 @@ func _run() -> void:
 		Router.reset_to("seg_lesson", {"lesson": "somar", "stage": 3, "back": "academy"})
 		await shot("perfis_licao_aylinha", 3.0)
 		Kids.select("vini")
+	if _want("v43"):
+		Router.reset_to("home", {})
+		await shot("v43_home", 2.0)
+		Kids.select("enzo")
+		Router.reset_to("home", {})
+		await shot("v43_home_enzo", 2.0)
+		Kids.select("vini")
+		Router.reset_to("who", {})
+		await shot("v43_quem", 1.5)
+		for k in ["fill", "groups", "double"]:
+			for attempt in 12:
+				Router.reset_to("seg_cook", {"customers": 2})
+				await get_tree().create_timer(2.6).timeout
+				if Router.current_screen.kind == k:
+					break
+			await shot("v43_cozinha_" + k, 1.5)
+		Router.reset_to("seg_build", {"blueprint": "reactor"})
+		await shot("v43_reator", 1.5)
 	if _want("jornada"):
 		Router.reset_to("ship", {"quiet": true})
 		await shot("jornada_nave", 2.0)

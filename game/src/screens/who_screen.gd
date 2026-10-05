@@ -12,6 +12,17 @@ func build() -> void:
 	AudioService.play_music("title", 0.5)
 	world.add_child(Scenery.new("menu"))
 	hud.root.get_node("HomeButton").visible = false
+	var title := UI.label("Quem vai jogar?", 60, Color.WHITE)
+	title.size = Vector2(900, 90)
+	title.position = Vector2(-450, 0)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_constant_override("outline_size", 12)
+	title.add_theme_color_override("font_outline_color", Color(0.05, 0.05, 0.2))
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(title)  # título da tela: ele lê; a voz também pergunta
+	title.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	title.position = Vector2(-450, 40)
+	hud.root.add_child(title)
 	var kids := Kids.available()
 	var gap := minf(300.0, 1180.0 / kids.size())
 	for i in kids.size():

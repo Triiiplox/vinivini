@@ -1,6 +1,7 @@
 extends GameScreen
-## Tela principal (ponte de comando): uma matéria por botão grande (2 fileiras de 5), com ícone e voz.
-## Um toque e já joga. A nave andável continua como passeio (último botão). Áreas desligadas pelos pais somem.
+## Tela principal: o JOGO é o cartão grande da Jornada (missão atual, ▶); ao lado, matérias e lugares em
+## blocos menores com o nome embaixo. Quem joga aparece no alto (rosto + nome + trocar). Feedback 05/10: antes
+## eram 10 botões iguais sem nome e não dava para saber onde estava o jogo nem onde escolher o personagem.
 
 const TILES := [
 	["reading", "abc", "#2563FF", "academy", "Letras e palavras!"],
@@ -11,11 +12,15 @@ const TILES := [
 	["emotion", "heart", "#F472B6", "academy", "Sentimentos e amizade!"],
 	["english", {"t": "crew"}, "#60A5FA", "hello", "Inglês com o Hoppy!"],
 	["create", "palette", "#FACC15", "studio", "Vamos criar!"],
-	["missions", "rocket", "#EE4266", "journey", "A jornada pelo espaço!"],
 	["ship", {"t": "art", "set": "props", "id": "ship_side"}, "#475569", "ship", "Vamos passear pela nave!"],
 ]
 
+const NAMES := {"reading": "Leitura", "math": "Matemática", "logic": "Lógica", "science": "Ciências",
+	"astronomy": "Espaço", "emotion": "Emoções", "english": "Inglês", "create": "Criar", "ship": "Nave"}
+const TILE := 150.0
+
 var tiles: Array[Interactable] = []
+var hero: Interactable
 var vini: CharacterRig2D
 
 
@@ -25,10 +30,11 @@ func build() -> void:
 	hud.root.get_node("HomeButton").visible = false
 	var disabled: Array = SaveService.settings.get_value("disabled_areas")
 	var shown: Array = TILES.filter(func(t): return not disabled.has(t[0]))
-	vini = CharacterRig2D.new("vini", 360.0)
-	vini.position = Vector2(170, 690)
+	vini = CharacterRig2D.new("vini", 320.0)
+	vini.position = Vector2(140, 690)
 	vini.z_index = 5
 	world.add_child(vini)
+	_make_hero()
 	for i in shown.size():
 		_make_tile(shown[i], i)
 	# Cadeado dos pais (segurar 2 s).
@@ -44,25 +50,119 @@ func build() -> void:
 	hint_fn = _hint
 
 
-## Trocar quem está jogando: botão redondo com o rosto de quem joga agora (ao lado do alto-falante).
+## Quem está jogando: rosto + nome + "trocar", no alto (antes era um botão redondo só com o rosto).
 func _who_button() -> void:
-	var b := DSButton.new("icon", "", Vector2(GameHud.BTN, GameHud.BTN), "gold")
+	var b := Panel.new()
 	b.name = "WhoButton"
+	b.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.9), 30, 5, DS.STAR_GOLD))
 	b.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	b.position = Vector2(-2 * GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 18, 16)
+	b.size = Vector2(290, GameHud.BTN)
+	b.position = Vector2(-GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 18 - 290, 16)
+	b.mouse_filter = Control.MOUSE_FILTER_STOP
+	b.gui_input.connect(func(e: InputEvent):
+		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
+			DS.press_feedback(b, "tap")
+			Router.reset_to("who"))
+	hud.root.add_child(b)
 	var face := TextureRect.new()
 	face.texture = load(Kids.head_path("big_smile"))
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	face.size = Vector2(100, 100)
-	face.position = Vector2(8, 6)
+	face.size = Vector2(96, 96)
+	face.position = Vector2(8, 10)
 	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	b.pressed.connect(func(): Router.reset_to("who"))
-	hud.root.add_child(b)
-	b.add_child(face)  # depois do fundo do botão (criado no _ready), senão o fundo cobre o rosto
+	b.add_child(face)
+	var nm := UI.label(AppState.child_name(), 30, Color.WHITE)
+	nm.position = Vector2(108, 8)
+	nm.size = Vector2(130, 50)
+	nm.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(nm)  # nome de quem joga
+	b.add_child(nm)
+	var sw := UI.label("trocar", 24, DS.STAR_GOLD)
+	sw.position = Vector2(108, 58)
+	sw.size = Vector2(130, 40)
+	sw.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(sw)
+	b.add_child(sw)
+	var ic := IconDraw.new("refresh", DS.STAR_GOLD)
+	ic.size = Vector2(44, 44)
+	ic.position = Vector2(236, 36)
+	ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(ic)
 
 
-## Patente do comandante (acima do Vini): insígnia + barra até a próxima promoção.
+## O jogo: cartão grande da Jornada com o mundo e a missão de agora; pulsa e leva direto para o mapa.
+func _make_hero() -> void:
+	var cur := ""
+	var world_name := ""
+	var planet := "moon"
+	var n := 0
+	for wd in ContentService.repo.journey:
+		for id in wd["missions"]:
+			n += 1
+			if cur == "" and MissionFlow.is_unlocked(str(id)) and not MissionFlow.is_done(str(id)):
+				cur = str(id)
+				world_name = str(wd["name"])
+				planet = str(wd["planet"])
+	hero = Interactable.new()
+	hero.name = "Tile_missions"
+	hero.radius = 200.0
+	hero.payload = ["missions", "rocket", "#EE4266", "journey", "A jornada pelo espaço!"]
+	hero.position = Vector2(480, 400)
+	var card := Panel.new()
+	var sb := UITheme.rounded(Color("#3B1E7A"), 48, 8, DS.STAR_GOLD)
+	sb.shadow_color = Color(DS.STAR_GOLD, 0.45)
+	sb.shadow_size = 24
+	card.add_theme_stylebox_override("panel", sb)
+	card.size = Vector2(380, 440)
+	card.position = Vector2(-190, -220)
+	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hero.add_child(card)
+	var title := UI.label("JORNADA", 52, Color.WHITE)
+	title.size = Vector2(380, 70)
+	title.position = Vector2(-190, -206)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(title)  # o nome do jogo principal: ele lê
+	hero.add_child(title)
+	var pl := ShaderPlanet.new(planet, 78.0)
+	pl.position = Vector2(-70, -40)
+	hero.add_child(pl)
+	var ship := ArtSprite.new("props", "ship_side", 150.0)
+	ship.position = Vector2(70, -20)
+	hero.add_child(ship)
+	var sub := UI.label(("Missão %d · %s" % [_mission_number(cur), world_name]) if cur != "" else "Tudo feito!", 30,
+		DS.STAR_GOLD)
+	sub.size = Vector2(380, 44)
+	sub.position = Vector2(-190, 66)
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(sub)
+	hero.add_child(sub)
+	var play := DSButton.new("primary", "play", Vector2(150, 86))
+	play.position = Vector2(-75, 118)
+	play.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hero.add_child(play)
+	hero.tapped.connect(_open)
+	world.add_child(hero)
+	tiles.append(hero)
+	var tw := hero.create_tween().set_loops()
+	tw.tween_property(hero, "scale", Vector2.ONE * 1.04, 0.7).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(hero, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
+	if n == 0:
+		hero.visible = false
+
+
+func _mission_number(id: String) -> int:
+	var k := 0
+	for wd in ContentService.repo.journey:
+		for m in wd["missions"]:
+			k += 1
+			if str(m) == id:
+				return k
+	return 0
+
+
 func _rank_chip() -> void:
 	var box := Panel.new()
 	box.name = "RankChip"
@@ -104,27 +204,27 @@ func _rank_chip() -> void:
 func _make_tile(t: Array, i: int) -> void:
 	var it := Interactable.new()
 	it.name = "Tile_%s" % t[0]
-	it.radius = 92.0
+	it.radius = 80.0
 	it.payload = t
-	it.position = Vector2(435 + (i % 5) * 186, 300 + (i / 5) * 225)
+	it.position = Vector2(780 + (i % 3) * 178, 205 + (i / 3) * 196)
 	var col := Color(str(t[2]))
 	var card := Panel.new()
 	var sb := UITheme.rounded(col, 44, 6, col.lightened(0.45))
 	sb.shadow_color = Color(col, 0.5)
 	sb.shadow_size = 16
 	card.add_theme_stylebox_override("panel", sb)
-	card.size = Vector2(172, 172)
-	card.position = Vector2(-86, -86)
+	card.size = Vector2(TILE, TILE)
+	card.position = Vector2(-TILE / 2.0, -TILE / 2.0)
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	it.add_child(card)
 	if t[1] is Dictionary:
-		var fig := Figure.new(t[1], 112.0)
-		fig.position = Vector2(0, -10)
+		var fig := Figure.new(t[1], 96.0)
+		fig.position = Vector2(0, -8)
 		it.add_child(fig)
 	else:
 		var ic := IconDraw.new(str(t[1]), Color.WHITE)
-		ic.size = Vector2(104, 104)
-		ic.position = Vector2(-52, -62)
+		ic.size = Vector2(88, 88)
+		ic.position = Vector2(-44, -52)
 		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(ic)
 	if str(t[3]) == "academy":
@@ -132,8 +232,8 @@ func _make_tile(t: Array, i: int) -> void:
 		var al := Stages.area_level(str(t[0]))
 		var chip := Panel.new()
 		chip.add_theme_stylebox_override("panel", UITheme.rounded(Color("#1A1240"), 24, 4, Palette.YELLOW))
-		chip.size = Vector2(70, 50)
-		chip.position = Vector2(42, -104)
+		chip.size = Vector2(56, 42)
+		chip.position = Vector2(44, -84)  # no canto do bloco, sem cobrir o nome do bloco de cima
 		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(chip)
 		var nl := UI.label(str(al.x), 30, Palette.YELLOW)
@@ -145,16 +245,25 @@ func _make_tile(t: Array, i: int) -> void:
 		chip.add_child(nl)
 		var track := ColorRect.new()
 		track.color = Color(0, 0, 0, 0.3)
-		track.size = Vector2(130, 12)
-		track.position = Vector2(-65, 58)
+		track.size = Vector2(116, 10)
+		track.position = Vector2(-58, 50)
 		track.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(track)
 		var fill := ColorRect.new()
 		fill.color = DS.STAR_GOLD
-		fill.size = Vector2(130.0 * al.x / maxf(1.0, al.y), 12)
-		fill.position = Vector2(-65, 58)
+		fill.size = Vector2(116.0 * al.x / maxf(1.0, al.y), 10)
+		fill.position = Vector2(-58, 50)
 		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(fill)
+	var nm := UI.label(str(NAMES.get(str(t[0]), "")), 26, Color.WHITE)
+	nm.size = Vector2(190, 36)
+	nm.position = Vector2(-95, TILE / 2.0 + 2)
+	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	nm.add_theme_constant_override("outline_size", 8)
+	nm.add_theme_color_override("font_outline_color", Color(0.05, 0.05, 0.2))
+	nm.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(nm)  # nome da matéria: ele lê (e ajuda os pais)
+	it.add_child(nm)
 	it.tapped.connect(_open)
 	world.add_child(it)
 	tiles.append(it)

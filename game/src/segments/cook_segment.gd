@@ -22,6 +22,11 @@ var in_bowl: Array[Interactable] = []
 var customer: CrewActor
 var bubble: Node2D
 var bowl_zone: DropZone
+## Tipo do pedido de agora: "count" (antigo: "quero 3 ovos"), "groups" (2 pratos com 3), "double" (o dobro de 4),
+## "half" (a metade de 8), "fill" (quero 7; já tem 3 na tigela, complete). Só "count" fala a resposta;
+## para quem já sabe o básico (ADR-034) os pedidos sempre pedem uma conta.
+var kind := "count"
+var prefill := 0
 var tries := 0
 var t0 := 0.0
 var _lvl := 1
@@ -125,16 +130,35 @@ func _place_order() -> void:
 	pool.shuffle()
 	order = {}
 	plates = 1
-	match _lvl:
-		1:
-			order[pool[0]] = randi_range(1, 5)
-		2:
-			var a := randi_range(1, 5)
-			order[pool[0]] = a
-			order[pool[1]] = randi_range(1, mini(5, 10 - a))
-		_:
-			plates = 2
-			order[pool[0]] = randi_range(2, 4)
+	prefill = 0
+	kind = "count"
+	if bool(SaveService.settings.get_value("knows_basics")):
+		# Pedido com conta (nunca a resposta falada): 1º/2º ano. Total sempre até 10 (arrastar mais cansa).
+		var kinds := ["groups", "double", "fill"] if _lvl <= 1 else ["groups", "double", "fill", "half"]
+		kind = str(kinds[(served + randi()) % kinds.size()])
+		match kind:
+			"groups":
+				plates = randi_range(2, 3)
+				order[pool[0]] = randi_range(2, 3)
+			"double":
+				plates = 2
+				order[pool[0]] = randi_range(2, 5)
+			"half":
+				order[pool[0]] = [2, 3, 4, 5][randi() % 4]
+			"fill":
+				order[pool[0]] = randi_range(6, 10)
+				prefill = randi_range(2, int(order[pool[0]]) - 3)
+	else:
+		match _lvl:
+			1:
+				order[pool[0]] = randi_range(1, 5)
+			2:
+				var a := randi_range(1, 5)
+				order[pool[0]] = a
+				order[pool[1]] = randi_range(1, mini(5, 10 - a))
+			_:
+				plates = 2
+				order[pool[0]] = randi_range(2, 4)
 	var shown: Array = order.keys()
 	var crate_foods: Array = shown.duplicate()
 	for f in pool:
@@ -145,6 +169,8 @@ func _place_order() -> void:
 	crate_foods.shuffle()
 	for i in crate_foods.size():
 		_make_crate(crate_foods[i], i, crate_foods.size())
+	for k in prefill:
+		_bowl_item(str(order.keys()[0]))
 	_show_bubble()
 	_say_order()
 
@@ -156,7 +182,7 @@ func _show_bubble() -> void:
 	bubble.position = customer.position + Vector2(0, -330)
 	bubble.z_index = 30
 	world.add_child(bubble)
-	var w := 150.0 * order.size() + 60.0
+	var w := 150.0 * order.size() + (130.0 if kind == "half" else 60.0)
 	var p := Panel.new()
 	p.add_theme_stylebox_override("panel", UITheme.rounded(Color.WHITE, 40, 6, Color("#22204A")))
 	p.size = Vector2(w, 150 if plates == 1 else 170)
@@ -168,11 +194,14 @@ func _show_bubble() -> void:
 		var a := ArtSprite.new("foods", f, 80.0)
 		a.position = Vector2(-w / 2 + 70 + i * 150, -10)
 		bubble.add_child(a)
-		var num := UI.label(("%d×" % plates if plates > 1 else "") + str(order[f]), 48, Palette.TEXT_DARK, true)
+		var txt := ("%d×" % plates if plates > 1 else "") + str(order[f])
+		if kind == "half":
+			txt = "½ de %d" % (int(order[f]) * 2)
+		var num := UI.label(txt, 44 if kind == "half" else 48, Palette.TEXT_DARK, true)
 		UI.child_ok(num)
 		num.position = Vector2(-w / 2 + 110 + i * 150, -20)
 		bubble.add_child(num)
-		if _lvl == 1:
+		if kind == "count" and _lvl == 1:
 			for k in int(order[f]):
 				var d := ArtSprite.new("props", "star_token", 20.0)
 				d.position = Vector2(-w / 2 + 40 + i * 150 + k * 22, 52)
@@ -183,6 +212,22 @@ func _show_bubble() -> void:
 
 
 func _say_order() -> void:
+	var f: String = order.keys()[0]
+	match kind:
+		"groups":
+			narrate_seq([Lines.n("Eu quero dois pratos. Cada prato com") if plates == 2 else
+				Lines.n("Eu quero três pratos. Cada prato com"), food_phrase(int(order[f]), f)])
+			return
+		"double":
+			narrate_seq([Lines.n("Eu quero o dobro de"), food_phrase(int(order[f]), f)])
+			return
+		"half":
+			narrate_seq([Lines.n("Eu quero a metade de"), food_phrase(int(order[f]) * 2, f)])
+			return
+		"fill":
+			narrate_seq([Lines.n("Eu quero"), food_phrase(int(order[f]), f),
+				Lines.n("Já tem alguns na tigela. Complete com o que falta!")])
+			return
 	var parts: Array = [Lines.n("Eu quero")]
 	if plates > 1:
 		parts = [Lines.n("Eu quero dois pratos. Cada prato com")]
@@ -227,6 +272,23 @@ func _on_drop(it: Interactable, z: DropZone) -> void:
 	_update_count()
 
 
+## Item já na tigela no começo do pedido ("já tem alguns, complete").
+func _bowl_item(food: String) -> void:
+	var it := Interactable.new()
+	it.draggable = true
+	it.radius = 62.0
+	it.payload = food
+	it.add_child(ArtSprite.new("foods", food, 92.0))
+	it.z_index = 20
+	world.add_child(it)
+	it.dropped.connect(_on_drop)
+	var k := in_bowl.size()
+	it.position = Vector2(640 + (k % 5) * 30 - 30, 400 - (k / 5) * 26 - (k % 2) * 12)
+	it.scale = Vector2(0.75, 0.75)
+	it.tapped.connect(_remove_from_bowl)
+	in_bowl.append(it)
+
+
 func _remove_from_bowl(it: Interactable) -> void:
 	if in_bowl.has(it):
 		in_bowl.erase(it)
@@ -266,10 +328,15 @@ func _serve(_b: Interactable) -> void:
 		var f: String = order.keys()[0]
 		var want := int(order[f]) * plates
 		var got := int(have.get(f, 0))
-		if got < want:
+		# 1º erro: só diz se falta ou sobra (não entrega a conta); do 2º em diante, diz o total.
+		if tries >= 2 and got < want:
 			narrate_seq([Lines.n("Hmm, ainda falta."), Lines.n("Eu quero"), food_phrase(want, f)])
-		elif got > want:
+		elif tries >= 2 and got > want:
 			narrate_seq([Lines.n("Opa, é demais!"), Lines.n("Eu quero"), food_phrase(want, f), Lines.n("Toque para tirar.")])
+		elif got < want:
+			narrate(Lines.n("Hmm, ainda falta. Pense na conta de novo!"))
+		elif got > want:
+			narrate(Lines.n("Opa, é demais! Toque para tirar."))
 		else:
 			_say_order()
 
