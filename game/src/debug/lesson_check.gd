@@ -39,6 +39,20 @@ func _play(id: String) -> bool:
 	var step := int(s.step_i)
 	match k:
 		"trace":
+			# Rabisco em zigue-zague por cima da letra e só metade do 1º traço: nenhum dos dois pode valer.
+			var c: Vector2 = s.TRACE_CENTER
+			var zig: Array = []
+			for i in 9:
+				zig.append(_vp(s, c + Vector2(-170 + i * 42, -200 if i % 2 == 0 else 200)))
+			await _drag_path(zig)
+			await _wait(0.3)
+			var st0: Array = s._strokes(str(s.rd["letter"]))[0]
+			await _drag_path([_vp(s, s._tp(st0[0])), _vp(s, s._tp(st0[0]).lerp(s._tp(st0[1]), 0.5))])
+			await _wait(0.3)
+			var cheat_ok: bool = not s.busy
+			print("traçar: rabisco/metade não vale: %s" % ("ok" if cheat_ok else "FALHOU (deu certo sem traçar)"))
+			if not cheat_ok:
+				return false
 			for st in s._strokes(str(s.rd["letter"])):
 				var pts: Array = []
 				for u in st:

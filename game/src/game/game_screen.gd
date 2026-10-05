@@ -72,6 +72,7 @@ func on_enter() -> void:
 
 func on_exit() -> void:
 	Voice.stop()
+	Input.use_accumulated_input = true  # o traçado de letras desliga; nenhuma outra tela precisa disso
 	if not finished:
 		# Saiu no meio: em jogo (seg_*) conta abandono; telas de passeio (nave, mapa) contam visita concluída.
 		Telemetry.game_ended(not str(get_meta("screen_id", "")).begins_with("seg_"))

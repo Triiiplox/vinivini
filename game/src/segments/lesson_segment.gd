@@ -75,6 +75,8 @@ func _trace() -> void:
 	_trace_line.z_index = 14
 	_trace_line.add_to_group("lesson_tmp")
 	world.add_child(_trace_line)
+	# Todos os eventos de toque, sem juntar os de um quadro (o traço não "pula" nem trava com o dedo rápido).
+	Input.use_accumulated_input = false
 	var d := narrate(str(rd["say"]))
 	vini.play("point")
 	_demo_once(d)
@@ -94,7 +96,9 @@ func _trace_input(e: InputEvent) -> bool:
 		if e.pressed:
 			_poke()
 			_tracing = true
-			_trace_line.add_point(_event_point(e))
+			_trace_last = _event_point(e)
+			_trace_line.add_point(_trace_last)
+			_trace_touch(_trace_last, _trace_last)
 		else:
 			_tracing = false
 			_trace_check(true)
@@ -103,17 +107,43 @@ func _trace_input(e: InputEvent) -> bool:
 		var p := _event_point(e)
 		if _trace_line.get_point_count() == 0 or _trace_line.get_point_position(_trace_line.get_point_count() - 1).distance_to(p) > 6.0:
 			_trace_line.add_point(p)
-		var changed := false
-		for t in _trace_pts:
-			if not t["hit"] and (t["p"] as Vector2).distance_to(p) <= TRACE_HIT:
-				t["hit"] = true
-				changed = true
-		if changed:
-			_trace_dots.queue_redraw()
-			AudioService.play_sfx("pop", 1.0 + _trace_ratio() * 0.6, -10.0)
-			_trace_check(false)
+		_trace_touch(_trace_last, p)
+		_trace_last = p
 		return true
 	return false
+
+
+## Acende os pontos tocados no caminho do dedo (do último ponto até o atual: dedo rápido não pula pontos),
+## em ordem dentro de cada traço a partir da bolinha verde (riscar por cima da letra não vale).
+func _trace_touch(from: Vector2, to: Vector2) -> void:
+	var changed := false
+	for si in _trace_starts.size():
+		var pts: Array = _trace_pts.filter(func(t): return int(t["s"]) == si)
+		var nxt := 0
+		while nxt < pts.size() and pts[nxt]["hit"]:
+			nxt += 1
+		# Pode acender o próximo ponto do traço e até 2 adiante (dedo de criança não é exato).
+		var k := nxt
+		while k < mini(nxt + 3, pts.size()):
+			if _seg_dist(pts[k]["p"], from, to) <= TRACE_HIT:
+				for j in range(nxt, k + 1):
+					pts[j]["hit"] = true
+				nxt = k + 1
+				k = nxt
+				changed = true
+				continue
+			k += 1
+	if changed:
+		_trace_dots.queue_redraw()
+		var now := Time.get_ticks_msec()
+		if now - _trace_sfx_ms > 70:
+			_trace_sfx_ms = now
+			AudioService.play_sfx("pop", 1.0 + _trace_ratio() * 0.6, -10.0)
+		_trace_check(false)
+
+
+static func _seg_dist(p: Vector2, a: Vector2, b: Vector2) -> float:
+	return p.distance_to(Geometry2D.get_closest_point_to_segment(p, a, b))
 
 
 func _trace_ratio() -> float:
@@ -124,11 +154,25 @@ func _trace_ratio() -> float:
 	return hit / float(maxi(1, _trace_pts.size()))
 
 
+## Cada traço inteiro: pelo menos 90% dos pontos dele e o ponto final (antes bastava 85% da letra toda,
+## e dava certo faltando um pedaço).
+func _trace_done(need: float) -> bool:
+	for si in _trace_starts.size():
+		var pts: Array = _trace_pts.filter(func(t): return int(t["s"]) == si)
+		var hit := pts.filter(func(t): return t["hit"]).size()
+		if hit < ceili(pts.size() * need) or not pts[pts.size() - 1]["hit"]:
+			return false
+	return true
+
+
 func _trace_check(released: bool) -> void:
 	if busy:
 		return
-	if _trace_ratio() >= 0.85:
+	# Durante o traço só fecha com a letra 100% feita; ao soltar o dedo, aceita 90% de cada traço.
+	if _trace_done(1.0) or (released and _trace_done(0.9)):
 		busy = true
+		Input.use_accumulated_input = true
+		hand.hide_hint()
 		tries = maxi(tries, 1)
 		Fx.sparkle(world, TRACE_CENTER, 50, DS.STAR_GOLD)
 		AudioService.play_sfx("correct")
@@ -139,10 +183,13 @@ func _trace_check(released: bool) -> void:
 		_count_star()
 		var d := narrate(str(rd.get("done", "Muito bem!")))
 		after(maxf(d, 1.0) + 0.5, _advance)
-	elif released and _trace_line.get_point_count() > 20:
-		tries += 1
-		if tries >= 2:
-			_hint()
+	elif released:
+		# Soltou sem completar: some a linha (rabisco não fica na tela); os pontos já acesos guardam o progresso.
+		if _trace_line.get_point_count() > 20:
+			tries += 1
+			if tries >= 2:
+				_hint()
+		_trace_line.clear_points()
 
 
 # ------------------------------------------------------------------ mão na massa: contar tocando

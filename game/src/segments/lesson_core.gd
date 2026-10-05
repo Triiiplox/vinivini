@@ -75,6 +75,8 @@ var typed := ""
 var _trace_pts: Array = []  # [{p: Vector2, hit: bool, s: int}]
 var _trace_line: Line2D
 var _tracing := false
+var _trace_last := Vector2.ZERO
+var _trace_sfx_ms := 0
 var _trace_dots: Node2D
 var _trace_starts: Array = []
 var _demoed: Dictionary = {}
