@@ -14,6 +14,8 @@ var enabled := true
 var home_pos := Vector2.ZERO
 var payload: Variant = null
 var lift := 1.18
+## Área retangular (local) em vez do círculo — para cartões largos. Vazia = usa radius.
+var hit_rect := Rect2()
 var _base_scale := Vector2.ONE
 var _base_z := 0
 
@@ -26,7 +28,11 @@ func _ready() -> void:
 
 
 func hit(world_point: Vector2) -> bool:
-	return enabled and is_visible_in_tree() and global_position.distance_to(world_point) <= radius * absf(global_scale.x)
+	if not enabled or not is_visible_in_tree():
+		return false
+	if hit_rect.has_area():
+		return hit_rect.grow(12.0).has_point(to_local(world_point))
+	return global_position.distance_to(world_point) <= radius * absf(global_scale.x)
 
 
 func on_pick() -> void:

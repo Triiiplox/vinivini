@@ -50,7 +50,7 @@ func _play(id: String) -> bool:
 			await _drag_path([_vp(s, s._tp(st0[0])), _vp(s, s._tp(st0[0]).lerp(s._tp(st0[1]), 0.5))])
 			await _wait(0.3)
 			var cheat_ok: bool = not s.busy
-			print("traçar: rabisco/metade não vale: %s" % ("ok" if cheat_ok else "FALHOU (deu certo sem traçar)"))
+			print("traçar %s: rabisco/metade não vale: %s" % [s.rd["letter"], "ok" if cheat_ok else "FALHOU (deu certo sem traçar)"])
 			if not cheat_ok:
 				return false
 			for st in s._strokes(str(s.rd["letter"])):

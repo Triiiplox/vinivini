@@ -1,3 +1,13 @@
+# Checklist v4.2.3 (09/10)
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Achar o jogo da nave | ✅ | Cartão **VOAR** grande na tela principal, logo abaixo da JORNADA, com o recorde; o Hangar da nave também abre ele. Teste: o cartão abre `seg_arcade` e a ponta do cartão também é tocável. |
+| 2 | Voo livre (arcade) | ✅ | Voo sem fim: 3 faixas, 3 corações, estrelas, pedras (sempre sobra uma faixa livre), velocidade sobe por planeta (Lua → Netuno), portal de conta a cada 15 s (acertou: +5 e turbo; errou: mostra a conta certa e não tira nada), poderes (ímã, raio, caixa de estrelas, coração), turbo com recarga, fim com placar, recorde por perfil e "de novo". 20 falas novas. Teste: corações, portal, turbo, recorde, velocidade. ⏳ ver se prende o Vini. |
+| 3 | Traçar letra: rabisco valia | ✅ | Com T, V, A, F e L um zigue-zague por cima da letra era aceito (o sorteio da letra escondia isso no teste). Agora, se o dedo sai da letra, apaga o que acendeu naquele trecho. Teste novo passa o rabisco em todas as 18 letras (sem a correção, 5 falhavam). |
+| 4 | Validação | ✅ | 124 testes; smoke 94/94 (projeto e pacote); robô nas missões 82/82 e 81/81 errando; toques reais; lições mão na massa 3 vezes (M, V, V). |
+| 5 | APK | ✅ | v4.2.3 (code 23), arm64, assinatura igual (instala por cima), só VIBRATE. Público em `dist/` com 0 rostos dos convidados; o completo vai em particular. |
+
 # Checklist v4.2.0 (04/10)
 
 Legenda: ✅ feito e validado · 🟡 parcial · ⏳ depende do Andro ou do Vini jogando.

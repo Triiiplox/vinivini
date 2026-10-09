@@ -7,7 +7,7 @@ extends GameScreen
 const STATIONS := [
 	{"id": "bridge", "scene": "bridge", "name": "Ponte", "screen": "journey",
 		"say": "A ponte de comando! Daqui a gente parte para a jornada."},
-	{"id": "hangar", "scene": "hangar", "name": "Hangar", "screen": "seg_flight",
+	{"id": "hangar", "scene": "hangar", "name": "Hangar", "screen": "seg_arcade",
 		"say": "O hangar! Vamos voar com a nave?"},
 	{"id": "workshop", "scene": "workshop", "name": "Oficina", "screen": "seg_build",
 		"say": "A oficina. Vamos montar um foguete?"},
@@ -214,8 +214,6 @@ func _enter(st: Dictionary) -> void:
 	match screen:
 		"seg_build":
 			p["blueprint"] = ["rocket", "rover", "reactor"][randi() % 3]
-		"seg_flight":
-			p.merge({"play": "portals", "goal": 5, "theme": "space"})
 	if screen in ["wardrobe", "books"]:
 		Router.go(screen, p)
 	else:

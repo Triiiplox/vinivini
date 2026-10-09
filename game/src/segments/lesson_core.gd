@@ -45,6 +45,8 @@ const STROKES := {
 const TRACE_BOX := Vector2(340, 440)
 const TRACE_CENTER := Vector2(640, 370)
 const TRACE_HIT := 48.0
+## Dedo a mais que isso do desenho da letra = saiu da letra: o que acendeu nesse trecho apaga (rabisco não vale).
+const TRACE_OFF := 90.0
 const NUM_WORDS := ["um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez"]
 
 var lesson: Dictionary = {}
@@ -79,6 +81,8 @@ var _trace_last := Vector2.ZERO
 var _trace_sfx_ms := 0
 var _trace_dots: Node2D
 var _trace_starts: Array = []
+var _trace_segs: Array = []  # [[a, b]] do desenho da letra
+var _trace_run: Array = []  # pontos acesos desde que o dedo entrou na letra
 var _demoed: Dictionary = {}
 var _idle_repeats := 0
 var _end_panel: Control

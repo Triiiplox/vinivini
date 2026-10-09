@@ -28,6 +28,8 @@ func _trace() -> void:
 	var strokes: Array = _strokes(str(rd.get("letter", "A")))
 	_trace_pts.clear()
 	_trace_starts.clear()
+	_trace_segs.clear()
+	_trace_run.clear()
 	# Lousa escura atrás da letra (contraste alto em qualquer fundo).
 	var slate := Panel.new()
 	slate.add_theme_stylebox_override("panel", UITheme.rounded(Color("#0B1030"), 40, 6, Color(DS.STAR_GOLD, 0.8)))
@@ -57,6 +59,7 @@ func _trace() -> void:
 		for j in st.size() - 1:
 			var a := _tp(st[j])
 			var b := _tp(st[j + 1])
+			_trace_segs.append([a, b])
 			var k := maxi(1, int(a.distance_to(b) / 28.0))
 			for m in k:
 				_trace_pts.append({"p": a.lerp(b, m / float(k)), "hit": false, "s": si})
@@ -96,6 +99,7 @@ func _trace_input(e: InputEvent) -> bool:
 		if e.pressed:
 			_poke()
 			_tracing = true
+			_trace_run.clear()
 			_trace_last = _event_point(e)
 			_trace_line.add_point(_trace_last)
 			_trace_touch(_trace_last, _trace_last)
@@ -115,7 +119,16 @@ func _trace_input(e: InputEvent) -> bool:
 
 ## Acende os pontos tocados no caminho do dedo (do último ponto até o atual: dedo rápido não pula pontos),
 ## em ordem dentro de cada traço a partir da bolinha verde (riscar por cima da letra não vale).
+## Saiu da letra (rabisco por cima, zigue-zague): apaga o que acendeu desde que o dedo entrou nela. Feedback 09/10:
+## com T e V um zigue-zague cobria a letra toda e valia.
 func _trace_touch(from: Vector2, to: Vector2) -> void:
+	if _off_letter(to):
+		if not _trace_run.is_empty():
+			for t in _trace_run:
+				t["hit"] = false
+			_trace_run.clear()
+			_trace_dots.queue_redraw()
+		return
 	var changed := false
 	for si in _trace_starts.size():
 		var pts: Array = _trace_pts.filter(func(t): return int(t["s"]) == si)
@@ -128,6 +141,7 @@ func _trace_touch(from: Vector2, to: Vector2) -> void:
 			if _seg_dist(pts[k]["p"], from, to) <= TRACE_HIT:
 				for j in range(nxt, k + 1):
 					pts[j]["hit"] = true
+					_trace_run.append(pts[j])
 				nxt = k + 1
 				k = nxt
 				changed = true
@@ -140,6 +154,13 @@ func _trace_touch(from: Vector2, to: Vector2) -> void:
 			_trace_sfx_ms = now
 			AudioService.play_sfx("pop", 1.0 + _trace_ratio() * 0.6, -10.0)
 		_trace_check(false)
+
+
+func _off_letter(p: Vector2) -> bool:
+	for sg in _trace_segs:
+		if _seg_dist(p, sg[0], sg[1]) <= TRACE_OFF:
+			return false
+	return not _trace_segs.is_empty()
 
 
 static func _seg_dist(p: Vector2, a: Vector2, b: Vector2) -> float:

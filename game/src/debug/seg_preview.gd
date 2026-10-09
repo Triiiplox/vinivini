@@ -72,6 +72,24 @@ func _run() -> void:
 			await shot("v43_cozinha_" + k, 1.5)
 		Router.reset_to("seg_build", {"blueprint": "reactor"})
 		await shot("v43_reator", 1.5)
+	if _want("voar"):
+		SaveService.settings.set_value("knows_basics", true)
+		SaveService.progress.data(SaveService.profile_id)["arcade"] = {"best": 42, "far": 2}
+		Router.reset_to("home", {})
+		await shot("voar_home", 2.0)
+		Router.reset_to("seg_arcade", {})
+		await shot("voar_inicio", 3.0)
+		var a: Node = Router.current_screen
+		a._spawn_power("magnet")
+		a.gate_t = 0.0
+		await shot("voar_portal", 2.2)
+		a.leg_t = a.LEG - 0.5
+		a.hearts = 2
+		a._draw_hearts()
+		await shot("voar_planeta", 2.5)
+		a._game_over()
+		await shot("voar_fim", 1.8)
+		SaveService.settings.set_value("knows_basics", false)
 	if _want("jornada"):
 		Router.reset_to("ship", {"quiet": true})
 		await shot("jornada_nave", 2.0)

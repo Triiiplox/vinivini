@@ -83,3 +83,87 @@ func test_ship_map_has_nine_rooms() -> void:
 	Router.reset_to("ship", {"quiet": true})
 	await frames(3)
 	eq((Router.current_screen.rooms as Dictionary).size(), 9, "3 andares x 3 cômodos")
+
+
+func test_home_has_fly_card_that_opens_arcade() -> void:
+	Router.reset_to("home", {})
+	await frames(3)
+	var fly: Interactable = Router.current_screen.find_child("Tile_fly", true, false)
+	check(fly != null, "cartão VOAR na home")
+	check(fly.hit(fly.global_position + Vector2(-170, 60)), "toque na ponta do cartão também vale")
+	eq(str(fly.payload[3]), "seg_arcade")
+
+
+func test_arcade_hearts_gate_and_record() -> void:
+	SaveService.settings.set_value("knows_basics", true)
+	Router.reset_to("seg_arcade", {})
+	await frames(3)
+	var a: Node = Router.current_screen
+	eq(a.hearts, 3, "começa com 3 corações")
+	a._spawn_gate()
+	eq(a.gate.size(), 3, "3 portais")
+	var right: Node2D = null
+	for p in a.gate:
+		if str(p.get_meta("label")) == a.gate_answer:
+			right = p
+	check(right != null, "um portal tem a resposta")
+	a.ship.position.y = right.position.y
+	for p in a.gate:
+		p.position.x = a.SHIP_X - 1.0
+	a._check_gate()
+	eq(a.score, 5, "acertou: +5 estrelas")
+	check(a.turbo_t > 0.0, "acertou: turbo")
+	for i in 3:
+		var rock := Node2D.new()
+		rock.position = a.ship.position
+		a.world.add_child(rock)
+		a.turbo_t = 0.0
+		a.invuln = 0.0
+		a._hurt(rock)
+	check(a.over, "sem corações: fim do voo")
+	eq(int(SaveService.progress.data(SaveService.profile_id)["arcade"]["best"]), 5, "recorde salvo")
+	eq(a.speed_for(0, 0.0) < a.speed_for(2, 10.0), true, "fica mais rápido a cada planeta")
+	SaveService.settings.set_value("knows_basics", false)
+
+
+## Rabisco em zigue-zague por cima não pode valer em NENHUMA letra; traçar de verdade vale em todas.
+func test_trace_rejects_scribble_on_every_letter() -> void:
+	Router.reset_to("seg_lesson", {"lesson": "tracar_letras", "n": 2})
+	await frames(3)
+	var s: Node = Router.current_screen
+	var letters: Array = s.STROKES.keys()
+	letters.append("O")
+	var c: Vector2 = s.TRACE_CENTER
+	var leaked: Array = []
+	for letter in letters:
+		s.rd = {"k": "trace", "letter": letter}
+		s._trace()
+		var zig: Array = []
+		for i in 9:
+			zig.append(c + Vector2(-170 + i * 42, -200 if i % 2 == 0 else 200))
+		_drag(s, zig)
+		if s._trace_done(0.9) and letter != "I":
+			leaked.append(letter)  # o I é um traço reto: uma perna quase vertical do zigue-zague É traçar o I
+		for t in s._trace_pts:
+			t["hit"] = false
+		for st in s._strokes(letter):
+			var pts: Array = []
+			for u in st:
+				pts.append(s._tp(u))
+			_drag(s, pts)
+		check(s._trace_done(1.0), "traçar %s de verdade vale" % letter)
+	eq(leaked, [], "zigue-zague não vale em nenhuma letra")
+
+
+func _drag(s: Node, path: Array) -> void:
+	s._trace_run.clear()
+	var last: Vector2 = path[0]
+	s._trace_touch(last, last)
+	for i in range(1, path.size()):
+		var a: Vector2 = path[i - 1]
+		var b: Vector2 = path[i]
+		var n := maxi(1, int(a.distance_to(b) / 8.0))
+		for k in range(1, n + 1):
+			var p := a.lerp(b, k / float(n))
+			s._trace_touch(last, p)
+			last = p

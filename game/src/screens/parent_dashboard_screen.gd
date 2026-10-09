@@ -11,7 +11,8 @@ const REGIONS := [["Rio", "rio"], ["Nordeste", "nordeste"], ["Interior SP", "sp_
 	["Outra", "outra"]]
 const MARKS := [["Certo", "ok"], ["Trocou", "swap"], ["Não falou", "none"]]
 const GAME_NAMES := {
-	"seg_explore": "Exploração", "seg_flight": "Pilotagem", "seg_build": "Construção", "seg_cook": "Cozinha da estação",
+	"seg_explore": "Exploração", "seg_flight": "Pilotagem", "seg_arcade": "Voo livre", "seg_build": "Construção",
+	"seg_cook": "Cozinha da estação",
 	"seg_monster": "Robô reciclador (sílabas)", "seg_word": "Montar palavra", "seg_robot": "Robô programável",
 	"seg_memory": "Memória dos planetas", "seg_pattern": "Trilha de luzes", "seg_story": "Histórias",
 	"seg_planetarium": "Planetário", "seg_creature": "Criaturas", "seg_cutscene": "Cenas", "ship": "Nave (passeio)",

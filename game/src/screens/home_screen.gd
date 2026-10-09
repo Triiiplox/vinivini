@@ -106,51 +106,106 @@ func _make_hero() -> void:
 				planet = str(wd["planet"])
 	hero = Interactable.new()
 	hero.name = "Tile_missions"
-	hero.radius = 200.0
+	hero.hit_rect = Rect2(-190, -145, 380, 290)
 	hero.payload = ["missions", "rocket", "#EE4266", "journey", "A jornada pelo espaço!"]
-	hero.position = Vector2(480, 400)
+	hero.position = Vector2(480, 290)
 	var card := Panel.new()
 	var sb := UITheme.rounded(Color("#3B1E7A"), 48, 8, DS.STAR_GOLD)
 	sb.shadow_color = Color(DS.STAR_GOLD, 0.45)
 	sb.shadow_size = 24
 	card.add_theme_stylebox_override("panel", sb)
-	card.size = Vector2(380, 440)
-	card.position = Vector2(-190, -220)
+	card.size = Vector2(380, 290)
+	card.position = Vector2(-190, -145)
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hero.add_child(card)
-	var title := UI.label("JORNADA", 52, Color.WHITE)
-	title.size = Vector2(380, 70)
-	title.position = Vector2(-190, -206)
+	var title := UI.label("JORNADA", 48, Color.WHITE)
+	title.size = Vector2(380, 64)
+	title.position = Vector2(-190, -138)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(title)  # o nome do jogo principal: ele lê
 	hero.add_child(title)
-	var pl := ShaderPlanet.new(planet, 78.0)
-	pl.position = Vector2(-70, -40)
+	var pl := ShaderPlanet.new(planet, 58.0)
+	pl.position = Vector2(-112, 4)
 	hero.add_child(pl)
-	var ship := ArtSprite.new("props", "ship_side", 150.0)
-	ship.position = Vector2(70, -20)
+	var ship := ArtSprite.new("props", "ship_side", 130.0)
+	ship.position = Vector2(-4, 4)
 	hero.add_child(ship)
+	var play := DSButton.new("primary", "play", Vector2(104, 92))
+	play.position = Vector2(64, -42)
+	play.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hero.add_child(play)
 	var sub := UI.label(("Missão %d · %s" % [_mission_number(cur), world_name]) if cur != "" else "Tudo feito!", 30,
 		DS.STAR_GOLD)
 	sub.size = Vector2(380, 44)
-	sub.position = Vector2(-190, 66)
+	sub.position = Vector2(-190, 84)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(sub)
 	hero.add_child(sub)
-	var play := DSButton.new("primary", "play", Vector2(150, 86))
-	play.position = Vector2(-75, 118)
-	play.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hero.add_child(play)
 	hero.tapped.connect(_open)
 	world.add_child(hero)
 	tiles.append(hero)
-	var tw := hero.create_tween().set_loops()
-	tw.tween_property(hero, "scale", Vector2.ONE * 1.04, 0.7).set_trans(Tween.TRANS_SINE)
-	tw.tween_property(hero, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
+	_pulse(hero)
 	if n == 0:
 		hero.visible = false
+	_make_fly()
+
+
+## O jogo de nave (Voo Livre): cartão próprio logo abaixo da Jornada, com o recorde. Feedback 09/10: "não achei o
+## jogo da nave" — antes o voo só aparecia dentro das missões e do hangar.
+func _make_fly() -> void:
+	var fly := Interactable.new()
+	fly.name = "Tile_fly"
+	fly.hit_rect = Rect2(-190, -82, 380, 164)
+	fly.payload = ["fly", "rocket", "#0EA5E9", "seg_arcade", "Voo livre! Vamos pilotar!"]
+	fly.position = Vector2(480, 552)
+	var card := Panel.new()
+	var sb := UITheme.rounded(Color("#0B4A8B"), 44, 8, Color("#5CE1FF"))
+	sb.shadow_color = Color(0.36, 0.88, 1.0, 0.45)
+	sb.shadow_size = 22
+	card.add_theme_stylebox_override("panel", sb)
+	card.size = Vector2(380, 164)
+	card.position = Vector2(-190, -82)
+	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fly.add_child(card)
+	var ship := ArtSprite.new("props", "ship_side", 128.0)
+	ship.position = Vector2(-116, 4)
+	fly.add_child(ship)
+	var title := UI.label("VOAR", 48, Color.WHITE)
+	title.size = Vector2(140, 64)
+	title.position = Vector2(-52, -66)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(title)  # nome do jogo de nave: ele lê
+	fly.add_child(title)
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	var best := int((pd.get("arcade", {}) as Dictionary).get("best", 0)) if pd.get("arcade") is Dictionary else 0
+	if best > 0:
+		var st := ArtSprite.new("props", "star_token", 40.0)
+		st.position = Vector2(-10, 32)
+		fly.add_child(st)
+		var bl := UI.label(str(best), 32, DS.STAR_GOLD)
+		bl.position = Vector2(14, 10)
+		bl.size = Vector2(90, 44)
+		bl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.child_ok(bl)  # recorde: número
+		fly.add_child(bl)
+	var play := DSButton.new("primary", "play", Vector2(84, 84))
+	play.position = Vector2(96, -42)
+	play.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fly.add_child(play)
+	fly.tapped.connect(_open)
+	world.add_child(fly)
+	tiles.append(fly)
+	_pulse(fly, 0.35)
+
+
+func _pulse(it: Node2D, delay: float = 0.0) -> void:
+	var tw := it.create_tween().set_loops()
+	tw.tween_interval(delay + 0.01)
+	tw.tween_property(it, "scale", Vector2.ONE * 1.04, 0.7).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(it, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
 
 
 func _mission_number(id: String) -> int:

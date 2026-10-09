@@ -22,6 +22,7 @@ const SCREENS := {
 	"parent": "res://src/screens/parent_dashboard_screen.gd",
 	"seg_explore": "res://src/segments/explore_segment.gd",
 	"seg_flight": "res://src/segments/flight_segment.gd",
+	"seg_arcade": "res://src/segments/arcade_segment.gd",
 	"seg_build": "res://src/segments/build_segment.gd",
 	"seg_cook": "res://src/segments/cook_segment.gd",
 	"seg_monster": "res://src/segments/monster_segment.gd",
