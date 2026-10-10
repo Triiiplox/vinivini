@@ -1,0 +1,37 @@
+VOZES DO VINI NO ELEVENLABS
+===========================
+
+O que tem aqui
+- falas.csv: todas as falas do jogo (abre no Excel). Coluna "arquivo" = nome que o jogo usa; não mude.
+- gerar_elevenlabs.py: grava tudo sozinho, 1 arquivo por fala (CAMINHO RECOMENDADO, não precisa cortar nada).
+- blocos/: alternativa manual, para colar no site.
+- blocos.json: mapa dos blocos (o Claude usa para cortar). Não mude.
+
+Vozes (escolha na Voice Library do ElevenLabs, sotaque BRASILEIRO)
+- narradora: feminina, calorosa, fala com criança de 4 anos.
+- astro: o robozinho; masculina simpática (o jogo já põe o efeito de robô).
+- personagem: 3 falas só (pode ser a mesma do Astro).
+- hoppy: o alienzinho do Inglês, voz em INGLÊS americano, alegre.
+- hoppy_devagar: a mesma do Hoppy, velocidade 0.7 (a palavra devagar para a criança ouvir).
+Use a MESMA voz do começo ao fim: trocar no meio fica estranho no jogo.
+Nomes: confira como a voz fala "Vini", "Manuzita", "Enzo" e "Aylinha" antes de gravar tudo.
+Os arquivos com _manuzita, _enzo e _aylinha levam o nome das crianças convidadas.
+
+CAMINHO 1 (recomendado): script
+1. Instale o Python 3 (python.org).
+2. Abra gerar_elevenlabs.py num editor de texto e cole o Voice ID de cada voz no bloco VOZES.
+3. Na pasta, rode:  python gerar_elevenlabs.py --teste   (confere, não gasta)
+                    python gerar_elevenlabs.py --so 5     (grava 5 para ouvir)
+                    python gerar_elevenlabs.py            (grava o resto; pode parar e continuar)
+   A chave do ElevenLabs é pedida na hora e não é salva. Não mande a chave para ninguém.
+4. Compacte a pasta "audios" e mande.
+
+CAMINHO 2 (manual): blocos no site
+1. Modelo: Eleven Multilingual v2 (as pausas <break time="1.5s" /> funcionam nele).
+2. Para cada arquivo em blocos/, cole o texto inteiro, gere e baixe o mp3 com o MESMO nome do bloco
+   (ex.: narradora_001.mp3).
+3. Ouça por cima: se a voz pular ou juntar duas falas, gere aquele bloco de novo.
+4. Mande todos os mp3 (pode compactar). O Claude corta pelos silêncios e confere se cada bloco tem
+   o número certo de falas; bloco que não bater volta para você regravar.
+
+Custo: ~65 mil caracteres no total (o plano Creator, 100 mil/mês, cobre tudo).
