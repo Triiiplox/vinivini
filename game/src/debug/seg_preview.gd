@@ -72,6 +72,33 @@ func _run() -> void:
 			await shot("v43_cozinha_" + k, 1.5)
 		Router.reset_to("seg_build", {"blueprint": "reactor"})
 		await shot("v43_reator", 1.5)
+	if _want("fases"):
+		SaveService.settings.set_value("knows_basics", true)
+		SaveService.progress.data(SaveService.profile_id)["fases"] = {"0": 3, "1": 2}
+		Router.reset_to("fly_menu", {})
+		await shot("fases_menu", 2.0)
+		Router.reset_to("seg_fases", {"fase": 2})
+		await shot("fases_ondas", 4.0)
+		var f: Node = Router.current_screen
+		f.t = f.WAVE_TIME * 0.5
+		await shot("fases_desafio", 2.5)
+		for p in f.gate:
+			if str(p.get_meta("label")) == f.gate_answer:
+				f.ship.position.y = p.position.y
+				f.target_y = p.position.y
+			p.position.x = f.SHIP_X
+		f._check_gate()
+		f._call_wingman()
+		await shot("fases_reforco", 1.5)
+		f.t = f.WAVE_TIME
+		for e in f.foes.duplicate():
+			f._drop(f.foes, e)
+		await shot("fases_chefao", 3.0)
+		f._hit_boss(f.boss_max * 0.55)
+		await shot("fases_especial", 2.0)
+		f._hit_boss(f.boss_max)
+		await shot("fases_vitoria", 2.5)
+		SaveService.settings.set_value("knows_basics", false)
 	if _want("naves"):
 		for kid in ["vini", "manuzita", "enzo", "aylinha"]:
 			Kids.select(kid)

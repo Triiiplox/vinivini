@@ -33,7 +33,7 @@ def finish(src, who, out):
         af = ["asetrate=%d" % int(SR * 1.10), "aresample=%d" % SR, "atempo=0.94", "aecho=0.8:0.6:12:0.25"] + af
     af.append("loudnorm=I=-17:TP=-1.5:LRA=11")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-af", ",".join(af), "-ac", "1",
-                    "-ar", str(SR), "-c:a", "libvorbis", "-q:a", "2", out], check=True)
+                    "-ar", str(SR), "-c:a", "libmp3lame", "-b:a", "32k", out], check=True)
     return float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
                                 capture_output=True, text=True).stdout.strip() or 1.0)
 
@@ -87,6 +87,7 @@ def main():
             if k not in manifest:
                 continue
             e = manifest[k]
+            e["f"] = k + ".mp3"
             out = os.path.join(out_dir, e["f"])
             e["d"] = round(finish(f, e["w"], out), 2)
             e["v"] = gen_voice.markers_for(out, e["t"], e.get("lang", "pt-br"))

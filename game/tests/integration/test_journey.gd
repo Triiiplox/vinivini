@@ -93,7 +93,7 @@ func test_home_has_fly_card_that_opens_arcade() -> void:
 	var fly: Interactable = Router.current_screen.find_child("Tile_fly", true, false)
 	check(fly != null, "cartão VOAR na home")
 	check(fly.hit(fly.global_position + Vector2(-170, 60)), "toque na ponta do cartão também vale")
-	eq(str(fly.payload[3]), "seg_arcade")
+	eq(str(fly.payload[3]), "fly_menu", "VOAR abre o menu (voo livre ou fases)")
 
 
 func test_arcade_hearts_gate_and_record() -> void:
@@ -274,3 +274,36 @@ func test_vini_flies_his_own_ship() -> void:
 	check(Router.current_screen.ship_art is Sprite2D, "voo livre usa a nave do Vini")
 	check(Router.current_screen.face == null, "sem rosto extra no vidro: ele já está pilotando")
 	eq(Kids.ship_path("ninguem"), "", "sem arte própria: nave padrão")
+
+
+## Fases de nave: começa com tiro conforme a fase; desafio do meio sobe o canhão; vencer o chefão salva estrelas e
+## abre a próxima fase.
+func test_shmup_phase_flow() -> void:
+	Router.reset_to("fly_menu", {})
+	await frames(3)
+	check(Router.current_screen.find_child("Fase_1", true, false) != null, "menu com a fase 1")
+	check(not Router.current_screen.is_open(1), "fase 2 trancada no começo")
+	Router.reset_to("seg_fases", {"fase": 0})
+	await frames(3)
+	var f: Node = Router.current_screen
+	eq(f.gun, 1, "fase 1: tiro simples")
+	f.challenge_done = true
+	f._spawn_gate("upgrade")
+	for p in f.gate:
+		p.position.x = f.SHIP_X
+		if str(p.get_meta("label")) == f.gate_answer:
+			f.ship.position.y = p.position.y
+	f._check_gate()
+	eq(f.gun, 2, "acertou o desafio: tiro duplo")
+	f.t = f.WAVE_TIME
+	for e in f.foes.duplicate():
+		f._drop(f.foes, e)
+	f._spawn(0.1)
+	check(f.boss != null, "chefão aparece no fim das ondas")
+	f._hit_boss(f.boss_max)
+	check(f.over, "chefão vencido: fim da fase")
+	eq(Router.current_screen.stars(0), 3, "3 corações = 3 estrelas")
+	check(load("res://src/screens/fly_menu_screen.gd").is_open(1), "fase 2 abriu")
+	Router.reset_to("seg_fases", {"fase": 4})
+	await frames(2)
+	eq(Router.current_screen.gun, 3, "fase 5 já começa com tiro triplo")

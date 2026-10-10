@@ -174,7 +174,7 @@ func _make_fly() -> void:
 	var fly := Interactable.new()
 	fly.name = "Tile_fly"
 	fly.hit_rect = Rect2(-190, -82, 380, 164)
-	fly.payload = ["fly", "rocket", "#0EA5E9", "seg_arcade", "Voo livre! Vamos pilotar!"]
+	fly.payload = ["fly", "rocket", "#0EA5E9", "fly_menu", "Vamos voar!"]
 	fly.position = Vector2(480, 552)
 	var card := Panel.new()
 	var sb := UITheme.rounded(Color("#0B4A8B"), 44, 8, Color("#5CE1FF"))

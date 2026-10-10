@@ -3,7 +3,8 @@
 
 Varre o código (Lines.n / Lines.c, frases de diálogo) e o conteúdo JSON (missões, cenas,
 histórias, elogios, sílabas, palavras, números) e sintetiza cada fala uma única vez.
-Saída: game/assets/voice/<chave>.ogg + manifest.json {chave: {f, d, t, w}}.
+Saída: game/assets/voice/<chave>.mp3 (32 kbps mono; v4.3.4: o .ogg tinha ~4 KB de cabeçalho por fala) + manifest.json
+{chave: {f, d, t, w}}.
 Chave = md5("quem|texto-modelo")[:12] — igual a VoiceService.key_for (texto-modelo usa {name}).
 
 Vozes: narradora = pf_dora; Cosmo = pm_alex com tom robótico leve; npc = pm_santa.
@@ -337,7 +338,7 @@ def main():
     todo = []
     for (who, text) in lines:
         k = key_for(who, text)
-        f = k + ".ogg"
+        f = k + ".mp3"
         br = LANG.get(who, "pt-br") == "pt-br"
         stale = br and ((has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON) or int(old.get(k, {}).get("a", 0)) < ACC)
         stale = stale or (k in old and old[k].get("eng", "kokoro") != engine(who))
@@ -348,7 +349,7 @@ def main():
         if LANG.get(who, "pt-br") == "pt-br" and has_name(text):
             for kid in KIDS:
                 kk = key_for(who, text, kid)
-                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")) and int(old[kk].get("a", 0)) >= ACC \
+                if kk in old and os.path.exists(os.path.join(OUT, kk + ".mp3")) and int(old[kk].get("a", 0)) >= ACC \
                         and old[kk].get("eng", "kokoro") == engine(who):
                     manifest[kk] = old[kk]
                 else:
@@ -379,12 +380,12 @@ def main():
                 af = ["asetrate=%d" % int(sr * 1.10), "aresample=%d" % sr, "atempo=0.94",
                       "aecho=0.8:0.6:12:0.25"] + af
             af.append("loudnorm=I=-17:TP=-1.5:LRA=11")
-            out = os.path.join(OUT, k + ".ogg")
+            out = os.path.join(OUT, k + ".mp3")
             subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-af", ",".join(af), "-ac", "1", "-ar", "24000",
-                            "-c:a", "libvorbis", "-q:a", "2", out], check=True)
+                            "-c:a", "libmp3lame", "-b:a", "32k", out], check=True)
             d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
                                      capture_output=True, text=True).stdout.strip() or 1.0)
-        e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
+        e = {"f": k + ".mp3", "d": round(d, 2), "t": text, "w": who}
         if engine(who) != "kokoro":
             e["eng"] = engine(who)
         if lang != "pt-br":
@@ -417,7 +418,7 @@ def main():
         print("lip-sync: %d falas marcadas" % nv)
     json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     keep = set(e["f"] for e in manifest.values())
-    for f in glob.glob(os.path.join(OUT, "*.ogg")):
+    for f in glob.glob(os.path.join(OUT, "*.ogg")) + glob.glob(os.path.join(OUT, "*.mp3")):
         if os.path.basename(f) not in keep:
             os.remove(f)
             imp = f + ".import"

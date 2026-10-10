@@ -7,7 +7,7 @@ extends GameScreen
 const STATIONS := [
 	{"id": "bridge", "scene": "bridge", "name": "Ponte", "screen": "journey",
 		"say": "A ponte de comando! Daqui a gente parte para a jornada."},
-	{"id": "hangar", "scene": "hangar", "name": "Hangar", "screen": "seg_arcade",
+	{"id": "hangar", "scene": "hangar", "name": "Hangar", "screen": "fly_menu",
 		"say": "O hangar! Vamos voar com a nave?"},
 	{"id": "workshop", "scene": "workshop", "name": "Oficina", "screen": "seg_build",
 		"say": "A oficina. Vamos montar um foguete?"},

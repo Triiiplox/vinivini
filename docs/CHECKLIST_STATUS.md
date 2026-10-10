@@ -1,3 +1,13 @@
+# Checklist v4.3.4 (10/10) — fases de nave + pacote menor
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | VOAR → menu | ✅ | O cartão VOAR (e o Hangar) abre a escolha: VOO LIVRE ou FASES (6 planetas, estrelas, cadeados). |
+| 2 | Fases estilo jogo de nave | ✅ | `seg_fases`: a nave de quem joga atira sozinha (criança só troca de faixa); meteoros, lixo espacial, meteoro grande que racha; desafio de conta no meio (canhão: simples → duplo → triplo → laser); primo de reforço atirando; chefão "meteoro gigante" com barra de vida, aviso vermelho na faixa e tiro especial pelo portal de conta; 3 corações, estrelas, próxima fase abre. Tiro começa mais forte nas fases adiantadas. Teste `test_shmup_phase_flow`. |
+| 3 | Pacote menor | ✅ | Vozes em MP3 32 kbps (cada .ogg levava ~4 KB de cabeçalho): voz no APK 41,7 → 21,1 MB; APK completo 89,7 → 76,4 MB (3 partes em vez de 4). |
+| 4 | Instalação lenta | ⏳ | 30 min "instalando" não é tamanho (90 MB instala em segundos): provável Play Protect ou APK incompleto da extração. Passos enviados ao Andro; aguardando o texto da tela. Definitivo: repositório privado → APK completo num arquivo só. |
+| 5 | Validação | ✅ | 133 testes; smoke 96/96 (projeto e pacote); robô 52/52 errando, 0 falas sem áudio; toques reais; lições; `check_apk.sh` nos dois APKs. |
+
 # Checklist v4.3.3 (10/10) — cada criança na sua nave
 
 | # | Item | Status | Evidência / o que falta |

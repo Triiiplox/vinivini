@@ -1,7 +1,7 @@
 extends Node
 ## Narração natural pré-gerada (Kokoro, offline) — sem TTS do sistema.
 ## Cada fala é identificada por md5(quem|texto-modelo). O texto-modelo pode conter {name}.
-## tools/gen_voice.py varre código e conteúdo e gera assets/voice/*.ogg + manifest.json.
+## tools/gen_voice.py varre código e conteúdo e gera assets/voice/*.mp3 + manifest.json.
 
 signal line_started(text: String, who: String)
 signal line_finished
