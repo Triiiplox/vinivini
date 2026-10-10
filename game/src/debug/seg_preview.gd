@@ -90,12 +90,15 @@ func _run() -> void:
 		f._check_gate()
 		f._call_wingman()
 		await shot("fases_reforco", 1.5)
+		f._go_power()
+		await shot("fases_poderoso", 0.7)
 		f.t = f.WAVE_TIME
 		for e in f.foes.duplicate():
 			f._drop(f.foes, e)
 		await shot("fases_chefao", 3.0)
-		f._hit_boss(f.boss_max * 0.55)
-		await shot("fases_especial", 2.0)
+		f.boss_gate_done = true
+		f._special()
+		await shot("fases_especial", 0.75)
 		f._hit_boss(f.boss_max)
 		await shot("fases_vitoria", 2.5)
 		SaveService.settings.set_value("knows_basics", false)

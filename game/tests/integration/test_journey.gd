@@ -307,3 +307,19 @@ func test_shmup_phase_flow() -> void:
 	Router.reset_to("seg_fases", {"fase": 4})
 	await frames(2)
 	eq(Router.current_screen.gun, 3, "fase 5 já começa com tiro triplo")
+
+
+func test_power_bolt_in_phases() -> void:
+	Router.reset_to("seg_fases", {"fase": 0})
+	await frames(3)
+	var f: Node = Router.current_screen
+	f._spawn_bolt()
+	eq(f.pickups.size(), 1, "raio na pista")
+	f.pickups[0].position = f.ship.position
+	f._move(0.016)
+	check(f.power_t > 7.0, "pegou o raio: modo poderoso")
+	f.fire_t = 0.0
+	var before: int = f.bullets.size()
+	f._fire(0.016)
+	eq(f.bullets.size() - before, 5, "rajada de 5 tiros arco-íris")
+	eq(float(f.bullets[f.bullets.size() - 1].get_meta("dmg")), 2.0, "dano dobrado")

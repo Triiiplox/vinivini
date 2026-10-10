@@ -1,3 +1,12 @@
+# Checklist v4.3.5 (10/10) — modo poderoso nas fases
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Música do poder | ✅ | Raio para pegar a cada ~14 s nas fases (também no chefão) = MODO PODEROSO 8 s com a música da família (só APK completo). Também toca no tiro especial e no laser. |
+| 2 | Tiros melhores | ✅ | `ShmupFx`: tiro brilhante com rastro e núcleo branco (luz somada), clarão no canhão, anel + faísca no acerto, cor sobe com o canhão; modo poderoso = rajada arco-íris em 5 direções, dano dobrado, aura girando. |
+| 3 | Tiro especial | ✅ | Carga no canhão, raio grosso arco-íris com núcleo branco, tela pisca, meteoro gigante empurrado para trás, estrelas. Mão de dica não aponta mais o portal errado. Teste `test_power_bolt_in_phases`. |
+| 4 | Validação | ✅ | 134 testes; smoke 96/96 (projeto e pacote); robô 52/52 errando; toques reais; lições; `check_apk.sh` nos dois APKs. |
+
 # Checklist v4.3.4 (10/10) — fases de nave + pacote menor
 
 | # | Item | Status | Evidência / o que falta |

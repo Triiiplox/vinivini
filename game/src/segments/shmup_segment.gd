@@ -6,6 +6,8 @@ extends GameScreen
 ## reforço atirando junto. Fim: o METEORO GIGANTE do planeta, com barra de vida; na metade, portal de conta
 ## para o TIRO ESPECIAL. 3 corações; estrelas pela vida que sobrou; a fase seguinte abre ao vencer.
 ## Sem bichos para matar: a nave limpa o caminho de pedras e lixo (é um jogo para 4 anos).
+## RAIO (de tempos em tempos, também no chefão) = MODO PODEROSO: 8 s de tiro arco-íris em 5 direções, dano dobrado,
+## aura, e a música da família (o Andro: "não esquece da música do Blaze quando pegar o poder"). Efeitos: ShmupFx.
 
 const LANES := [200.0, 390.0, 580.0]
 const SHIP_X := 230.0
@@ -18,6 +20,9 @@ const BULLET_SPEED := 1150.0
 const MAX_GUN := 4
 ## Bocas dos canhões em fração da nave (x para a frente, y para baixo): as naves pintadas têm canhões na frente.
 const MUZZLES := [Vector2(0.46, 0.06), Vector2(0.24, 0.27)]
+const POWER_SEC := 8.0
+const POWER_EVERY := 14.0
+const GUN_COLORS := [Color(1.0, 0.85, 0.3), Color(1.0, 0.6, 0.2), Color(1.0, 0.45, 0.8), Color(0.4, 1.0, 1.0)]
 
 var fase := 0
 var gun := 1
@@ -51,6 +56,10 @@ var boss_bar: Control
 var calc_label: Label
 var explain_label: Label
 var heart_box: HBoxContainer
+var power_t := 0.0
+var power_drop_t := 9.0
+var pickups: Array[Node2D] = []
+var aura: Node2D
 var _pressing := false
 var _gate_t0 := 0.0
 var _w := 220.0
@@ -75,6 +84,9 @@ func build() -> void:
 	trail.emitting = true
 	ship_art = Kids.ship_node(_w)
 	ship.add_child(ship_art)
+	aura = ShmupFx.aura()
+	aura.visible = false
+	ship.add_child(aura)
 	if ship_art is Sprite2D:
 		var tex: Texture2D = (ship_art as Sprite2D).texture
 		_h = _w * tex.get_height() / float(tex.get_width())
@@ -193,6 +205,14 @@ func _process(delta: float) -> void:
 	var slow := 0.6 if not gate.is_empty() else 1.0  # portal na tela: tempo para pensar
 	if boss == null:
 		t += delta * slow
+	power_t = maxf(0.0, power_t - delta)
+	aura.visible = power_t > 0.0
+	if aura.visible:
+		aura.queue_redraw()
+	power_drop_t -= delta
+	if power_drop_t <= 0.0 and gate.is_empty():
+		power_drop_t = POWER_EVERY
+		_spawn_bolt()
 	_fire(delta)
 	_move(delta * slow)
 	_spawn(delta)
@@ -217,18 +237,31 @@ func _fire(delta: float) -> void:
 	fire_t -= delta
 	if fire_t > 0.0 or not gate.is_empty():
 		return
+	if power_t > 0.0:
+		# Modo poderoso: rajada arco-íris em leque, rápida e com dano dobrado.
+		fire_t = 0.12
+		AudioService.play_sfx("tap", 1.8, -10.0)
+		for i in 5:
+			var col: Color = ShmupFx.RAINBOW[(i + Engine.get_process_frames() / 6) % ShmupFx.RAINBOW.size()]
+			_shot(_muzzle(i % 2), Vector2(1, (i - 2) * 0.22).normalized(), Vector2.INF, col, 2.0, true)
+		ShmupFx.muzzle_flash(world, ship.position + _muzzle(0), Color.WHITE)
+		return
 	fire_t = FIRE_EVERY
 	AudioService.play_sfx("tap", 1.4, -12.0)
+	var gc: Color = GUN_COLORS[clampi(gun - 1, 0, 3)]
+	ShmupFx.muzzle_flash(world, ship.position + _muzzle(0), gc)
 	match gun:
 		1:
 			_shot(_muzzle(0), Vector2.RIGHT)
 		2:
 			_shot(_muzzle(0), Vector2.RIGHT)
 			_shot(_muzzle(1), Vector2.RIGHT)
+			ShmupFx.muzzle_flash(world, ship.position + _muzzle(1), gc)
 		_:
 			_shot(_muzzle(0), Vector2.RIGHT)
 			_shot(_muzzle(0), Vector2(1, -0.33).normalized())
 			_shot(_muzzle(1), Vector2(1, 0.33).normalized())
+			ShmupFx.muzzle_flash(world, ship.position + _muzzle(1), gc)
 
 
 func _muzzle(i: int) -> Vector2:
@@ -236,18 +269,17 @@ func _muzzle(i: int) -> Vector2:
 	return Vector2(m.x * _w, m.y * _h)
 
 
-func _shot(from: Vector2, dir: Vector2, owner_pos: Vector2 = Vector2.INF) -> void:
-	var b := Node2D.new()
+## Tiro: cor sobe com o canhão (amarelo → laranja → rosa → ciano); no modo poderoso, arco-íris e maior.
+func _shot(from: Vector2, dir: Vector2, owner_pos: Vector2 = Vector2.INF, col: Color = Color(0, 0, 0, 0),
+		dmg: float = 1.0, big: bool = false) -> void:
+	if col.a == 0.0:
+		col = GUN_COLORS[clampi(gun - 1, 0, 3)]
+	var b := ShmupFx.bullet(col, big)
 	b.position = (ship.position if owner_pos == Vector2.INF else owner_pos) + from
 	b.set_meta("dir", dir)
+	b.set_meta("dmg", dmg)
+	b.set_meta("col", col)
 	b.z_index = 40
-	# Tiro bem visível no celular: rastro + bola brilhante; a cor sobe com o canhão (amarelo → laranja → rosa).
-	var col: Color = [Color(1.0, 0.85, 0.3), Color(1.0, 0.6, 0.2), Color(1.0, 0.45, 0.8)][clampi(gun - 1, 0, 2)]
-	b.draw.connect(func():
-		b.draw_line(Vector2(-54, 0), Vector2.ZERO, Color(col, 0.45), 16.0)
-		b.draw_circle(Vector2.ZERO, 20.0, Color(col, 0.35))
-		b.draw_circle(Vector2.ZERO, 13.0, col)
-		b.draw_circle(Vector2(3, -3), 5.0, Color(1, 1, 1, 0.9)))
 	b.rotation = dir.angle()
 	world.add_child(b)
 	bullets.append(b)
@@ -260,17 +292,26 @@ func _move(delta: float) -> void:
 			_drop(bullets, b)
 			continue
 		var hit := false
+		var dmg := float(b.get_meta("dmg"))
 		for f in foes:
 			if b.position.distance_to(f.position) < float(f.get_meta("r")):
-				_damage(f, 1.0)
+				_damage(f, dmg)
 				hit = true
 				break
 		if not hit and boss != null and b.position.distance_to(boss.position) < 150.0:
-			_hit_boss(1.0)
+			_hit_boss(dmg)
 			hit = true
 		if hit:
-			Fx.sparkle(world, b.position, 6, Color(1, 0.9, 0.5))
+			ShmupFx.impact(world, b.position, b.get_meta("col"), dmg > 1.0)
 			_drop(bullets, b)
+	for p in pickups.duplicate():
+		p.position.x -= 200.0 * delta
+		p.rotation = sin(Time.get_ticks_msec() / 200.0) * 0.3
+		if p.position.x < -100:
+			_drop(pickups, p)
+		elif p.position.distance_to(ship.position) < 95.0:
+			_drop(pickups, p)
+			_go_power()
 	var spd := 230.0 + fase * 25.0
 	for f in foes.duplicate():
 		f.position.x -= spd * delta
@@ -417,6 +458,7 @@ func _add_score(n: int) -> void:
 ## kind "upgrade" (meio da fase: canhão sobe) ou "special" (chefão: tiro especial).
 func _spawn_gate(kind: String) -> void:
 	gate_kind = kind
+	hand.hide_hint()  # a dica de antes mirava um meteoro; com o portal na tela ela apontaria o número errado
 	var picks: Array = []
 	var calc := bool(SaveService.settings.get_value("knows_basics"))
 	if calc:
@@ -614,20 +656,43 @@ func _hit_boss(dmg: float) -> void:
 
 
 func _special() -> void:
-	AudioService.play_power(8.0)
+	AudioService.play_power(POWER_SEC)
+	power_t = maxf(power_t, POWER_SEC)
 	cosmo_say(Lines.c("Tiro especial! Com tudo!"))
-	var beam := Line2D.new()
-	beam.width = 90.0
-	beam.default_color = Color(0.6, 1.0, 1.0, 0.95)
-	beam.points = PackedVector2Array([ship.position + _muzzle(0), boss.position])
-	beam.z_index = 46
-	world.add_child(beam)
-	var tw := beam.create_tween()
-	tw.tween_property(beam, "width", 0.0, 0.9)
-	tw.tween_callback(beam.queue_free)
-	shake_camera(18.0)
-	_hit_boss(boss_max * 0.3)
 	gun = mini(MAX_GUN, gun + 1)
+	var dmg := boss_max * 0.3
+	ShmupFx.special_beam(self, ship, _muzzle(0), boss.position, func():
+		if boss == null:
+			return
+		# O meteoro gigante é empurrado para trás e volta.
+		var kb := boss.create_tween()
+		kb.tween_property(boss, "position:x", boss.position.x + 120.0, 0.15).set_ease(Tween.EASE_OUT)
+		kb.tween_property(boss, "position:x", boss.position.x, 0.6).set_trans(Tween.TRANS_SINE)
+		_hit_boss(dmg))
+
+
+## Raio para pegar: vira MODO PODEROSO.
+func _spawn_bolt() -> void:
+	var p := Node2D.new()
+	p.name = "PowerBolt"
+	p.position = Vector2(1420, float(LANES.pick_random()))
+	p.z_index = 44
+	var a := ArtSprite.new("props", "bolt", 96.0)
+	a.idle = "pulse"
+	p.add_child(a)
+	Fx.glow(p, Vector2.ZERO, 200, Color(1.0, 0.9, 0.3, 0.8), 1.0).z_index = -1
+	world.add_child(p)
+	pickups.append(p)
+
+
+func _go_power() -> void:
+	power_t = POWER_SEC
+	AudioService.play_power(POWER_SEC)
+	AudioService.play_sfx("unlock")
+	AudioService.haptic(60)
+	ShmupFx.flash(hud.root, Color("#FFE66D"), 0.45, 0.4)
+	shake_camera(8.0)
+	cosmo_say(Lines.c("Modo poderoso! Tiro arco-íris!"))
 
 
 func _boss_down() -> void:
@@ -650,6 +715,8 @@ func _end(won: bool) -> void:
 	hint_fn = Callable()
 	hand.hide_hint()
 	laser.visible = false
+	power_t = 0.0
+	aura.visible = false
 	AudioService.stop_power()
 	for p in gate:
 		p.queue_free()
