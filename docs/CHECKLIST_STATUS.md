@@ -1,3 +1,10 @@
+# Checklist v4.3.2 (10/10) — voz brasileira do Astro
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Astro com voz brasileira | ✅ | O Andro ouviu A/B/C e escolheu: Astro = Piper "edresson" (gravada por brasileiro) com o efeito de robô; narradora fica como estava. 544 falas regravadas; palavra solta com exclamação e mais lenta (o "milho" saía em 0,25 s, agora 0,8 s). Crédito CC BY 4.0 em `docs/CREDITOS.md` e na área dos pais. |
+| 2 | Validação | ✅ | 131 testes; smoke 94/94 (projeto e pacote); robô 52/52 errando, 0 falas sem áudio; `tools/check_apk.sh` nos dois APKs. |
+
 # Checklist v4.3.1 (10/10) — caminho até o jogo da nave + Android novo
 
 | # | Item | Status | Evidência / o que falta |

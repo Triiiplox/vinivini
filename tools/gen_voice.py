@@ -30,6 +30,34 @@ PRON = 2  # versão da pronúncia do nome: falas com o nome de versão menor sã
 # Sotaque (10/10, o Andro: "o sotaque não é brasileiro, é português"): o espeak pt-br entrega vícios que a voz lê
 # como sotaque de fora. Toda fala pt-BR passa por fix_br; falas com versão de sotaque menor são refeitas.
 ACC = 1
+# Astro com voz brasileira de verdade (Piper "edresson", gravada por brasileiro; o Andro escolheu de ouvido, 10/10):
+# o efeito de robô disfarça a qualidade baixa (16 kHz). Licença CC BY 4.0: crédito em docs/CREDITOS.md e na área
+# dos pais. Modelo: github.com/rhasspy/piper/releases/download/v0.0.2/voice-pt-br-edresson-low.tar.gz (PIPER_DIR).
+PIPER = {"cosmo": "pt-br-edresson-low.onnx"}
+ENGINE = {"cosmo": "piper-edresson-2"}
+_PIPER = {}
+
+
+def engine(who):
+    return ENGINE.get(who, "kokoro")
+
+
+def piper_wav(who, text, wav):
+    """Fala com a voz Piper do personagem (16 kHz)."""
+    import wave
+    if who not in _PIPER:
+        from piper import PiperVoice
+        pdir = os.environ.get("PIPER_DIR", os.environ.get("KOKORO_DIR", ""))
+        _PIPER[who] = PiperVoice.load(os.path.join(pdir, PIPER[who]))
+    from piper.config import SynthesisConfig
+    # Palavra solta saía em 0,25 s ("milho"): com exclamação e mais devagar fica ~0,8 s, como se fala com criança.
+    t = text.strip()
+    short = len(t.split()) <= 2 and t[-1:] not in "!?."
+    if short:
+        t = t[:1].upper() + t[1:] + "!"
+    with wave.open(wav, "wb") as wf:
+        _PIPER[who].synthesize_wav(t, wf, syn_config=SynthesisConfig(length_scale=1.5 if short else 1.08))
+    return _PIPER[who].config.sample_rate
 VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa", "hoppy": "af_heart", "hoppy_slow": "af_heart"}
 SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95, "hoppy": 0.92, "hoppy_slow": 0.68}
 # Planeta Hello: o Hoppy só fala inglês (en-US nativo); "hoppy_slow" = a mesma palavra devagar (modelo de escuta).
@@ -312,6 +340,7 @@ def main():
         f = k + ".ogg"
         br = LANG.get(who, "pt-br") == "pt-br"
         stale = br and ((has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON) or int(old.get(k, {}).get("a", 0)) < ACC)
+        stale = stale or (k in old and old[k].get("eng", "kokoro") != engine(who))
         if k in old and os.path.exists(os.path.join(OUT, f)) and not stale:
             manifest[k] = old[k]
         else:
@@ -319,7 +348,8 @@ def main():
         if LANG.get(who, "pt-br") == "pt-br" and has_name(text):
             for kid in KIDS:
                 kk = key_for(who, text, kid)
-                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")) and int(old[kk].get("a", 0)) >= ACC:
+                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")) and int(old[kk].get("a", 0)) >= ACC \
+                        and old[kk].get("eng", "kokoro") == engine(who):
                     manifest[kk] = old[kk]
                 else:
                     todo.append((kk, who, text, kid))
@@ -328,14 +358,17 @@ def main():
     def synth(job):
         k, who, text, kid = job
         lang = LANG.get(who, "pt-br")
-        if lang == "pt-br":
-            samples, sr = kok.create(phonemes_pt(text, kid), voice=VOICES[who], speed=SPEED[who], lang=lang,
-                                     is_phonemes=True)
-        else:
-            samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
         with tempfile.TemporaryDirectory() as td:
             wav = os.path.join(td, "a.wav")
-            sf.write(wav, samples, sr)
+            if who in PIPER:
+                sr = piper_wav(who, spoken(text, name=KIDS[kid]) if kid else spoken(text), wav)
+            else:
+                if lang == "pt-br":
+                    samples, sr = kok.create(phonemes_pt(text, kid), voice=VOICES[who], speed=SPEED[who], lang=lang,
+                                             is_phonemes=True)
+                else:
+                    samples, sr = kok.create(spoken(text, lang), voice=VOICES[who], speed=SPEED[who], lang=lang)
+                sf.write(wav, samples, sr)
             af = ["silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.03",
                   "areverse", "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08", "areverse"]
             if who.startswith("hoppy"):
@@ -352,16 +385,16 @@ def main():
             d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
                                      capture_output=True, text=True).stdout.strip() or 1.0)
         e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
+        if engine(who) != "kokoro":
+            e["eng"] = engine(who)
         if lang != "pt-br":
             e["lang"] = lang
         else:
             e["a"] = ACC
-        if lang != "pt-br":
-            pass
-        elif kid:
-            e["kid"] = kid
-        elif has_name(text):
-            e["p"] = PRON
+            if kid:
+                e["kid"] = kid
+            elif has_name(text):
+                e["p"] = PRON
         return k, e
 
     done = 0
