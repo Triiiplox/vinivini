@@ -1,7 +1,7 @@
 extends Node
 ## Smoke v2 (fluxo real da criança, jogado pelo Autoplay):
 ##   godot --headless --path game -- --smoke2 [--mistakes]
-## splash → abertura (monta astronauta) → m01 … m12 pelo mapa da galáxia → nave → cada estação.
+## splash → abertura (monta astronauta) → j01 … j08 pelo mapa da Jornada → tela principal → nave → cada estação.
 ## Falha se alguma missão não terminar no tempo, se algum segmento travar ou se houver erro de log.
 
 const TIME_SCALE := 5.0
@@ -91,29 +91,31 @@ func _run() -> void:
 	await wait(0.5)
 	check(Router.current_id == "opening", "primeiro acesso abre a abertura (%s)" % Router.current_id)
 	if await play_until("seg_cutscene", 120.0):
-		check(MissionFlow.mission_id == "m01", "abertura leva direto à primeira missão")
+		check(MissionFlow.mission_id == "j01", "abertura leva direto à primeira missão da Jornada")
 	check(AppState.has_profile(), "perfil criado na abertura")
-	var order: Array[String] = []
-	for c in ContentService.repo.campaigns:
-		for mid in c["missions"]:
-			order.append(mid)
-	for mid in order:
-		if mid != "m01":
+	# Mundo Lua inteiro pelo mapa da Jornada (o caminho da criança desde a v4.3.1; a galáxia antiga saiu).
+	for mid in ContentService.repo.journey[0]["missions"]:
+		if mid != "j01":
 			check(MissionFlow.is_unlocked(mid), "%s liberada" % mid)
 			if not MissionFlow.is_unlocked(mid):
 				continue
-			Router.reset_to("galaxy", {})
+			Router.reset_to("journey", {})
 			await wait(0.3)
-			var g: Node = Router.current_screen
-			g._on_node(g.nodes[mid])  # um toque só: a nave voa, diz o nome e a missão começa
-			await wait(1.4)
+			var jm: Node = Router.current_screen
+			jm._on_node(jm._node_of(mid))
+			await wait(1.0)
 			check(MissionFlow.mission_id == mid, "mapa inicia %s com um toque" % mid)
 		var t0 := Time.get_ticks_msec()
 		print("== missão ", mid)
 		if await play_until("reward", MISSION_TIMEOUT):
 			check(MissionFlow.is_done(mid), "%s concluída" % mid)
-			await play_until("galaxy", 30.0)
+			await play_until("journey", 30.0)
 		print("   %s em %.1fs reais" % [mid, (Time.get_ticks_msec() - t0) / 1000.0])
+	var wdone: Variant = SaveService.progress.data(SaveService.profile_id).get("worlds_done", [])
+	check(wdone is Array and (wdone as Array).has("j_lua"), "Lua completa comemorada no mapa (ao voltar da missão 8)")
+	Router.reset_to("home", {})
+	await wait(0.5)
+	check(Router.current_screen.find_child("Tile_fly", true, false) != null, "VOAR na tela principal")
 	# Adaptação: acertando tudo, alguma habilidade tem que subir de nível.
 	var levels := {}
 	for sk in ContentService.repo.skills:
@@ -121,15 +123,7 @@ func _run() -> void:
 	print("   níveis: ", levels)
 	if not Autoplay.mistakes:
 		check(levels.values().max() >= 2, "dificuldade sobe com acertos")
-	# Desafio de comandante (coroa no mapa) e desafio da família (presente na nave).
-	Router.reset_to("galaxy", {})
-	await wait(0.3)
-	var g2: Node = Router.current_screen
-	g2._on_commander(g2.nodes["m05"].get_node("Commander_m05"))
-	await wait(6.0)
-	check(MissionFlow.mode == "commander", "coroa inicia modo comandante")
-	if await play_until("reward", MISSION_TIMEOUT):
-		await play_until("galaxy", 30.0)
+	# Desafio da família (presente na nave).
 	SaveService.progress.set_parent_challenge(SaveService.profile_id, {"sender": "Papai", "skill": "logic.programming", "difficulty": 2,
 		"rounds": 3})
 	Router.reset_to("ship", {"quiet": true})

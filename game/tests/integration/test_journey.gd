@@ -249,3 +249,19 @@ func test_power_mode_from_bolt() -> void:
 	check(a.double_t >= 7.9, "estrelas em dobro no modo poderoso")
 	a._game_over()
 	AudioService.stop_power()
+
+
+## Perfil novo: a abertura leva à 1ª missão da JORNADA e, no fim, ao mapa da Jornada (de onde a casa abre a tela
+## principal com o VOAR). Antes levava à missão antiga e à galáxia antiga, e o Andro não achava o jogo da nave.
+func test_new_profile_reaches_journey_and_fly() -> void:
+	Router.reset_to("opening", {})
+	await frames(3)
+	Router.current_screen._finish_avatar()
+	await get_tree().create_timer(6.0).timeout
+	eq(MissionFlow.mission_id, "j01", "a primeira missão é a da Jornada")
+	Router.replace("reward", {"mission": ContentService.repo.missions["m01"], "reward": {"unlocked": []}, "stars": 3})
+	await frames(3)
+	Router.current_screen._continue()
+	await frames(3)
+	eq(Router.current_id, "home", "missão antiga volta para a tela principal (não para a galáxia antiga)")
+	check(Router.current_screen.find_child("Tile_fly", true, false) != null, "o VOAR está na tela principal")

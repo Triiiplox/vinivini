@@ -1,3 +1,10 @@
+# Checklist v4.3.1 (10/10) — caminho até o jogo da nave + Android novo
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Chegar no VOAR | ✅ | Perfil novo: a abertura levava à missão antiga m01 e ao mapa da galáxia antigo, sem passar pela tela principal (onde estão JORNADA e VOAR). Agora: abertura → 1ª missão da Jornada → mapa da Jornada → casa → tela principal. Missões antigas voltam para a tela principal. Teste `test_new_profile_reaches_journey_and_fly`; robô de missões refeito no caminho novo (52/52 errando). |
+| 2 | Android novo | ✅ | `tools/check_apk.sh`: assinatura v2+v3, alvo API 35 / mínimo API 24, bibliotecas nativas com alinhamento de 16 KB (aparelhos Android 15+), só VIBRATE, particular só no completo. |
+
 # Checklist v4.3.0 (10/10) — aprendizagem com início, meio e fim
 
 | # | Item | Status | Evidência / o que falta |

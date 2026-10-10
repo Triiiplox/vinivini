@@ -87,7 +87,9 @@ func _finish_avatar() -> void:
 	p["intro_seen"] = true
 	SaveService.profiles.save_profile(p)
 	var d := cosmo_say(Lines.c("Que astronauta incrível! Agora, a primeira missão!"))
-	after(d + 0.4, func(): MissionFlow.start("m01"))
+	# 1ª missão = 1ª missão da Jornada (antes era a "m01" da campanha antiga, que terminava no mapa da galáxia
+	# antigo; dali não se via a tela principal, nem a Jornada nem o VOAR — o Andro não achava o jogo da nave).
+	after(d + 0.4, func(): MissionFlow.start("j01"))
 
 
 func _on_home() -> void:

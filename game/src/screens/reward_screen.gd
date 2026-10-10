@@ -115,7 +115,7 @@ func _continue() -> void:
 	if params.has("mission") and str(params["mission"].get("campaign", "")).begins_with("j_"):
 		Router.reset_to("journey", {"focus": str(params["mission"].get("id", ""))})
 	elif params.has("mission"):
-		Router.reset_to("galaxy", {"focus": str(params["mission"].get("id", ""))})
+		Router.home()  # missões antigas (desafio da família): voltam para a tela principal, não para a galáxia antiga
 	elif str((params.get("result", {}) as Dictionary).get("back", "")) != "":
 		Router.reset_to(str(params["result"]["back"]))
 	else:
