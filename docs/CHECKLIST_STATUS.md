@@ -1,3 +1,10 @@
+# Checklist v4.3.3 (10/10) — cada criança na sua nave
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Naves pintadas | ✅ | Arte do Andro: Vini (laranja/azul), Manuzita (coroas/corações), Enzo (azul-marinho/dourado), Aylinha (verde/amarelo). `Kids.ship_node`: voo livre, voo das missões, cartões JORNADA/VOAR e primo de ala. As 3 dos convidados ficam fora do git e do APK público (como as fotos). Teste `test_vini_flies_his_own_ship`. |
+| 2 | Validação | ✅ | 132 testes; smoke 94/94 (projeto e pacote); robô 52/52 errando; toques reais; `check_apk.sh` agora confere rosto + nave dos convidados (6 no completo, 0 no público). |
+
 # Checklist v4.3.2 (10/10) — voz brasileira do Astro
 
 | # | Item | Status | Evidência / o que falta |

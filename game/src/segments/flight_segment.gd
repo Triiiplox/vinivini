@@ -22,7 +22,7 @@ var goal := 6
 var portal_skill := "numbers"
 var speed := 300.0
 var ship: Node2D
-var ship_art: ArtSprite
+var ship_art: Node2D
 var target_y := 390.0
 var scroll := 0.0
 var progress := 0
@@ -75,7 +75,7 @@ func build() -> void:
 	_trail = Fx.trail(ship)
 	_trail.position = Vector2(-80, 4)
 	_trail.emitting = true
-	ship_art = ArtSprite.new("props", "ship_side", 190.0)
+	ship_art = Kids.ship_node(210.0)
 	ship.add_child(ship_art)
 	var turbo := DSButton.new("icon", "rocket", Vector2(130, 130), "purple")
 	turbo.name = "TurboButton"

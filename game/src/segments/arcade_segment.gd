@@ -29,7 +29,7 @@ const POWERS := ["magnet", "bolt", "star_box", "heart"]
 
 var speed := SPEED0
 var ship: Node2D
-var ship_art: ArtSprite
+var ship_art: Node2D
 var target_y := 390.0
 var scroll := 0.0
 var score := 0
@@ -91,9 +91,10 @@ func build() -> void:
 	var trail := Fx.trail(ship)
 	trail.position = Vector2(-80, 4)
 	trail.emitting = true
-	ship_art = ArtSprite.new("props", "ship_side", SHIP_W)
+	ship_art = Kids.ship_node(SHIP_W + 20.0)
 	ship.add_child(ship_art)
-	_build_cockpit()
+	if not ship_art is Sprite2D:
+		_build_cockpit()  # nave padrão: o rosto entra no vidro; nave própria já tem a criança pilotando
 	_bubble = Node2D.new()
 	_bubble.visible = false
 	_bubble.draw.connect(func():

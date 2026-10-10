@@ -265,3 +265,12 @@ func test_new_profile_reaches_journey_and_fly() -> void:
 	await frames(3)
 	eq(Router.current_id, "home", "missão antiga volta para a tela principal (não para a galáxia antiga)")
 	check(Router.current_screen.find_child("Tile_fly", true, false) != null, "o VOAR está na tela principal")
+
+
+func test_vini_flies_his_own_ship() -> void:
+	check(Kids.ship_path("vini") != "", "nave do Vini no pacote")
+	Router.reset_to("seg_arcade", {})
+	await frames(3)
+	check(Router.current_screen.ship_art is Sprite2D, "voo livre usa a nave do Vini")
+	check(Router.current_screen.face == null, "sem rosto extra no vidro: ele já está pilotando")
+	eq(Kids.ship_path("ninguem"), "", "sem arte própria: nave padrão")

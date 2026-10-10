@@ -26,14 +26,18 @@ func _init(id: String) -> void:
 		bubble.draw_arc(Vector2.ZERO, 62.0, 0.0, TAU, 40, Color(col.lightened(0.4), 0.95), 6.0, true)
 		bubble.draw_arc(Vector2.ZERO, 48.0, PI * 1.1, PI * 1.45, 10, Color(1, 1, 1, 0.6), 5.0, true))
 	add_child(bubble)
-	var face := Sprite2D.new()
-	face.texture = load(Kids.head_path("big_smile", id))
-	var k := 92.0 / face.texture.get_height()
-	face.scale = Vector2(k, k)
-	add_child(face)
+	if Kids.ship_path(id) != "":
+		bubble.visible = false  # o primo vem na nave dele
+		add_child(Kids.ship_node(190.0, id))
+	else:
+		var face := Sprite2D.new()
+		face.texture = load(Kids.head_path("big_smile", id))
+		var k := 92.0 / face.texture.get_height()
+		face.scale = Vector2(k, k)
+		add_child(face)
 	var nl := UI.label(Kids.name_of(id), 28, Color.WHITE, true)
 	nl.size = Vector2(200, 40)
-	nl.position = Vector2(-100, 62)
+	nl.position = Vector2(-100, 74 if Kids.ship_path(id) != "" else 62)
 	nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	nl.add_theme_constant_override("outline_size", 8)
 	nl.add_theme_color_override("font_outline_color", Color(0.03, 0.04, 0.15))

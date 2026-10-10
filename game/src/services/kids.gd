@@ -7,6 +7,9 @@ extends RefCounted
 const LIST := [["vini", "Vini"], ["manuzita", "Manuzita"], ["enzo", "Enzo"], ["aylinha", "Aylinha"]]
 const VINI_HEADS := "res://assets/characters/vini/parts/head__%s.png"
 const KID_HEAD := "res://assets/characters/kids/%s/head.png"
+## Nave pintada de cada criança, com ela na cabine (arte do Andro, 10/10). Convidados: pasta fora do git.
+const VINI_SHIP := "res://assets/art/ships/vini.png"
+const KID_SHIP := "res://assets/characters/kids/%s/ship.png"
 
 ## Testes de fluxo desligam os convidados (a cabeça deles pode ou não estar no pacote).
 static var guests_enabled := true
@@ -75,3 +78,22 @@ static func start() -> void:
 		Router.reset_to("intro_video", {"clip": "oi", "next": "home"})
 	else:
 		Router.reset_to("home")
+
+
+static func ship_path(id: String = "") -> String:
+	var who := SaveService.profile_id if id == "" else id
+	var p := VINI_SHIP if who == "vini" else KID_SHIP % who
+	return p if ResourceLoader.exists(p) else ""
+
+
+## A nave de quem joga (ou de id), com width px de largura; sem arte própria, a nave padrão.
+static func ship_node(width: float, id: String = "") -> Node2D:
+	var p := ship_path(id)
+	if p == "":
+		return ArtSprite.new("props", "ship_side", width)
+	var s := Sprite2D.new()
+	s.name = "OwnShip"
+	s.texture = load(p)
+	var k := width / s.texture.get_width()
+	s.scale = Vector2(k, k)
+	return s

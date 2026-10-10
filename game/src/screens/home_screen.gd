@@ -128,7 +128,7 @@ func _make_hero() -> void:
 	var pl := ShaderPlanet.new(planet, 58.0)
 	pl.position = Vector2(-112, 4)
 	hero.add_child(pl)
-	var ship := ArtSprite.new("props", "ship_side", 130.0)
+	var ship := Kids.ship_node(140.0)
 	ship.position = Vector2(-4, 4)
 	hero.add_child(ship)
 	var play := DSButton.new("primary", "play", Vector2(104, 92))
@@ -185,7 +185,7 @@ func _make_fly() -> void:
 	card.position = Vector2(-190, -82)
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fly.add_child(card)
-	var ship := ArtSprite.new("props", "ship_side", 128.0)
+	var ship := Kids.ship_node(150.0)
 	ship.position = Vector2(-116, 4)
 	fly.add_child(ship)
 	var title := UI.label("VOAR", 48, Color.WHITE)

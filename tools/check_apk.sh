@@ -29,13 +29,15 @@ say "nativas em 16 KB" "$([ $bad = 0 ] && echo ok || { fail=1; echo FALHOU; })"
 
 kids=0
 for k in manuzita enzo aylinha; do
-  h=$(printf "res://assets/characters/kids/%s/head.png" "$k" | md5sum | cut -c1-32)
-  kids=$((kids + $(unzip -l "$apk" | grep -c "$h" || true)))
+  for f in head ship; do
+    h=$(printf "res://assets/characters/kids/%s/%s.png" "$k" "$f" | md5sum | cut -c1-32)
+    kids=$((kids + $(unzip -l "$apk" | grep -c "$h" || true)))
+  done
 done
 h=$(printf "res://assets/private/poder.ogg" | md5sum | cut -c1-32)
 song=$(unzip -l "$apk" | grep -c "$h" || true)
-say "rostos convidados" "$kids"
+say "fotos convidados" "$kids (rosto + nave)"
 say "música particular" "$song"
 if [ "$kind" = publico ] && [ $((kids + song)) -gt 0 ]; then fail=1; echo "PRIVADO NO APK PÚBLICO"; fi
-if [ "$kind" = completo ] && { [ "$kids" != 3 ] || [ "$song" != 1 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
+if [ "$kind" = completo ] && { [ "$kids" != 6 ] || [ "$song" != 1 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
 [ $fail = 0 ] && echo "APK OK ($kind)" || { echo "APK COM PROBLEMA"; exit 1; }

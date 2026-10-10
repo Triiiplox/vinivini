@@ -72,6 +72,12 @@ func _run() -> void:
 			await shot("v43_cozinha_" + k, 1.5)
 		Router.reset_to("seg_build", {"blueprint": "reactor"})
 		await shot("v43_reator", 1.5)
+	if _want("naves"):
+		for kid in ["vini", "manuzita", "enzo", "aylinha"]:
+			Kids.select(kid)
+			Router.reset_to("seg_arcade", {})
+			await shot("naves_" + kid, 2.0)
+		Kids.select("vini")
 	if _want("aprend"):
 		Router.reset_to("home", {})
 		await shot("aprend_home", 2.0)
