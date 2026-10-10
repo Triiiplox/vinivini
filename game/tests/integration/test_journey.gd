@@ -167,3 +167,30 @@ func _drag(s: Node, path: Array) -> void:
 			var p := a.lerp(b, k / float(n))
 			s._trace_touch(last, p)
 			last = p
+
+
+func test_arcade_cousin_rescue_gives_power() -> void:
+	Router.reset_to("seg_arcade", {})
+	await frames(3)
+	var a: Node = Router.current_screen
+	a.spawn_cousin("vini")
+	var c: ArcadeCousin = null
+	for o in a.objects:
+		if o is ArcadeCousin:
+			c = o
+	check(c != null, "primo entrou na pista")
+	await frames(5)
+	check(is_instance_valid(c) and a.objects.has(c), "primo continua na pista alguns quadros depois")
+	c.position = a.ship.position
+	a._check_hit(c)
+	eq(a.wing, c, "resgatado vira ala")
+	check(a.turbo_t > 0.0, "o primo comandante dá turbo")
+	check(not a.objects.has(c), "ala não é mais objeto da pista")
+
+
+func test_explain_always_ends_in_answer() -> void:
+	for lv in range(1, 11):
+		for i in 40:
+			var g := EndlessGen.math(lv)
+			var ex := EndlessGen.explain(str(g["show"]["s"]), int(g["ans"]))
+			check(ex.ends_with(str(g["ans"])), "nível %d: '%s' termina em %s" % [lv, ex, g["ans"]])

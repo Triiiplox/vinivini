@@ -1,3 +1,15 @@
+# Checklist v4.2.4 (10/10)
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Sotaque brasileiro | ✅ | O espeak pt-br entregava vícios que soavam de fora: "e" final como [y] ("leitchü"), vogal inventada depois do r ("porêtau"), "a" átono como [æ], r final vibrado. `fix_br` corrige; as 2.066 falas pt-BR refeitas (o Andro ouviu o antes/depois e aprovou). Inglês do Hoppy intocado. |
+| 2 | Quem joga na cabine | ✅ | Rosto do perfil no vidro da nave; o Vini muda de cara (sorriso, pensando, susto, orgulho, triste); convidados reagem com pulo/tremida. |
+| 3 | Animação no voo | ✅ | Estrela voa até o contador, contador pula, pedra quebra em pedaços, nave recua e pisca vermelho ao bater, zoom no turbo, nome do planeta na chegada, nave balançando. |
+| 4 | Aprendizagem no voo | ✅ | Portal a cada ~8 s; nível sobe com 3 certas e desce com 2 erradas, salvo para a próxima corrida; erro mostra a conta resolvida (completar a dezena, separar dezenas, soma repetida, contar para trás). Teste: 400 contas, a explicação sempre termina no resultado. Erro registrado como erro para os pais. |
+| 5 | Priminhos no voo | ✅ | Manuzita, Enzo, Aylinha (e o Vini quando outro joga) numa bolha; metade das vezes com pedra na frente; resgatado voa de ala 10 s com poder (escudo, ímã, estrelas em dobro, turbo). Só no APK completo (o público não tem as fotos). |
+| 6 | Validação | ✅ | 126 testes; smoke 94/94 (projeto e pacote); robô 81/81 errando; toques reais; lições 2× (T e M, rabisco não vale). |
+| 7 | Próximo (aprovado) | ⏳ | 4.3.0: aprendizagem com início, meio e fim (Jornada em ordem puxando a próxima fase, um nível por matéria, telas de fim, "próximo passo" na home, nivelamento corrigido). Proposto: VOAR por fases com chefão. |
+
 # Checklist v4.2.3 (09/10)
 
 | # | Item | Status | Evidência / o que falta |

@@ -58,6 +58,54 @@ static func math(lv: int) -> Dictionary:
 	return _q("%d + %d = ?" % [a10, b10], a10 + b10) if randf() < 0.5 else _q("%d − %d = ?" % [a10, b10], a10 - b10)
 
 
+## Como resolver a conta (mostrado quando erra), sempre terminando no resultado: contar para a frente/trás,
+## completar a dezena, separar dezenas e unidades, soma repetida, conta ao contrário na divisão.
+static func explain(text: String, ans: int) -> String:
+	var p := text.replace(" = ?", "").split(" ")
+	if p.size() != 3:
+		return ""
+	var a := int(p[0])
+	var op := p[1]
+	var b := int(p[2])
+	var arrow := "  →  "
+	match op:
+		"+", "−":
+			var sg := 1 if op == "+" else -1
+			var u := a % 10
+			if b >= 10:
+				var tens := b - b % 10
+				var mid := a + sg * tens
+				if b % 10 == 0:
+					return "%d %s %d = %d" % [a, op, tens, ans]
+				return "%d %s %d = %d%s%d %s %d = %d" % [a, op, tens, mid, arrow, mid, op, b % 10, ans]
+			var crosses := (u + b > 10) if sg > 0 else (u < b and u > 0)
+			if crosses:
+				var first := 10 - u if sg > 0 else u
+				var mid2 := a + sg * first
+				return "%d %s %d = %d%s%d %s %d = %d" % [a, op, first, mid2, arrow, mid2, op, b - first, ans]
+			if a >= 10 and u > 0 and (sg > 0 or u >= b):
+				return "%d %s %d = %d%s%d" % [u, op, b, u + sg * b, arrow, ans]
+			var steps: Array = []
+			for i in range(1, b + 1):
+				steps.append(str(a + sg * i))
+			return "%d%s%s" % [a, arrow, ", ".join(steps)]
+		"×":
+			var small := mini(a, b)
+			var big := maxi(a, b)
+			if small == 10 or big == 10:
+				return "%d dezenas = %d" % [small if big == 10 else big, ans]
+			if small <= 5:
+				var parts: Array = []
+				for i in small:
+					parts.append(str(big))
+				return "%s = %d" % [" + ".join(parts), ans]
+			return "5 × %d = %d%s%d × %d = %d%s%d + %d = %d" % [big, 5 * big, arrow, small - 5, big, (small - 5) * big, arrow,
+				5 * big, (small - 5) * big, ans]
+		"÷":
+			return "%d × %d = %d%s%d" % [b, ans, a, arrow, ans]
+	return ""
+
+
 static func logic(lv: int) -> Dictionary:
 	var say := "Qual número vem depois?"
 	var seq: Array = []

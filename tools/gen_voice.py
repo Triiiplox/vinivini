@@ -27,6 +27,9 @@ NAME_PH = ("vˈini", "vˈiːnˌi")
 # pt-BR acentua certo ("Ênzo" com E fechado; "Ailinha" como se fala "Aylinha").
 KIDS = {"manuzita": "Manuzita", "enzo": "Ênzo", "aylinha": "Ailinha"}
 PRON = 2  # versão da pronúncia do nome: falas com o nome de versão menor são refeitas
+# Sotaque (10/10, o Andro: "o sotaque não é brasileiro, é português"): o espeak pt-br entrega vícios que a voz lê
+# como sotaque de fora. Toda fala pt-BR passa por fix_br; falas com versão de sotaque menor são refeitas.
+ACC = 1
 VOICES = {"narrator": "pf_dora", "cosmo": "pm_alex", "npc": "pm_santa", "hoppy": "af_heart", "hoppy_slow": "af_heart"}
 SPEED = {"narrator": 0.95, "cosmo": 1.0, "npc": 0.95, "hoppy": 0.92, "hoppy_slow": 0.68}
 # Planeta Hello: o Hoppy só fala inglês (en-US nativo); "hoppy_slow" = a mesma palavra devagar (modelo de escuta).
@@ -191,11 +194,22 @@ def spoken(text, lang="pt-br", name=NAME_SPOKEN):
     t = re.sub(r"\bVini\b", name, t)
     t = t.replace("—", ",")
     t = t.replace("Cosmo", "Cósmo")  # nome antigo (legado)
+    t = t.replace("Aylinha", "Ailinha").replace("Enzo", "Ênzo")  # primos citados pelo nome (voo livre)
     return t
 
 
 def has_name(text):
     return "{name}" in text or re.search(r"\bVini\b", text) is not None
+
+
+def fix_br(ph):
+    """Corrige o que soava português de Portugal/estrangeiro na saída do espeak pt-br:
+    "e" final átono como [y] (vogal arredondada) -> [i] (leite = "leitchi"); vogal inventada depois do r
+    ("portal" = "porêtau") -> some; "a" átono como [æ] (o "a" do inglês) -> [ɐ]; r final vibrado -> aspirado."""
+    ph = ph.replace("y", "i")
+    ph = re.sub(r"ɾə", "ɾ", ph)
+    ph = ph.replace("æ", "ɐ")
+    return re.sub(r"r(?=[\s!?.,;:…]|$)", "h", ph)
 
 
 def phonemes_pt(text, kid=""):
@@ -207,8 +221,8 @@ def phonemes_pt(text, kid=""):
         from kokoro_onnx.tokenizer import Tokenizer
         _TOK = Tokenizer()
     if kid:
-        return _TOK.phonemize(spoken(text, name=KIDS[kid]), "pt-br")
-    return _TOK.phonemize(spoken(text), "pt-br").replace(*NAME_PH)
+        return fix_br(_TOK.phonemize(spoken(text, name=KIDS[kid]), "pt-br"))
+    return fix_br(_TOK.phonemize(spoken(text), "pt-br").replace(*NAME_PH))
 
 
 # ---------------------------------------------------------------- lip-sync (markers de boca)
@@ -296,7 +310,8 @@ def main():
     for (who, text) in lines:
         k = key_for(who, text)
         f = k + ".ogg"
-        stale = LANG.get(who, "pt-br") == "pt-br" and has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON
+        br = LANG.get(who, "pt-br") == "pt-br"
+        stale = br and ((has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON) or int(old.get(k, {}).get("a", 0)) < ACC)
         if k in old and os.path.exists(os.path.join(OUT, f)) and not stale:
             manifest[k] = old[k]
         else:
@@ -304,7 +319,7 @@ def main():
         if LANG.get(who, "pt-br") == "pt-br" and has_name(text):
             for kid in KIDS:
                 kk = key_for(who, text, kid)
-                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")):
+                if kk in old and os.path.exists(os.path.join(OUT, kk + ".ogg")) and int(old[kk].get("a", 0)) >= ACC:
                     manifest[kk] = old[kk]
                 else:
                     todo.append((kk, who, text, kid))
@@ -313,7 +328,7 @@ def main():
     def synth(job):
         k, who, text, kid = job
         lang = LANG.get(who, "pt-br")
-        if lang == "pt-br" and has_name(text):
+        if lang == "pt-br":
             samples, sr = kok.create(phonemes_pt(text, kid), voice=VOICES[who], speed=SPEED[who], lang=lang,
                                      is_phonemes=True)
         else:
@@ -339,6 +354,10 @@ def main():
         e = {"f": k + ".ogg", "d": round(d, 2), "t": text, "w": who}
         if lang != "pt-br":
             e["lang"] = lang
+        else:
+            e["a"] = ACC
+        if lang != "pt-br":
+            pass
         elif kid:
             e["kid"] = kid
         elif has_name(text):

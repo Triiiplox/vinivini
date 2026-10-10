@@ -87,8 +87,28 @@ func _run() -> void:
 		a.hearts = 2
 		a._draw_hearts()
 		await shot("voar_planeta", 2.5)
+		a.spawn_cousin("aylinha")
+		a.turbo_t = 0.0
+		await shot("voar_primo", 0.9)
+		for o in a.objects.duplicate():
+			if o is ArcadeCousin:
+				a._rescue(o)
+		await shot("voar_ala", 1.5)
+		a.gate_t = 0.0
+		await shot("voar_portal2", 3.5)
+		a.objects[0].position.x = -1.0
+		for p in a.gate:
+			p.position.x = a.SHIP_X - 1.0
+			if str(p.get_meta("label")) == a.gate_answer:
+				p.position.y = 9999.0
+		a._check_gate()
+		await shot("voar_explica", 0.8)
 		a._game_over()
 		await shot("voar_fim", 1.8)
+		Kids.select("enzo")
+		Router.reset_to("seg_arcade", {})
+		await shot("voar_enzo", 2.5)
+		Kids.select("vini")
 		SaveService.settings.set_value("knows_basics", false)
 	if _want("jornada"):
 		Router.reset_to("ship", {"quiet": true})

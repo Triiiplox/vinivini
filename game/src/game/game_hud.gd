@@ -112,3 +112,16 @@ static func safe_x(vp: Viewport) -> Vector2:
 		return Vector2.ZERO
 	var k := vp.get_visible_rect().size.x / float(ss.x)
 	return Vector2(maxf(sa.position.x, 0.0) * k, maxf(ss.x - sa.end.x, 0.0) * k)
+
+
+## Centro do ícone do contador (tela): para a estrela "voar" até ele.
+func counter_point() -> Vector2:
+	return _counter_box.get_global_rect().position + Vector2(48, 46)
+
+
+## Pulinho no contador quando chega ponto.
+func bump_counter() -> void:
+	_counter_box.pivot_offset = _counter_box.size / 2.0
+	var tw := _counter_box.create_tween()
+	tw.tween_property(_counter_box, "scale", Vector2.ONE * 1.18, 0.08)
+	tw.tween_property(_counter_box, "scale", Vector2.ONE, 0.14)
