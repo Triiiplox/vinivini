@@ -41,7 +41,9 @@ func test_journey_content_is_complete() -> void:
 			eq(str(segs[0]["type"]), "cutscene", "%s começa com o briefing" % id)
 			eq(str(segs[1]["type"]), "flight", "%s tem o voo até o planeta" % id)
 			for sg in segs:
-				if str(sg["type"]) == "lesson":
+				if str(sg["type"]) == "lesson" and sg.has("area"):
+					check(Stages.AREAS.has(str(sg["area"])), "%s: matéria %s existe" % [id, sg["area"]])
+				elif str(sg["type"]) == "lesson":
 					check(ContentService.repo.lessons.has(str(sg["lesson"])), "lição %s existe" % sg["lesson"])
 
 
@@ -194,3 +196,56 @@ func test_explain_always_ends_in_answer() -> void:
 			var g := EndlessGen.math(lv)
 			var ex := EndlessGen.explain(str(g["show"]["s"]), int(g["ans"]))
 			check(ex.ends_with(str(g["ans"])), "nível %d: '%s' termina em %s" % [lv, ex, g["ans"]])
+
+
+## v4.3: a lição da Jornada é a PRÓXIMA fase da trilha (em ordem), depois do nivelamento da matéria.
+func test_journey_lesson_follows_the_trail() -> void:
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	var first := MissionFlow.next_lesson("math")
+	check(first.has("placement"), "primeira vez em Matemática: nivelamento antes")
+	pd["placed"] = {"math": true}
+	var ns := Stages.nodes("math")
+	var a := MissionFlow.next_lesson("math")
+	eq(Stages.key(str(a["lesson"]), int(a["stage"])), str(ns[0]["key"]), "começa na 1ª fase da trilha")
+	Stages.record(str(ns[0]["key"]), 3)
+	Stages.record(str(ns[1]["key"]), 3)
+	var b := MissionFlow.next_lesson("math")
+	eq(Stages.key(str(b["lesson"]), int(b["stage"])), str(ns[2]["key"]), "anda em ordem")
+	Stages.record(str(ns[5]["key"]), 3)  # fase feita fora de ordem (save antigo): não pula a 3ª
+	var c := MissionFlow.next_lesson("math")
+	eq(Stages.key(str(c["lesson"]), int(c["stage"])), str(ns[2]["key"]), "buraco antigo não atrapalha")
+
+
+func test_placement_samples_all_have_questions() -> void:
+	for area in Stages.PLACEMENT:
+		var smp := Stages.placement_samples(area)
+		check(smp.size() >= 5, "%s: amostra com %d fases" % [area, smp.size()])
+		for nd in smp:
+			var les: Dictionary = ContentService.repo.lessons[str(nd["id"])]
+			var ok := false
+			for q in les.get("ask", []):
+				if int(q.get("lvl", 1)) == int(nd["stage"]) and str(q.get("k", "")) in ["pick", "num", "order"]:
+					ok = true
+			check(ok, "%s: fase %s tem pergunta" % [area, nd["key"]])
+
+
+func test_single_math_level() -> void:
+	eq(Stages.math_level(), 1, "sem trilha feita: contas fáceis (antes o voo começava em 17 − 5)")
+	Stages.set_math_level(5)
+	Router.reset_to("seg_flight", {"play": "portals", "goal": 3})
+	await frames(2)
+	eq(Router.current_screen._calc_level(), 5, "o voo usa o mesmo nível do treino")
+	Router.reset_to("seg_arcade", {})
+	await frames(2)
+	eq(Router.current_screen.lvl, 5, "o voo livre também")
+
+
+func test_power_mode_from_bolt() -> void:
+	Router.reset_to("seg_arcade", {})
+	await frames(3)
+	var a: Node = Router.current_screen
+	a._power("bolt")
+	check(a.turbo_t >= 7.9, "raio = modo poderoso de 8 s")
+	check(a.double_t >= 7.9, "estrelas em dobro no modo poderoso")
+	a._game_over()
+	AudioService.stop_power()

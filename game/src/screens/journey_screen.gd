@@ -133,11 +133,79 @@ func _node_of(id: String) -> Interactable:
 
 
 func begin() -> void:
+	var fresh := _world_just_done()
+	if fresh != "":
+		_celebrate_world(fresh)
+		return
 	if current_id == "":
 		cosmo_say(Lines.c("Você completou a jornada inteira! Pode jogar qualquer missão de novo."))
 		return
 	var m: Dictionary = ContentService.repo.missions.get(current_id, {})
 	narrate_seq([Lines.n("Toque na missão que brilha!"), str(m.get("name", ""))])
+
+
+## Mundo que acabou de ser completado e ainda não foi comemorado (v4.3: cada mundo tem fim de verdade).
+func _world_just_done() -> String:
+	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
+	if not pd.get("worlds_done") is Array:
+		pd["worlds_done"] = []
+	for wd in ContentService.repo.journey:
+		var all := true
+		for id in wd["missions"]:
+			if not MissionFlow.is_done(str(id)):
+				all = false
+		if all and not (pd["worlds_done"] as Array).has(str(wd["id"])):
+			(pd["worlds_done"] as Array).append(str(wd["id"]))
+			SaveService.progress.persist(SaveService.profile_id)
+			return str(wd["id"])
+	return ""
+
+
+func _celebrate_world(id: String) -> void:
+	var wd: Dictionary = {}
+	for w in ContentService.repo.journey:
+		if str(w["id"]) == id:
+			wd = w
+	var box := Panel.new()
+	box.name = "WorldDone"
+	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.94), 44, 8, DS.STAR_GOLD))
+	box.size = Vector2(700, 300)
+	box.position = Vector2(290, 200)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.stage.add_child(box)
+	var pl := ShaderPlanet.new(str(wd.get("planet", "moon")), 80.0)
+	pl.position = Vector2(130, 150)
+	box.add_child(pl)
+	var t := UI.label(("%s completo!" if id == "j_marte" else "%s completa!") % str(wd.get("name", "")), 54, DS.STAR_GOLD,
+		true)
+	t.position = Vector2(240, 60)
+	t.size = Vector2(440, 80)
+	UI.child_ok(t)  # nome do mundo
+	box.add_child(t)
+	var ic := ArtSprite.new("props", str(wd.get("item", "gear")), 70.0)
+	ic.position = Vector2(290, 200)
+	box.add_child(ic)
+	var n := UI.label("%d/%d" % [(wd["missions"] as Array).size() * 3, (wd["missions"] as Array).size() * 3], 44,
+		Color.WHITE)
+	n.position = Vector2(340, 172)
+	n.size = Vector2(200, 60)
+	UI.child_ok(n)
+	box.add_child(n)
+	box.pivot_offset = box.size / 2.0
+	box.scale = Vector2.ZERO
+	box.create_tween().tween_property(box, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	AudioService.play_sfx("fanfare")
+	Fx.sparkle(world, Vector2(640, 350), 80, DS.STAR_GOLD)
+	var line := Lines.n("Lua completa! O jipe lunar está consertado. Agora, rumo a Marte!")
+	if id == "j_marte":
+		line = Lines.n("Marte completo! O robô explorador voltou a andar. Agora, rumo a Europa!")
+	elif id == "j_europa":
+		line = Lines.n("Europa completa! O laboratório está pronto. Você terminou a jornada inteira!")
+	var d := narrate(line)
+	after(maxf(d, 4.0) + 1.0, func():
+		box.queue_free()
+		if current_id != "":
+			narrate(Lines.n("Toque na missão que brilha!")))
 
 
 func _on_node(it: Interactable) -> void:

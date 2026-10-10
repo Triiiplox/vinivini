@@ -604,7 +604,7 @@ func _placement_result() -> Dictionary:
 	var k := 0
 	while k < results.size() and bool(results[k]):
 		k += 1
-	var samples: Array = params["placement"]
+	var samples: Array = placement_nodes
 	var rk := {}
 	if k == 0:
 		SaveService.progress.persist(SaveService.profile_id)

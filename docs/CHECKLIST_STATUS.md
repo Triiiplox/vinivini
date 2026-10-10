@@ -1,3 +1,17 @@
+# Checklist v4.3.0 (10/10) — aprendizagem com início, meio e fim
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Jornada em ordem | ✅ | As lições das missões são {"area"}: o MissionFlow pega a próxima fase não feita da trilha (antes a missão 2 pedia a fase 45 de Matemática e a 6 voltava à 26). Fases feitas fora de ordem em saves antigos só são puladas; nada do progresso foi apagado. Teste `test_journey_lesson_follows_the_trail`. |
+| 2 | Nivelamento | ✅ | Amostra só com fases que têm pergunta; resultado alinhado com as perguntas que apareceram (antes o acerto caía na fase errada). A Jornada faz o nivelamento da matéria antes da 1ª lição dela. |
+| 3 | Um nível de contas | ✅ | `Stages.math_level` é o mesmo para treino, voo da Jornada, chefão e voo livre (antes o voo começava sempre em "17 − 5"). |
+| 4 | Fim de verdade | ✅ | Matéria completa: painel com troféu e voz certa (antes pedia "toque na fase que brilha" sem nenhuma brilhar; PULAR some). Mundo completo: comemoração no mapa ("Lua completa! O jipe está consertado. Agora, rumo a Marte!"). |
+| 5 | Próximo passo | ✅ | Faixa "PRÓXIMO" no cartão da Jornada; "Missão N · Matéria" com o número dentro do mundo (antes "Missão 9 · Marte" e a voz "Missão 1 em Marte"). |
+| 6 | Miúdos | ✅ | Histórias: Lua = Robozinho Perdido, Marte = A Saudade da Astronauta (nome batendo com a história); exploração registra `reading.words` (a habilidade antiga não existia); patente conta só fases das trilhas. |
+| 7 | Modo poderoso | ✅ | O raio no voo livre dá 8 s de turbo + estrelas em dobro, com a música que o Andro mandou. A música é tema de TV com direitos autorais: fica fora do git (`game/assets/private/`) e do APK público; só no APK da família. |
+| 8 | Validação | ✅ | 130 testes; smoke 94/94 (projeto e pacote); robô 82/82 e 81/81 errando; toques reais; lições (L, que antes aceitava rabisco). |
+| 9 | Próximo | ⏳ | Voo por fases estilo jogo de nave clássico: tiro que evolui, ondas, desafio no meio, chefão. |
+
 # Checklist v4.2.4 (10/10)
 
 | # | Item | Status | Evidência / o que falta |

@@ -82,7 +82,7 @@ func build() -> void:
 	camera.position = Vector2(640, 360)
 	calc = bool(SaveService.settings.get_value("knows_basics"))
 	best = int(_rec().get("best", 0))
-	lvl = clampi(int(_rec().get("lvl", _calc_level())), 1, 9)
+	lvl = _calc_level()
 	ship = Node2D.new()
 	ship.name = "ArcadeShip"
 	ship.position = Vector2(SHIP_X, 390)
@@ -148,6 +148,11 @@ func build() -> void:
 	UI.child_ok(explain_label)  # a conta resolvida: ele lê
 	hud.stage.add_child(explain_label)
 	hint_fn = _hint
+
+
+func on_exit() -> void:
+	AudioService.stop_power()
+	super.on_exit()
 
 
 func begin() -> void:
@@ -508,8 +513,11 @@ func _power(p: String) -> void:
 			magnet_t = 8.0
 			cosmo_say(Lines.c("Ímã! As estrelas vêm até você!"))
 		"bolt":
-			_start_turbo(3.0)
-			cosmo_say(Lines.c("Raio de energia! Turbo!"))
+			# Modo poderoso: 8 s de turbo que quebra pedra e estrelas em dobro, com a música da família (se houver).
+			_start_turbo(8.0)
+			double_t = maxf(double_t, 8.0)
+			AudioService.play_power(8.0)
+			cosmo_say(Lines.c("Modo poderoso! A nave está com tudo!"))
 		"star_box":
 			_add_score(5, ship.position)
 			cosmo_say(Lines.c("Caixa de estrelas! Mais cinco!"))
@@ -715,6 +723,7 @@ func _game_over() -> void:
 	gate.clear()
 	calc_label.text = ""
 	explain_label.text = ""
+	AudioService.stop_power()
 	_set_face("sad")
 	var rec := _save_record()
 	var tw := ship.create_tween()
@@ -732,7 +741,7 @@ func _save_record() -> bool:
 	r["far"] = maxi(leg, int(r.get("far", 0)))
 	r["runs"] = int(r.get("runs", 0)) + 1
 	if calc:
-		r["lvl"] = lvl  # a próxima corrida começa no nível em que esta terminou
+		Stages.set_math_level(lvl)  # o mesmo nível do treino e do voo da Jornada
 	pd["arcade"] = r
 	SaveService.progress.persist(SaveService.profile_id)
 	return beat and score > 0
@@ -902,8 +911,7 @@ func _draw_streaks() -> void:
 
 
 func _calc_level() -> int:
-	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	return clampi(int((pd.get("endless", {}) as Dictionary).get("math", 3)), 2, 9)
+	return mini(Stages.math_level(), 9)
 
 
 func _hint() -> void:

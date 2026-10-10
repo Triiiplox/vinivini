@@ -72,6 +72,8 @@ var moved := 0
 var slots_x: Array = []
 ## Acertou de primeira, por pergunta (na ordem): usado no nivelamento.
 var results: Array = []
+## Nivelamento: as fases que viraram pergunta, na ordem (results[i] é a resposta da fase placement_nodes[i]).
+var placement_nodes: Array = []
 ## Teclado numérico: o que a criança digitou.
 var typed := ""
 var _trace_pts: Array = []  # [{p: Vector2, hit: bool, s: int}]
@@ -151,6 +153,7 @@ func _plan() -> void:
 				and str(q.get("k", "")) in ["pick", "num", "order"])
 			if not qs3.is_empty():
 				pick.append(qs3[randi() % qs3.size()])
+				placement_nodes.append(nd)
 	elif params.has("jump"):
 		# Teste para pular: perguntas das próximas fases (podem ser de lições diferentes), sem explicação.
 		queue = []

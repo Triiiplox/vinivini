@@ -6,6 +6,10 @@ Cada etapa concluída entrega 1 peça do objetivo (3 por missão); o objetivo fi
 Temas das 8 missões de cada mundo (rota do pacote "universo visual"): Leitura, Números, Ciência, Histórias,
 Oficina, Alimentos, Emoções, Exploração (a última fecha o mundo com o asteroide).
 Fatos reais só no conteúdo; a história (jipe quebrado, robô sem chips) é apresentação.
+v4.3 (o Andro: "aprendizagem confusa, sem início, meio e fim"): as lições das missões não são mais fixas
+(antes a missão 2 pedia a fase 45 de Matemática e a 6 voltava para a 26). Cada lição é {"area": ...}: na hora,
+o MissionFlow pega a PRÓXIMA fase não feita da trilha daquela matéria. Assim a Jornada anda junto com a trilha,
+em ordem, e não abre buracos.
 Uso: python3 tools/build_journey.py
 """
 import json
@@ -27,37 +31,36 @@ WORLDS = [
 ]
 
 NAMES = [
-    ["Palavras na Lua", "Contas da Base Lunar", "Pedras da Lua", "Histórias na Lua", "Oficina Lunar",
+    ["Palavras na Lua", "Contas da Base Lunar", "Pedras da Lua", "O Robozinho Perdido", "Oficina Lunar",
      "Lanche na Base Lunar", "Amigos na Lua", "A Cratera Escura"],
-    ["Frases em Marte", "Contas Vermelhas", "Amostras de Marte", "O Robozinho Perdido", "Jipe Marciano",
+    ["Frases em Marte", "Contas Vermelhas", "Amostras de Marte", "A Saudade da Astronauta", "Jipe Marciano",
      "Cozinha de Marte", "Coragem em Marte", "O Grande Cânion"],
-    ["Textos no Gelo", "Contas Geladas", "Gelo de Europa", "A Luz das Estrelas", "Foguete de Europa",
+    ["Textos no Gelo", "Contas Geladas", "Gelo de Europa", "Livros de Europa", "Foguete de Europa",
      "Sopa Quente em Europa", "Juntos em Europa", "O Oceano Escondido"],
 ]
 LABELS = ["Leitura", "Números", "Ciência", "Histórias", "Oficina", "Alimentos", "Emoções", "Exploração"]
 
 
-def lesson(lid, stage):
-    return {"type": "lesson", "lesson": lid, "stage": stage}
+def area(a):
+    """Próxima fase não feita da trilha da matéria (resolvida no jogo pelo MissionFlow)."""
+    return {"type": "lesson", "area": a}
 
 
 def activities(w, k, wd):
-    """Duas atividades do tema k no mundo w (dificuldade sobe de mundo em mundo)."""
+    """Duas atividades do tema k no mundo w; as lições andam na trilha da matéria, em ordem."""
     t = wd["theme"]
     collect = {"type": "explore", "theme": t, "screens": 2, "collect": {"item": wd["found"], "count": 3 + w}}
+    stories = [("story_robot_lost_001", "quiz_story_robot_lost_001"), ("story_star_light_001", "quiz_story_star_light_001")]
+    tales = ([{"type": "story", "story": stories[w][0]}, {"type": "lesson", "lesson": stories[w][1], "stage": 1}]
+             if w < 2 else [area("reading"), collect])
     return [
-        [lesson(*[("ler_palavras", 2), ("frases_posicao", 2), ("textos_curtos", 2)][w]), collect],
-        [lesson(*[("somar", 2), ("subtrair", 3), ("multiplicar", 2)][w]),
-         {"type": "build", "blueprint": "reactor"}],
-        [collect, lesson(*[("lua", 2), ("planetas", 2), ("agua", 2)][w])],
-        [[lesson("ler_frases", 2), {"type": "story", "story": "story_robot_lost_001"},
-          {"type": "story", "story": "story_star_light_001"}][w],
-         lesson(*[("entender_historias", 2), ("quiz_story_robot_lost_001", 1), ("quiz_story_star_light_001", 1)][w])],
-        [{"type": "build", "blueprint": ["rover", "rover", "rocket"][w], "theme": t},
-         lesson(*[("sequencias", 2), ("sequencias", 3), ("quebra_cabeca", 2)][w])],
-        [{"type": "cook", "customers": 2 + w}, lesson(*[("problemas", 2), ("dinheiro", 2), ("fracoes", 2)][w])],
-        [lesson(*[("emocoes", 2), ("convivencia", 2), ("sentimentos_dificeis", 2)][w]),
-         {"type": "robot", "rounds": 2, "theme": t}],
+        [area("reading"), collect],
+        [area("math"), {"type": "build", "blueprint": "reactor"}],
+        [collect, area("science" if w == 2 else "astronomy")],
+        tales,
+        [{"type": "build", "blueprint": ["rover", "rover", "rocket"][w], "theme": t}, area("logic")],
+        [{"type": "cook", "customers": 2 + w}, area("math")],
+        [area("emotion"), {"type": "robot", "rounds": 2, "theme": t}],
         [{"type": "explore", "theme": t, "screens": 3, "collect": {"item": wd["found"], "count": 3 + w}, "door": True},
          {"type": "boss", "portal_skill": "numbers", "goal": 3}],
     ][k]
@@ -88,7 +91,8 @@ def main():
                     {"type": "flight", "play": "portals", "goal": 3 + w, "theme": "space", "dest": wd["dest"]}]
             segs += activities(w, k, wd)
             missions.append({
-                "id": mid, "campaign": wd["id"], "world": wd["theme"], "n": k + 1, "label": LABELS[k],
+                "id": mid, "campaign": wd["id"], "world": wd["theme"], "n": k + 1,
+                "label": "Leitura" if (w, k) == (2, 3) else LABELS[k],
                 "name": NAMES[w][k], "area": "math" if LABELS[k] in ("Números", "Alimentos") else "",
                 "requires": "" if n == 1 else "j%02d" % (n - 1),
                 "goal": {"icon": wd["item"], "count": 3, "say": goal_say},

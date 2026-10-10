@@ -45,6 +45,8 @@ func _go(first: bool) -> void:
 	p["mode"] = mode
 	if str(seg["type"]) == "boss":
 		p["play"] = "boss"
+	if str(seg["type"]) == "lesson" and seg.has("area"):
+		p.merge(next_lesson(str(seg["area"])), true)
 	var screen: String = SEGMENT_SCREENS.get(str(seg["type"]), "")
 	if screen == "":
 		GameLog.error("Mission", "segmento desconhecido: %s" % seg["type"])
@@ -65,6 +67,22 @@ func segment_done(result: Dictionary) -> void:
 		_go(false)
 	else:
 		_finish()
+
+
+## Lição da Jornada por matéria (v4.3): a próxima fase não feita da trilha. Matéria terminada = revisão da última
+## fase (a missão continua jogável). Fases já feitas fora de ordem (saves antigos) são só puladas.
+static func next_lesson(area: String) -> Dictionary:
+	var ns := Stages.nodes(area)
+	if ns.is_empty():
+		return {}
+	if Stages.needs_placement(area):
+		# Primeira vez na matéria (também pela Jornada): o nivelamento acha o ponto de partida.
+		var samples := Stages.placement_samples(area)
+		if not samples.is_empty():
+			return {"lesson": str(samples[0]["id"]), "placement": samples}
+	var i := Stages.next_index(area)
+	var nd: Dictionary = ns[mini(i, ns.size() - 1)]
+	return {"lesson": str(nd["id"]), "stage": int(nd["stage"]), "review": i >= ns.size()}
 
 
 ## Objetivo da missão da Jornada ({icon, count, say}); vazio nas missões antigas.

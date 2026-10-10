@@ -396,7 +396,7 @@ func _on_sign_tapped(it: Interactable) -> void:
 		return
 	find_tries += 1
 	if word == find_word:
-		record("reading.word_reading", "sign_" + word, find_tries == 1, find_tries, Time.get_ticks_msec() / 1000.0 - find_t0)
+		record("reading.words", "sign_" + word, find_tries == 1, find_tries, Time.get_ticks_msec() / 1000.0 - find_t0)
 		Fx.sparkle(world, it.global_position + Vector2(0, -160), 30)
 		praise({"tries": find_tries, "area": "reading"})
 		find_word = ""

@@ -252,3 +252,12 @@ Como foi feito:
   - cada etapa concluída vale 1 peça do objetivo do mundo (engrenagens para o jipe, chips para o robô, cápsulas de gelo para o laboratório);
   - o chip do objetivo fica na tela o tempo todo.
 - As missões antigas continuam nos dados (desafios da família, testes), mas o botão de missões da tela principal agora leva à Jornada.
+
+
+## ADR-039 - Aprendizagem com início, meio e fim (v4.3.0, 10/10)
+Contexto: o Andro achou a aprendizagem "confusa, sem início, meio e fim". Levantamento: as lições da Jornada eram fixas e
+fora da ordem da trilha (a dificuldade subia e descia), a Jornada marcava fases soltas no meio das trilhas, havia quatro
+"níveis" de conta que não conversavam, matéria e mundo não tinham fim, e o nivelamento desalinhava respostas e fases.
+Decisão: a trilha de cada matéria é a fonte única da ordem; a Jornada é o caminho principal e puxa a próxima fase da
+trilha da matéria do tema; um nível de contas para todos os jogos; telas de fim de matéria e de mundo; "PRÓXIMO" na home.
+Saves antigos: nada é apagado; fases fora de ordem só são puladas.

@@ -72,6 +72,20 @@ func _run() -> void:
 			await shot("v43_cozinha_" + k, 1.5)
 		Router.reset_to("seg_build", {"blueprint": "reactor"})
 		await shot("v43_reator", 1.5)
+	if _want("aprend"):
+		Router.reset_to("home", {})
+		await shot("aprend_home", 2.0)
+		var pd2: Dictionary = SaveService.progress.data(SaveService.profile_id)
+		for i in 8:
+			pd2["missions_done"]["j%02d" % (i + 1)] = 3
+		Router.reset_to("journey", {})
+		await shot("aprend_mundo", 2.5)
+		for nd in Stages.nodes("emotion"):
+			Stages.record(str(nd["key"]), 3)
+		Router.reset_to("academy", {"area": "emotion"})
+		await shot("aprend_materia", 2.5)
+		Router.reset_to("home", {})
+		await shot("aprend_home2", 2.0)
 	if _want("voar"):
 		SaveService.settings.set_value("knows_basics", true)
 		SaveService.progress.data(SaveService.profile_id)["arcade"] = {"best": 42, "far": 2}

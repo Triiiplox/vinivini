@@ -603,8 +603,7 @@ func _hardness() -> float:
 
 
 func _calc_level() -> int:
-	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	return clampi(int((pd.get("endless", {}) as Dictionary).get("math", 3)), 2, 9)
+	return mini(Stages.math_level(), 9)
 
 
 func _hint() -> void:

@@ -11,7 +11,6 @@ const AREA_SAY := {
 
 ## Treino sem fim (contas/sequências geradas na hora): lição base de cada matéria.
 const ENDLESS := {"math": "somar", "logic": "sequencias"}
-const PLACEMENT := ["reading", "math", "logic", "astronomy", "science"]
 
 ## Última matéria aberta (a lição volta para cá ao terminar).
 static var last_area := ""
@@ -47,6 +46,7 @@ func build() -> void:
 	hard.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	hard.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -142)
 	hard.pressed.connect(_hard)
+	hard.visible = next_index < nodes_cache.size()  # matéria terminada: não há o que pular
 	hud.root.add_child(hard)
 	if area in ENDLESS:
 		var tr := DSButton.new("secondary", "refresh", Vector2(300, 124), "normal", "TREINO")
@@ -216,22 +216,48 @@ func _draw_path(n: Node2D) -> void:
 
 func begin() -> void:
 	# Primeira vez na matéria: nivelamento rápido (8 perguntas do fácil ao difícil) para começar no lugar certo.
-	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	if area in PLACEMENT and not (pd.get("placed", {}) as Dictionary).has(area) and not nodes_cache.is_empty() \
-			and not bool(params.get("no_placement", false)):
+	if Stages.needs_placement(area) and not bool(params.get("no_placement", false)):
 		finished = true
 		var d0 := narrate(Lines.n("Primeiro, um teste rapidinho para eu saber onde você começa!"))
-		var samples: Array = []
-		var n := nodes_cache.size()
-		for i in 8:
-			samples.append(nodes_cache[int(round(i * (n - 1) / 7.0))])
+		var samples := Stages.placement_samples(area)
 		after(d0 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples,
 			"back": "academy"}))
 		return
-	if params.has("area"):
+	if not nodes_cache.is_empty() and next_index >= nodes_cache.size():
+		_area_done()
+	elif params.has("area"):
 		narrate(Lines.n("Toque na fase que está brilhando!"))
 	else:
 		narrate(str(AREA_SAY.get(area, "")))
+
+
+## Fim da matéria (v4.3): antes a voz pedia "toque na fase que está brilhando" e nenhuma brilhava.
+func _area_done() -> void:
+	var box := Panel.new()
+	box.name = "AreaDone"
+	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.92), 40, 8, DS.STAR_GOLD))
+	box.size = Vector2(620, 250)
+	box.position = Vector2(330, 120)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.stage.add_child(box)
+	var cup := IconDraw.new("trophy", DS.STAR_GOLD)
+	cup.size = Vector2(120, 120)
+	cup.position = Vector2(30, 65)
+	cup.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(cup)
+	var t := UI.label("Matéria completa!", 48, DS.STAR_GOLD, true)
+	t.position = Vector2(170, 40)
+	t.size = Vector2(430, 70)
+	UI.child_ok(t)
+	box.add_child(t)
+	var s := UI.label("%d de %d fases" % [nodes_cache.size(), nodes_cache.size()], 34, Color.WHITE)
+	s.position = Vector2(170, 120)
+	s.size = Vector2(430, 50)
+	UI.child_ok(s)
+	box.add_child(s)
+	AudioService.play_sfx("fanfare")
+	Fx.sparkle(world, Vector2(640, 250), 60, DS.STAR_GOLD)
+	narrate(Lines.n("Você terminou todas as fases desta matéria! Agora é só treinar e jogar de novo as que quiser."))
 
 
 func _on_lesson(it: Interactable) -> void:

@@ -135,7 +135,8 @@ func _make_hero() -> void:
 	play.position = Vector2(64, -42)
 	play.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hero.add_child(play)
-	var sub := UI.label(("Missão %d · %s" % [_mission_number(cur), world_name]) if cur != "" else "Tudo feito!", 30,
+	var label := str(ContentService.repo.missions.get(cur, {}).get("label", world_name))
+	var sub := UI.label(("Missão %d · %s" % [_mission_number(cur), label]) if cur != "" else "Tudo feito!", 30,
 		DS.STAR_GOLD)
 	sub.size = Vector2(380, 44)
 	sub.position = Vector2(-190, 84)
@@ -143,6 +144,21 @@ func _make_hero() -> void:
 	sub.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(sub)
 	hero.add_child(sub)
+	if cur != "":
+		# O próximo passo do dia é sempre este cartão (as matérias ficam para treinar).
+		var rib := Panel.new()
+		rib.add_theme_stylebox_override("panel", UITheme.rounded(DS.STAR_GOLD, 22, 0, DS.STAR_GOLD))
+		rib.size = Vector2(190, 46)
+		rib.position = Vector2(-95, -170)
+		rib.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hero.add_child(rib)
+		var rl := UI.label("PRÓXIMO", 28, Color("#3B1E7A"), true)
+		rl.size = rib.size
+		rl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		rl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		rl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.child_ok(rl)
+		rib.add_child(rl)
 	hero.tapped.connect(_open)
 	world.add_child(hero)
 	tiles.append(hero)
@@ -208,9 +224,10 @@ func _pulse(it: Node2D, delay: float = 0.0) -> void:
 	tw.tween_property(it, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_SINE)
 
 
+## Número da missão DENTRO do mundo (v4.3: a home dizia "Missão 9 · Marte" e a voz "Missão 1 em Marte").
 func _mission_number(id: String) -> int:
-	var k := 0
 	for wd in ContentService.repo.journey:
+		var k := 0
 		for m in wd["missions"]:
 			k += 1
 			if str(m) == id:

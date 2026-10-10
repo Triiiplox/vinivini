@@ -7,15 +7,20 @@ const BUSES := ["Music", "Ambience", "Narrator", "Character", "SFX", "UI"]
 const MUSIC_DB := -9.0
 const DUCK_DB := -19.0
 const SFX_POOL := 8
+## Música do "modo poderoso" no voo: arquivo particular da família (fica fora do git e do APK público).
+const POWER_SONG := "res://assets/private/poder.ogg"
 
 var music_on := true
 var sfx_on := true
 var voice_on := true
+
 var current_music := ""
 var last_spoken := ""
 
 var _music_a: AudioStreamPlayer
 var _music_b: AudioStreamPlayer
+var _power: AudioStreamPlayer
+var _power_tw: Tween
 var _ambience: AudioStreamPlayer
 var _pool: Array[AudioStreamPlayer] = []
 var _pool_i := 0
@@ -87,6 +92,37 @@ func play_music(name: String = "hub", fade: float = 1.2) -> void:
 	if old.playing:
 		t.tween_property(old, "volume_db", -40.0, fade)
 		t.chain().tween_callback(old.stop)
+
+
+## Toca a música do modo poderoso por cima (a música do jogo abaixa) por sec segundos. false se não houver o arquivo.
+func play_power(sec: float) -> bool:
+	if not music_on or not ResourceLoader.exists(POWER_SONG):
+		return false
+	if _power == null:
+		_power = _player("Music")
+	if _power_tw:
+		_power_tw.kill()
+	_power.stream = _stream(POWER_SONG)
+	_power.volume_db = 0.0
+	_power.play()
+	_music_a.volume_db = -40.0
+	_music_b.volume_db = -40.0
+	_power_tw = create_tween()
+	_power_tw.tween_interval(sec)
+	_power_tw.tween_callback(stop_power)
+	return true
+
+
+func stop_power() -> void:
+	if _power == null or not _power.playing:
+		return
+	if _power_tw:
+		_power_tw.kill()
+	_power_tw = create_tween().set_parallel()
+	_power_tw.tween_property(_power, "volume_db", -40.0, 1.0)
+	_power_tw.tween_property(_music_a, "volume_db", 0.0, 1.0)
+	_power_tw.tween_property(_music_b, "volume_db", 0.0, 1.0)
+	_power_tw.chain().tween_callback(_power.stop)
 
 
 func play_ambience(name: String) -> void:

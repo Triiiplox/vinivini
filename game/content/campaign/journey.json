@@ -107,8 +107,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "ler_palavras",
-     "stage": 2
+     "area": "reading"
     },
     {
      "type": "explore",
@@ -167,8 +166,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "somar",
-     "stage": 2
+     "area": "math"
     },
     {
      "type": "build",
@@ -231,8 +229,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "lua",
-     "stage": 2
+     "area": "astronomy"
     }
    ]
   },
@@ -242,7 +239,7 @@
    "world": "moon",
    "n": 4,
    "label": "Histórias",
-   "name": "Histórias na Lua",
+   "name": "O Robozinho Perdido",
    "area": "",
    "requires": "j03",
    "goal": {
@@ -281,14 +278,13 @@
      "dest": "moon"
     },
     {
-     "type": "lesson",
-     "lesson": "ler_frases",
-     "stage": 2
+     "type": "story",
+     "story": "story_robot_lost_001"
     },
     {
      "type": "lesson",
-     "lesson": "entender_historias",
-     "stage": 2
+     "lesson": "quiz_story_robot_lost_001",
+     "stage": 1
     }
    ]
   },
@@ -343,8 +339,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "sequencias",
-     "stage": 2
+     "area": "logic"
     }
    ]
   },
@@ -398,8 +393,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "problemas",
-     "stage": 2
+     "area": "math"
     }
    ]
   },
@@ -449,8 +443,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "emocoes",
-     "stage": 2
+     "area": "emotion"
     },
     {
      "type": "robot",
@@ -571,8 +564,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "frases_posicao",
-     "stage": 2
+     "area": "reading"
     },
     {
      "type": "explore",
@@ -631,8 +623,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "subtrair",
-     "stage": 3
+     "area": "math"
     },
     {
      "type": "build",
@@ -695,8 +686,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "planetas",
-     "stage": 2
+     "area": "astronomy"
     }
    ]
   },
@@ -706,7 +696,7 @@
    "world": "mars",
    "n": 4,
    "label": "Histórias",
-   "name": "O Robozinho Perdido",
+   "name": "A Saudade da Astronauta",
    "area": "",
    "requires": "j11",
    "goal": {
@@ -746,11 +736,11 @@
     },
     {
      "type": "story",
-     "story": "story_robot_lost_001"
+     "story": "story_star_light_001"
     },
     {
      "type": "lesson",
-     "lesson": "quiz_story_robot_lost_001",
+     "lesson": "quiz_story_star_light_001",
      "stage": 1
     }
    ]
@@ -806,8 +796,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "sequencias",
-     "stage": 3
+     "area": "logic"
     }
    ]
   },
@@ -861,8 +850,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "dinheiro",
-     "stage": 2
+     "area": "math"
     }
    ]
   },
@@ -912,8 +900,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "convivencia",
-     "stage": 2
+     "area": "emotion"
     },
     {
      "type": "robot",
@@ -1034,8 +1021,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "textos_curtos",
-     "stage": 2
+     "area": "reading"
     },
     {
      "type": "explore",
@@ -1094,8 +1080,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "multiplicar",
-     "stage": 2
+     "area": "math"
     },
     {
      "type": "build",
@@ -1158,8 +1143,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "agua",
-     "stage": 2
+     "area": "science"
     }
    ]
   },
@@ -1168,8 +1152,8 @@
    "campaign": "j_europa",
    "world": "ice",
    "n": 4,
-   "label": "Histórias",
-   "name": "A Luz das Estrelas",
+   "label": "Leitura",
+   "name": "Livros de Europa",
    "area": "",
    "requires": "j19",
    "goal": {
@@ -1208,13 +1192,17 @@
      "dest": "jupiter"
     },
     {
-     "type": "story",
-     "story": "story_star_light_001"
+     "type": "lesson",
+     "area": "reading"
     },
     {
-     "type": "lesson",
-     "lesson": "quiz_story_star_light_001",
-     "stage": 1
+     "type": "explore",
+     "theme": "ice",
+     "screens": 2,
+     "collect": {
+      "item": "ice",
+      "count": 5
+     }
     }
    ]
   },
@@ -1269,8 +1257,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "quebra_cabeca",
-     "stage": 2
+     "area": "logic"
     }
    ]
   },
@@ -1324,8 +1311,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "fracoes",
-     "stage": 2
+     "area": "math"
     }
    ]
   },
@@ -1375,8 +1361,7 @@
     },
     {
      "type": "lesson",
-     "lesson": "sentimentos_dificeis",
-     "stage": 2
+     "area": "emotion"
     },
     {
      "type": "robot",

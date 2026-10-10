@@ -139,13 +139,12 @@ func test_keypad_round_checks_typed_answer() -> void:
 
 
 func test_placement_marks_known_stages() -> void:
-	var ns := Stages.nodes("math")
-	var samples: Array = []
-	for i in 8:
-		samples.append(ns[int(round(i * (ns.size() - 1) / 7.0))])
+	var samples := Stages.placement_samples("math")
 	Router.reset_to("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples, "back": "academy"})
 	await frames(3)
 	var s := Router.current_screen
+	eq((s.placement_nodes as Array).size(), samples.size(), "toda fase da amostra virou pergunta (resposta alinhada)")
+	samples = s.placement_nodes
 	s.results = [true, true, true, false, true, false, false, false]
 	s._placement_result()
 	check(Stages.is_done(str(samples[2]["key"])), "fases até a 3ª amostra feitas")
