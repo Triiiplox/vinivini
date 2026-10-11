@@ -158,3 +158,4 @@ ou screenshot revisada. Nada aqui foi validado num Android físico nem com o Vin
 | 63 | Gates | ⏳ | Visual/Interaction/Audio/Learning verificados aqui; Fun Gate e Parent Gate só com o Vini e você. |
 | 64 | Regra por missão | ✅ | Cada missão: habilidade registrada, ação física, recompensa, mundo reage (porta abre, cliente come, nuvem sorri). |
 | 66 | DoD do MVP | 🟡⏳ | Todos os itens de software ✅ exceto os ❌ acima; "APK instala/abre/modo avião" depende de você instalar. |
+| 67 | Versão de TV (TCL) com controle de PS5 | ✅⏳ | Outro app (`com.vinicomandante.estrelas.tv`), aparece na tela inicial da Android TV (LEANBACK + banner), armv7+arm64. Estrela no lugar do dedo; qualquer botão da frente escolhe (DualSense embaralhado em Android antigo não atrapalha); OPTIONS/CREATE segurado volta. Teste só com controle 19/19 em 1920×1080. Pendente: confirmar na TCL com o controle real. Guia: `docs/TV_ANDROID.md`. |

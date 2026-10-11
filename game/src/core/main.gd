@@ -45,7 +45,10 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_WM_GO_BACK_REQUEST:
-			Router.back()
+			if Pad.enabled:
+				Pad.back_request()  # TV: 2 toques para voltar (o B do controle às vezes chega como "voltar")
+			else:
+				Router.back()
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_APPLICATION_FOCUS_OUT:
 			AppState.on_app_paused()
 			AudioService.pause_all(true)
@@ -65,7 +68,8 @@ func _start_debug_tool() -> bool:
 	const TOOLS := {"--segpreview=": "seg_preview", "--rigpreview=": "rig_preview", "--spike=": "spike_fx",
 		"--artpreview=": "art_preview", "--charpreview=": "char_preview", "--uigallery=": "ui_gallery", "--shots=": "screenshot_runner",
 		"--smoke2": "smoke_v2", "--smoke": "smoke_runner", "--film": "intro_film", "--playcheck=": "play_check",
-		"--touchcheck=": "touch_check", "--lessoncheck=": "lesson_check", "--uxcheck=": "ux_check"}
+		"--touchcheck=": "touch_check", "--lessoncheck=": "lesson_check", "--uxcheck=": "ux_check",
+		"--padcheck=": "pad_check"}
 	var args := OS.get_cmdline_user_args()
 	if args.has("--checkscripts"):
 		_check_scripts()

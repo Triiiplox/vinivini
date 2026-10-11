@@ -820,3 +820,17 @@ func _aim_lane() -> float:
 		if f.position.x > SHIP_X:
 			return f.position.y
 	return 390.0
+
+# ------------------------------------------------------------------ controle (versão de TV: Pad)
+func pad_lanes() -> bool:
+	return not over
+
+
+func pad_lane(d: int) -> void:
+	var i := LANES.find(lane_y(target_y))
+	target_y = float(LANES[clampi(i + d, 0, LANES.size() - 1)])
+	_poke()
+
+
+func pad_action() -> void:
+	pass  # a nave já atira sozinha

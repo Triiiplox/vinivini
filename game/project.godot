@@ -33,6 +33,7 @@ AudioService="*res://src/services/audio_service.gd"
 AppState="*res://src/services/app_state.gd"
 MissionFlow="*res://src/services/mission_flow.gd"
 Router="*res://src/core/router.gd"
+Pad="*res://src/services/pad.gd"
 
 [display]
 

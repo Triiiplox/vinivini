@@ -138,7 +138,7 @@ func test_trace_rejects_scribble_on_every_letter() -> void:
 	var c: Vector2 = s.TRACE_CENTER
 	var leaked: Array = []
 	for letter in letters:
-		s.rd = {"k": "trace", "letter": letter}
+		s.rd = {"k": "trace", "letter": letter, "say": ""}
 		s._trace()
 		var zig: Array = []
 		for i in 9:
@@ -256,6 +256,7 @@ func test_power_mode_from_bolt() -> void:
 func test_new_profile_reaches_journey_and_fly() -> void:
 	Router.reset_to("opening", {})
 	await frames(3)
+	Router.current_screen._show_avatar()
 	Router.current_screen._finish_avatar()
 	await get_tree().create_timer(6.0).timeout
 	eq(MissionFlow.mission_id, "j01", "a primeira missão é a da Jornada")
@@ -302,7 +303,7 @@ func test_shmup_phase_flow() -> void:
 	check(f.boss != null, "chefão aparece no fim das ondas")
 	f._hit_boss(f.boss_max)
 	check(f.over, "chefão vencido: fim da fase")
-	eq(Router.current_screen.stars(0), 3, "3 corações = 3 estrelas")
+	eq(load("res://src/screens/fly_menu_screen.gd").stars(0), 3, "3 corações = 3 estrelas")
 	check(load("res://src/screens/fly_menu_screen.gd").is_open(1), "fase 2 abriu")
 	Router.reset_to("seg_fases", {"fase": 4})
 	await frames(2)

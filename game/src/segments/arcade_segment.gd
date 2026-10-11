@@ -927,3 +927,17 @@ func _hint() -> void:
 				tgt = o.position.y
 				break
 	hand.show_tap(Vector2(640, lane_y(tgt)))
+
+# ------------------------------------------------------------------ controle (versão de TV: Pad)
+func pad_lanes() -> bool:
+	return not over
+
+
+func pad_lane(d: int) -> void:
+	var i := LANES.find(lane_y(target_y))
+	target_y = float(LANES[clampi(i + d, 0, LANES.size() - 1)])
+	_poke()
+
+
+func pad_action() -> void:
+	_turbo()
