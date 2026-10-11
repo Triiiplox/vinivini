@@ -9,7 +9,8 @@ extends CanvasLayer
 ##     botões embaralhados ou com números fora do padrão — por isso nenhum botão da frente tem papel especial;
 ##   OPTIONS ou CREATE segurado (ou VOLTAR do controle remoto) = volta para a tela principal (anel enche; criança
 ##     apertando tudo não sai do jogo sem querer).
-## Nos jogos de nave (tela com pad_lanes() = true) a estrela some: cima/baixo trocam de faixa, botão = pad_action().
+## Nos jogos de nave a estrela some: com pad_lanes() (voo livre) cima/baixo trocam de faixa; com pad_free() (fases)
+## o analógico e as setas pilotam a nave livre (pad_move(vetor) a cada quadro). Botão = pad_action().
 ## Os toques viram eventos de mouse (Input.parse_input_event): o jogo inteiro funciona sem mudar cada tela.
 
 const DEAD := 0.22
@@ -31,6 +32,7 @@ var _lane_axis := 0
 var _back_armed := -10.0
 var _help: Control
 var _joy_ms := -100000
+var _dpad := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -70,15 +72,17 @@ func _input(e: InputEvent) -> void:
 
 
 func _button(b: int, down: bool) -> void:
-	var lanes := _lanes()
+	var lanes := _lanes() or _free()
 	var dirs := {JOY_BUTTON_DPAD_UP: Vector2.UP, JOY_BUTTON_DPAD_DOWN: Vector2.DOWN,
 		JOY_BUTTON_DPAD_LEFT: Vector2.LEFT, JOY_BUTTON_DPAD_RIGHT: Vector2.RIGHT}
 	if b in BACK_BTNS:
 		_back_t = 0.0 if down else -1.0
 	elif dirs.has(b):
-		if not down:
-			return
 		var dir: Vector2 = dirs[b]
+		_dpad = (_dpad + dir) if down else (_dpad - dir)
+		_dpad = _dpad.clamp(-Vector2.ONE, Vector2.ONE)
+		if not down or _free():
+			return
 		if lanes:
 			if dir.y != 0.0:
 				Router.current_screen.pad_lane(int(dir.y))
@@ -97,11 +101,17 @@ func _button(b: int, down: bool) -> void:
 
 
 func _process(delta: float) -> void:
+	var free := _free()
 	var lanes := _lanes()
-	_star.visible = (not lanes or _back_t >= 0.0) and not is_instance_valid(_help)
-	if lanes and _back_t >= 0.0:
-		_on_home_button()  # na nave a estrela some; segurando B ela aparece na casinha, com o anel enchendo
-	if lanes:
+	_star.visible = (not (lanes or free) or _back_t >= 0.0) and not is_instance_valid(_help)
+	if (lanes or free) and _back_t >= 0.0:
+		_on_home_button()  # na nave a estrela some; segurando OPTIONS ela aparece na casinha, com o anel enchendo
+	if free:
+		var v := _dpad
+		if stick.length() > DEAD:
+			v += stick.normalized() * (stick.length() - DEAD) / (1.0 - DEAD)
+		Router.current_screen.pad_move(v.limit_length(1.0))
+	elif lanes:
 		# Analógico na nave: inclinou para cima/baixo = troca uma faixa (precisa voltar ao meio para trocar de novo).
 		var ax := 0 if absf(stick.y) < 0.6 else int(signf(stick.y))
 		if ax != 0 and ax != _lane_axis:
@@ -126,12 +136,17 @@ func _on_home_button() -> void:
 
 
 func pad_lanes_now() -> bool:
-	return _lanes()
+	return _lanes() or _free()
 
 
 func _lanes() -> bool:
 	var s := Router.current_screen
 	return s != null and s.has_method("pad_lanes") and s.pad_lanes()
+
+
+func _free() -> bool:
+	var s := Router.current_screen
+	return s != null and s.has_method("pad_free") and s.pad_free()
 
 
 # ------------------------------------------------------------------ dedo virtual
@@ -283,7 +298,7 @@ func _show_help() -> void:
 	UI.child_ok(title)
 	_help.add_child(title)
 	var rows := [["stick", "Analógico: mexe a estrela"], ["face", "X azul (ou qualquer botão): escolher"],
-		["options", "OPTIONS segurado: voltar ao começo"], ["dpad", "Na nave: cima e baixo trocam de faixa"]]
+		["options", "OPTIONS segurado: voltar ao começo"], ["dpad", "Na nave: analógico ou setas pilotam"]]
 	for i in rows.size():
 		var ic := Node2D.new()
 		ic.position = Vector2(110, 140 + i * 72)

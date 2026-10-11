@@ -26,7 +26,7 @@ O pedido do Andro, em 11/10: *"outra versão para jogar via controle Bluetooth n
 | Setas | A estrela pula para o botão mais perto naquela direção |
 | **✕** (ou qualquer botão da frente: ○ □ △, L1, R1) | Escolher. Segurar e mover arrasta e traça letra |
 | **OPTIONS** ou **CREATE** segurado (~1 s) | Volta para a tela principal. Um anel azul enche antes de voltar |
-| Jogos de nave | Cima e baixo trocam de faixa; qualquer botão = turbo |
+| Fases de nave | Analógico ou setas pilotam a nave livre (ela atira sozinha). No voo livre: cima e baixo trocam de faixa, qualquer botão = turbo |
 | Controle remoto da TV | Também funciona: setas, OK, e Voltar apertado 2 vezes |
 
 **Por que "qualquer botão" escolhe:**

@@ -1,11 +1,16 @@
 extends Node
-## Mixagem: buses Music, Ambience, Narrator, Character, SFX, UI (todos -> Master).
+## Mixagem: buses Music, Ambience, Narrator, Character, SFX, UI, Power (todos -> Master).
 ## Música por contexto com crossfade; ambiente em loop; efeitos com pool; ducking durante a narração.
 ## A antiga API speak() delega para Voice (narração pré-gerada).
 
-const BUSES := ["Music", "Ambience", "Narrator", "Character", "SFX", "UI"]
+const BUSES := ["Music", "Ambience", "Narrator", "Character", "SFX", "UI", "Power"]
 const MUSIC_DB := -9.0
 const DUCK_DB := -19.0
+## Música do poder em canal próprio, no volume cheio e fora do ducking (11/10, o Andro: "a música do Blaze não tocou").
+## Antes ela ia no canal Music (-9 dB) e o "Modo poderoso!" do Astro, falado no mesmo instante, abaixava para -19 dB:
+## por baixo dos tiros ela sumia. Enquanto ela toca, os efeitos baixam um pouco para a música aparecer.
+const POWER_DB := 0.0
+const POWER_SFX_DUCK := -7.0
 const SFX_POOL := 8
 ## Música do "modo poderoso" no voo: arquivo particular da família (fica fora do git e do APK público).
 const POWER_SONG := "res://assets/private/poder.ogg"
@@ -99,7 +104,7 @@ func play_power(sec: float) -> bool:
 	if not music_on or not ResourceLoader.exists(POWER_SONG):
 		return false
 	if _power == null:
-		_power = _player("Music")
+		_power = _player("Power")
 	if _power_tw:
 		_power_tw.kill()
 	_power.stream = _stream(POWER_SONG)
@@ -107,6 +112,7 @@ func play_power(sec: float) -> bool:
 	_power.play()
 	_music_a.volume_db = -40.0
 	_music_b.volume_db = -40.0
+	_sfx_duck(true)
 	_power_tw = create_tween()
 	_power_tw.tween_interval(sec)
 	_power_tw.tween_callback(stop_power)
@@ -123,6 +129,19 @@ func stop_power() -> void:
 	_power_tw.tween_property(_music_a, "volume_db", 0.0, 1.0)
 	_power_tw.tween_property(_music_b, "volume_db", 0.0, 1.0)
 	_power_tw.chain().tween_callback(_power.stop)
+	_sfx_duck(false)
+
+
+func power_playing() -> bool:
+	return _power != null and _power.playing
+
+
+func _sfx_duck(on: bool) -> void:
+	var f := linear_to_db(maxf(float(SaveService.settings.get_value("vol_sfx")), 0.001))
+	for pair in [["SFX", 0.0], ["UI", -6.0]]:
+		var idx := AudioServer.get_bus_index(str(pair[0]))
+		if idx >= 0:
+			AudioServer.set_bus_volume_db(idx, float(pair[1]) + f + (POWER_SFX_DUCK if on else 0.0))
 
 
 func play_ambience(name: String) -> void:
@@ -186,7 +205,8 @@ func apply_volumes() -> void:
 	var m := float(SaveService.settings.get_value("vol_music"))
 	var f := float(SaveService.settings.get_value("vol_sfx"))
 	var v := float(SaveService.settings.get_value("vol_voice"))
-	for pair in [["Music", m, MUSIC_DB], ["SFX", f, 0.0], ["UI", f, -6.0], ["Narrator", v, 0.0], ["Character", v, 0.0]]:
+	for pair in [["Music", m, MUSIC_DB], ["Power", m, POWER_DB], ["SFX", f, 0.0], ["UI", f, -6.0], ["Narrator", v, 0.0],
+			["Character", v, 0.0]]:
 		var idx := AudioServer.get_bus_index(str(pair[0]))
 		if idx >= 0:
 			AudioServer.set_bus_volume_db(idx, float(pair[2]) + linear_to_db(maxf(float(pair[1]), 0.001)))

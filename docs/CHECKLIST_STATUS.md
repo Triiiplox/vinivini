@@ -142,7 +142,7 @@ ou screenshot revisada. Nada aqui foi validado num Android físico nem com o Vin
 | 42 | Desafios | ✅ | Dificuldade adaptativa por habilidade; coroa no mapa = Desafio de Comandante (+1 nível, sem punição). |
 | 43 | Elogio | ✅ | 122 variações por contexto (simples, sequência, persistência, difícil, estratégia por área). |
 | 44 | Recompensas | 🟡 | Estrelas, baú, medalhas, capacetes/trajes/acessórios vestidos na hora. Falta: XP, mascotes, peças de nave. Sem lootbox/anúncio/compra. |
-| 45 | Boss não violento | 🟡 | 1 chefão: nuvem rabugenta que fica feliz com luz (portais de sílaba), música própria, cena. Falta: chefes de lógica/construção/ciência, várias etapas. |
+| 45 | Boss não violento | ✅ | v5: 6 MESTRES desenhados (Rei Cratera, Robô Ferrugem, Olho da Tempestade, Senhor dos Anéis, Rainha de Gelo, Polvo Cósmico) com rosto, ataques avisados e entrada "ALERTA!"; vencido fica feliz e vira amigo + mini-mestre por fase (docs/NAVE_V5.md). Antes: | 1 chefão: nuvem rabugenta que fica feliz com luz (portais de sílaba), música própria, cena. Falta: chefes de lógica/construção/ciência, várias etapas. |
 | 46–47 | Detetive / Caça ao tesouro | ❌ | Não feito. |
 | 48–49 | Inventário / Coleções | 🟡 | Guarda-roupa, troféus por campanha, criaturas, desenhos. Falta: minerais, fósseis, artefatos. |
 | 50 | Eventos aleatórios | 🟡 | Só o "presente" do desafio da família. Falta: cometas, chamadas de emergência, visitantes. |
@@ -159,3 +159,4 @@ ou screenshot revisada. Nada aqui foi validado num Android físico nem com o Vin
 | 64 | Regra por missão | ✅ | Cada missão: habilidade registrada, ação física, recompensa, mundo reage (porta abre, cliente come, nuvem sorri). |
 | 66 | DoD do MVP | 🟡⏳ | Todos os itens de software ✅ exceto os ❌ acima; "APK instala/abre/modo avião" depende de você instalar. |
 | 67 | Versão de TV (TCL) com controle de PS5 | ✅⏳ | Outro app (`com.vinicomandante.estrelas.tv`), aparece na tela inicial da Android TV (LEANBACK + banner), armv7+arm64. Estrela no lugar do dedo; qualquer botão da frente escolhe (DualSense embaralhado em Android antigo não atrapalha); OPTIONS/CREATE segurado volta. Teste só com controle 19/19 em 1920×1080. Pendente: confirmar na TCL com o controle real. Guia: `docs/TV_ANDROID.md`. |
+| 68 | Fases de nave v5 | ✅⏳ | 24 fases (6 planetas × Patrulha/Desafio/Resgate/Mestre), nave livre seguindo o dedo (TV: analógico), canhão em 5 níveis, ajudante (primo), escudo, modo poderoso com a música da família audível, modo Fácil/Clássico. Robô-criança filmou fases 1–4, 12, 24 sem travar. Pendente: o Vini jogar. |

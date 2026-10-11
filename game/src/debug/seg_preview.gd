@@ -73,34 +73,39 @@ func _run() -> void:
 		Router.reset_to("seg_build", {"blueprint": "reactor"})
 		await shot("v43_reator", 1.5)
 	if _want("fases"):
+		# v5: menu das 24 fases, ondas, portal, ajudante, escudo, poderoso, entrada do mestre, luta, raiva, vitória.
 		SaveService.settings.set_value("knows_basics", true)
-		SaveService.progress.data(SaveService.profile_id)["fases"] = {"0": 3, "1": 2}
+		SaveService.progress.data(SaveService.profile_id)[ShmupLevels.SAVE_KEY] = {"0": 3, "1": 2, "2": 3}
 		Router.reset_to("fly_menu", {})
 		await shot("fases_menu", 2.0)
-		Router.reset_to("seg_fases", {"fase": 2})
-		await shot("fases_ondas", 4.0)
+		Router.reset_to("seg_fases", {"fase": 3})
+		await shot("fases_ondas", 5.0)
 		var f: Node = Router.current_screen
-		f.t = f.WAVE_TIME * 0.5
-		await shot("fases_desafio", 2.5)
+		f._collect("A")
+		f._collect("S")
+		f._collect("P")
+		f._collect("P")
+		await shot("fases_ajudante_escudo", 2.0)
+		f._go_power()
+		await shot("fases_poderoso", 0.8)
+		f.t = f.wave_time
+		for e in f.foes.duplicate():
+			f._drop(f.foes, e)
+		await shot("fases_alerta_mestre", 1.2)
+		await shot("fases_mestre", 3.0)
+		f.boss.hurt(f.boss.max_hp * 0.55)
+		await shot("fases_mestre_bravo", 1.2)
+		await shot("fases_portal_especial", 1.0)
 		for p in f.gate:
 			if str(p.get_meta("label")) == f.gate_answer:
 				f.ship.position.y = p.position.y
-				f.target_y = p.position.y
-			p.position.x = f.SHIP_X
-		f._check_gate()
-		f._call_wingman()
-		await shot("fases_reforco", 1.5)
-		f._go_power()
-		await shot("fases_poderoso", 0.7)
-		f.t = f.WAVE_TIME
-		for e in f.foes.duplicate():
-			f._drop(f.foes, e)
-		await shot("fases_chefao", 3.0)
-		f.boss_gate_done = true
-		f._special()
-		await shot("fases_especial", 0.75)
-		f._hit_boss(f.boss_max)
-		await shot("fases_vitoria", 2.5)
+				f.target.y = p.position.y
+			p.position.x = f.ship.position.x - 1.0
+		await shot("fases_especial", 0.9)
+		if f.boss != null and f.boss.hurt(f.boss.max_hp):
+			f._boss_calm()
+		await shot("fases_vitoria", 1.5)
+		await shot("fases_painel", 3.0)
 		SaveService.settings.set_value("knows_basics", false)
 	if _want("naves"):
 		for kid in ["vini", "manuzita", "enzo", "aylinha"]:

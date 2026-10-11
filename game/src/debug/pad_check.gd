@@ -3,7 +3,7 @@ extends Node
 ##   godot --path game -- --tv --padcheck=/dir
 ## Controle de PS5 (DualSense): no Godot ✕ = A, ○ = B, □ = X, △ = Y, OPTIONS = START, CREATE = BACK.
 ## Ajuda na 1ª vez (fecha com △) → setas até o VOAR → ○ → FASES → fase 1 (✕) → seta repetida como tecla pelo Android
-## não anda duas vezes → trocar faixa (setas e analógico) → OPTIONS segurado volta para o começo → lição de arrastar
+## não anda duas vezes → pilotar a nave livre (setas e analógico) → OPTIONS segurado volta para o começo → arrastar
 ## (✕ segurado + analógico) → traçar letra pelo analógico → turbo do voo livre (□ e um botão de número desconhecido).
 ## Imprime PAD PASS/FAIL e sai com 1 se algo falhar.
 
@@ -58,15 +58,20 @@ func _home_to_phase() -> void:
 func _lanes_and_back() -> void:
 	var s: Node = Router.current_screen
 	await _wait(0.5)
-	results["nave_em_modo_faixa"] = Pad.pad_lanes_now()
-	var y0: float = s.target_y
-	await _btn(JOY_BUTTON_DPAD_DOWN)
-	results["seta_baixo_troca_faixa"] = s.target_y > y0
-	await _axis(JOY_AXIS_LEFT_Y, -1.0, 0.3)
-	await _axis(JOY_AXIS_LEFT_Y, 0.0, 0.1)
-	await _axis(JOY_AXIS_LEFT_Y, -1.0, 0.3)
-	await _axis(JOY_AXIS_LEFT_Y, 0.0, 0.1)
-	results["analogico_sobe_duas_faixas"] = is_equal_approx(s.target_y, 200.0)
+	await _wait(0.8)
+	results["nave_em_modo_livre"] = Pad.pad_lanes_now()
+	var y0: float = s.target.y
+	_send_btn(JOY_BUTTON_DPAD_DOWN, true)
+	await _wait(0.3)
+	_send_btn(JOY_BUTTON_DPAD_DOWN, false)
+	results["seta_segurada_desce_a_nave"] = s.target.y > y0 + 120.0
+	var y1: float = s.target.y
+	var x1: float = s.target.x
+	await _axis(JOY_AXIS_LEFT_Y, -1.0, 0.35)
+	await _axis(JOY_AXIS_LEFT_X, 1.0, 0.25)
+	await _axis(JOY_AXIS_LEFT_Y, 0.0, 0.05)
+	await _axis(JOY_AXIS_LEFT_X, 0.0, 0.1)
+	results["analogico_pilota_livre"] = s.target.y < y1 - 120.0 and s.target.x > x1 + 80.0
 	await _shot("pad_fase")
 	await _btn(JOY_BUTTON_B)
 	await _btn(JOY_BUTTON_Y)

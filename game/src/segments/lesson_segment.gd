@@ -66,7 +66,7 @@ func _trace() -> void:
 		_trace_pts.append({"p": _tp(st[st.size() - 1]), "hit": false, "s": si})
 	_trace_dots = Node2D.new()
 	_trace_dots.z_index = 13
-	_trace_dots.draw.connect(_draw_trace_dots)
+	_trace_dots.draw.connect(_draw_trace_dots.bind(_trace_dots))
 	_trace_dots.add_to_group("lesson_tmp")
 	world.add_child(_trace_dots)
 	_trace_line = Line2D.new()
@@ -85,13 +85,17 @@ func _trace() -> void:
 	_demo_once(d)
 
 
-func _draw_trace_dots() -> void:
+## Cada camada de pontinhos desenha só em si mesma (uma camada velha que ainda redesenhava pintava na nova, fora
+## do _draw dela: o motor recusava e enchia o log).
+func _draw_trace_dots(n: Node2D) -> void:
+	if n != _trace_dots:
+		return
 	for t in _trace_pts:
-		_trace_dots.draw_circle(t["p"], 11.0, DS.STAR_GOLD if t["hit"] else Color(1, 1, 1, 0.9))
+		n.draw_circle(t["p"], 11.0, DS.STAR_GOLD if t["hit"] else Color(1, 1, 1, 0.9))
 	for i in _trace_starts.size():
 		# Bolinha verde onde começa cada traço (pisca o primeiro que ainda falta).
-		_trace_dots.draw_circle(_trace_starts[i], 24.0, Color("#22C55E"))
-		_trace_dots.draw_circle(_trace_starts[i], 10.0, Color.WHITE)
+		n.draw_circle(_trace_starts[i], 24.0, Color("#22C55E"))
+		n.draw_circle(_trace_starts[i], 10.0, Color.WHITE)
 
 
 func _trace_input(e: InputEvent) -> bool:

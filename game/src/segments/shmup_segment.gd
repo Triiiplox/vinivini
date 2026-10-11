@@ -1,175 +1,151 @@
 extends GameScreen
-## Fase de nave (10/10, o Andro: "estilo os jogos antigos, fase a fase, com chefão; tiro aumentando; desafio no
-## meio"). A nave de quem joga ATIRA SOZINHA; a criança só troca de faixa (em cima, meio, embaixo) para mirar.
-## Limpa a rota: meteoros (1 tiro), lixo espacial (2 tiros, gira) e meteoro grande (4 tiros, racha em 2).
-## Meio da fase: DESAFIO de conta — acertou, o canhão sobe (simples → duplo → triplo → laser). Um primo vem de
-## reforço atirando junto. Fim: o METEORO GIGANTE do planeta, com barra de vida; na metade, portal de conta
-## para o TIRO ESPECIAL. 3 corações; estrelas pela vida que sobrou; a fase seguinte abre ao vencer.
-## Sem bichos para matar: a nave limpa o caminho de pedras e lixo (é um jogo para 4 anos).
-## RAIO (de tempos em tempos, também no chefão) = MODO PODEROSO: 8 s de tiro arco-íris em 5 direções, dano dobrado,
-## aura, e a música da família (o Andro: "não esquece da música do Blaze quando pegar o poder"). Efeitos: ShmupFx.
+## FASES DE NAVE v5 (11/10, o Andro: "jogabilidade ruim, poucas fases, gráficos do poder/suporte fracos, o mestre
+## deveria ser algo legal, muitos bugs"). Escolhas dele: nave LIVRE seguindo o dedo, 24 fases, poder escolher entre
+## modo fácil (sem fim de jogo) e clássico (vidas), arte desenhada agora + prompts para arte pintada depois.
+##   Pilotar: arrasta o dedo em qualquer lugar e a nave anda junto (toque longe = a nave voa até lá). TV: analógico.
+##   A nave atira sozinha. Cápsulas: P = canhão sobe (1 → 5: duplo, leque, mísseis, leque largo), A = AJUDANTE
+##   (o primo voa junto atirando, até 2), S = escudo de bolha (3 batidas), coração = energia; RAIO = MODO PODEROSO
+##   (8 s invencível, tiro arco-íris e a música da família).
+##   Robôs bagunceiros entram em formações; a formação VERMELHA inteira desligada solta um P.
+##   Fase: ondas → (portal de conta no meio) → mini-mestre ou MESTRE (ShmupBoss), com entrada de "ALERTA!".
+## Sem violência: robô atingido "desliga" em estrelas; mestre vencido fica feliz e vira amigo.
+## Corrige o que o robô-criança filmou na v4: colisão com folga de 50 px (apanhava sem encostar), mestre que
+## renascia no fim (as ondas rodavam no mesmo quadro da vitória), portal de conta escondido atrás do mestre.
 
-const LANES := [200.0, 390.0, 580.0]
-const SHIP_X := 230.0
-const LANE_SPEED := 2000.0
-const PHASES := ["moon", "mars", "jupiter", "saturn", "uranus", "neptune"]
-## Segundos de ondas antes do chefão; o desafio vem na metade.
-const WAVE_TIME := 40.0
-const FIRE_EVERY := 0.3
-const BULLET_SPEED := 1150.0
-const MAX_GUN := 4
-## Bocas dos canhões em fração da nave (x para a frente, y para baixo): as naves pintadas têm canhões na frente.
-const MUZZLES := [Vector2(0.46, 0.06), Vector2(0.24, 0.27)]
+const SHIP_W := 200.0
+const HIT_R := 26.0
+const BULLET_SPEED := 1300.0
+const MAX_GUN := 5
 const POWER_SEC := 8.0
-const POWER_EVERY := 14.0
-const GUN_COLORS := [Color(1.0, 0.85, 0.3), Color(1.0, 0.6, 0.2), Color(1.0, 0.45, 0.8), Color(0.4, 1.0, 1.0)]
+const LANES := [200.0, 390.0, 580.0]
+const GUN_COLORS := [Color(1.0, 0.85, 0.3), Color(1.0, 0.6, 0.2), Color(1.0, 0.45, 0.8), Color(0.4, 1.0, 1.0),
+	Color(0.7, 1.0, 0.4)]
+const MUZZLE := Vector2(0.46, 0.06)
 
 var fase := 0
+var world_i := 0
+var kind := "patrulha"
+var heat := 0.0
+var mode := "facil"
+var state := "intro"
+var over := false
+var t := 0.0
+var wave_time := 40.0
 var gun := 1
-var hearts := 3
+var max_pips := 5
+var pips := 5
+var lives := 3
+var repairs := 0
+var shield := 0
+var power_t := 0.0
 var score := 0
 var ship: Node2D
 var ship_art: Node2D
-var target_y := 390.0
-var t := 0.0
-var fire_t := 0.0
-var spawn_t := 1.2
+var aura: Node2D
+var bubble: Node2D
+var target := Vector2(300, 390)
 var invuln := 0.0
 var bullets: Array[Node2D] = []
+var ebullets: Array[Node2D] = []
 var foes: Array[Node2D] = []
+var pickups: Array[Node2D] = []
+var bands: Array[Node2D] = []
+var helpers: Array[Node2D] = []
 var gate: Array[Node2D] = []
 var gate_answer := ""
 var gate_kind := ""
-var challenge_done := false
-var boss: Node2D
-var boss_hp := 0.0
-var boss_max := 1.0
-var boss_t := 0.0
-var boss_gate_done := false
-var over := false
-var wing: Node2D
-var wing_t := 0.0
-var wing_called := false
-var laser: Line2D
-var bar: Control
-var boss_bar: Control
-var calc_label: Label
-var explain_label: Label
-var heart_box: HBoxContainer
-var power_t := 0.0
-var power_drop_t := 9.0
-var pickups: Array[Node2D] = []
-var aura: Node2D
+var gate_done := false
+var boss: ShmupBoss
+var mini: Node2D
+var ui: ShmupHud
+var _forms := {}
+var _form_n := 0
+var _spawn_t := 1.5
+var _fire_t := 0.0
+var _missile_t := 0.0
+var _helper_t := 0.0
+var _bolt_t := 14.0
+var _regen_t := 0.0
+var _rescues := 0
+var _trail: Array[Vector2] = []
+var _drag_from := Vector2.ZERO
+var _ship_from := Vector2.ZERO
 var _pressing := false
 var _gate_t0 := 0.0
-var _w := 220.0
-var _h := 160.0
+var _pad_v := Vector2.ZERO
 
 
 func build() -> void:
 	world_taps_meaningful = true
-	fase = clampi(int(params.get("fase", 0)), 0, PHASES.size() - 1)
-	gun = mini(1 + fase / 2, 3)  # fases adiantadas já começam com tiro mais forte
+	fase = clampi(int(params.get("fase", 0)), 0, ShmupLevels.COUNT - 1)
+	world_i = ShmupLevels.world(fase)
+	kind = ShmupLevels.kind(fase)
+	heat = ShmupLevels.heat(fase)
+	wave_time = ShmupLevels.wave_time(fase)
+	mode = ShmupLevels.mode()
+	max_pips = 5 if mode == "facil" else 3
+	pips = max_pips
+	gun = 1 + mini_gun()
 	set_sky("space")
 	AudioService.play_music("flight")
 	AudioService.play_ambience("space")
 	camera.position = Vector2(640, 360)
 	ship = Node2D.new()
 	ship.name = "PlayerShip"
-	ship.position = Vector2(SHIP_X, 390)
+	ship.position = Vector2(vr().position.x - 200.0, 390)
 	ship.z_index = 50
 	world.add_child(ship)
 	var trail := Fx.trail(ship)
-	trail.position = Vector2(-110, 4)
+	trail.position = Vector2(-100, 4)
 	trail.emitting = true
-	ship_art = Kids.ship_node(_w)
+	ship_art = Kids.ship_node(SHIP_W)
 	ship.add_child(ship_art)
 	aura = ShmupFx.aura()
 	aura.visible = false
 	ship.add_child(aura)
-	if ship_art is Sprite2D:
-		var tex: Texture2D = (ship_art as Sprite2D).texture
-		_h = _w * tex.get_height() / float(tex.get_width())
-	laser = Line2D.new()
-	laser.width = 26.0
-	laser.default_color = Color(0.5, 1.0, 1.0, 0.85)
-	laser.visible = false
-	laser.z_index = 45
-	world.add_child(laser)
-	_hud()
-	hint_fn = func(): hand.show_tap(Vector2(640, _aim_lane()))
+	bubble = Node2D.new()
+	bubble.z_index = 2
+	bubble.draw.connect(func(): ui.draw_bubble(bubble))
+	ship.add_child(bubble)
+	target = Vector2(vr().position.x + 300.0, 390)
+	var tw := ship.create_tween()
+	tw.tween_property(ship, "position:x", target.x, 1.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	ui = ShmupHud.new(self)
+	ui.build()
+	hint_fn = _hint
 
 
-func _hud() -> void:
-	var home: Control = hud.root.get_node("HomeButton")
-	home.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var hold := HoldButton.new("home", 0.8)
-	hold.name = "HoldHome"
-	hold.plain = true
-	hold.position = home.position
-	hold.size = home.size
-	hold.held.connect(_on_home)
-	hud.root.add_child(hold)
-	heart_box = HBoxContainer.new()
-	heart_box.add_theme_constant_override("separation", 6)
-	heart_box.position = Vector2(GameHud.EDGE + GameHud.safe_x(get_viewport()).x + GameHud.BTN + 18, 36)
-	heart_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hud.root.add_child(heart_box)
-	_draw_hearts()
-	hud.set_counter("props", "star_token", 0)
-	bar = Control.new()
-	bar.position = Vector2(420, 24)
-	bar.size = Vector2(420, 60)
-	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bar.draw.connect(_draw_bar)
-	hud.stage.add_child(bar)
-	boss_bar = Control.new()
-	boss_bar.name = "BossBar"
-	boss_bar.position = Vector2(400, 28)
-	boss_bar.size = Vector2(440, 50)
-	boss_bar.visible = false
-	boss_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	boss_bar.draw.connect(_draw_boss_bar)
-	hud.stage.add_child(boss_bar)
-	calc_label = UI.label("", 64, Palette.YELLOW, true)
-	calc_label.position = Vector2(390, 6)
-	calc_label.size = Vector2(500, 80)
-	calc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI.child_ok(calc_label)  # a conta do portal
-	hud.stage.add_child(calc_label)
-	explain_label = UI.label("", 40, Color("#86EFAC"), true)
-	explain_label.position = Vector2(140, 88)
-	explain_label.size = Vector2(1000, 64)
-	explain_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	explain_label.add_theme_constant_override("outline_size", 10)
-	explain_label.add_theme_color_override("font_outline_color", Color(0.03, 0.04, 0.15))
-	UI.child_ok(explain_label)  # a conta resolvida
-	hud.stage.add_child(explain_label)
+## Fases adiantadas já começam com o canhão mais forte (a criança não perde o que ganhou nas anteriores).
+func mini_gun() -> int:
+	return mini(world_i, 2)
 
 
 func begin() -> void:
-	var intro := _phase_line(fase)
+	var parts: Array = [ShmupLevels.world_line(world_i), ShmupLevels.kind_line(kind)]
 	if fase == 0:
-		narrate_seq([intro, Lines.n("Sua nave atira sozinha! Mude de faixa para mirar nos meteoros.")])
-	else:
-		narrate(intro)
+		parts.append(Lines.n("Arraste o dedo para pilotar. A nave atira sozinha!"))
+	narrate_seq(parts)
+	after(1.3, func():
+		if state == "intro":
+			state = "waves")
 
 
-func _phase_line(i: int) -> String:
-	match i:
-		0:
-			return Lines.n("Fase 1: a Lua! Limpe o caminho de meteoros!")
-		1:
-			return Lines.n("Fase 2: Marte! Cuidado com o lixo espacial!")
-		2:
-			return Lines.n("Fase 3: Júpiter, o maior planeta!")
-		3:
-			return Lines.n("Fase 4: Saturno e seus anéis!")
-		4:
-			return Lines.n("Fase 5: Urano, o planeta deitado!")
-	return Lines.n("Fase 6: Netuno, o último planeta! Vamos com tudo!")
+# ------------------------------------------------------------------ mundo visível (celular largo mostra mais)
+func vr() -> Rect2:
+	var sz := get_viewport().get_visible_rect().size
+	return Rect2(camera.position - sz / 2.0, sz)
 
 
+func ship_pos() -> Vector2:
+	return ship.position if ship != null else Vector2(300, 390)
+
+
+func _clamp_ship(p: Vector2) -> Vector2:
+	var r := vr()
+	return Vector2(clampf(p.x, r.position.x + 90.0, r.position.x + r.size.x * 0.62), clampf(p.y, 110.0, 670.0))
+
+
+# ------------------------------------------------------------------ controle
 func _unhandled_input(e: InputEvent) -> void:
 	if over:
 		return
@@ -177,11 +153,28 @@ func _unhandled_input(e: InputEvent) -> void:
 		_pressing = e.pressed
 		if e.pressed:
 			_poke()
-			target_y = lane_y(_event_point(e).y)
+			var p := _event_point(e)
+			if p.distance_to(ship.position) > 260.0:
+				target = _clamp_ship(p)  # tocou longe: a nave voa até lá
+			_drag_from = p
+			_ship_from = target
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseMotion and _pressing:
-		target_y = lane_y(_event_point(e).y)
+		target = _clamp_ship(_ship_from + (_event_point(e) - _drag_from) * 1.25)
 		get_viewport().set_input_as_handled()
+
+
+## Versão de TV (Pad): analógico/setas mexem a nave livre.
+func pad_free() -> bool:
+	return not over and state != "intro"
+
+
+func pad_move(v: Vector2) -> void:
+	_pad_v = v
+
+
+func pad_action() -> void:
+	pass  # a nave atira sozinha
 
 
 static func lane_y(y: float) -> float:
@@ -192,90 +185,155 @@ static func lane_y(y: float) -> float:
 	return best
 
 
+# ------------------------------------------------------------------ laço
 func _process(delta: float) -> void:
 	super._process(delta)
-	if over or ship == null:
+	if ship == null:
 		return
-	invuln = maxf(0.0, invuln - delta)
-	ship.position.y = move_toward(ship.position.y, target_y, LANE_SPEED * delta)
-	ship_art.modulate.a = 0.4 if invuln > 0.0 and fmod(invuln, 0.2) < 0.1 else 1.0
 	ship_art.position.y = sin(Time.get_ticks_msec() / 330.0) * 4.0
+	ship_art.modulate.a = 0.45 if invuln > 0.0 and fmod(invuln, 0.2) < 0.1 else 1.0
 	if is_instance_valid(Router.sky):
-		Router.sky.set_parallax(Vector2(t * 260.0, (ship.position.y - 360) * 0.3))
-	var slow := 0.6 if not gate.is_empty() else 1.0  # portal na tela: tempo para pensar
-	if boss == null:
-		t += delta * slow
+		Router.sky.set_parallax(Vector2(Time.get_ticks_msec() / 1000.0 * 260.0, (ship.position.y - 360) * 0.25))
+	if over:
+		return
+	if _pad_v.length() > 0.05:
+		target = _clamp_ship(target + _pad_v * 950.0 * delta)
+	if state != "intro":
+		ship.position = ship.position.move_toward(target, 2000.0 * delta)
+		ship.rotation = lerpf(ship.rotation, clampf((target.y - ship.position.y) / 600.0, -0.25, 0.25), delta * 8.0)
+	_trail.push_front(ship.position)
+	if _trail.size() > 40:
+		_trail.pop_back()
+	invuln = maxf(0.0, invuln - delta)
 	power_t = maxf(0.0, power_t - delta)
 	aura.visible = power_t > 0.0
 	if aura.visible:
 		aura.queue_redraw()
-	power_drop_t -= delta
-	if power_drop_t <= 0.0 and gate.is_empty():
-		power_drop_t = POWER_EVERY
-		_spawn_bolt()
+	bubble.visible = shield > 0
+	bubble.queue_redraw()
+	var slow := 0.55 if not gate.is_empty() else 1.0  # portal na tela: tempo para pensar
+	if state == "waves":
+		t += delta * slow
+	_regen(delta)
 	_fire(delta)
-	_move(delta * slow)
-	_spawn(delta)
-	_wingman(delta)
-	if boss != null:
-		_boss_tick(delta)
+	_helpers_tick(delta)
+	_move_bullets(delta)
+	_move_foes(delta * slow)
+	_move_ebullets(delta * slow)
+	_move_pickups(delta)
+	_bands_tick(delta)
 	_check_gate()
-	bar.queue_redraw()
+	if state == "waves":
+		_spawn(delta)
+	elif state == "boss" and boss != null:
+		boss.tick(delta)
+		_boss_gate()
+	elif state == "boss" and mini != null:
+		_mini_tick(delta)
+	ui.refresh()
+
+
+# ------------------------------------------------------------------ energia
+func _regen(delta: float) -> void:
+	if mode != "facil" or pips >= max_pips:
+		_regen_t = 0.0
+		return
+	_regen_t += delta
+	if _regen_t >= 9.0:
+		_regen_t = 0.0
+		pips += 1
+
+
+func _hurt() -> void:
+	if invuln > 0.0 or power_t > 0.0 or over or state in ["intro", "won"]:
+		return
+	invuln = 1.6
+	AudioService.haptic(80)
+	shake_camera(12.0)
+	_regen_t = 0.0
+	if shield > 0:
+		shield -= 1
+		AudioService.play_sfx("bump", 1.6, -4.0)
+		Fx.sparkle(world, ship.position, 18, Color("#93C5FD"))
+		return
+	pips -= 1
+	AudioService.play_sfx("bump")
+	ship_art.self_modulate = Color(1, 0.45, 0.45)
+	ship_art.create_tween().tween_property(ship_art, "self_modulate", Color.WHITE, 0.5)
+	if pips > 0:
+		return
+	if mode == "facil":
+		# Sem fim de jogo: o Astro conserta (a fase continua; só a estrela final diminui).
+		repairs += 1
+		pips = 3
+		invuln = 3.0
+		var tw := ship.create_tween()
+		tw.tween_property(ship, "rotation", TAU, 0.7)
+		tw.tween_callback(func(): ship.rotation = 0.0)
+		Fx.sparkle(world, ship.position, 40, Color("#5CE1FF"))
+		cosmo_say(Lines.c("Calma! Eu conserto a nave!"))
+		return
+	lives -= 1
+	gun = maxi(1, gun - 1)
+	for h in helpers:
+		h.queue_free()
+	helpers.clear()
+	if lives > 0:
+		pips = max_pips
+		invuln = 2.5
+		cosmo_say(Lines.c("Ops! Mais uma vida. Vamos lá!"))
+		return
+	_end(false)
 
 
 # ------------------------------------------------------------------ tiro
+func _muzzle() -> Vector2:
+	return ship.position + Vector2(MUZZLE.x * SHIP_W, MUZZLE.y * SHIP_W * 0.7)
+
+
 func _fire(delta: float) -> void:
-	laser.visible = gun >= MAX_GUN and gate.is_empty()
-	if laser.visible:
-		var from := ship.position + _muzzle(0)
-		laser.points = PackedVector2Array([from, Vector2(1400, from.y)])
-		for f in foes.duplicate():
-			if absf(f.position.y - ship.position.y) < 70.0 and f.position.x > ship.position.x:
-				_damage(f, 6.0 * delta)
-		if boss != null and absf(boss.position.y - ship.position.y) < 150.0:
-			_hit_boss(6.0 * delta)
-	fire_t -= delta
-	if fire_t > 0.0 or not gate.is_empty():
+	_fire_t -= delta
+	if _fire_t > 0.0 or not gate.is_empty() or state in ["intro", "won", "boss_intro"]:
 		return
+	var m := _muzzle()
 	if power_t > 0.0:
-		# Modo poderoso: rajada arco-íris em leque, rápida e com dano dobrado.
-		fire_t = 0.12
-		AudioService.play_sfx("tap", 1.8, -10.0)
-		for i in 5:
+		_fire_t = 0.1
+		AudioService.play_sfx("tap", 1.8, -12.0)
+		for i in 7:
 			var col: Color = ShmupFx.RAINBOW[(i + Engine.get_process_frames() / 6) % ShmupFx.RAINBOW.size()]
-			_shot(_muzzle(i % 2), Vector2(1, (i - 2) * 0.22).normalized(), Vector2.INF, col, 2.0, true)
-		ShmupFx.muzzle_flash(world, ship.position + _muzzle(0), Color.WHITE)
+			shot(m, Vector2(1, (i - 3) * 0.12).normalized(), col, 2.0, true)
+		ShmupFx.muzzle_flash(world, m, Color.WHITE)
 		return
-	fire_t = FIRE_EVERY
-	AudioService.play_sfx("tap", 1.4, -12.0)
-	var gc: Color = GUN_COLORS[clampi(gun - 1, 0, 3)]
-	ShmupFx.muzzle_flash(world, ship.position + _muzzle(0), gc)
+	_fire_t = 0.22
+	AudioService.play_sfx("tap", 1.4, -14.0)
+	var gc: Color = GUN_COLORS[gun - 1]
+	ShmupFx.muzzle_flash(world, m, gc)
 	match gun:
 		1:
-			_shot(_muzzle(0), Vector2.RIGHT)
+			shot(m, Vector2.RIGHT)
 		2:
-			_shot(_muzzle(0), Vector2.RIGHT)
-			_shot(_muzzle(1), Vector2.RIGHT)
-			ShmupFx.muzzle_flash(world, ship.position + _muzzle(1), gc)
+			shot(m + Vector2(0, -16), Vector2.RIGHT)
+			shot(m + Vector2(0, 16), Vector2.RIGHT)
+		3, 4:
+			for a in [-8.0, 0.0, 8.0]:
+				shot(m, Vector2.RIGHT.rotated(deg_to_rad(a)))
 		_:
-			_shot(_muzzle(0), Vector2.RIGHT)
-			_shot(_muzzle(0), Vector2(1, -0.33).normalized())
-			_shot(_muzzle(1), Vector2(1, 0.33).normalized())
-			ShmupFx.muzzle_flash(world, ship.position + _muzzle(1), gc)
+			for a in [-16.0, -8.0, 0.0, 8.0, 16.0]:
+				shot(m, Vector2.RIGHT.rotated(deg_to_rad(a)))
+	if gun >= 4:
+		_missile_t -= 0.22
+		if _missile_t <= 0.0:
+			_missile_t = 0.9
+			for s in [-1.0, 1.0]:
+				var b := shot(ship.position + Vector2(10, s * 40.0), Vector2(0.6, s * 0.8).normalized(), Color("#FB923C"), 2.0)
+				b.set_meta("homing", true)
 
 
-func _muzzle(i: int) -> Vector2:
-	var m: Vector2 = MUZZLES[i]
-	return Vector2(m.x * _w, m.y * _h)
-
-
-## Tiro: cor sobe com o canhão (amarelo → laranja → rosa → ciano); no modo poderoso, arco-íris e maior.
-func _shot(from: Vector2, dir: Vector2, owner_pos: Vector2 = Vector2.INF, col: Color = Color(0, 0, 0, 0),
-		dmg: float = 1.0, big: bool = false) -> void:
+func shot(from: Vector2, dir: Vector2, col: Color = Color(0, 0, 0, 0), dmg: float = 1.0, big: bool = false) -> Node2D:
 	if col.a == 0.0:
-		col = GUN_COLORS[clampi(gun - 1, 0, 3)]
+		col = GUN_COLORS[gun - 1]
 	var b := ShmupFx.bullet(col, big)
-	b.position = (ship.position if owner_pos == Vector2.INF else owner_pos) + from
+	b.position = from
 	b.set_meta("dir", dir)
 	b.set_meta("dmg", dmg)
 	b.set_meta("col", col)
@@ -283,169 +341,338 @@ func _shot(from: Vector2, dir: Vector2, owner_pos: Vector2 = Vector2.INF, col: C
 	b.rotation = dir.angle()
 	world.add_child(b)
 	bullets.append(b)
+	return b
 
 
-func _move(delta: float) -> void:
+# ------------------------------------------------------------------ ajudantes (o primo voa junto)
+func _add_helper(cousin: String = "") -> void:
+	if helpers.size() >= 2:
+		_add_score(5)
+		return
+	var h: Node2D
+	if cousin != "":
+		h = Kids.ship_node(110.0, cousin)
+	else:
+		h = ShmupSprite.new("bolinha", 88.0, Color("#38BDF8"))
+	h.z_index = 48
+	h.position = ship.position + Vector2(-80, 0)
+	world.add_child(h)
+	helpers.append(h)
+	Fx.sparkle(world, h.position, 30, Color("#38BDF8"))
+
+
+func _helpers_tick(delta: float) -> void:
+	for i in helpers.size():
+		var h := helpers[i]
+		var k := mini(_trail.size() - 1, 12 + i * 12)
+		var goal: Vector2 = (_trail[k] if k >= 0 else ship.position) + Vector2(-30, -95 if i == 0 else 95)
+		h.position = h.position.lerp(goal, minf(1.0, delta * 8.0))
+	_helper_t -= delta
+	if _helper_t <= 0.0 and gate.is_empty() and state in ["waves", "boss"]:
+		_helper_t = 0.3
+		for h in helpers:
+			shot(h.position + Vector2(50, 0), Vector2.RIGHT, Color("#7DD3FC"))
+
+
+# ------------------------------------------------------------------ movimento e colisão
+func _move_bullets(delta: float) -> void:
+	var r := vr()
 	for b in bullets.duplicate():
-		b.position += (b.get_meta("dir") as Vector2) * BULLET_SPEED * delta
-		if b.position.x > 1450 or b.position.y < 60 or b.position.y > 720:
+		var dir: Vector2 = b.get_meta("dir")
+		if b.has_meta("homing"):
+			var tg := _nearest_target(b.position)
+			if tg != Vector2.INF:
+				dir = dir.lerp((tg - b.position).normalized(), minf(1.0, delta * 6.0)).normalized()
+				b.set_meta("dir", dir)
+				b.rotation = dir.angle()
+		b.position += dir * BULLET_SPEED * delta
+		if not r.grow(80.0).has_point(b.position):
 			_drop(bullets, b)
 			continue
-		var hit := false
 		var dmg := float(b.get_meta("dmg"))
+		var hit := false
 		for f in foes:
 			if b.position.distance_to(f.position) < float(f.get_meta("r")):
-				_damage(f, dmg)
+				damage(f, dmg)
 				hit = true
 				break
-		if not hit and boss != null and b.position.distance_to(boss.position) < 150.0:
-			_hit_boss(dmg)
+		if not hit and boss != null and not boss.calm and b.position.distance_to(boss.position) < boss.radius():
+			if boss.hurt(dmg):
+				_boss_calm()
 			hit = true
 		if hit:
 			ShmupFx.impact(world, b.position, b.get_meta("col"), dmg > 1.0)
 			_drop(bullets, b)
-	for p in pickups.duplicate():
-		p.position.x -= 200.0 * delta
-		p.rotation = sin(Time.get_ticks_msec() / 200.0) * 0.3
-		if p.position.x < -100:
-			_drop(pickups, p)
-		elif p.position.distance_to(ship.position) < 95.0:
-			_drop(pickups, p)
-			_go_power()
-	var spd := 230.0 + fase * 25.0
-	for f in foes.duplicate():
-		f.position.x -= spd * delta
-		f.rotation += float(f.get_meta("spin")) * delta
-		if str(f.get_meta("kind")) == "junk":
-			f.position.y = float(f.get_meta("lane")) + sin(f.position.x / 60.0) * 18.0
-		if f.position.x < -150:
-			_drop(foes, f)
-		elif f.position.distance_to(ship.position) < float(f.get_meta("r")) + 50.0 and invuln <= 0.0:
-			_hurt(f)
-	for p in gate:
-		p.position.x -= spd * delta
+
+
+func _nearest_target(p: Vector2) -> Vector2:
+	var best := Vector2.INF
+	for f in foes:
+		if f.position.x > p.x - 40.0 and (best == Vector2.INF or p.distance_to(f.position) < p.distance_to(best)):
+			best = f.position
+	if boss != null and not boss.calm and best == Vector2.INF:
+		best = boss.position
+	return best
+
+
+func _ship_hit(p: Vector2, r: float) -> bool:
+	return (ship.position + Vector2(10, -4)).distance_to(p) < r + HIT_R
+
+
+func _move_ebullets(delta: float) -> void:
+	var r := vr()
+	for b in ebullets.duplicate():
+		var v: Vector2 = b.get_meta("vel")
+		b.position += v * delta
+		if b.has_meta("wave"):
+			b.position.y += sin(Time.get_ticks_msec() / 160.0 + float(b.get_meta("wave"))) * 90.0 * delta
+		if b.has_meta("spin"):
+			b.rotation += 4.0 * delta
+		if not r.grow(160.0).has_point(b.position):
+			_drop(ebullets, b)
+			continue
+		if _ship_hit(b.position, float(b.get_meta("r"))):
+			_drop(ebullets, b)
+			_hurt()
 
 
 func _drop(arr: Array, n: Node2D) -> void:
 	arr.erase(n)
-	n.queue_free()
+	if is_instance_valid(n):
+		n.queue_free()
+
+
+## Tiro inimigo: grande, lento, brilhante (style: bala, pedra, anel, onda).
+func enemy_bullet(pos: Vector2, vel: Vector2, size: float = 34.0, style: String = "bala") -> void:
+	if not gate.is_empty() or over:
+		return
+	var b := ShmupSprite.new("bala" if style == "onda" else style, size)
+	b.position = pos
+	b.z_index = 46
+	b.set_meta("vel", vel)
+	b.set_meta("r", size * 0.42)
+	if style == "onda":
+		b.set_meta("wave", randf() * TAU)
+	if style in ["pedra", "anel"]:
+		b.set_meta("spin", true)
+	world.add_child(b)
+	ebullets.append(b)
+
+
+func can_attack() -> bool:
+	return state == "boss" and gate.is_empty() and not over
+
+
+func world_foe() -> String:
+	return str(ShmupLevels.NEW_FOE[world_i])
+
+
+# ------------------------------------------------------------------ faixas de perigo (avisam antes)
+func danger_band(rect: Rect2, warn: float, active: float, col: Color, style: String) -> void:
+	var n := Node2D.new()
+	n.z_index = 35
+	n.set_meta("rect", rect)
+	n.set_meta("warn", warn)
+	n.set_meta("active", active)
+	n.set_meta("t", 0.0)
+	n.set_meta("col", col)
+	n.set_meta("style", style)
+	n.draw.connect(ui.draw_band.bind(n))
+	world.add_child(n)
+	bands.append(n)
+	AudioService.play_sfx("beep", 0.7, -6.0)
+
+
+func _bands_tick(delta: float) -> void:
+	for n in bands.duplicate():
+		var tt := float(n.get_meta("t")) + delta
+		n.set_meta("t", tt)
+		n.queue_redraw()
+		var w := float(n.get_meta("warn"))
+		if tt >= w and not n.has_meta("fired"):
+			n.set_meta("fired", true)
+			shake_camera(8.0)
+			AudioService.play_sfx("launch", 1.2, -6.0)
+		if tt >= w and tt < w + float(n.get_meta("active")):
+			var rc: Rect2 = n.get_meta("rect")
+			if rc.grow(HIT_R * 0.6).has_point(ship.position):
+				_hurt()
+		if tt >= w + float(n.get_meta("active")) or over or not gate.is_empty():
+			_drop(bands, n)
 
 
 # ------------------------------------------------------------------ inimigos
 func _spawn(delta: float) -> void:
-	if boss != null or not gate.is_empty():
+	if not gate.is_empty():
 		return
-	if not challenge_done and t >= WAVE_TIME * 0.5:
-		challenge_done = true
+	if ShmupLevels.has_gate(fase) and not gate_done and kind != "mestre" and t >= wave_time * 0.5:
+		gate_done = true
 		_spawn_gate("upgrade")
 		return
-	if t >= WAVE_TIME:
+	if t >= wave_time:
 		if foes.is_empty():
-			_spawn_boss()
+			_start_boss()
 		return
-	if not wing_called and t >= WAVE_TIME * 0.7:
-		_call_wingman()
-	spawn_t -= delta
-	if spawn_t > 0.0:
+	if kind == "resgate" and _rescues < 2 and t >= 8.0 + _rescues * 15.0:
+		_rescues += 1
+		_pickup("A", Vector2(vr().end.x + 60.0, randf_range(180.0, 600.0)))
+		cosmo_say(Lines.c("Olha a cápsula azul! Pegue para o ajudante vir!"))
+	_bolt_t -= delta
+	if _bolt_t <= 0.0:
+		_bolt_t = 22.0
+		_pickup("raio", Vector2(vr().end.x + 60.0, randf_range(160.0, 620.0)))
+	_spawn_t -= delta
+	if _spawn_t > 0.0:
 		return
-	spawn_t = maxf(0.55, 1.25 - fase * 0.1)
-	var lane := randi() % 3
+	_spawn_t = lerpf(3.0, 1.7, heat)
+	var x := vr().end.x + 80.0
+	var pool := ShmupLevels.foe_pool(fase)
 	var roll := randf()
-	if fase >= 1 and roll < 0.3:
-		_foe("junk", lane)
-	elif fase >= 2 and roll < 0.45:
-		_foe("big", lane)
+	if kind == "resgate" and roll < 0.45:
+		for i in 3 + int(heat * 3.0):
+			spawn_foe("pedra", Vector2(x + i * 140.0, randf_range(140.0, 640.0)), "reto")
+	elif roll < 0.3 or _form_n == 0:
+		_formation_v(x, _form_n % 2 == 0)
+	elif roll < 0.55:
+		var y := randf_range(180.0, 600.0)
+		for i in 5:
+			spawn_foe("bolinha", Vector2(x + i * 110.0, y), "seno")
+	elif roll < 0.75:
+		var k := str(pool.pick_random())
+		for i in 4:
+			spawn_foe(k, Vector2(x, 170.0 + i * 140.0), "reto")
 	else:
-		_foe("meteor", lane)
-		if fase >= 3 and randf() < 0.4:
-			_foe("meteor", (lane + 1 + randi() % 2) % 3)
+		var k := str(pool.pick_random())
+		spawn_foe(k, Vector2(x, randf_range(180.0, 600.0)), "parada" if k in ["giro", "olho"] else "reto")
 
 
-func _foe(kind: String, lane: int, at: Vector2 = Vector2.INF) -> void:
+## V de 5 setas; a vermelha (vale P quando a formação inteira desliga).
+func _formation_v(x: float, red: bool) -> void:
+	_form_n += 1
+	var id := _form_n
+	_forms[id] = {"left": 5, "red": red}
+	var y := randf_range(220.0, 560.0)
+	for i in 5:
+		var off := Vector2(absf(i - 2) * 80.0, (i - 2) * 70.0)
+		var f := spawn_foe("seta", Vector2(x, y) + off, "reto")
+		f.set_meta("form", id)
+		if not red:
+			(f.get_child(0) as ShmupSprite).col = Color("#94A3B8").lerp(Color("#F43F5E"), 0.2)
+
+
+func spawn_foe(k: String, pos: Vector2, pat: String = "reto") -> Node2D:
 	var f := Node2D.new()
-	f.position = Vector2(1420, float(LANES[lane])) if at == Vector2.INF else at
-	f.set_meta("kind", kind)
-	f.set_meta("lane", float(LANES[lane]))
-	f.set_meta("spin", randf_range(-2.5, 2.5))
-	match kind:
-		"junk":
-			f.add_child(ArtSprite.new("props", ["gear", "chip", "wrench"].pick_random(), 74.0))
-			Fx.glow(f, Vector2.ZERO, 120, Color(1, 0.3, 0.3, 0.6), 1.0).z_index = -1
-			f.set_meta("hp", 2.0)
-			f.set_meta("r", 50.0)
-		"big":
-			f.add_child(ArtSprite.new("props", "asteroid", 150.0))
-			f.set_meta("hp", 4.0)
-			f.set_meta("r", 75.0)
-		"small":
-			f.add_child(ArtSprite.new("props", "asteroid", 64.0))
-			f.set_meta("hp", 1.0)
-			f.set_meta("r", 38.0)
-		_:
-			f.add_child(ArtSprite.new("props", "asteroid", 96.0))
-			f.set_meta("hp", 1.0)
-			f.set_meta("r", 50.0)
+	f.position = pos
+	f.z_index = 30
+	var size := {"bolinha": 80.0, "seta": 84.0, "giro": 100.0, "olho": 96.0, "cometa": 70.0, "casco": 110.0,
+		"mina": 84.0, "pedra": 96.0}.get(k, 80.0) as float
+	var hp := {"bolinha": 1.0, "seta": 1.0, "giro": 4.0, "olho": 3.0, "cometa": 2.0, "casco": 7.0, "mina": 2.0,
+		"pedra": 2.0}.get(k, 1.0) as float
+	var art: Node2D
+	if k == "pedra":
+		art = ArtSprite.new("props", "asteroid", size)
+	else:
+		art = ShmupSprite.new(k, size)
+	f.add_child(art)
+	f.set_meta("kind", k)
+	f.set_meta("hp", hp * (1.0 + heat * 0.8))
+	f.set_meta("r", size * 0.5)
+	f.set_meta("pat", pat)
+	f.set_meta("y0", pos.y)
+	f.set_meta("t", randf() * 3.0)
+	f.set_meta("fire", randf_range(1.0, 2.2))
+	f.set_meta("spin", randf_range(-2.0, 2.0) if k == "pedra" else 0.0)
 	world.add_child(f)
 	foes.append(f)
+	return f
 
 
-func _damage(f: Node2D, dmg: float) -> void:
+func _move_foes(delta: float) -> void:
+	var r := vr()
+	var sp := 210.0 + 150.0 * heat
+	for f in foes.duplicate():
+		if not is_instance_valid(f):
+			foes.erase(f)
+			continue
+		var ft := float(f.get_meta("t")) + delta
+		f.set_meta("t", ft)
+		var k := str(f.get_meta("kind"))
+		var pat := str(f.get_meta("pat"))
+		if f == mini:
+			continue
+		match pat:
+			"seno":
+				f.position.x -= sp * 0.9 * delta
+				f.position.y = float(f.get_meta("y0")) + sin(ft * 2.6) * 110.0
+			"parada":
+				var stop := r.end.x - 260.0
+				if f.position.x > stop and ft < 6.0:
+					f.position.x = move_toward(f.position.x, stop, sp * delta)
+				elif ft >= 6.0:
+					f.position.x -= sp * 1.2 * delta
+			_:
+				f.position.x -= sp * (0.6 if k == "casco" else (1.25 if k == "seta" else 1.0)) * delta
+		f.rotation += float(f.get_meta("spin")) * delta
+		var art: Node = f.get_child(0)
+		if art is ShmupSprite:
+			(art as ShmupSprite).look = ship.position - f.position
+		# Quem atira: olho mira na nave; giro solta 4 para os lados (girando).
+		if k in ["olho", "giro"] and f.position.x < r.end.x - 60.0 and f.position.x > ship.position.x + 200.0:
+			var fire := float(f.get_meta("fire")) - delta
+			if fire <= 0.0:
+				fire = lerpf(3.0, 1.8, heat)
+				var bsp := 230.0 + 110.0 * heat
+				if k == "olho":
+					enemy_bullet(f.position, (ship.position - f.position).normalized() * bsp)
+				else:
+					for i in 4:
+						enemy_bullet(f.position, Vector2.LEFT.rotated(ft + i * TAU / 4.0) * bsp * 0.8)
+			f.set_meta("fire", fire)
+		if f.position.x < r.position.x - 160.0:
+			_drop(foes, f)
+		elif invuln <= 0.0 and _ship_hit(f.position, float(f.get_meta("r")) * 0.7):
+			_hurt()
+
+
+func damage(f: Node2D, dmg: float) -> void:
 	if not is_instance_valid(f) or not foes.has(f):
 		return
 	var hp := float(f.get_meta("hp")) - dmg
 	f.set_meta("hp", hp)
-	if hp > 0.0:
-		f.modulate = Color(1, 0.6, 0.6)
-		f.create_tween().tween_property(f, "modulate", Color.WHITE, 0.15)
+	var art: Node = f.get_child(0)
+	if art is ShmupSprite:
+		(art as ShmupSprite).hit()
+	if f == mini:
+		if hp <= 0.0:
+			_mini_calm()
 		return
-	var kind := str(f.get_meta("kind"))
-	_shatter(f.position, 4 if kind == "small" else 7)
-	AudioService.play_sfx("bump", 1.2, -6.0)
-	_add_score(2 if kind == "junk" else (3 if kind == "big" else 1))
-	if kind == "big":
-		var lane := LANES.find(float(f.get_meta("lane")))
-		for d in [-1, 1]:
-			var l := clampi(lane + d, 0, 2)
-			_foe("small", l, Vector2(f.position.x + 40, float(LANES[l])))
-	elif randf() < 0.06 and hearts < 3:
-		_heart_pickup(f.position)
+	if hp > 0.0:
+		return
+	var k := str(f.get_meta("kind"))
+	ShmupFx.impact(world, f.position, ShmupSprite.COLORS.get(k, Color.WHITE), true)
+	Fx.sparkle(world, f.position, 14, DS.STAR_GOLD)
+	AudioService.play_sfx("bump", 1.3, -8.0)
+	_add_score(3 if k in ["giro", "olho", "casco"] else 1)
+	ui.popup("+%d" % (3 if k in ["giro", "olho", "casco"] else 1), f.position)
+	if k == "mina":
+		for i in 6:
+			enemy_bullet(f.position, Vector2.RIGHT.rotated(i * TAU / 6.0) * 170.0)
+	if f.has_meta("form"):
+		var id := int(f.get_meta("form"))
+		var fm: Dictionary = _forms.get(id, {})
+		fm["left"] = int(fm.get("left", 1)) - 1
+		# 3 de 5 desligadas já valem o P (todas era difícil demais para 4 anos: o canhão não subia na fase 1).
+		if int(fm["left"]) == 2 and bool(fm.get("red", false)) and gun < MAX_GUN:
+			_pickup("P", f.position)
+	elif k in ["giro", "olho", "casco", "mina"]:
+		var roll := randf()
+		if roll < 0.3 and pips < max_pips:
+			_pickup("coracao", f.position)
+		elif roll < 0.45:
+			_pickup("S", f.position)
+		elif roll < 0.55 and helpers.size() < 2:
+			_pickup("A", f.position)
 	_drop(foes, f)
-
-
-func _shatter(pos: Vector2, n: int) -> void:
-	Fx.dust(world, pos, Color(1, 0.8, 0.6), 18)
-	for i in n:
-		var bit := ArtSprite.new("props", "asteroid", randf_range(22, 40))
-		bit.position = pos
-		bit.z_index = 40
-		world.add_child(bit)
-		var dir := Vector2.RIGHT.rotated(TAU * i / float(n) + randf_range(-0.3, 0.3))
-		var tw := bit.create_tween()
-		tw.tween_property(bit, "position", pos + dir * randf_range(100, 170), 0.5).set_ease(Tween.EASE_OUT)
-		tw.parallel().tween_property(bit, "modulate:a", 0.0, 0.5)
-		tw.tween_callback(bit.queue_free)
-
-
-func _heart_pickup(pos: Vector2) -> void:
-	hearts = mini(3, hearts + 1)
-	_draw_hearts()
-	AudioService.play_sfx("unlock")
-	Fx.sparkle(world, pos, 20, Color(1, 0.4, 0.5))
-
-
-func _hurt(f: Node2D) -> void:
-	hearts -= 1
-	invuln = 1.6
-	_draw_hearts()
-	AudioService.play_sfx("bump")
-	AudioService.haptic(80)
-	shake_camera(14.0)
-	_shatter(f.position, 6)
-	_drop(foes, f)
-	ship_art.self_modulate = Color(1, 0.45, 0.45)
-	ship_art.create_tween().tween_property(ship_art, "self_modulate", Color.WHITE, 0.5)
-	if hearts <= 0:
-		_end(false)
 
 
 func _add_score(n: int) -> void:
@@ -454,17 +681,81 @@ func _add_score(n: int) -> void:
 	hud.bump_counter()
 
 
-# ------------------------------------------------------------------ desafio (portal de conta)
-## kind "upgrade" (meio da fase: canhão sobe) ou "special" (chefão: tiro especial).
-func _spawn_gate(kind: String) -> void:
-	gate_kind = kind
-	hand.hide_hint()  # a dica de antes mirava um meteoro; com o portal na tela ela apontaria o número errado
+# ------------------------------------------------------------------ itens
+func _pickup(k: String, pos: Vector2) -> void:
+	var p := Node2D.new()
+	p.position = pos
+	p.z_index = 44
+	if k == "raio":
+		var a := ArtSprite.new("props", "bolt", 96.0)
+		a.idle = "pulse"
+		p.add_child(a)
+		Fx.glow(p, Vector2.ZERO, 200, Color(1.0, 0.9, 0.3, 0.8), 1.0).z_index = -1
+	else:
+		p.add_child(ShmupSprite.new(k, 76.0))
+	p.set_meta("kind", k)
+	world.add_child(p)
+	pickups.append(p)
+
+
+func _move_pickups(delta: float) -> void:
+	for p in pickups.duplicate():
+		var d: Vector2 = ship.position - p.position
+		if d.length() < 230.0:
+			p.position += d.normalized() * 520.0 * delta  # ímã: criança pequena pega fácil
+		else:
+			p.position.x -= 170.0 * delta
+		if d.length() < 70.0:
+			var k := str(p.get_meta("kind"))
+			_drop(pickups, p)
+			_collect(k)
+		elif p.position.x < vr().position.x - 120.0:
+			_drop(pickups, p)
+
+
+func _collect(k: String) -> void:
+	AudioService.play_sfx("unlock")
+	AudioService.haptic(40)
+	Fx.sparkle(world, ship.position, 26, ShmupSprite.COLORS.get(k, DS.STAR_GOLD))
+	match k:
+		"P":
+			gun = mini(MAX_GUN, gun + 1)
+			shake_camera(5.0)
+			cosmo_say(Lines.c("Canhão mais forte!") if gun < MAX_GUN else Lines.c("Canhão no máximo!"))
+		"A":
+			var who := ArcadeCousin.pool()
+			var id := "" if who.is_empty() else str(who.pick_random())
+			_add_helper(id)
+			cosmo_say(Lines.c("Ajudante chegou! Ele atira junto com você!"))
+		"S":
+			shield = 3
+			cosmo_say(Lines.c("Escudo de bolha ligado!"))
+		"coracao":
+			pips = mini(max_pips, pips + 2)
+		"raio":
+			_go_power()
+
+
+func _go_power() -> void:
+	power_t = POWER_SEC
+	AudioService.play_power(POWER_SEC)
+	ShmupFx.flash(hud.root, Color("#FFE66D"), 0.45, 0.4)
+	shake_camera(8.0)
+	cosmo_say(Lines.c("Modo poderoso! Tiro arco-íris!"))
+
+
+# ------------------------------------------------------------------ portal de conta
+func _spawn_gate(k: String) -> void:
+	gate_kind = k
+	hand.hide_hint()
+	for b in ebullets.duplicate():
+		_drop(ebullets, b)
 	var picks: Array = []
 	var calc := bool(SaveService.settings.get_value("knows_basics"))
 	if calc:
 		var g := EndlessGen.math(mini(Stages.math_level(), 9))
-		calc_label.text = str(g["show"]["s"])
-		calc_label.add_theme_color_override("font_color", Palette.YELLOW)
+		ui.calc_label.text = str(g["show"]["s"])
+		ui.calc_label.add_theme_color_override("font_color", Palette.YELLOW)
 		gate_answer = str(int(g["ans"]))
 		for dlt in [1, -1, 10, -10, 2, -2]:
 			if int(g["ans"]) + dlt >= 0 and picks.size() < 2:
@@ -474,15 +765,15 @@ func _spawn_gate(kind: String) -> void:
 		pool.shuffle()
 		gate_answer = str(pool[0])
 		picks = [str(pool[1]), str(pool[2])]
-		calc_label.text = ""
+		ui.calc_label.text = ""
 	picks.append(gate_answer)
 	picks.shuffle()
-	explain_label.text = ""
-	bar.visible = false
-	boss_bar.visible = false
+	ui.explain_label.text = ""
+	var x := vr().end.x + 40.0 if k == "upgrade" else (boss.position.x - boss.radius() - 160.0 if boss != null else 900.0)
 	for i in 3:
 		var p := Node2D.new()
-		p.position = Vector2(1250 if kind == "upgrade" else 900, float(LANES[i]))
+		p.position = Vector2(x, float(LANES[i]))
+		p.z_index = 47
 		p.set_meta("label", str(picks[i]))
 		var ring := ArtSprite.new("props", "portal", 150.0)
 		ring.modulate = Color.WHITE.lerp([Palette.TEAL, Palette.PINK, Palette.YELLOW][i], 0.35)
@@ -499,14 +790,18 @@ func _spawn_gate(kind: String) -> void:
 	_gate_t0 = Time.get_ticks_msec() / 1000.0
 	if not calc:
 		narrate_seq([Lines.n("Passe pelo portal do número"), Lines.number(int(gate_answer))])
-	elif kind == "upgrade":
+	elif k == "upgrade":
 		narrate(Lines.n("Desafio! Passe pelo resultado certo para turbinar o canhão!"))
 	else:
 		narrate(Lines.n("Acerte a conta para disparar o tiro especial!"))
 
 
 func _check_gate() -> void:
-	if gate.is_empty() or gate[0].position.x > SHIP_X + 40.0:
+	if gate.is_empty():
+		return
+	for p in gate:
+		p.position.x -= 230.0 * get_process_delta_time() * 0.55
+	if gate[0].position.x > ship.position.x:
 		return
 	var hit: Node2D = gate[0]
 	for p in gate:
@@ -518,319 +813,188 @@ func _check_gate() -> void:
 		record("math.numbers", "fase_" + gate_answer, true, 1, rt)
 		AudioService.play_sfx("portal")
 		Fx.sparkle(world, hit.position, 40)
-		calc_label.text = ""
+		ui.calc_label.text = ""
 		if gate_kind == "upgrade":
-			_upgrade()
+			gun = mini(MAX_GUN, gun + 1)
+			cosmo_say(Lines.c("Canhão turbinado!"))
 		else:
 			_special()
 	else:
 		LearningService.record_outcome("math.numbers", "fase_" + gate_answer, {"first_try": false, "tries": 1,
 			"solved": false, "response_time": rt})
 		AudioService.play_sfx("retry")
-		var shown := calc_label.text
+		var shown: String = ui.calc_label.text
 		if shown != "":
-			calc_label.text = "%s = %s" % [shown.trim_suffix(" = ?"), gate_answer]
-			calc_label.add_theme_color_override("font_color", Color("#86EFAC"))
-			explain_label.text = EndlessGen.explain(shown, int(gate_answer))
+			ui.calc_label.text = "%s = %s" % [shown.trim_suffix(" = ?"), gate_answer]
+			ui.calc_label.add_theme_color_override("font_color", Color("#86EFAC"))
+			ui.explain_label.text = EndlessGen.explain(shown, int(gate_answer))
 		cosmo_say(Lines.c("Quase! Olha como faz a conta."))
-		after(4.0, _clear_calc)
+		after(4.0, ui.clear_calc)
 	for p in gate:
 		p.queue_free()
 	gate.clear()
-	if boss != null:
-		boss_bar.visible = true
-	else:
-		bar.visible = true
 
 
-func _clear_calc() -> void:
-	if gate.is_empty():
-		calc_label.text = ""
-		explain_label.text = ""
-
-
-func _upgrade() -> void:
-	gun = mini(MAX_GUN, gun + 1)
-	shake_camera(6.0)
-	match gun:
-		2:
-			cosmo_say(Lines.c("Canhão turbinado! Tiro duplo!"))
-		3:
-			cosmo_say(Lines.c("Canhão turbinado! Tiro triplo!"))
-		_:
-			cosmo_say(Lines.c("Canhão no máximo: laser!"))
-			AudioService.play_power(8.0)
-
-
-# ------------------------------------------------------------------ reforço (primo)
-func _call_wingman() -> void:
-	wing_called = true
-	var who := ArcadeCousin.pool()
-	if who.is_empty():
-		return  # sem primo no pacote (APK público): não vem reforço
-	var id := str(who.pick_random())
-	wing = Kids.ship_node(160.0, id)
-	wing.position = Vector2(-200, 120)
-	wing.z_index = 48
-	world.add_child(wing)
-	wing_t = 9.0
-	AudioService.play_sfx("fanfare")
-	cosmo_say(Lines.c("Reforço chegando! Seu primo veio ajudar!"))
-
-
-func _wingman(delta: float) -> void:
-	if not is_instance_valid(wing) or wing_t <= 0.0:
-		return
-	wing_t -= delta
-	var goal := ship.position + Vector2(-60, -150 if ship.position.y > 300 else 150)
-	wing.position = wing.position.lerp(goal, minf(1.0, delta * 5.0))
-	if Engine.get_process_frames() % 18 == 0 and gate.is_empty():
-		_shot(Vector2(70, 10), Vector2.RIGHT, wing.position)
-	if wing_t <= 0.0:
-		var tw := wing.create_tween()
-		tw.tween_property(wing, "position", wing.position + Vector2(1600, -200), 1.2).set_ease(Tween.EASE_IN)
-		tw.tween_callback(wing.queue_free)
-
-
-# ------------------------------------------------------------------ chefão
-func _spawn_boss() -> void:
-	boss_max = 22.0 + fase * 8.0
-	boss_hp = boss_max
-	boss = Node2D.new()
-	boss.name = "Boss"
-	boss.position = Vector2(1500, 390)
-	boss.z_index = 30
-	var rock := PaintedProp.new("rock_big", 300.0)
-	rock.modulate = Color.WHITE.lerp(Color(PlanetView.PRESETS.get(str(PHASES[fase]), {}).get("color", "#ffffff")), 0.35)
-	boss.add_child(rock)
-	Fx.glow(boss, Vector2.ZERO, 420, Color(1, 0.4, 0.2, 0.45), 1.0).z_index = -1
-	world.add_child(boss)
-	boss.create_tween().tween_property(boss, "position:x", 1060.0, 1.6).set_trans(Tween.TRANS_SINE)
-	bar.visible = false
-	boss_bar.visible = true
-	AudioService.play_music("boss")
-	narrate(Lines.n("Cuidado! O meteoro gigante está chegando!"))
-	boss_t = 2.5
-
-
-func _boss_tick(delta: float) -> void:
-	boss.rotation += 0.3 * delta
-	boss_t -= delta
-	if boss_t <= 0.0 and gate.is_empty():
-		boss_t = maxf(1.3, 2.4 - fase * 0.15)
-		var lane := randi() % 3
-		_warn_lane(lane)
-		after(0.8, func():
-			if boss != null and not over:
-				_foe("meteor", lane, Vector2(boss.position.x - 120, float(LANES[lane]))))
-		var tw := boss.create_tween()
-		tw.tween_property(boss, "position:y", float(LANES[randi() % 3]), 0.8).set_trans(Tween.TRANS_SINE)
-	if not boss_gate_done and boss_hp <= boss_max / 2.0:
-		boss_gate_done = true
+func _boss_gate() -> void:
+	if not gate_done and boss.hp <= boss.max_hp * 0.5 and gate.is_empty():
+		gate_done = true
 		_spawn_gate("special")
-	boss_bar.queue_redraw()
-
-
-func _warn_lane(lane: int) -> void:
-	var w := ColorRect.new()
-	w.color = Color(1, 0.2, 0.2, 0.25)
-	w.position = Vector2(280, float(LANES[lane]) - 60)
-	w.size = Vector2(900, 120)
-	w.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	world.add_child(w)
-	var tw := w.create_tween()
-	tw.tween_property(w, "modulate:a", 0.2, 0.2)
-	tw.tween_property(w, "modulate:a", 1.0, 0.2)
-	tw.tween_property(w, "modulate:a", 0.0, 0.4)
-	tw.tween_callback(w.queue_free)
-
-
-func _hit_boss(dmg: float) -> void:
-	if boss == null or over:
-		return
-	boss_hp = maxf(0.0, boss_hp - dmg)
-	boss.modulate = Color(1, 0.7, 0.7)
-	boss.create_tween().tween_property(boss, "modulate", Color.WHITE, 0.12)
-	if boss_hp <= 0.0:
-		_boss_down()
 
 
 func _special() -> void:
 	AudioService.play_power(POWER_SEC)
 	power_t = maxf(power_t, POWER_SEC)
 	cosmo_say(Lines.c("Tiro especial! Com tudo!"))
-	gun = mini(MAX_GUN, gun + 1)
-	var dmg := boss_max * 0.3
-	ShmupFx.special_beam(self, ship, _muzzle(0), boss.position, func():
-		if boss == null:
-			return
-		# O meteoro gigante é empurrado para trás e volta.
-		var kb := boss.create_tween()
-		kb.tween_property(boss, "position:x", boss.position.x + 120.0, 0.15).set_ease(Tween.EASE_OUT)
-		kb.tween_property(boss, "position:x", boss.position.x, 0.6).set_trans(Tween.TRANS_SINE)
-		_hit_boss(dmg))
+	if boss == null:
+		return
+	var dmg := boss.max_hp * 0.3
+	ShmupFx.special_beam(self, ship, _muzzle() - ship.position, boss.position, func():
+		if boss != null and not boss.calm and boss.hurt(dmg):
+			_boss_calm())
 
 
-## Raio para pegar: vira MODO PODEROSO.
-func _spawn_bolt() -> void:
-	var p := Node2D.new()
-	p.name = "PowerBolt"
-	p.position = Vector2(1420, float(LANES.pick_random()))
-	p.z_index = 44
-	var a := ArtSprite.new("props", "bolt", 96.0)
-	a.idle = "pulse"
-	p.add_child(a)
-	Fx.glow(p, Vector2.ZERO, 200, Color(1.0, 0.9, 0.3, 0.8), 1.0).z_index = -1
-	world.add_child(p)
-	pickups.append(p)
+# ------------------------------------------------------------------ mini-mestre e mestre
+func _start_boss() -> void:
+	if boss != null or mini != null:
+		return
+	state = "boss_intro"
+	for b in ebullets.duplicate():
+		_drop(ebullets, b)
+	AudioService.play_music("boss")
+	if kind == "mestre":
+		boss = ShmupBoss.new()
+		# Vida cresce com o canhão de quem chega (com canhão no máximo o mestre caía em 8 s).
+		boss.setup(str(ShmupLevels.BOSSES[world_i]), (50.0 + 100.0 * heat) * (1.0 + 0.45 * (maxi(gun, 2) - 1)), heat, self)
+		boss.position = Vector2(vr().end.x + 260.0, 390)
+		world.add_child(boss)
+		ui.boss_card(str(ShmupLevels.BOSS_NAMES[world_i]), str(ShmupLevels.WORLD_NAMES[world_i]))
+		narrate(ShmupLevels.boss_line(world_i))
+	else:
+		var k := world_foe()
+		mini = spawn_foe(k, Vector2(vr().end.x + 200.0, 390), "chefe")
+		var art := mini.get_child(0) as ShmupSprite
+		art.size = 230.0
+		art.chief = true
+		mini.set_meta("r", 105.0)
+		mini.set_meta("hp", 12.0 + 28.0 * heat)
+		mini.set_meta("max", 12.0 + 28.0 * heat)
+		ui.boss_card("Robô Gigante", "")
+		narrate(Lines.n("Um robô gigante! Acerte bastante nele!"))
+	if gun < 2 + world_i / 2:
+		# Canhão fraco antes do mestre: o Astro manda um P de presente (luta de 45 s com tiro simples cansava).
+		_pickup("P", Vector2(ship.position.x + 420.0, ship.position.y))
+		cosmo_say(Lines.c("Tome, um canhão mais forte para o mestre!"))
+	after(2.6, func():
+		if not over:
+			state = "boss")
 
 
-func _go_power() -> void:
-	power_t = POWER_SEC
-	AudioService.play_power(POWER_SEC)
-	AudioService.play_sfx("unlock")
-	AudioService.haptic(60)
-	ShmupFx.flash(hud.root, Color("#FFE66D"), 0.45, 0.4)
-	shake_camera(8.0)
-	cosmo_say(Lines.c("Modo poderoso! Tiro arco-íris!"))
+func _mini_tick(delta: float) -> void:
+	if not is_instance_valid(mini):
+		return
+	var ft := float(mini.get_meta("t")) + delta
+	mini.set_meta("t", ft)
+	var home := Vector2(vr().end.x - 220.0, 390.0 + sin(ft * 0.8) * 200.0)
+	mini.position = mini.position.lerp(home, minf(1.0, delta * 1.5))
+	(mini.get_child(0) as ShmupSprite).look = ship.position - mini.position
+	var fire := float(mini.get_meta("fire")) - delta
+	if fire <= 0.0 and can_attack():
+		fire = lerpf(2.4, 1.5, heat)
+		var aim := (ship.position - mini.position).normalized()
+		var bsp := 240.0 + 100.0 * heat
+		for a in [-20.0, 0.0, 20.0]:
+			enemy_bullet(mini.position + aim * 100.0, aim.rotated(deg_to_rad(a)) * bsp)
+		if randf() < 0.3:
+			spawn_foe("bolinha", mini.position + Vector2(-80, -120), "seno")
+	mini.set_meta("fire", fire)
 
 
-func _boss_down() -> void:
-	var pos := boss.position
-	_shatter(pos, 14)
-	Fx.sparkle(world, pos, 80, DS.STAR_GOLD)
+func _mini_calm() -> void:
+	var m := mini
+	mini = null
+	foes.erase(m)
+	(m.get_child(0) as ShmupSprite).happy = true
+	Fx.sparkle(world, m.position, 60, DS.STAR_GOLD)
+	_add_score(15)
+	var tw := m.create_tween()
+	tw.tween_interval(0.8)
+	tw.tween_property(m, "position", m.position + Vector2(700, -500), 1.2).set_ease(Tween.EASE_IN)
+	tw.tween_callback(m.queue_free)
+	_win()
+
+
+func _boss_calm() -> void:
+	# A vitória para tudo NA HORA (a v4 deixava as ondas rodarem no mesmo quadro e um mestre novo nascia).
+	state = "won"
+	for b in ebullets.duplicate():
+		_drop(ebullets, b)
+	for n in bands.duplicate():
+		_drop(bands, n)
+	Engine.time_scale = 0.35
+	get_tree().create_timer(0.45, true, false, true).timeout.connect(func(): Engine.time_scale = 1.0)
+	ShmupFx.flash(hud.root, Color.WHITE, 0.8, 0.6)
 	shake_camera(20.0)
-	AudioService.play_sfx("fanfare")
-	boss.queue_free()
-	boss = null
-	_add_score(20)
-	_end(true)
+	for i in 6:
+		Fx.sparkle(world, boss.position + Vector2(randf_range(-120, 120), randf_range(-120, 120)), 30, ShmupFx.RAINBOW[i])
+	_add_score(40)
+	var b := boss
+	after(1.0, func():
+		cosmo_say(Lines.c("Ele ficou feliz! Agora é nosso amigo!"))
+		var tw := b.create_tween()
+		tw.tween_property(b, "rotation", 0.3, 0.3)
+		tw.tween_property(b, "rotation", -0.3, 0.3)
+		tw.tween_property(b, "rotation", 0.0, 0.3)
+		tw.tween_property(b, "position", b.position + Vector2(600, -700), 1.4).set_ease(Tween.EASE_IN))
+	_win()
 
 
 # ------------------------------------------------------------------ fim
-func _end(won: bool) -> void:
+func _win() -> void:
+	state = "won"
+	for f in foes.duplicate():
+		_drop(foes, f)
+	var stars := 3
+	if mode == "facil":
+		stars = 3 if repairs == 0 else (2 if repairs == 1 else 1)
+	else:
+		stars = clampi(lives, 1, 3)
+	ShmupLevels.save_stars(fase, stars)
+	AudioService.play_sfx("fanfare")
+	after(2.6, _end.bind(true, stars))
+
+
+func _end(won: bool, stars: int = 0) -> void:
 	if over:
 		return
 	over = true
 	hint_fn = Callable()
 	hand.hide_hint()
-	laser.visible = false
 	power_t = 0.0
 	aura.visible = false
 	AudioService.stop_power()
 	for p in gate:
 		p.queue_free()
 	gate.clear()
-	calc_label.text = ""
-	explain_label.text = ""
-	var stars := 0
+	ui.clear_calc()
 	if won:
-		stars = 3 if hearts >= 3 else (2 if hearts == 2 else 1)
-		var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-		if not pd.get("fases") is Dictionary:
-			pd["fases"] = {}
-		pd["fases"][str(fase)] = maxi(stars, int(pd["fases"].get(str(fase), 0)))
-		SaveService.progress.persist(SaveService.profile_id)
-		var pl := ShaderPlanet.new(str(PHASES[fase]), 160.0)
-		pl.position = Vector2(1500, 380)
-		pl.z_index = -2
-		world.add_child(pl)
-		pl.create_tween().tween_property(pl, "position:x", 1000.0, 1.6).set_trans(Tween.TRANS_SINE)
-		cosmo_say(Lines.c("Você venceu o meteoro gigante! Fase completa!"))
+		cosmo_say(Lines.c("Fase completa! Muito bem!") if kind != "mestre" else Lines.c("Você venceu o mestre! Fase completa!"))
 	else:
 		cosmo_say(Lines.c("Ops! Vamos tentar de novo?"))
-	after(1.2, _panel.bind(won, stars))
-
-
-func _panel(won: bool, stars: int) -> void:
-	var box := Panel.new()
-	box.name = "FaseEnd"
-	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.94), 40, 8, DS.STAR_GOLD))
-	box.size = Vector2(620, 400)
-	box.position = Vector2(330, 150)
-	hud.stage.add_child(box)
-	var title := UI.label("Fase completa!" if won else "Tente de novo!", 56, DS.STAR_GOLD if won else Color.WHITE, true)
-	title.size = Vector2(620, 80)
-	title.position = Vector2(0, 24)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI.child_ok(title)
-	box.add_child(title)
-	for s in 3:
-		var st := ArtSprite.new("props", "star_token", 90.0)
-		st.position = Vector2(200 + s * 110, 170)
-		st.modulate = Color.WHITE if s < stars else Color(1, 1, 1, 0.2)
-		box.add_child(st)
-	var again := DSButton.new("secondary", "refresh", Vector2(200, 100))
-	again.name = "FaseAgain"
-	again.position = Vector2(80, 270)
-	again.pressed.connect(func(): Router.reset_to("seg_fases", {"fase": fase}))
-	box.add_child(again)
-	var nxt := DSButton.new("primary", "play" if won and fase < PHASES.size() - 1 else "check", Vector2(200, 100))
-	nxt.name = "FaseNext"
-	nxt.position = Vector2(340, 270)
-	nxt.pressed.connect(func():
-		if won and fase < PHASES.size() - 1:
-			Router.reset_to("seg_fases", {"fase": fase + 1})
-		else:
-			Router.reset_to("fly_menu", {}))
-	box.add_child(nxt)
-	box.pivot_offset = box.size / 2.0
-	box.scale = Vector2.ZERO
-	box.create_tween().tween_property(box, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	ui.end_panel(won, stars)
 
 
 func on_exit() -> void:
+	Engine.time_scale = 1.0
 	AudioService.stop_power()
 	super.on_exit()
 
 
-# ------------------------------------------------------------------ HUD
-func _draw_hearts() -> void:
-	for c in heart_box.get_children():
-		c.queue_free()
-	for i in 3:
-		var h := IconDraw.new("heart", Color("#F43F5E") if i < hearts else Color(1, 1, 1, 0.22))
-		h.custom_minimum_size = Vector2(64, 64)
-		h.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		heart_box.add_child(h)
-
-
-## Progresso da fase até o chefão (bandeira no meio = desafio).
-func _draw_bar() -> void:
-	var f := clampf(t / WAVE_TIME, 0.0, 1.0)
-	bar.draw_line(Vector2(20, 30), Vector2(380, 30), Color(1, 1, 1, 0.3), 8.0, true)
-	bar.draw_line(Vector2(20, 30), Vector2(20 + 360 * f, 30), DS.STAR_GOLD, 8.0, true)
-	bar.draw_circle(Vector2(200, 30), 12, Palette.PINK if not challenge_done else Color(1, 1, 1, 0.4))
-	bar.draw_circle(Vector2(400, 30), 24, Color("#B45309"))
-	bar.draw_circle(Vector2(20 + 360 * f, 30), 12, Color.WHITE)
-
-
-func _draw_boss_bar() -> void:
-	var f := clampf(boss_hp / boss_max, 0.0, 1.0)
-	boss_bar.draw_rect(Rect2(0, 10, 440, 30), Color(0, 0, 0, 0.55))
-	boss_bar.draw_rect(Rect2(4, 14, 432 * f, 22), Color("#EF4444"))
-	boss_bar.draw_rect(Rect2(0, 10, 440, 30), Color.WHITE, false, 3.0)
-
-
-func _aim_lane() -> float:
+func _hint() -> void:
 	for p in gate:
 		if str(p.get_meta("label")) == gate_answer:
-			return p.position.y
-	for f in foes:
-		if f.position.x > SHIP_X:
-			return f.position.y
-	return 390.0
-
-# ------------------------------------------------------------------ controle (versão de TV: Pad)
-func pad_lanes() -> bool:
-	return not over
-
-
-func pad_lane(d: int) -> void:
-	var i := LANES.find(lane_y(target_y))
-	target_y = float(LANES[clampi(i + d, 0, LANES.size() - 1)])
-	_poke()
-
-
-func pad_action() -> void:
-	pass  # a nave já atira sozinha
+			hand.show_drag(ship.position, Vector2(ship.position.x, p.position.y))
+			return
+	for p in pickups:
+		hand.show_drag(ship.position, p.position)
+		return
+	hand.show_drag(ship.position, ship.position + Vector2(0, -160 if ship.position.y > 390 else 160))

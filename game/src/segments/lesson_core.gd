@@ -114,12 +114,22 @@ func build() -> void:
 	vini.z_index = 30
 	world.add_child(vini)
 	add_cosmo(Vector2(1170, 190), 135.0)
-	next_btn = DSButton.new("primary", "play", Vector2(170, 110))
+	next_btn = DSButton.new("primary", "play", Vector2(220, 140))
 	next_btn.name = "NextButton"
-	next_btn.position = Vector2(1080, 580)
+	next_btn.position = Vector2(1030, 550)
 	next_btn.visible = false
 	next_btn.pressed.connect(_advance)
 	hud.stage.add_child(next_btn)
+	# Sair só segurando a casinha (11/10: no filme do robô-criança um toque sem querer no canto tirava da lição).
+	var home: Control = hud.root.get_node("HomeButton")
+	home.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var hold := HoldButton.new("home", 0.8)
+	hold.name = "HoldHome"
+	hold.plain = true
+	hold.position = home.position
+	hold.size = home.size
+	hold.held.connect(_on_home)
+	hud.root.add_child(hold)
 	idle_hint_sec = 10.0
 	_plan()
 	hint_fn = _hint
@@ -248,7 +258,13 @@ func _advance() -> void:
 func _teach() -> void:
 	var c := _card(rd.get("fig", {}), Vector2(640, 360), 1.6)
 	c.name = "TeachCard"
-	c.tapped.connect(func(_i): narrate(str(rd["say"])))
+	# 11/10 (o robô-criança ficou 40 s preso aqui): tocar no cartão repetia a fala para sempre e só o ▶ pequeno do
+	# canto avançava. Agora, com o ▶ na tela, tocar no cartão também segue; e sem toque nenhum, segue em 10 s.
+	c.tapped.connect(func(_i):
+		if next_btn.visible:
+			_advance()
+		else:
+			narrate(str(rd["say"])))
 	var d := narrate(str(rd["say"]))
 	vini.play("think")
 	after(d + 0.3, _show_next.bind(step_i))
@@ -259,7 +275,16 @@ func _show_next(for_step: int) -> void:
 		return
 	next_btn.visible = true
 	next_btn.scale = Vector2.ZERO
-	next_btn.create_tween().tween_property(next_btn, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	next_btn.pivot_offset = next_btn.size / 2.0
+	var tw := next_btn.create_tween()
+	tw.tween_property(next_btn, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_callback(func():
+		var pulse := next_btn.create_tween().set_loops(8)
+		pulse.tween_property(next_btn, "scale", Vector2.ONE * 1.1, 0.45).set_trans(Tween.TRANS_SINE)
+		pulse.tween_property(next_btn, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_SINE))
+	after(10.0, func():
+		if not finished and step_i == for_step and next_btn.visible:
+			_advance())
 
 
 # ------------------------------------------------------------------ escolher

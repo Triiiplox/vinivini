@@ -413,7 +413,7 @@ func _check_hit(o: Node2D) -> void:
 				_take(o)
 				_power(str(o.get_meta("power")))
 		"rock":
-			if d < 92.0:
+			if d < 72.0:  # 11/10: mais justo (92 px batia de raspão; criança de 4 anos achava que "nem encostou")
 				if turbo_t > 0.0:
 					_take(o)
 					_add_score(1, o.position)
@@ -758,38 +758,38 @@ func _show_end(rec: bool) -> void:
 	box.name = "ArcadeEnd"
 	var sb := UITheme.rounded(Color(0.05, 0.06, 0.2, 0.94), 40, 8, DS.STAR_GOLD)
 	box.add_theme_stylebox_override("panel", sb)
-	box.size = Vector2(620, 440)
-	box.position = Vector2(330, 130)
+	box.size = Vector2(720, 500)
+	box.position = Vector2(280, 110)
 	hud.stage.add_child(box)
 	var title := UI.label("Novo recorde!" if rec else "Fim do voo!", 56, DS.STAR_GOLD if rec else Color.WHITE, true)
-	title.size = Vector2(620, 80)
+	title.size = Vector2(720, 80)
 	title.position = Vector2(0, 24)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI.child_ok(title)
 	box.add_child(title)
 	var st := ArtSprite.new("props", "star_token", 90.0)
-	st.position = Vector2(230, 170)
+	st.position = Vector2(280, 170)
 	box.add_child(st)
 	var sl := UI.label(str(score), 80, DS.STAR_GOLD, true)
-	sl.position = Vector2(290, 120)
+	sl.position = Vector2(340, 120)
 	sl.size = Vector2(200, 100)
 	UI.child_ok(sl)
 	box.add_child(sl)
 	var far := ("Chegou até %s" % _planet_name(leg)) if leg > 0 else "Quase chegando na Lua!"
 	var fl := UI.label(far, 34, Color.WHITE)
-	fl.size = Vector2(620, 50)
+	fl.size = Vector2(720, 50)
 	fl.position = Vector2(0, 230)
 	fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI.child_ok(fl)
 	box.add_child(fl)
-	var again := DSButton.new("primary", "refresh", Vector2(220, 110))
+	var again := DSButton.new("primary", "refresh", Vector2(290, 150))
 	again.name = "ArcadeAgain"
-	again.position = Vector2(70, 300)
+	again.position = Vector2(50, 310)
 	again.pressed.connect(func(): Router.reset_to("seg_arcade", params))
 	box.add_child(again)
-	var ok := DSButton.new("secondary", "check", Vector2(220, 110))
+	var ok := DSButton.new("secondary", "check", Vector2(290, 150))
 	ok.name = "ArcadeDone"
-	ok.position = Vector2(330, 300)
+	ok.position = Vector2(380, 310)
 	ok.pressed.connect(_done)
 	box.add_child(ok)
 	box.scale = Vector2.ZERO
