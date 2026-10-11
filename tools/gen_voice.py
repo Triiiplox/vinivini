@@ -34,8 +34,15 @@ ACC = 1
 # Astro com voz brasileira de verdade (Piper "edresson", gravada por brasileiro; o Andro escolheu de ouvido, 10/10):
 # o efeito de robô disfarça a qualidade baixa (16 kHz). Licença CC BY 4.0: crédito em docs/CREDITOS.md e na área
 # dos pais. Modelo: github.com/rhasspy/piper/releases/download/v0.0.2/voice-pt-br-edresson-low.tar.gz (PIPER_DIR).
-PIPER = {"cosmo": "pt-br-edresson-low.onnx"}
-ENGINE = {"cosmo": "piper-edresson-2"}
+PIPER = {"cosmo": "faber.onnx"}
+ENGINE = {"cosmo": "piper-faber-1"}
+# 11/10 (o Andro: "o sotaque tá horrível, carro ele fala cérro"): a narradora Kokoro fazia o RR de "carro" como uma
+# vogal "é" (medido quadro a quadro) e o Astro (edresson) perdia o til ("não" = "nau"). Com o HuggingFace liberado:
+# narradora = Piper "dii" (feminina, pt-BR, OpenVoiceOS, CC BY-NC-ND 4.0; o Andro preferiu a B de ouvido);
+# Astro = Piper "faber" (pt-BR, rhasspy, dados CC0); personagens = Piper "cadu" (pt-BR, rhasspy).
+# Modelos em PIPER_DIR (dii.onnx, faber.onnx, cadu.onnx + .json).
+PIPER.update({"narrator": "dii.onnx", "npc": "cadu.onnx"})
+ENGINE.update({"narrator": "piper-dii-1", "npc": "piper-cadu-1"})
 _PIPER = {}
 
 
@@ -224,6 +231,8 @@ def spoken(text, lang="pt-br", name=NAME_SPOKEN):
     t = t.replace("—", ",")
     t = t.replace("Cosmo", "Cósmo")  # nome antigo (legado)
     t = t.replace("Aylinha", "Ailinha").replace("Enzo", "Ênzo")  # primos citados pelo nome (voo livre)
+    # "rrrr" (som do motor, lição do R) era lido "érre érre érre": vira um RR forte e longo, em fonemas.
+    t = re.sub(r"\b[Rr]{3,}\b", "[[ xːːxːːxːː ]]", t)
     return t
 
 

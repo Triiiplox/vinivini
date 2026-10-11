@@ -1,5 +1,5 @@
 extends Node
-## Narração natural pré-gerada (Kokoro, offline) — sem TTS do sistema.
+## Narração natural pré-gerada (Piper pt-BR e Kokoro no inglês, offline) — sem TTS do sistema.
 ## Cada fala é identificada por md5(quem|texto-modelo). O texto-modelo pode conter {name}.
 ## tools/gen_voice.py varre código e conteúdo e gera assets/voice/*.mp3 + manifest.json.
 

@@ -243,12 +243,39 @@ func _draw_painted(bob: float) -> void:
 	var tex: Texture2D = _tex.get(mood, _tex.get("", null))
 	if tex == null:
 		return
-	var sq := 1.0 + sin(_t * 3.0) * 0.03
-	draw_set_transform(Vector2(0, bob), sin(_t * 1.3) * 0.05, Vector2(1.0 / sq, sq))
+	var mad := angry and not happy
+	var sq := 1.0 + sin(_t * (7.0 if mad else 3.0)) * (0.05 if mad else 0.03)
+	var shake := Vector2(sin(_t * 41.0), cos(_t * 37.0)) * 4.0 if mad else Vector2.ZERO
+	draw_set_transform(Vector2(0, bob) + shake, sin(_t * 1.3) * 0.05, Vector2(1.0 / sq, sq))
 	var side := R * 2.5
 	var sz := Vector2(side, side * tex.get_height() / float(tex.get_width()))
-	draw_texture_rect(tex, Rect2(-sz / 2.0, sz), false, Color.WHITE.lerp(Color(3, 3, 3), flash * 0.6))
+	var tint := Color.WHITE
+	if mad:
+		tint = Color.WHITE.lerp(Color(1.0, 0.55, 0.55), 0.35 + 0.25 * sin(_t * 9.0))
+	draw_texture_rect(tex, Rect2(-sz / 2.0, sz), false, tint.lerp(Color(3, 3, 3), flash * 0.6))
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if mad:
+		# fumacinha de bravo saindo da cabeça
+		for i in 3:
+			var k := fmod(_t * 1.2 + i / 3.0, 1.0)
+			var x := (-0.35 + i * 0.35) * R
+			draw_circle(Vector2(x + sin(_t * 3.0 + i) * 10.0, -sz.y * 0.45 - k * 80.0 + bob), 14.0 + k * 22.0,
+				Color(1, 1, 1, 0.55 * (1.0 - k)))
+	elif happy:
+		# corações e brilhos: virou amigo
+		for i in 6:
+			var k := fmod(_t * 0.7 + i / 6.0, 1.0)
+			var a := i * TAU / 6.0 + _t
+			var p := Vector2(cos(a) * R * 1.1, -k * 160.0 + sin(a) * 40.0 + bob)
+			_heart(p, 16.0 + 6.0 * sin(_t * 5.0 + i), Color(1, 0.35, 0.55, 1.0 - k))
+
+
+func _heart(p: Vector2, r: float, c: Color) -> void:
+	var h := PackedVector2Array()
+	for i in 24:
+		var a := TAU * i / 24.0
+		h.append(p + Vector2(16 * pow(sin(a), 3), -(13 * cos(a) - 5 * cos(2 * a) - 2 * cos(3 * a) - cos(4 * a))) * r / 17.0)
+	draw_colored_polygon(h, c)
 
 
 func _ball(p: Vector2, r: float, c: Color) -> void:

@@ -601,7 +601,8 @@ func _settings() -> void:
 		ContentService.repo.errors.size(), rec.size()], 18, Palette.TEXT_SOFT))
 	var privacy := "Sem anúncios, sem compras, sem internet. Os dados ficam neste aparelho (e no backup do Android, se estiver ligado)."
 	body.add_child(_txt(privacy, 18, Palette.TEXT_SOFT))
-	body.add_child(_txt("Vozes: Kokoro (Apache 2.0). Voz do Astro: Edresson Casanova, TTS-Portuguese-Corpus (CC BY 4.0), via Piper.",
+	body.add_child(_txt("Vozes (Piper): narradora Dii, OpenVoiceOS (CC BY-NC-ND 4.0); Astro faber e personagens cadu, " +
+		"rhasspy/piper-voices. Inglês: Kokoro (Apache 2.0). Arte das fases de nave e ícones: SDXL-Turbo (Stability AI).",
 		18, Palette.TEXT_SOFT))
 
 

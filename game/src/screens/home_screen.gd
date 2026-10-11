@@ -289,7 +289,19 @@ func _make_tile(t: Array, i: int) -> void:
 	card.position = Vector2(-TILE / 2.0, -TILE / 2.0)
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	it.add_child(card)
-	if t[1] is Dictionary:
+	var painted := "res://assets/art/painted/ui/ico_%s.png" % t[0]
+	if ResourceLoader.exists(painted):
+		# Ícone pintado (11/10, o Andro: "melhore botões e figuras do jogo"): sai por cima do bloco, respira.
+		var sp := Sprite2D.new()
+		sp.texture = load(painted)
+		var k := 128.0 / maxf(sp.texture.get_width(), sp.texture.get_height())
+		sp.scale = Vector2(k, k)
+		sp.position = Vector2(0, -12)
+		it.add_child(sp)
+		var tw := sp.create_tween().set_loops()
+		tw.tween_property(sp, "scale", Vector2(k, k) * 1.06, 0.9 + i * 0.07).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(sp, "scale", Vector2(k, k), 0.9 + i * 0.07).set_trans(Tween.TRANS_SINE)
+	elif t[1] is Dictionary:
 		var fig := Figure.new(t[1], 96.0)
 		fig.position = Vector2(0, -8)
 		it.add_child(fig)
