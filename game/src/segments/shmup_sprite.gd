@@ -19,6 +19,8 @@ var happy := false
 var look := Vector2.LEFT
 ## Mini-mestre: coroa e cara brava (o robô gigante não pode parecer só o inimigo comum ampliado).
 var chief := false
+## Arte pintada (inimigos: foe_<tipo>.png; cápsulas: cap_<letra>.png). Sem o arquivo, o desenho em código.
+var _tex: Texture2D
 var _t := 0.0
 var _blink := 2.0
 
@@ -29,6 +31,17 @@ func _init(k: String = "bolinha", s: float = 70.0, c: Color = Color(0, 0, 0, 0))
 	col = c if c.a > 0.0 else COLORS.get(k, Color.WHITE)
 	_t = randf() * 10.0
 	_blink = randf_range(1.0, 3.5)
+	var p := painted(k)
+	if p != "" and ResourceLoader.exists(p):
+		_tex = load(p)
+
+
+static func painted(k: String) -> String:
+	if k in ["bolinha", "seta", "giro", "olho", "casco", "mina"]:
+		return "res://assets/art/painted/shmup/foe_%s.png" % k
+	if k in ["P", "A", "S", "coracao"]:
+		return "res://assets/art/painted/shmup/cap_%s.png" % k
+	return ""
 
 
 func hit() -> void:
@@ -47,6 +60,9 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	var r := size / 2.0
 	var c := col.lerp(Color.WHITE, flash * 0.85)
+	if _tex != null:
+		_draw_painted(r)
+		return
 	match kind:
 		"bolinha":
 			_glow(r * 1.5, col)
@@ -131,6 +147,27 @@ func _draw() -> void:
 		for sd in [-1.0, 1.0]:
 			var e := Vector2(sd * r * 0.22, -r * 0.32)
 			draw_line(e + Vector2(-r * 0.16, -sd * r * 0.06), e + Vector2(r * 0.16, sd * r * 0.06), INK, maxf(6.0, r * 0.07), true)
+
+
+func _draw_painted(r: float) -> void:
+	var cap := kind in ["P", "A", "S", "coracao"]
+	_glow(r * (1.7 if cap else 1.4), col)
+	var k := 1.0 + (0.08 * sin(_t * 6.0) if cap else 0.04 * sin(_t * 4.0))
+	var side := size * (1.25 if cap else 1.35) * k
+	var sz := Vector2(side, side * _tex.get_height() / float(_tex.get_width()))
+	draw_set_transform(Vector2.ZERO, sin(_t * 2.0) * 0.08 if not cap else 0.0, Vector2.ONE)
+	draw_texture_rect(_tex, Rect2(-sz / 2.0, sz), false, Color.WHITE.lerp(Color(3, 3, 3), flash * 0.7))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if chief:
+		_crown(r)
+
+
+func _crown(r: float) -> void:
+	var w := r * 0.5
+	var top := Vector2(0, -r * 1.02)
+	var crown := PackedVector2Array([top + Vector2(-w, 14), top + Vector2(-w, -22), top + Vector2(-w * 0.5, 0),
+		top + Vector2(0, -34), top + Vector2(w * 0.5, 0), top + Vector2(w, -22), top + Vector2(w, 14)])
+	_poly(crown, Color("#FACC15"))
 
 
 # ------------------------------------------------------------------ peças de desenho

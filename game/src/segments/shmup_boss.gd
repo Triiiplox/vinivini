@@ -28,6 +28,18 @@ var _cd := 2.0
 var _next := 0
 var _home := Vector2.ZERO
 var _blink := 2.0
+## Arte pintada (11/10, gerada com SDXL-Turbo): normal, brava e feliz. Sem o arquivo, o desenho em código.
+var _tex := {}
+
+
+static func painted(k: String, mood: String) -> String:
+	return "res://assets/art/painted/shmup/boss_%s%s.png" % [k, "" if mood == "" else "_" + mood]
+
+
+func _ready() -> void:
+	for m in ["", "bravo", "feliz"]:
+		if ResourceLoader.exists(painted(kind, m)):
+			_tex[m] = load(painted(kind, m))
 
 
 func setup(k: String, life: float, h: float, s: Node) -> void:
@@ -143,6 +155,9 @@ func _draw() -> void:
 	var bob := sin(_t * 2.2) * 6.0
 	draw_circle(Vector2.ZERO, R * 1.55, Color(c, 0.10))
 	draw_circle(Vector2.ZERO, R * 1.25, Color(c, 0.12))
+	if not _tex.is_empty():
+		_draw_painted(bob)
+		return
 	match kind:
 		"cratera":
 			for i in 3:
@@ -220,6 +235,20 @@ func _draw() -> void:
 			for p in [Vector2(0.4, -0.55), Vector2(0.6, -0.15), Vector2(-0.5, -0.6)]:
 				draw_circle(Vector2(p.x * R, p.y * R + bob), R * 0.09, c.lightened(0.35))
 			_face(Vector2(0, bob), R * 0.85)
+
+
+## Arte pintada: respira (estica e encolhe), balança, pisca branco no acerto; troca a cara (brava/feliz).
+func _draw_painted(bob: float) -> void:
+	var mood := "feliz" if happy else ("bravo" if angry else "")
+	var tex: Texture2D = _tex.get(mood, _tex.get("", null))
+	if tex == null:
+		return
+	var sq := 1.0 + sin(_t * 3.0) * 0.03
+	draw_set_transform(Vector2(0, bob), sin(_t * 1.3) * 0.05, Vector2(1.0 / sq, sq))
+	var side := R * 2.5
+	var sz := Vector2(side, side * tex.get_height() / float(tex.get_width()))
+	draw_texture_rect(tex, Rect2(-sz / 2.0, sz), false, Color.WHITE.lerp(Color(3, 3, 3), flash * 0.6))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 func _ball(p: Vector2, r: float, c: Color) -> void:
