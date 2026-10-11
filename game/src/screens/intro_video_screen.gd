@@ -1,6 +1,7 @@
 extends BaseScreen
 ## Vídeos curtos em momentos-chave (assets/video/<clip>.ogv). params.clip:
-##   "abertura" (padrão, ~16 s): primeira vez que a criança toca em JOGAR; revisível na área dos pais.
+##   "abertura" (padrão, ~10 s; vídeo novo do Andro em 11/10): primeira vez que a criança toca em JOGAR; revisível na
+##   área dos pais.
 ##   "oi" (3 s): primeira abertura do dia ("bom dia, comandante").
 ##   "celebra" (4 s): campanha concluída pela primeira vez, antes do baú.
 ## Um toque (ou o voltar do Android) pula. params.next / next_params = rota seguinte (padrão "opening").
