@@ -11,7 +11,8 @@ fail=0
 say() { printf '%-28s %s\n' "$1" "$2"; }
 
 sig=$("$bt/apksigner" verify -v "$apk" 2>/dev/null | grep -E "v2 scheme|v3 scheme" | grep -c "true" || true)
-say "assinatura v2+v3" "$([ "$sig" = 2 ] && echo ok || { fail=1; echo FALHOU; })"
+# (o fail=1 fica fora do $( ): dentro de um subshell ele não voltava, e o APK passava mesmo com FALHOU)
+[ "$sig" = 2 ] && say "assinatura v2+v3" ok || { fail=1; say "assinatura v2+v3" FALHOU; }
 say "versão" "$(aapt dump badging "$apk" | grep -oE "versionCode='[0-9]+' versionName='[^']+'")"
 say "sdk" "$(aapt dump badging "$apk" | grep -oE "^(sdkVersion|targetSdkVersion):'[0-9]+'" | tr '\n' ' ')"
 perms=$(aapt dump permissions "$apk" | grep -oE "name='[^']+'" | tr '\n' ' ')
@@ -23,9 +24,9 @@ unzip -q -o "$apk" 'lib/*' -d "$tmp"
 bad=0
 while read -r so; do
   if readelf -lW "$so" | awk '/LOAD/{print $NF}' | grep -qv '0x4000\|0x10000'; then bad=1; echo "  4 KB: $so"; fi
-done < <(find "$tmp/lib" -name '*.so')
+done < <(find "$tmp/lib/arm64-v8a" -name '*.so')  # 16 KB só existe em 64 bits; armv7 (TV TCL) usa 4 KB
 rm -rf "$tmp"
-say "nativas em 16 KB" "$([ $bad = 0 ] && echo ok || { fail=1; echo FALHOU; })"
+[ $bad = 0 ] && say "nativas arm64 em 16 KB" ok || { fail=1; say "nativas arm64 em 16 KB" FALHOU; }
 
 kids=0
 for k in manuzita enzo aylinha; do
