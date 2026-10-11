@@ -1,0 +1,634 @@
+{
+ "version": 1,
+ "about": "Módulo FALA (fono). Alvos genéricos; quais estão ligados, a ordem e as repetições se escolhem na área dos pais (no aparelho). Níveis seguem a hierarquia som → sílaba → palavra (início) → palavra (meio/fim) → frase → história. 'erro' = troca a reproduzir no 'Ouvido de detetive' (fonema IPA do Piper): o certo e o errado da MESMA palavra (treino de percepção do tipo SAILS).",
+ "targets": {
+  "ch": {
+   "name": "CH / X",
+   "letter": "CH",
+   "ipa": "ʃ",
+   "erro": [
+    "ʃ",
+    "s"
+   ],
+   "meter": "ʃ",
+   "como": "Faz um biquinho, dentes quase fechados, e solta o ar: CHHH, igual chuva caindo no guarda-chuva.",
+   "pista_adulto": "Visual: boca entreaberta, lábios para frente e arredondados. Tátil: as bordas da língua encostam nos dentes de trás de cima; o ar sai no meio, chiando.",
+   "isolado": "CHHH",
+   "silabas": [
+    "chá",
+    "ché",
+    "chi",
+    "chô",
+    "chu",
+    "xa",
+    "xe",
+    "xi",
+    "xo",
+    "xu"
+   ],
+   "inicio": [
+    "chave",
+    "chuva",
+    "chocolate",
+    "chapéu",
+    "chinelo",
+    "chuveiro",
+    "chupeta",
+    "churrasco",
+    "chaleira",
+    "xícara",
+    "xadrez",
+    "xerife",
+    "chuteira",
+    "chafariz",
+    "chiclete",
+    "chocalho",
+    "chifre",
+    "chá",
+    "chão",
+    "chuchu"
+   ],
+   "meio": [
+    "bolacha",
+    "mochila",
+    "machado",
+    "cachorro",
+    "bicho",
+    "lixo",
+    "peixe",
+    "caixa",
+    "bruxa",
+    "flecha",
+    "concha",
+    "colchão",
+    "fechadura",
+    "lancha",
+    "ameixa",
+    "salsicha",
+    "bochecha",
+    "cachoeira",
+    "mexerica",
+    "coxinha"
+   ],
+   "frases": [
+    "O cachorro pegou a chave.",
+    "A chuva molhou o chapéu.",
+    "Eu bebo chá na xícara.",
+    "O bicho comeu a bolacha.",
+    "A mochila é do Chico.",
+    "O peixe nadou na caixa.",
+    "A bruxa achou o chinelo.",
+    "Choveu no chafariz.",
+    "Eu achei o chocolate.",
+    "O xerife jogou xadrez."
+   ],
+   "historia": "Choveu muito. O cachorro Chico achou uma chave no chão. Ele chacoalhou a chave e abriu uma caixa. Dentro tinha chocolate, bolacha e um chapéu de xerife!"
+  },
+  "j": {
+   "name": "J / G",
+   "letter": "J",
+   "ipa": "ʒ",
+   "erro": [
+    "ʒ",
+    "z"
+   ],
+   "meter": "ʒ",
+   "como": "Mesmo biquinho do CH, mas a garganta vibra: JJJJ, como um avião de brinquedo.",
+   "pista_adulto": "Visual: boca entreaberta, lábios arredondados, pequena abertura entre os dentes. Tátil: bordas da língua nos dentes de trás de cima; ponha a mão no pescoço para sentir vibrar.",
+   "isolado": "JJJJ",
+   "silabas": [
+    "já",
+    "jé",
+    "ji",
+    "jô",
+    "ju",
+    "gê",
+    "gi"
+   ],
+   "inicio": [
+    "jacaré",
+    "janela",
+    "jabuti",
+    "jaca",
+    "jarra",
+    "joia",
+    "jogo",
+    "judô",
+    "jipe",
+    "jiboia",
+    "javali",
+    "jaula",
+    "joaninha",
+    "joelho",
+    "juiz",
+    "jato",
+    "girafa",
+    "gelo",
+    "gelatina",
+    "girassol"
+   ],
+   "meio": [
+    "caju",
+    "feijão",
+    "beijo",
+    "laranja",
+    "cajado",
+    "queijo",
+    "hoje",
+    "igreja",
+    "tijolo",
+    "jujuba",
+    "berinjela",
+    "gorjeta",
+    "relógio",
+    "anjo",
+    "monja",
+    "loja",
+    "sujeira",
+    "geladeira",
+    "mágico",
+    "página"
+   ],
+   "frases": [
+    "O jabuti come a jaca.",
+    "O jacaré abriu a janela.",
+    "Eu ganhei uma joia.",
+    "A girafa joga bola.",
+    "O gelo está na jarra.",
+    "Hoje tem feijão.",
+    "A joaninha voou.",
+    "O juiz apitou o jogo.",
+    "Eu dei um beijo na vovó.",
+    "O caju é amarelo."
+   ],
+   "historia": "O jacaré e o jabuti foram jogar. A joaninha era o juiz. No fim do jogo, todos comeram caju, jaca e gelatina de laranja!"
+  },
+  "s": {
+   "name": "S / Z",
+   "letter": "S",
+   "ipa": "s",
+   "erro": [
+    "s",
+    "θ"
+   ],
+   "meter": "s",
+   "como": "Dentes fechadinhos, língua escondida atrás dos dentes, e sopra: SSSS, igual cobra. A língua não aparece!",
+   "pista_adulto": "Visual: sorriso com dentes juntos, língua NÃO aparece entre os dentes. Tátil: a ponta da língua fica atrás dos dentes de baixo (ou encostada atrás dos de cima) e o ar sai fino pelo meio.",
+   "isolado": "SSSS",
+   "silabas": [
+    "sa",
+    "se",
+    "si",
+    "so",
+    "su",
+    "za",
+    "ze",
+    "zi",
+    "zo",
+    "zu"
+   ],
+   "inicio": [
+    "sapo",
+    "sol",
+    "sorvete",
+    "sapato",
+    "sino",
+    "sofá",
+    "suco",
+    "sereia",
+    "sacola",
+    "salada",
+    "sabonete",
+    "serra",
+    "sopa",
+    "zebra",
+    "zero",
+    "zíper",
+    "zoológico",
+    "cebola",
+    "cenoura",
+    "cinema"
+   ],
+   "meio": [
+    "casa",
+    "mesa",
+    "rosa",
+    "vaso",
+    "pássaro",
+    "osso",
+    "tesoura",
+    "girassol",
+    "lápis",
+    "ônibus",
+    "cozinha",
+    "azul",
+    "fósforo",
+    "pescoço",
+    "vassoura",
+    "massa",
+    "camisa",
+    "parafuso",
+    "doze",
+    "lousa"
+   ],
+   "frases": [
+    "O sapo pulou no sofá.",
+    "A zebra tomou suco.",
+    "O sol está quente.",
+    "A sereia nada no mar.",
+    "Eu como sopa de cebola.",
+    "O pássaro sentou no vaso.",
+    "A casa é azul.",
+    "O sorvete caiu na mesa.",
+    "Seis sapos dormem.",
+    "A cobra faz sss."
+   ],
+   "historia": "O sapo Sapeca morava numa casa azul. Um dia, o sol saiu e ele foi tomar sorvete com a zebra. Os dois sentaram no sofá e riram muito!"
+  },
+  "r": {
+   "name": "R fraquinho (cara, barata)",
+   "letter": "R",
+   "ipa": "ɾ",
+   "erro": [
+    "ɾ",
+    "l"
+   ],
+   "meter": "",
+   "como": "A pontinha da língua bate rapidinho atrás dos dentes de cima, um toque só: arara, cara, pera.",
+   "pista_adulto": "Visual: boca aberta, a ponta da língua sobe e toca uma vez na 'gengiva' atrás dos dentes de cima. Tátil: um toque rápido, como um 'd' bem leve (ara ≈ 'ada' rápido). Não deixe a língua deitada (vira L: 'cala').",
+   "isolado": "ara-ara-ara",
+   "silabas": [
+    "ara",
+    "ere",
+    "iri",
+    "oro",
+    "uru",
+    "ra",
+    "re",
+    "ri",
+    "ro",
+    "ru"
+   ],
+   "inicio": [
+    "arara",
+    "barata",
+    "cadeira",
+    "pera",
+    "coroa",
+    "girafa",
+    "farol",
+    "torrada",
+    "pirulito",
+    "geladeira",
+    "fogareiro",
+    "mamadeira",
+    "loira",
+    "careca",
+    "parede",
+    "periquito",
+    "touro",
+    "cenoura",
+    "sereia",
+    "garagem"
+   ],
+   "meio": [
+    "cara",
+    "muro",
+    "ouro",
+    "pirata",
+    "jacaré",
+    "tesoura",
+    "Maria",
+    "laranja",
+    "hora",
+    "bandeira",
+    "canguru",
+    "cereja",
+    "Sara",
+    "fera",
+    "vara",
+    "feira",
+    "agora",
+    "tiara",
+    "coruja",
+    "barulho"
+   ],
+   "frases": [
+    "A arara é colorida.",
+    "A barata subiu na parede.",
+    "O pirata achou ouro.",
+    "A girafa comeu pera.",
+    "O canguru pulou o muro.",
+    "A coruja olha a hora.",
+    "A coroa é dourada.",
+    "A sereia toma suco de laranja.",
+    "A cadeira é amarela.",
+    "O jacaré tem cara feia."
+   ],
+   "historia": "Era uma vez um pirata que tinha uma arara. A arara adorava pera e cereja. Um dia, ela achou um baú de ouro atrás do muro!"
+  },
+  "ti": {
+   "name": "TI / DI (tia, dia)",
+   "letter": "TI",
+   "ipa": "tʃ",
+   "erro": [],
+   "meter": "",
+   "como": "A ponta da língua encosta atrás dos dentes de cima, bem escondida, e solta com um chiadinho: TCHI, DJI.",
+   "pista_adulto": "Visual: dentes quase juntos, língua NÃO aparece. Tátil: ponta da língua na gengiva atrás dos dentes de cima; ao soltar sai um chiado curto (tchi/dji).",
+   "isolado": "tchi-dji",
+   "silabas": [
+    "ti",
+    "di",
+    "te",
+    "de",
+    "tia",
+    "dia"
+   ],
+   "inicio": [
+    "tigre",
+    "tijolo",
+    "tia",
+    "tinta",
+    "tico-tico",
+    "tiara",
+    "tigela",
+    "time",
+    "tiro",
+    "titia",
+    "dia",
+    "dinossauro",
+    "dinheiro",
+    "disco",
+    "dica",
+    "dinda",
+    "diamante",
+    "dinamite",
+    "diploma",
+    "tímido"
+   ],
+   "meio": [
+    "leite",
+    "noite",
+    "pente",
+    "sorvete",
+    "chocolate",
+    "abacate",
+    "tomate",
+    "bigode",
+    "saudade",
+    "verdade",
+    "cidade",
+    "pudim",
+    "jardim",
+    "padaria",
+    "bandido",
+    "pedido",
+    "batida",
+    "partida",
+    "comida",
+    "bebida"
+   ],
+   "frases": [
+    "O tigre tem dente.",
+    "A tia comeu chocolate.",
+    "Bom dia, dinossauro!",
+    "Eu bebo leite de noite.",
+    "O dente da tia é branco.",
+    "A tinta caiu no tapete.",
+    "O abacate está no pote.",
+    "A cidade tem padaria.",
+    "O tigre dormiu de dia.",
+    "Eu ganhei um pente."
+   ],
+   "historia": "O tigre e o dinossauro foram à cidade. A tia deles deu leite, abacate e chocolate. De noite, os dois dormiram no jardim."
+  },
+  "nd": {
+   "name": "N / D (língua escondida)",
+   "letter": "N D",
+   "ipa": "n",
+   "erro": [],
+   "meter": "",
+   "como": "A língua fica escondida! A pontinha encosta atrás dos dentes de cima, nunca entre os dentes: NA, DA.",
+   "pista_adulto": "Visual: olhe no espelho; a língua não pode aparecer entre os dentes. Tátil: a ponta toca a gengiva atrás dos dentes de cima.",
+   "isolado": "nnn-da",
+   "silabas": [
+    "na",
+    "ne",
+    "no",
+    "nu",
+    "da",
+    "de",
+    "do",
+    "du"
+   ],
+   "inicio": [
+    "navio",
+    "nariz",
+    "neve",
+    "ninho",
+    "nuvem",
+    "nove",
+    "dado",
+    "dedo",
+    "doce",
+    "dólar",
+    "dragão",
+    "nota",
+    "noiva",
+    "dente",
+    "dama",
+    "dupla",
+    "nabo",
+    "nado",
+    "dona",
+    "data"
+   ],
+   "meio": [
+    "banana",
+    "boneca",
+    "cano",
+    "menino",
+    "panela",
+    "janela",
+    "cadeado",
+    "moeda",
+    "roda",
+    "nadar",
+    "dedal",
+    "vida",
+    "madeira",
+    "madrinha",
+    "anel",
+    "pena",
+    "cana",
+    "pudim",
+    "sino",
+    "cadeira"
+   ],
+   "frases": [
+    "O navio passou na neve.",
+    "A boneca tem nariz.",
+    "O menino comeu banana.",
+    "A roda do carro é nova.",
+    "O dado tem nove pontos.",
+    "A nuvem é branca.",
+    "Eu nado no rio.",
+    "A panela está no fogão.",
+    "O dragão dormiu no ninho.",
+    "Doce de banana!"
+   ],
+   "historia": "Um menino tinha um navio de madeira. No navio tinha uma boneca, um dado e um cacho de banana. Ele navegou até uma nuvem de neve!"
+  }
+ },
+ "levels": [
+  {
+   "id": "escutar",
+   "name": "Escutar",
+   "say": "Escute as palavras com o som."
+  },
+  {
+   "id": "isolado",
+   "name": "Som sozinho",
+   "say": "Vamos fazer o som sozinho."
+  },
+  {
+   "id": "silabas",
+   "name": "Sílabas",
+   "say": "Agora com as vogais."
+  },
+  {
+   "id": "inicio",
+   "name": "Palavras",
+   "say": "Palavras que começam com o som."
+  },
+  {
+   "id": "meio",
+   "name": "Palavras 2",
+   "say": "Agora o som no meio da palavra."
+  },
+  {
+   "id": "frases",
+   "name": "Frases",
+   "say": "Agora em frases."
+  },
+  {
+   "id": "historia",
+   "name": "História",
+   "say": "Agora uma historinha."
+  }
+ ],
+ "rules": {
+  "pass_correct": 8,
+  "pass_of": 10,
+  "max_tries_per_item": 2,
+  "no_timer": true,
+  "note": "Sem cronômetro (fala sem pressa). No máximo 2 tentativas por palavra e segue, sempre elogiando a tentativa (orientação: evitar pedir repetição demais)."
+ },
+ "mouth_gym": [
+  {
+   "id": "lingua_cima",
+   "name": "Língua para cima",
+   "say": "Língua para cima, no nariz!"
+  },
+  {
+   "id": "lingua_baixo",
+   "name": "Língua para baixo",
+   "say": "Língua para baixo, no queixo!"
+  },
+  {
+   "id": "lingua_direita",
+   "name": "Língua para a direita",
+   "say": "Língua para o lado!"
+  },
+  {
+   "id": "lingua_esquerda",
+   "name": "Língua para a esquerda",
+   "say": "Agora para o outro lado!"
+  },
+  {
+   "id": "bochecha_dentro",
+   "name": "Língua na bochecha",
+   "say": "Empurre a bochecha com a língua!"
+  },
+  {
+   "id": "bico",
+   "name": "Bico",
+   "say": "Faça um bico de beijo!"
+  },
+  {
+   "id": "sorriso_fechado",
+   "name": "Sorriso fechado",
+   "say": "Sorriso sem mostrar os dentes!"
+  },
+  {
+   "id": "sorriso_dentes",
+   "name": "Sorriso com dentes",
+   "say": "Sorriso mostrando os dentes!"
+  },
+  {
+   "id": "bico_sorriso",
+   "name": "Bico e sorriso",
+   "say": "Bico, sorriso, bico, sorriso!"
+  },
+  {
+   "id": "bico_aberto",
+   "name": "Bico aberto (Ô)",
+   "say": "Boca de Ô!"
+  },
+  {
+   "id": "inflar",
+   "name": "Encher as bochechas",
+   "say": "Encha as bochechas de ar!"
+  },
+  {
+   "id": "inflar_alterna",
+   "name": "Bochechas alternadas",
+   "say": "O ar passa de uma bochecha para a outra!"
+  },
+  {
+   "id": "estalo",
+   "name": "Estalo de língua",
+   "say": "Estale a língua, igual cavalinho!"
+  },
+  {
+   "id": "ceu_boca",
+   "name": "Língua no céu da boca",
+   "say": "Cole a língua no céu da boca e solte com um estalo!"
+  },
+  {
+   "id": "varrer",
+   "name": "Varrer o céu da boca",
+   "say": "Varra o céu da boca com a pontinha da língua!"
+  },
+  {
+   "id": "lamber_labios",
+   "name": "Girar a língua nos lábios",
+   "say": "Passe a língua em volta da boca!"
+  },
+  {
+   "id": "vibrar_labios",
+   "name": "Vibrar os lábios",
+   "say": "Faça brrrr com os lábios, igual motor!"
+  },
+  {
+   "id": "morder_labio",
+   "name": "Morder o lábio de baixo",
+   "say": "Morda o lábio de baixo, devagar!"
+  },
+  {
+   "id": "lingua_larga",
+   "name": "Língua larga",
+   "say": "Língua larga para fora!"
+  },
+  {
+   "id": "lingua_fina",
+   "name": "Língua fina",
+   "say": "Língua fininha, bem pontuda!"
+  },
+  {
+   "id": "labios_fechados",
+   "name": "Lábios fechadinhos",
+   "say": "Feche os lábios e respire pelo nariz!"
+  }
+ ]
+}

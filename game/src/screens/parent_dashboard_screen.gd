@@ -256,6 +256,7 @@ func _sp_set(k: String, v: Variant) -> void:
 func _speech() -> void:
 	var sp := _sp()
 	var bank: Dictionary = ContentService.repo.speech
+	FonoParentPanel.build(body, _show.bind("speech"))
 	body.add_child(_txt(SpeechScreening.NOTICE, 24, Palette.YELLOW))
 	body.add_child(_txt("Triagem de sons: diga a palavra (ou toque em Ouvir) e peça para a criança repetir, " +
 		"ou mostre o objeto. Marque o que você ouviu. Leva uns 5 minutos.", 22, Palette.TEXT_SOFT))

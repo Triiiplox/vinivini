@@ -225,8 +225,7 @@ func _controls(node: Node, r: Rect2, out: Array[Vector2]) -> void:
 	for c in node.get_children():
 		if c is Control and not (c as Control).is_visible_in_tree():
 			continue
-		if c is DSButton or c is HoldButton or c is BaseButton or (c is Control and c.name == "WhoButton") \
-				or (c is Control and c.name == "RankChip"):
+		if c is DSButton or c is HoldButton or c is BaseButton or (c is Control and c.name in ["WhoButton", "RankChip", "Tile_fono"]):
 			var ctl := c as Control
 			var p := ctl.get_global_transform_with_canvas() * (ctl.size / 2.0)
 			if ctl.mouse_filter != Control.MOUSE_FILTER_IGNORE and r.has_point(p):

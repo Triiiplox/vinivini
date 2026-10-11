@@ -45,6 +45,7 @@ func build() -> void:
 	hud.root.add_child(lock)
 	add_journey_bar()
 	_rank_chip()
+	_fono_card()
 	if Kids.available().size() > 1:
 		_who_button()
 	hint_fn = _hint
@@ -233,6 +234,40 @@ func _mission_number(id: String) -> int:
 			if str(m) == id:
 				return k
 	return 0
+
+
+## FALAR (módulo de fono, 11/10): cartão logo abaixo da patente, com o rostinho fazendo biquinho.
+func _fono_card() -> void:
+	var disabled: Array = SaveService.settings.get_value("disabled_areas")
+	if disabled.has("fono"):
+		return
+	var box := Panel.new()
+	box.name = "Tile_fono"
+	box.add_theme_stylebox_override("panel", UITheme.rounded(Color("#BE185D"), 30, 6, Color("#FBCFE8")))
+	box.size = Vector2(300, 112)
+	box.position = Vector2(20, 230)
+	box.mouse_filter = Control.MOUSE_FILTER_STOP
+	box.gui_input.connect(func(e: InputEvent):
+		if finished:
+			return
+		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
+			finished = true
+			AudioService.play_sfx("tap")
+			DS.press_feedback(box, "pop")
+			var d := narrate(Lines.n("Vamos treinar a fala!"))
+			after(minf(d, 0.9), Router.go.bind("fono", {})))
+	hud.root.add_child(box)
+	var face := FonoFace.new()
+	face.scale = Vector2.ONE * 0.3
+	face.position = Vector2(60, 56)
+	face.set_pose("bico_sorriso")
+	box.add_child(face)
+	var nm := UI.label("FALAR", 40, Color.WHITE, true)
+	nm.position = Vector2(118, 26)
+	nm.size = Vector2(176, 60)
+	nm.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.child_ok(nm)  # nome do lugar: ele lê
+	box.add_child(nm)
 
 
 func _rank_chip() -> void:

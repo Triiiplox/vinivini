@@ -41,8 +41,10 @@ ENGINE = {"cosmo": "piper-faber-1"}
 # narradora = Piper "dii" (feminina, pt-BR, OpenVoiceOS, CC BY-NC-ND 4.0; o Andro preferiu a B de ouvido);
 # Astro = Piper "faber" (pt-BR, rhasspy, dados CC0); personagens = Piper "cadu" (pt-BR, rhasspy).
 # Modelos em PIPER_DIR (dii.onnx, faber.onnx, cadu.onnx + .json).
-PIPER.update({"narrator": "dii.onnx", "npc": "cadu.onnx"})
-ENGINE.update({"narrator": "piper-dii-1", "npc": "piper-cadu-1"})
+PIPER.update({"narrator": "dii.onnx", "npc": "cadu.onnx", "fonoerr": "dii.onnx", "fonoipa": "dii.onnx"})
+ENGINE.update({"narrator": "piper-dii-1", "npc": "piper-cadu-1", "fonoerr": "piper-dii-1", "fonoipa": "piper-dii-1"})
+# Módulo FALA (fono): "fonoipa" = texto já em fonemas IPA (o som sozinho: ʃːːːː); "fonoerr" = "de|para|palavra":
+# a palavra com a troca típica (chave → save, sapo → θapo, cara → cala), para o Ouvido de Detetive.
 _PIPER = {}
 
 
@@ -58,6 +60,16 @@ def piper_wav(who, text, wav):
         pdir = os.environ.get("PIPER_DIR", os.environ.get("KOKORO_DIR", ""))
         _PIPER[who] = PiperVoice.load(os.path.join(pdir, PIPER[who]))
     from piper.config import SynthesisConfig
+    if who in ("fonoipa", "fonoerr"):
+        if who == "fonoerr":
+            src, dst, word = text.split("|", 2)
+            ph = "".join("".join(x) for x in _PIPER[who].phonemize(word[:1].upper() + word[1:] + "!"))
+            ph = ph.replace(src, dst).strip("!")
+        else:
+            ph = text
+        with wave.open(wav, "wb") as wf:
+            _PIPER[who].synthesize_wav("[[ %s ]]" % ph, wf, syn_config=SynthesisConfig(length_scale=1.4))
+        return _PIPER[who].config.sample_rate
     # Palavra solta saía em 0,25 s ("milho"): com exclamação e mais devagar fica ~0,8 s, como se fala com criança.
     t = text.strip()
     short = len(t.split()) <= 2 and t[-1:] not in "!?."
@@ -76,7 +88,7 @@ lines = {}  # (who, text) -> origem
 
 def add(who, text, origin):
     text = text.strip()
-    if not text or text.startswith("res://") or not re.search(r"[A-Za-zÀ-ú0-9]", text):
+    if not text or text.startswith("res://") or (who != "fonoipa" and not re.search(r"[A-Za-zÀ-ú0-9]", text)):
         return
     lines.setdefault((who, text), origin)
 
@@ -128,7 +140,7 @@ for path in glob.glob(os.path.join(ROOT, "src", "**", "*.gd"), recursive=True):
 NUM = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez", "onze", "doze", "treze",
        "catorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove", "vinte"]
 NUM_F = ["zero", "uma", "duas"] + NUM[3:]
-for n in set(NUM + NUM_F):
+for n in set(NUM + NUM_F + ["vinte e " + x for x in NUM[1:10]] + ["trinta"]):
     add("narrator", n, "numbers")
 cook = open(os.path.join(ROOT, "src", "segments", "cook_segment.gd"), encoding="utf-8").read()
 foods = re.findall(r'"(\w+)": \["([^"]+)", "([^"]+)", "([mf])"\]', cook)
@@ -213,6 +225,26 @@ for les in J("lessons/lessons.json")["lessons"]:
                 add("narrator", r[key], "lesson")
         for t in r.get("sounds", {}).values():
             add("narrator", t, "lesson")
+
+# Módulo FALA (fono): modelo de cada palavra/sílaba/frase/história, instruções, academia da boca e as versões
+# com a troca típica (Ouvido de Detetive).
+FONO_IPA = {"CHHH": "ʃːːːːː", "JJJJ": "ʒːːːːː", "SSSS": "sːːːːː", "ara-ara-ara": "aɾa aɾa aɾa", "tchi-dji": "tʃi dʒi",
+            "nnn-da": "nːːː da"}
+_fono = J("fono/fono.json")
+for _lv in _fono["levels"]:
+    add("narrator", _lv["say"], "fono")
+for _g in _fono["mouth_gym"]:
+    add("narrator", _g["say"], "fono")
+for _k, _t in _fono["targets"].items():
+    add("narrator", _t["como"], "fono")
+    add("narrator", _t["historia"], "fono")
+    for _x in _t["silabas"] + _t["inicio"] + _t["meio"] + _t["frases"]:
+        add("narrator", _x, "fono")
+    if _t["isolado"] in FONO_IPA:
+        add("fonoipa", FONO_IPA[_t["isolado"]], "fono")
+    if _t["erro"]:
+        for _x in _t["inicio"] + _t["meio"]:
+            add("fonoerr", "%s|%s|%s" % (_t["erro"][0], _t["erro"][1], _x), "fono")
 
 # ---------------------------------------------------------------- síntese
 def key_for(who, text, kid=""):

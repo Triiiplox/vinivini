@@ -17,7 +17,12 @@ say "versão" "$(aapt dump badging "$apk" | grep -oE "versionCode='[0-9]+' versi
 say "sdk" "$(aapt dump badging "$apk" | grep -oE "^(sdkVersion|targetSdkVersion):'[0-9]+'" | tr '\n' ' ')"
 perms=$(aapt dump permissions "$apk" | grep -oE "name='[^']+'" | tr '\n' ' ')
 say "permissões" "$perms"
-[ "$perms" = "name='android.permission.VIBRATE' " ] || fail=1
+# Só as permissões conhecidas: VIBRATE sempre; RECORD_AUDIO e CAMERA no celular (módulo FALAR: fala e espelho, só no aparelho).
+for p in $perms; do
+  case "$p" in "name='android.permission.VIBRATE'"|"name='android.permission.RECORD_AUDIO'"|"name='android.permission.CAMERA'") ;;
+    *) fail=1; echo "PERMISSÃO INESPERADA: $p" ;; esac
+done
+case "$perms" in *VIBRATE*) ;; *) fail=1 ;; esac
 
 tmp=$(mktemp -d)
 unzip -q -o "$apk" 'lib/*' -d "$tmp"
@@ -37,8 +42,10 @@ for k in manuzita enzo aylinha; do
 done
 h=$(printf "res://assets/private/poder.ogg" | md5sum | cut -c1-32)
 song=$(unzip -l "$apk" | grep -c "$h" || true)
+h=$(printf "res://assets/private/vini_joinha.png" | md5sum | cut -c1-32)
+song=$((song + $(unzip -l "$apk" | grep -c "$h" || true)))
 say "fotos convidados" "$kids (rosto + nave)"
-say "música particular" "$song"
+say "particular (música + foto)" "$song"
 if [ "$kind" = publico ] && [ $((kids + song)) -gt 0 ]; then fail=1; echo "PRIVADO NO APK PÚBLICO"; fi
-if [ "$kind" = completo ] && { [ "$kids" != 6 ] || [ "$song" != 1 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
+if [ "$kind" = completo ] && { [ "$kids" != 6 ] || [ "$song" != 2 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
 [ $fail = 0 ] && echo "APK OK ($kind)" || { echo "APK COM PROBLEMA"; exit 1; }
