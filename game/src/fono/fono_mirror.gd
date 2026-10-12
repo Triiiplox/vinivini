@@ -1,10 +1,11 @@
 class_name FonoMirror
 extends Control
 ## Espelho da academia da boca e das pistas de "como fazer o som" (o Andro autorizou a câmera: "espelho ao vivo").
-## Um espelho de verdade no desenho: oval com moldura dourada e pedrinhas, vidro com reflexo e brilhinhos. Com a
-## câmera da frente (celular), a imagem ao vivo aparece espelhada dentro do oval. NADA é gravado nem salvo: a imagem
-## só passa pela tela. Permissão CAMERA pedida só aqui. Sem câmera (TV) ou sem permissão, fica o vidro enfeitado e o
-## recado "Faça olhando no espelho!" — o exercício continua igual.
+## Um espelho de verdade no desenho: oval com moldura dourada e pedrinhas, vidro com reflexo e brilhinhos. O botão
+## ABRIR CÂMERA (pedido do Andro, 12/10: "dê opção nesse espelho abrir a câmera") liga a câmera da frente e a imagem
+## ao vivo aparece espelhada dentro do oval; FECHAR desliga. Sem câmera no aparelho (TV), o botão não aparece.
+## NADA é gravado nem salvo: a imagem só passa pela tela. Permissão CAMERA pedida só ao tocar no botão. Sem câmera
+## ou sem permissão, fica o vidro enfeitado e o recado "Faça olhando no espelho!" — o exercício continua igual.
 ## Godot 4.5: CameraServer tem Android; o formato da câmera é escolhido com set_format(0) antes de ligar.
 
 const GOLD_DARK := Color("#7A4A0C")
@@ -29,6 +30,8 @@ var _msg: Label
 var _overlay: Control
 var _granted := false
 var _t := 0.0
+var _btn: DSButton  ## ABRIR CÂMERA
+var _close: DSButton  ## FECHAR
 
 
 func _ready() -> void:
@@ -56,16 +59,49 @@ func _ready() -> void:
 	_msg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(_msg)  # recado do espelho (para o adulto)
 	add_child(_msg)
+	_btn = DSButton.new("primary", "camera", Vector2(64, 64), "normal", "" if size.y < 240.0 else "ABRIR CÂMERA")
+	_btn.name = "MirrorCamera"
+	_btn.pressed.connect(_toggle)
+	add_child(_btn)
+	_close = DSButton.new("secondary", "close", Vector2(64, 64), "normal", "" if size.y < 240.0 else "FECHAR")
+	_close.name = "MirrorClose"
+	_close.pressed.connect(_toggle)
+	add_child(_close)
 	resized.connect(_layout)
 	_layout()
+	_set_live(false)
+	# TV e aparelhos sem câmera: sem botão (OS.has_feature("tv") vem do preset de TV).
+	_btn.visible = not OS.has_feature("tv")
+	_close.visible = false
+
+
+## Abre (pede a permissão na primeira vez) ou fecha a câmera.
+func _toggle() -> void:
+	if live:
+		_stop()
+		return
 	_granted = not OS.has_feature("android") or OS.get_granted_permissions().has("android.permission.CAMERA")
-	if OS.has_feature("android") and not _granted:
-		get_tree().on_request_permissions_result.connect(func(p: String, ok: bool):
-			if p == "android.permission.CAMERA" and ok:
-				_granted = true
-				_start())
-		OS.request_permission("android.permission.CAMERA")
-	_start()
+	if _granted:
+		_start()
+		return
+	if not get_tree().on_request_permissions_result.is_connected(_on_perm):
+		get_tree().on_request_permissions_result.connect(_on_perm)
+	OS.request_permission("android.permission.CAMERA")
+
+
+func _on_perm(p: String, ok: bool) -> void:
+	if p == "android.permission.CAMERA" and ok:
+		_granted = true
+		_start()
+
+
+func _stop() -> void:
+	if feed:
+		feed.feed_is_active = false
+	feed = null
+	CameraServer.monitoring_feeds = false
+	_tex.texture = null
+	_set_live(false)
 
 
 func _layout() -> void:
@@ -73,13 +109,20 @@ func _layout() -> void:
 	_tex.position = inset
 	_tex.size = size - inset * 2.0
 	_overlay.size = size
-	_msg.position = Vector2(size.x * 0.16, size.y * 0.66)
+	_msg.position = Vector2(size.x * 0.16, size.y * 0.5)
 	_msg.size = Vector2(size.x * 0.68, size.y * 0.2)
-	_set_live(live)
+	# botão embaixo do espelho (no pequeno, só o ícone)
+	var small := size.y < 240.0
+	for b in [_btn, _close]:
+		b.custom_minimum_size = Vector2(64, 64) if small else Vector2(230, 64)
+		b.size = b.custom_minimum_size
+		# grande: embaixo, no centro; pequeno: na lateral direita (embaixo fica a dica para o adulto)
+		b.position = Vector2(size.x - 40.0, size.y / 2.0 - 32.0) if small else Vector2((size.x - b.size.x) / 2.0, size.y - 22.0)
+	if _msg.text != "":
+		_set_live(live)
 
 
 func _start() -> void:
-	_set_live(false)
 	if not _granted:
 		return
 	CameraServer.monitoring_feeds = true
@@ -91,6 +134,7 @@ func _start() -> void:
 		if best == null or f.get_position() == CameraFeed.FEED_FRONT:
 			best = f
 	if best == null:
+		_msg.text = "Sem câmera neste aparelho"
 		return
 	feed = best
 	if feed.get_formats().size() > 0:
@@ -108,6 +152,9 @@ func _set_live(on: bool) -> void:
 	_tex.visible = on
 	# Espelho pequeno (sessão de fala): só o vidro; o recado cabe no grande (academia).
 	_msg.text = "" if on or size.y < 240.0 else "Faça olhando no espelho!"
+	if _btn:
+		_btn.visible = not on and not OS.has_feature("tv")
+		_close.visible = on
 	queue_redraw()
 
 
