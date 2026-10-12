@@ -1,5 +1,5 @@
 extends TestNodeCase
-## Módulo FALAR (fono): dados dos 6 sons, níveis (≥ 80% em 2 sessões em dias diferentes passa), escutar abre o
+## Módulo FALAR (fono): dados dos 10 sons, níveis (≥ 80% em 2 sessões em dias diferentes passa), escutar abre o
 ## nível 1, medidor CH × S, telas (início, sessão, academia) e a parte da área dos pais. Mecânicas da v2: test_fono2.
 
 var host: Control
@@ -37,9 +37,18 @@ func test_fono_data_and_levels() -> void:
 		eq((t["meio"] as Array).size(), 20, "%s: 20 palavras de meio" % id)
 		eq((t["frases"] as Array).size(), 10, "%s: 10 frases" % id)
 		check(str(t.get("historia", "")) != "", "%s: tem história" % id)
-	eq(ids, ["ch", "j", "s", "r", "ti", "nd"], "6 sons")
+	eq(ids, ["ch", "j", "s", "r", "ti", "nd", "lh", "encontros_r", "encontros_l", "r_final"], "10 sons")
 	eq(FonoData.levels().size(), 8, "8 níveis (com Palavras fáceis)")
-	eq(FonoData.active_targets(), ids, "padrão: todos os sons")
+	eq(FonoData.active_targets(), ids.slice(0, 6), "padrão: os 6 do programa da fono (os novos os pais ligam)")
+	# Sons novos: palavra de treino tem o som (a letra-alvo acende) e a troca de propósito existe.
+	for w in FonoData.target("lh")["inicio"] + FonoData.target("lh")["meio"]:
+		check(FonoText.marks("lh", str(w)).contains("<lh>"), "lh em %s" % w)
+	for w in FonoData.target("encontros_r")["inicio"] + FonoData.target("encontros_r")["meio"]:
+		check(FonoText.marks("encontros_r", str(w)).contains("r>"), "encontro com R em %s" % w)
+	for w in FonoData.target("encontros_l")["inicio"] + FonoData.target("encontros_l")["meio"]:
+		check(FonoText.marks("encontros_l", str(w)).contains("l>"), "encontro com L em %s" % w)
+	for w in FonoData.target("r_final")["inicio"] + FonoData.target("r_final")["meio"]:
+		check(FonoText.marks("r_final", str(w)).contains("<r>"), "R final em %s" % w)
 	FonoData.set_active_targets(["s", "ch"])
 	eq(FonoData.active_targets(), ["s", "ch"], "pais escolhem quais e a ordem")
 	eq(FonoData.level_open("ch"), 0, "começa no escutar")

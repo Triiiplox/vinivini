@@ -265,7 +265,10 @@ func _play_sound() -> float:
 	face.set_pose(target)
 	var ipa := {"CHHH": "ʃːːːːː", "JJJJ": "ʒːːːːː", "SSSS": "sːːːːː", "ara-ara-ara": "aɾa aɾa aɾa", "tchi-dji": "tʃi dʒi",
 		"nnn-da": "nːːː da"}.get(str(t.get("isolado", "")), "") as String
-	return Voice.say(ipa, "fonoipa") if ipa != "" else 0.0
+	if ipa != "":
+		return Voice.say(ipa, "fonoipa")
+	# Sons novos (lha-lhe-lhi, pra-tra-bra...) são sílabas: a narradora fala.
+	return narrate(str(t.get("isolado", ""))) if str(t.get("isolado", "")) != "" else 0.0
 
 
 func _replay_model() -> void:

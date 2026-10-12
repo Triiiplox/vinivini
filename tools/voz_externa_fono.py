@@ -35,6 +35,9 @@ SPELL = {
     ("ʒ", "ʃ"): [(r"j", "ch"), (r"g(?=[eiéêí])", "ch")],
     ("ɾ", "l"): [(r"(?<=[aeiouáéíóúâêôãõ])r(?=[aeiouáéíóúâêôãõ])", "l"), (r"(?<=[bcdfgptv])r", "l")],
     ("ʃ", "ʃːː"): [(r"ch", "chhh"), (r"x", "xhhh")],
+    ("ʎ", "j"): [(r"lh", "i")],
+    ("ɾ", ""): [(r"(?<=[bcdfgkptv])r", ""), (r"(?<=[aeiouáéíóúâêôãõ])r(?![aeiouáéíóúâêôãõr])", "")],
+    ("l", ""): [(r"(?<=[bcfgkpt])l(?=[aeiouáéíóúâêôãõ])", "")],
     ("ʒ", "ʒːː"): [(r"j", "jjj"), (r"g(?=[eiéêí])", "gjj")],
 }
 NOTE = {
@@ -43,6 +46,9 @@ NOTE = {
     ("ʃ", "ʒ"): "Troca de propósito (CH vira J, com vibração).",
     ("ʒ", "ʃ"): "Troca de propósito (J vira CH, sem vibração).",
     ("ɾ", "l"): "Troca de propósito (R fraco vira L).",
+    ("ʎ", "j"): "Troca de propósito (LH vira I: 'paia').",
+    ("ɾ", ""): "Troca de propósito: o R some ('pato', 'pota').",
+    ("l", ""): "Troca de propósito: o L do encontro some ('busa').",
     ("s", "θ"): "Troca de propósito: falar com a LÍNGUA ENTRE OS DENTES no S (ceceio, tipo 'th' do inglês).",
     ("ʃ", "ʃːː"): "Modelo da palavra fácil: esticar o som do começo (chhhuva), resto normal.",
     ("ʒ", "ʒːː"): "Modelo da palavra fácil: esticar o som do começo (jjjacaré), resto normal.",

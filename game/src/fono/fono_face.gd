@@ -30,6 +30,8 @@ const SUIT_ORANGE := Color("#FF8A24")
 const LIGHT_ON := Color("#FFC93C")
 const OUT_W := R * 0.047  # contorno da silhueta (fica nítido até em 0,26×)
 const LINE_W := R * 0.032
+## Sons novos usam a boca mais parecida: LH (meio da língua no céu da boca), encontros e R final (toque do R).
+const ALIAS := {"lh": "ceu_boca", "encontros_r": "r", "r_final": "r", "encontros_l": "lingua_cima"}
 
 var pose := "neutro"
 var beat := 0.0  ## 0..1 dentro de uma repetição (a tela avança)
@@ -39,7 +41,7 @@ var _beat_live := 0.0  # > 0: a fase vem do beat; senão, do relógio próprio
 
 
 func set_pose(p: String) -> void:
-	pose = p
+	pose = str(ALIAS.get(p, p))
 	queue_redraw()
 
 
