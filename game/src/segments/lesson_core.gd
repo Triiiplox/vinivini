@@ -16,6 +16,9 @@ extends GameScreen
 ## params: lesson (id), n (perguntas; padrão do conteúdo).
 
 const CARD := 245.0
+## Fim da faixa da HUD no topo (casa, placar 0/5, alto-falante: até y≈132). Cartão de cima começa abaixo disto
+## (12/10: o cartão da frase/conta passava por baixo do placar em 1280×720 e na TV).
+const HUD_BOTTOM := 138.0
 ## Letra bastão (caixa alta), traços na caixa 0..1 (x para a direita, y para baixo), na ordem em que se escreve.
 const STROKES := {
 	"A": [[[0.12, 1.0], [0.5, 0.0]], [[0.5, 0.0], [0.88, 1.0]], [[0.28, 0.62], [0.72, 0.62]]],
@@ -298,11 +301,15 @@ func _pick() -> void:
 	if rd.has("show"):
 		# O que se lê/observa fica em cima; as respostas embaixo.
 		var tall := _tall(rd["show"]) > 1.0
-		var shown := _card(rd["show"], Vector2(640, 175 if scenes else (205 if tall else 215)), 0.8 if scenes else 1.0)
+		var ks := 0.8 if scenes or tall else 1.0
+		var half := CARD * _tall(rd["show"]) * ks / 2.0
+		var sy := maxf(HUD_BOTTOM + half, 175.0 if scenes else 215.0)
+		var shown := _card(rd["show"], Vector2(640, sy), ks)
 		shown.name = "Shown"
 		shown.tappable = false
 		k *= 1.12 if scenes else 0.82
-		y = 470.0 if scenes else (540.0 if tall else 500.0)
+		# As respostas logo abaixo do cartão de cima, sem encostar nele.
+		y = maxf(470.0 if scenes else (540.0 if tall else 500.0), sy + half + 14.0 + CARD * k / 2.0)
 	# Opções largas (conta montada, dinheiro, blocos): espaço pela largura real e encolhe se não couber.
 	var wmax := 1.0
 	for o in opts:

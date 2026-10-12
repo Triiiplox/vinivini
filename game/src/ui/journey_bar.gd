@@ -9,6 +9,9 @@ signal tapped
 const W := 600.0
 const H := 76.0
 const PAD := 46.0
+## Espaço à direita da trilha para a estrela + o número (até 4 dígitos): faz parte do controle, para nada
+## encostar no contador (antes ficava fora do retângulo e o botão "trocar" cobria o número).
+const STARS_W := 130.0
 
 var stats: Dictionary = {}
 var shown := 0.0
@@ -44,8 +47,8 @@ static func compute() -> Dictionary:
 
 func _init() -> void:
 	name = "JourneyBar"
-	custom_minimum_size = Vector2(W, H)
-	size = Vector2(W, H)
+	custom_minimum_size = Vector2(W + STARS_W, H)
+	size = Vector2(W + STARS_W, H)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
@@ -105,7 +108,7 @@ func _set_shown(f: float) -> void:
 
 
 func _draw() -> void:
-	draw_style_box(UITheme.rounded(Color(DS.SPACE_DARK, 0.72), int(H * 0.5), 3, Color(DS.STAR_GOLD, 0.55)), Rect2(Vector2.ZERO, size))
+	draw_style_box(UITheme.rounded(Color(DS.SPACE_DARK, 0.72), int(H * 0.5), 3, Color(DS.STAR_GOLD, 0.55)), Rect2(0, 0, W, H))
 	var y := H * 0.5
 	draw_line(Vector2(_x(0.0), y), Vector2(_x(1.0), y), Color(1, 1, 1, 0.22), 10.0, true)
 	if shown > 0.0:

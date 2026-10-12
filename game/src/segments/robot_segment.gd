@@ -37,7 +37,7 @@ func build() -> void:
 	AudioService.play_music("puzzle")
 	world.add_child(Scenery.new(th))
 	lvl = difficulty(SKILL)
-	add_cosmo(Vector2(1180, 150), 110.0)
+	add_cosmo(Vector2(1180, 195), 110.0)  # abaixo do alto-falante
 	play_btn = DSButton.new("primary", "play", Vector2(150, 110))
 	play_btn.position = Vector2(1100, 590)
 	play_btn.speak_text = ""

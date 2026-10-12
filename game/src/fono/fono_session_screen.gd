@@ -173,9 +173,10 @@ func _build_buttons() -> void:
 	ok_btn.pressed.connect(_adult.bind(true))
 	again_btn = FonoPanels.button("AdultAgain", "secondary", "refresh", "QUASE", Vector2(660, 572), 260)
 	again_btn.pressed.connect(_adult.bind(false))
-	yes_btn = FonoPanels.button("DetYes", "primary", "check", "CERTO", Vector2(360, 572), 260)
+	yes_btn = FonoPanels.button("DetYes", "primary", "check", "CERTO", Vector2(350, 572), 260)
 	yes_btn.pressed.connect(_detective_answer.bind(false))
-	odd_btn = FonoPanels.button("DetOdd", "secondary", "close", "ESQUISITO", Vector2(660, 572), 260)
+	# palavra longa: botão mais largo
+	odd_btn = FonoPanels.button("DetOdd", "secondary", "close", "ESQUISITO", Vector2(640, 572), 330)
 	odd_btn.pressed.connect(_detective_answer.bind(true))
 	for b in [mic_btn, rep_btn, ok_btn, again_btn, yes_btn, odd_btn]:
 		b.visible = false

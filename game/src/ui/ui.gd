@@ -102,6 +102,18 @@ static func stars_badge(count: int) -> PanelContainer:
 	return p
 
 
+## Diminui a fonte do rótulo (a partir de fs) até o texto caber em max_w: texto de botão/cartão nunca vaza da
+## borda (ex.: "ESQUISITO" no botão de 260 px). Chame com o rótulo já na árvore (a fonte do tema vem dela).
+static func fit_font(l: Label, fs: int, max_w: float, min_fs: int = 14) -> void:
+	var font := l.get_theme_font("font")
+	var txt := l.text.to_upper() if l.uppercase else l.text
+	var extra := float(l.get_theme_constant("outline_size"))
+	while fs > min_fs and font.get_multiline_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + extra > max_w:
+		fs -= 1
+	l.add_theme_font_size_override("font_size", fs)
+	l.update_minimum_size()  # o mínimo da fonte antiga (maior) não pode segurar a largura do rótulo
+
+
 ## Marca um texto como permitido no fluxo da criança (objeto de aprendizagem: sílaba, numeral; ou logo).
 ## O teste de "texto no fluxo da criança" falha em qualquer Label visível sem esta marca.
 static func child_ok(l: Control) -> Control:

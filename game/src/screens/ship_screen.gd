@@ -23,9 +23,10 @@ const STATIONS := [
 	{"id": "room", "scene": "bedroom", "name": "Quarto", "screen": "wardrobe",
 		"say": "Seu quarto. Aqui você troca a roupa de astronauta!"},
 ]
-const ROOM := Vector2(340, 190)
+## Cômodos entre os botões casa e alto-falante (em 1280×720 e na TV a Ponte e a Oficina ficavam embaixo deles).
+const ROOM := Vector2(316, 176)
 const GAP := 14.0
-const ORIGIN := Vector2(120, 92)
+const ORIGIN := Vector2(152, 92)
 
 ## Desafio enviado pela família (área dos pais) → jogo v2 correspondente à habilidade escolhida.
 const CHALLENGE_SEGMENT := {
@@ -59,11 +60,12 @@ func build() -> void:
 	vini.position = Vector2(40, 712)
 	vini.z_index = 20
 	world.add_child(vini)
-	add_cosmo(Vector2(1235, 600), 110.0)
+	add_cosmo(Vector2(1235, 500), 110.0)
 	_spawn_parent_gift()
+	# Cadeado dos pais no canto de baixo à direita (à esquerda ficava por cima das pernas do Vini).
 	var lock := HoldButton.new("lock", 2.0)
-	lock.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	lock.position = Vector2(GameHud.EDGE + GameHud.safe_x(get_viewport()).x, -108)
+	lock.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	lock.position = Vector2(-84 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -108)
 	lock.modulate.a = 0.55
 	lock.held.connect(func(): Router.go("parent_gate"))
 	hud.root.add_child(lock)

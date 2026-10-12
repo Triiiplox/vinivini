@@ -71,7 +71,8 @@ func _start_debug_tool() -> bool:
 		"--touchcheck=": "touch_check", "--lessoncheck=": "lesson_check", "--uxcheck=": "ux_check",
 		"--padcheck=": "pad_check", "--playfilm=": "play_film",
 		"--shmupgallery=": "shmup_gallery", "--fonoshots=": "fono_shots",
-		"--facegallery=": "fono_face_gallery", "--facegif=": "fono_face_gallery"}
+		"--facegallery=": "fono_face_gallery", "--facegif=": "fono_face_gallery",
+		"--overlapcheck=": "overlap_check"}
 	var args := OS.get_cmdline_user_args()
 	if args.has("--checkscripts"):
 		_check_scripts()

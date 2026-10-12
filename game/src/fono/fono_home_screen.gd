@@ -60,13 +60,13 @@ func _card(id: String, pos: Vector2) -> void:
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	it.add_child(p)
 	var face := FonoFace.new()
-	face.scale = Vector2.ONE * 0.36
-	face.position = Vector2(-62, -40)
+	face.scale = Vector2.ONE * 0.32
+	face.position = Vector2(-68, -40)  # rosto à esquerda, letra à direita, sem se tocarem
 	face.set_pose(id)
 	it.add_child(face)
 	var big := UI.label(str(t.get("letter", id.to_upper())), 64, Color.WHITE, true)
-	big.position = Vector2(-10, -100)
-	big.size = Vector2(120, 110)
+	big.position = Vector2(-4, -100)
+	big.size = Vector2(124, 110)
 	big.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	big.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	big.add_theme_constant_override("outline_size", 12)
@@ -74,6 +74,7 @@ func _card(id: String, pos: Vector2) -> void:
 	big.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(big)  # a letra do som (ele lê)
 	it.add_child(big)
+	UI.fit_font(big, 64, big.size.x - 8)  # "N D" largo não encosta no rosto
 	# trilha: uma bolinha por nível (feito = dourado, aberto = branco, trancado = apagado)
 	var lv := FonoData.level_open(id)
 	var n := FonoData.levels().size()
@@ -119,11 +120,14 @@ func _gym_card(pos: Vector2) -> void:
 	face.set_pose("inflar_alterna")
 	gym_card.add_child(face)
 	var l := UI.label("ACADEMIA DA BOCA", 34, Color.WHITE, true)
-	l.position = Vector2(-120, -28)
-	l.size = Vector2(340, 56)
+	l.position = Vector2(-116, -28)
+	l.size = Vector2(336, 56)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(l)  # nome do lugar
 	gym_card.add_child(l)
+	UI.fit_font(l, 34, 330)  # antes vazava da borda direita do cartão
+	l.size = Vector2(336, 56)
 	gym_card.tapped.connect(func(_i): _go("fono_gym", {}))
 	world.add_child(gym_card)
 

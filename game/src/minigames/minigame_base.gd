@@ -77,7 +77,8 @@ func scatter(n: int, area: Vector2, obj: float, tidy: bool) -> Array[Vector2]:
 		var p := Vector2(rng.randf_range(0, maxf(1, area.x - obj)), rng.randf_range(0, maxf(1, area.y - obj)))
 		var ok := true
 		for q in out:
-			if q.distance_to(p) < obj * 1.05:
+			# Caixas sem se cruzar (antes era só distância: na diagonal dois objetos de contar se sobrepunham).
+			if absf(q.x - p.x) < obj * 1.06 and absf(q.y - p.y) < obj * 1.06:
 				ok = false
 				break
 		if ok:

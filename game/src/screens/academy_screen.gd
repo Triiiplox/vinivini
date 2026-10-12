@@ -41,18 +41,18 @@ func build() -> void:
 	last_area = area
 	_build_trail()
 	# Teste para pular (3 fases) e treino sem fim (matemática e lógica): botões com palavra + ícone.
-	var hard := DSButton.new("primary", "rocket", Vector2(300, 124), "normal", "PULAR")
+	var hard := DSButton.new("primary", "rocket", Vector2(300, 110), "normal", "PULAR")
 	hard.name = "HardChallenge"
 	hard.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	hard.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -142)
+	hard.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -128)
 	hard.pressed.connect(_hard)
 	hard.visible = next_index < nodes_cache.size()  # matéria terminada: não há o que pular
 	hud.root.add_child(hard)
 	if area in ENDLESS:
-		var tr := DSButton.new("secondary", "refresh", Vector2(300, 124), "normal", "TREINO")
+		var tr := DSButton.new("secondary", "refresh", Vector2(300, 110), "normal", "TREINO")
 		tr.name = "EndlessButton"
 		tr.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-		tr.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -278)
+		tr.position = Vector2(-300 - GameHud.EDGE - GameHud.safe_x(get_viewport()).y, -250)  # mais baixo: não encosta no cartão da fase 3
 		tr.pressed.connect(_endless)
 		hud.root.add_child(tr)
 	hint_fn = _hint
