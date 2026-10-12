@@ -18,10 +18,22 @@ const TILES := [
 const NAMES := {"reading": "Leitura", "math": "Matemática", "logic": "Lógica", "science": "Ciências",
 	"astronomy": "Espaço", "emotion": "Emoções", "english": "Inglês", "create": "Criar", "ship": "Nave"}
 const TILE := 150.0
+## Grade das matérias: distância entre colunas/linhas e y da 1ª linha (abaixo da HUD do topo: o selo de nível
+## sai 80 px acima do centro do bloco e não pode encostar no "trocar" nem no alto-falante).
+const COL := 176.0
+const ROW := 190.0
+const ROW0 := 220.0
+## Coluna da esquerda da HUD (patente e FALAR: x 20..320) e folga entre as colunas.
+const LEFT_COL := 320.0
+const GAP := 16.0
+const WHO_W := 290.0
 
 var tiles: Array[Interactable] = []
 var hero: Interactable
 var vini: CharacterRig2D
+## Centro da Jornada/VOAR e da 1ª coluna de matérias (mundo). Dependem da largura da tela: ver _fit_columns.
+var hero_x := 480.0
+var grid_x := 780.0
 
 
 func build() -> void:
@@ -34,6 +46,7 @@ func build() -> void:
 	vini.position = Vector2(140, 690)
 	vini.z_index = 5
 	world.add_child(vini)
+	_fit_columns()
 	_make_hero()
 	for i in shown.size():
 		_make_tile(shown[i], i)
@@ -43,22 +56,44 @@ func build() -> void:
 	lock.modulate.a = 0.55
 	lock.held.connect(func(): Router.go("parent_gate"))
 	hud.root.add_child(lock)
-	add_journey_bar()
+	var bar := add_journey_bar()
 	_rank_chip()
 	_fono_card()
+	var who: Control = null
 	if Kids.available().size() > 1:
-		_who_button()
+		who = _who_button()
+	_fit_bar(bar, who)
 	hint_fn = _hint
 
 
+## Jornada/VOAR logo depois da coluna da esquerda e a grade logo depois deles, conforme a largura da tela.
+## Feedback 12/10 ("botões cortando o outro"): em 1280×720 e na TV (1920×1080) a patente e o FALAR cobriam a
+## borda da Jornada; no celular largo sobra espaço e fica tudo como antes (Jornada em 480, grade em 780).
+func _fit_columns() -> void:
+	var left := 640.0 - get_viewport().get_visible_rect().size.x / 2.0  # x do mundo na borda esquerda da tela
+	hero_x = maxf(480.0, left + LEFT_COL + GameHud.safe_x(get_viewport()).x + GAP + 190.0)
+	grid_x = maxf(780.0, hero_x + 190.0 + GAP + TILE / 2.0)
+
+
+## A trilha da jornada fica entre o cadeado e o "trocar" (ou o alto-falante); se não couber, encolhe um pouco.
+func _fit_bar(bar: JourneyBar, who: Control) -> void:
+	var w := get_viewport().get_visible_rect().size.x
+	var lo := 24.0 + 84.0 + GAP + GameHud.safe_x(get_viewport()).x
+	var hi := w - GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - (18.0 + WHO_W if who else 0.0) - 12.0
+	var k := minf(1.0, (hi - lo) / bar.size.x)
+	bar.scale = Vector2(k, k)
+	bar.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	bar.position = Vector2(clampf(w * 0.5 - JourneyBar.W * 0.5 - 45.0, lo, hi - bar.size.x * k), 14.0)
+
+
 ## Quem está jogando: rosto + nome + "trocar", no alto (antes era um botão redondo só com o rosto).
-func _who_button() -> void:
+func _who_button() -> Control:
 	var b := Panel.new()
 	b.name = "WhoButton"
 	b.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.9), 30, 5, DS.STAR_GOLD))
 	b.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	b.size = Vector2(290, GameHud.BTN)
-	b.position = Vector2(-GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 18 - 290, 16)
+	b.size = Vector2(WHO_W, GameHud.BTN)
+	b.position = Vector2(-GameHud.BTN - GameHud.EDGE - GameHud.safe_x(get_viewport()).y - 18 - WHO_W, 16)
 	b.mouse_filter = Control.MOUSE_FILTER_STOP
 	b.gui_input.connect(func(e: InputEvent):
 		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
@@ -90,6 +125,8 @@ func _who_button() -> void:
 	ic.position = Vector2(236, 36)
 	ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(ic)
+	UI.fit_font(nm, 30, nm.size.x)  # "Manuzita" cabe sem encostar no ícone
+	return b
 
 
 ## O jogo: cartão grande da Jornada com o mundo e a missão de agora; pulsa e leva direto para o mapa.
@@ -109,7 +146,7 @@ func _make_hero() -> void:
 	hero.name = "Tile_missions"
 	hero.hit_rect = Rect2(-190, -145, 380, 290)
 	hero.payload = ["missions", "rocket", "#EE4266", "journey", "A jornada pelo espaço!"]
-	hero.position = Vector2(480, 290)
+	hero.position = Vector2(hero_x, 290)
 	var card := Panel.new()
 	var sb := UITheme.rounded(Color("#3B1E7A"), 48, 8, DS.STAR_GOLD)
 	sb.shadow_color = Color(DS.STAR_GOLD, 0.45)
@@ -121,7 +158,7 @@ func _make_hero() -> void:
 	hero.add_child(card)
 	var title := UI.label("JORNADA", 48, Color.WHITE)
 	title.size = Vector2(380, 64)
-	title.position = Vector2(-190, -138)
+	title.position = Vector2(-190, -126)  # abaixo da fita PRÓXIMO
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(title)  # o nome do jogo principal: ele lê
@@ -176,7 +213,7 @@ func _make_fly() -> void:
 	fly.name = "Tile_fly"
 	fly.hit_rect = Rect2(-190, -82, 380, 164)
 	fly.payload = ["fly", "rocket", "#0EA5E9", "fly_menu", "Vamos voar!"]
-	fly.position = Vector2(480, 552)
+	fly.position = Vector2(hero_x, 552)
 	var card := Panel.new()
 	var sb := UITheme.rounded(Color("#0B4A8B"), 44, 8, Color("#5CE1FF"))
 	sb.shadow_color = Color(0.36, 0.88, 1.0, 0.45)
@@ -313,7 +350,7 @@ func _make_tile(t: Array, i: int) -> void:
 	it.name = "Tile_%s" % t[0]
 	it.radius = 80.0
 	it.payload = t
-	it.position = Vector2(780 + (i % 3) * 178, 205 + (i / 3) * 196)
+	it.position = Vector2(grid_x + (i % 3) * COL, ROW0 + (i / 3) * ROW)
 	var col := Color(str(t[2]))
 	var card := Panel.new()
 	var sb := UITheme.rounded(col, 44, 6, col.lightened(0.45))
@@ -352,7 +389,7 @@ func _make_tile(t: Array, i: int) -> void:
 		var chip := Panel.new()
 		chip.add_theme_stylebox_override("panel", UITheme.rounded(Color("#1A1240"), 24, 4, Palette.YELLOW))
 		chip.size = Vector2(56, 42)
-		chip.position = Vector2(44, -84)  # no canto do bloco, sem cobrir o nome do bloco de cima
+		chip.position = Vector2(44, -80)  # no canto do bloco, sem cobrir o nome do bloco de cima
 		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(chip)
 		var nl := UI.label(str(al.x), 30, Palette.YELLOW)
