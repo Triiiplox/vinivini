@@ -54,8 +54,8 @@ func build() -> void:
 	photo.visible = false
 	hud.stage.add_child(photo)
 	mirror = FonoMirror.new()
-	mirror.size = Vector2(400, 300)
-	mirror.position = Vector2(720, 140)
+	mirror.size = Vector2(300, 310)
+	mirror.position = Vector2(770, 128)
 	hud.stage.add_child(mirror)
 	name_label = UI.label("", 40, Color.WHITE, true)
 	name_label.position = Vector2(80, 560)
