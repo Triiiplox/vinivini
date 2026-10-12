@@ -26,6 +26,10 @@ func shot(name: String, wait: float = 0.8) -> void:
 
 
 func _run() -> void:
+	Kids.guests_enabled = true
+	Router.reset_to("who")
+	await shot("00_quem_vai_jogar", 1.2)
+	Kids.start()
 	Router.reset_to("home")
 	await shot("01_home", 1.2)
 	FonoData.listened("ch")

@@ -12,3 +12,6 @@ entrega/
 
 # Música particular (tema de TV com direitos autorais, enviada pelo Andro): só no APK da família, nunca no repositório.
 game/assets/private/
+
+# Worktrees dos agentes paralelos (locais)
+.claude/worktrees/
