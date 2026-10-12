@@ -223,6 +223,14 @@ func begin() -> void:
 		after(d0 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples,
 			"back": "academy"}))
 		return
+	var bt := LevelPlan.block_test(area)
+	if not bt.is_empty() and not bool(params.get("no_placement", false)):
+		# Entrada de um bloco novo (sons das palavras, letras parecidas...): teste rápido; quem já sabe pula o bloco.
+		finished = true
+		var d1 := narrate(Lines.n("Teste rápido! Se você já souber, a gente pula essa parte!"))
+		after(d1 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(bt["samples"][0]["id"]), "placement": bt["samples"],
+			"block": bt["block"], "back": "academy"}))
+		return
 	if not nodes_cache.is_empty() and next_index >= nodes_cache.size():
 		_area_done()
 	elif params.has("area"):

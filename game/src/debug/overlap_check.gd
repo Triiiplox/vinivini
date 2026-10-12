@@ -93,7 +93,7 @@ func _cases() -> Array:
 		["fono_sessao_adulto", "fono_session", {"target": "ch", "lv": 3}, null, 0.4, _fono_adult],
 		["fono_academia", "fono_gym", {}],
 	]
-	for t in ["summary", "skills", "history", "diary", "speech", "english", "challenge", "settings"]:
+	for t in ["summary", "skills", "levels", "history", "diary", "speech", "english", "challenge", "settings"]:
 		c.append(["pais_" + t, "parent", {"tab": t}])
 	c.append_array([
 		["parent_gate", "parent_gate", {}],

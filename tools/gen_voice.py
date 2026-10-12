@@ -43,6 +43,11 @@ ENGINE = {"cosmo": "piper-faber-1"}
 # Modelos em PIPER_DIR (dii.onnx, faber.onnx, cadu.onnx + .json).
 PIPER.update({"narrator": "dii.onnx", "npc": "cadu.onnx", "fonoerr": "dii.onnx", "fonoipa": "dii.onnx"})
 ENGINE.update({"narrator": "piper-dii-1", "npc": "piper-cadu-1", "fonoerr": "piper-dii-1", "fonoipa": "piper-dii-1"})
+# Níveis v4.4 (lessons/levels.json, tools/build_levels.py): perguntas geradas na hora com instrução genérica
+# (Lines.n no código) + a palavra/sílaba/frase falada, que vem dos dados e está toda listada em "voice".
+for t in J("lessons/levels.json").get("voice", []):
+    add("narrator", t, "levels")
+
 # Módulo FALA (fono): "fonoipa" = texto já em fonemas IPA (o som sozinho: ʃːːːː); "fonoerr" = "de|para|palavra":
 # a palavra com a troca típica (chave → save, sapo → θapo, cara → cala), para o Ouvido de Detetive.
 _PIPER = {}

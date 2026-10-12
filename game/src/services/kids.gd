@@ -65,6 +65,7 @@ static func select(id: String) -> void:
 		SaveService.profiles.save_profile(p)
 	RewardService.ensure_starter_items()
 	RewardService.refresh_name()
+	LevelPlan.apply_defaults()  # nível de partida do perfil (o Vini começa acima do que já domina)
 
 
 ## Abre o último perfil usado (no começo do app, antes de escolher).

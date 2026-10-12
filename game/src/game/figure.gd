@@ -6,7 +6,8 @@ extends Node2D
 ##   size{s}, face{mood}, icon{id,c}, text{s, c?}, npc{kind,mood}, crew, moon{phase 0..7}, daynight{side},
 ##   constellation{id}, galaxy, comet, satellite, blackhole, plant{stage}, water{state}, weather{w},
 ##   shadow{light}, pair{a,b}, row{items}, painted{id}, float{obj, sinks}, scale{heavy,light}, near_far{near},
-##   scene{a, rel, b} (frase com posição) e as de MathFigures: tens, clock, money, frac, numline
+##   scene{a, rel, b} (frase com posição), as de MathFigures: tens, clock, money, frac, numline, place, vert, ruler,
+##   e a de PuzzleFigures: sudoku. Texto aceita flip ("h"/"v": letra espelhada).
 
 const SHAPE_COLOR := Color("#22D3EE")
 const INK := Color(0.03, 0.06, 0.15, 0.9)
@@ -102,6 +103,10 @@ func _ready() -> void:
 			l.autowrap_mode = TextServer.AUTOWRAP_WORD if l.text.length() > 16 else TextServer.AUTOWRAP_OFF
 			l.size = Vector2(bw, bh)
 			l.position = -l.size / 2.0
+			if spec.has("flip"):
+				# Letra espelhada (exercício de letra virada): gira em volta do centro.
+				l.pivot_offset = l.size / 2.0
+				l.scale = Vector2(-1, 1) if str(spec["flip"]) == "h" else Vector2(1, -1)
 			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			UI.child_ok(l)  # conteúdo de leitura (o que se aprende), não instrução
 			add_child(l)
@@ -195,6 +200,9 @@ func _draw() -> void:
 		return
 	if MathFigures.handles(str(spec.get("t", ""))):
 		MathFigures.draw(self, spec, box)
+		return
+	if PuzzleFigures.handles(str(spec.get("t", ""))):
+		PuzzleFigures.draw(self, spec, box)
 		return
 	var r := box * 0.4
 	match str(spec.get("t", "")):

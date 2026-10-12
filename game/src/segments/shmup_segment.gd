@@ -753,7 +753,7 @@ func _spawn_gate(k: String) -> void:
 	var picks: Array = []
 	var calc := bool(SaveService.settings.get_value("knows_basics"))
 	if calc:
-		var g := EndlessGen.math(mini(Stages.math_level(), 9))
+		var g := EndlessGen.math(mini(Stages.math_level(), EndlessGen.FLY_MAX))
 		ui.calc_label.text = str(g["show"]["s"])
 		ui.calc_label.add_theme_color_override("font_color", Palette.YELLOW)
 		gate_answer = str(int(g["ans"]))

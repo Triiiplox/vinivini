@@ -4,7 +4,8 @@ extends BaseScreen
 
 const TABS := [
 	["summary", "Resumo"], ["skills", "Habilidades"], ["history", "Histórico"],
-	["diary", "Diário"], ["speech", "Fala"], ["english", "Inglês"], ["challenge", "Desafio"], ["settings", "Ajustes"],
+	["levels", "Níveis"], ["diary", "Diário"], ["speech", "Fala"], ["english", "Inglês"], ["challenge", "Desafio"],
+	["settings", "Ajustes"],
 ]
 const AGES := [["3", 36], ["3½", 42], ["4", 48], ["4½", 54], ["5", 60], ["6", 72]]
 const REGIONS := [["Rio", "rio"], ["Nordeste", "nordeste"], ["Interior SP", "sp_interior"], ["Minas", "mg"], ["Sul", "sul"],
@@ -51,7 +52,7 @@ func on_enter() -> void:
 	tabs_box = tabs
 	content.add_child(tabs)
 	for t in TABS:
-		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(146, 66), false, 22)
+		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(130, 66), false, 20)
 		b.name = "Tab_%s" % t[0]
 		b.tapped.connect(_show.bind(t[0]))
 		tabs.add_child(b)
@@ -74,6 +75,7 @@ func _show(t: String) -> void:
 	match t:
 		"summary": _summary()
 		"skills": _skills()
+		"levels": ParentLevels.build(body, _show.bind("levels"))
 		"history": _history()
 		"diary": _diary()
 		"speech": _speech()

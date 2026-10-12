@@ -4,6 +4,11 @@ extends LessonCore
 ## nivelamento e treino infinito).
 
 const PAD_KEYS := ["1", "2", "3", "4", "5", "<", "6", "7", "8", "9", "0", "OK"]
+## Ordem de frases (história): coluna embaralhada à esquerda, coluna na ordem à direita.
+const ROWS_LEFT := 430.0
+const ROWS_RIGHT := 900.0
+const ROWS_TOP := 236.0
+const ROWS_GAP := 126.0
 
 
 # ------------------------------------------------------------------ mão na massa: traçar a letra
@@ -390,33 +395,37 @@ func _build_word() -> void:
 	pic.name = "Pic"
 	pic.tapped.connect(func(_i): narrate(str(rd.get("word_say", ""))))
 	slots_x.clear()
+	# Palavras grandes (5–7 pedacinhos): os quadrados ficam mais juntos para caber na tela.
+	var gap := minf(190.0, 1120.0 / maxf(1.0, parts.size()))
+	var kz := gap / 190.0
 	for i in parts.size():
-		var x := 640.0 + (i - (parts.size() - 1) / 2.0) * 190.0
+		var x := 640.0 + (i - (parts.size() - 1) / 2.0) * gap
 		slots_x.append(x)
 		var z := DropZone.new()
-		z.radius = 95.0
+		z.radius = 95.0 * kz
 		z.key = str(i)
 		z.position = Vector2(x, 400)
 		world.add_child(z)
 		zones.append(z)
 		var bg := Panel.new()
 		bg.add_theme_stylebox_override("panel", UITheme.rounded(Color(1, 1, 1, 0.1), 28, 5, Color(DS.STAR_GOLD, 0.9)))
-		bg.size = Vector2(170, 150)
-		bg.position = Vector2(-85, -75)
+		bg.size = Vector2(170 * kz, 150)
+		bg.position = Vector2(-85 * kz, -75)
 		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		z.add_child(bg)
 	var pool: Array = parts.duplicate() + rd.get("extra", [])
 	pool.shuffle()
+	var pgap := minf(190.0, 1120.0 / maxf(1.0, pool.size()))
 	for j in pool.size():
-		var x := 640.0 + (j - (pool.size() - 1) / 2.0) * 190.0
-		var c := _card({"t": "text", "s": str(pool[j])}, Vector2(x, 600), 0.72)
+		var x := 640.0 + (j - (pool.size() - 1) / 2.0) * pgap
+		var c := _card({"t": "text", "s": str(pool[j])}, Vector2(x, 600), 0.72 * minf(1.0, pgap / 190.0))
 		c.name = "Syl_%s_%d" % [pool[j], j]
 		c.payload = str(pool[j])
 		c.draggable = true
 		c.tappable = true
 		c.tapped.connect(_say_syllable)
 		c.dropped.connect(_on_syllable_drop)
-	var d := narrate(str(rd["say"]))
+	var d := _say_q()
 	_demo_once(d)
 
 
@@ -451,6 +460,43 @@ func _on_syllable_drop(c: Interactable, z: DropZone) -> void:
 			_correct(c)
 			var d := narrate(str(rd.get("done", "")))
 			after(maxf(d, 1.0) + 0.5, _advance))
+
+
+# ------------------------------------------------------------------ ordem de frases (história)
+
+
+## Frases longas da história: embaralhadas numa coluna à esquerda; tocadas na ordem, vão para a direita.
+func _order_rows() -> void:
+	var items: Array = rd.get("items", [])
+	var n := items.size()
+	var idx := range(n)
+	idx.shuffle()
+	if n > 1 and idx == range(n):
+		idx.reverse()
+	for j in n:
+		var i: int = idx[j]
+		var spec: Dictionary = (items[i] as Dictionary).duplicate()
+		spec["wmax"] = 3.0
+		var c := _card(spec, Vector2(ROWS_LEFT, ROWS_TOP + j * ROWS_GAP), 0.47)
+		c.payload = i
+		c.name = "Ord_%d" % i
+		c.tapped.connect(_on_order)
+		var slot := Panel.new()
+		slot.add_theme_stylebox_override("panel", UITheme.rounded(Color(1, 1, 1, 0.08), 24, 5, Color(DS.STAR_GOLD, 0.85)))
+		slot.size = Vector2(CARD * 3.0 * 0.47, CARD * 0.47)
+		slot.position = row_slot(j) - slot.size / 2.0
+		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		world.add_child(slot)
+		slot.add_to_group("lesson_tmp")
+		var num := UI.label(str(j + 1), 40, DS.STAR_GOLD)
+		num.position = Vector2(-52, slot.size.y / 2.0 - 28)
+		UI.child_ok(num)
+		slot.add_child(num)
+	_say_q()
+
+
+func row_slot(i: int) -> Vector2:
+	return Vector2(ROWS_RIGHT, ROWS_TOP + i * ROWS_GAP)
 
 
 # ------------------------------------------------------------------ ensinar: demonstrar na 1ª vez
@@ -488,7 +534,7 @@ func _num() -> void:
 		c.payload = key
 		c.tapped.connect(_on_key)
 	_num_display()
-	narrate(str(rd.get("say", "")))
+	_say_q()
 
 
 func _key_card(key: String) -> Interactable:
@@ -603,9 +649,11 @@ func _stage_panel(stars: int) -> void:
 func _placement_result() -> Dictionary:
 	var area := str(lesson.get("group", ""))
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	if not pd.get("placed") is Dictionary:
-		pd["placed"] = {}
-	pd["placed"][area] = true
+	var block := str(params.get("block", ""))
+	var tag := "block_tests" if block != "" else "placed"
+	if not pd.get(tag) is Dictionary:
+		pd[tag] = {}
+	pd[tag][block if block != "" else area] = true
 	var k := 0
 	while k < results.size() and bool(results[k]):
 		k += 1
@@ -614,10 +662,13 @@ func _placement_result() -> Dictionary:
 	if k == 0:
 		SaveService.progress.persist(SaveService.profile_id)
 		return rk
+	# Do começo do teste (início da trilha, ponto de partida escolhido ou começo do bloco) até a k-ésima amostra.
+	var ns := Stages.nodes(area)
+	var from := LevelPlan.block_start(area, block) if block != "" else Stages.start_index(area)
 	var last_key := str(samples[mini(k, samples.size()) - 1]["key"])
-	for nd in Stages.nodes(area):
-		rk = _merge_rank(rk, Stages.record(str(nd["key"]), 2))
-		if str(nd["key"]) == last_key:
+	for i in range(maxi(0, from), ns.size()):
+		rk = _merge_rank(rk, Stages.record(str(ns[i]["key"]), 2))
+		if str(ns[i]["key"]) == last_key:
 			break
 	return rk
 
@@ -630,7 +681,7 @@ func _endless_level() -> int:
 	var kind := str(params["endless"])
 	if not (pd.get("endless", {}) as Dictionary).has(kind):
 		# 1ª vez: começa perto do que ele já mostrou na trilha (não em 5 + 4 para quem já faz conta de 2 dígitos)
-		return clampi(1 + Stages.area_level(kind).x / 8, 1, 8)
+		return clampi(1 + Stages.area_level(kind).x / 8, 1, 8) if kind != "math" else Stages.math_level()
 	return int((pd["endless"] as Dictionary)[kind])
 
 
@@ -638,7 +689,7 @@ func _set_endless_level(v: int) -> void:
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
 	if not pd.get("endless") is Dictionary:
 		pd["endless"] = {}
-	pd["endless"][str(params["endless"])] = clampi(v, 1, 10)
+	pd["endless"][str(params["endless"])] = clampi(v, 1, EndlessGen.MAX)
 
 
 func _gen_round() -> void:

@@ -1,6 +1,11 @@
 class_name EndlessGen
 extends RefCounted
-## Gerador do treino sem fim: devolve {say, show, ans} no nível 1–10. Fala genérica (já gravada) + conta escrita.
+## Gerador do treino sem fim: devolve {say, show, ans} no nível 1–MAX. Fala genérica (já gravada) + conta escrita.
+## v4.4: níveis 11–16 para quem já sabe a tabuada até 10 (tabuada misturada, 3 algarismos com "vai um" e
+## empréstimo, 11 e 12, número escondido, milhares). O voo (portais) usa até FLY_MAX: resposta com até 4 algarismos.
+
+const MAX := 16
+const FLY_MAX := 14
 
 const SAYS := ["Quanto dá essa conta?", "Faça a conta: quanto dá?", "E agora, quanto dá?", "Qual é o resultado?",
 	"Resolva a conta!"]
@@ -15,6 +20,8 @@ static func _q(text: String, ans: int, say: String = "") -> Dictionary:
 
 
 static func math(lv: int) -> Dictionary:
+	if lv > 10:
+		return _math_hi(mini(lv, MAX))
 	match clampi(lv, 1, 10):
 		1:
 			var a := _r(1, 9)
@@ -40,7 +47,8 @@ static func math(lv: int) -> Dictionary:
 		6:
 			var a6 := _r(3, 9) * 10 + _r(0, 9)
 			var b6 := _r(1, 3) * 10 + _r(0, 9)
-			return _q("%d + %d = ?" % [a6, b6], a6 + b6) if randf() < 0.5 else _q("%d − %d = ?" % [a6, b6], a6 - b6)
+			# (v4.4: 30 − 39 dava resposta negativa; a subtração agora sempre tem a maior primeiro)
+			return _q("%d + %d = ?" % [a6, b6], a6 + b6) if randf() < 0.5 or a6 < b6 else _q("%d − %d = ?" % [a6, b6], a6 - b6)
 		7:
 			var a7: int = [2, 5, 10][randi() % 3]
 			var b7 := _r(1, 10)
@@ -56,6 +64,44 @@ static func math(lv: int) -> Dictionary:
 	var a10 := _r(100, 500)
 	var b10 := _r(10, 99)
 	return _q("%d + %d = ?" % [a10, b10], a10 + b10) if randf() < 0.5 else _q("%d − %d = ?" % [a10, b10], a10 - b10)
+
+
+## Níveis acima de 10 (MathGen faz as somas com e sem "vai um").
+static func _math_hi(lv: int) -> Dictionary:
+	match lv:
+		11:
+			var a := _r(2, 10)
+			var b := _r(2, 10)
+			return _q("%d × %d = ?" % [a, b], a * b)
+		12:
+			var p := MathGen.pair(_rng(), "+", 3, 3, 1)
+			return _q("%d + %d = ?" % [p[0], p[1]], int(p[0]) + int(p[1]))
+		13:
+			var m := MathGen.pair(_rng(), "−", 3, 3, 1)
+			return _q("%d − %d = ?" % [m[0], m[1]], int(m[0]) - int(m[1]))
+		14:
+			var t: int = [11, 12][randi() % 2]
+			var u := _r(2, 12)
+			if randf() < 0.5:
+				return _q("%d ÷ %d = ?" % [t * u, t], u)
+			return _q("%d × %d = ?" % [t, u], t * u)
+		15:
+			var x := _r(3, 9)
+			var y := _r(3, 9)
+			if randf() < 0.5:
+				return _q("%d × ? = %d" % [x, x * y], y, "Qual número falta para a conta ficar certa?")
+			var c := _r(3, 9) * 100
+			var k := _r(11, c / 10 - 1) * 10
+			return _q("%d + ? = %d" % [k, c], c - k, "Qual número falta para a conta ficar certa?")
+	var a16 := _r(10, 60) * 100
+	var b16 := _r(5, 35) * 100
+	return _q("%d + %d = ?" % [a16, b16], a16 + b16) if randf() < 0.5 or a16 <= b16 else _q("%d − %d = ?" % [a16, b16], a16 - b16)
+
+
+static func _rng() -> RandomNumberGenerator:
+	var g := RandomNumberGenerator.new()
+	g.randomize()
+	return g
 
 
 ## Como resolver a conta (mostrado quando erra), sempre terminando no resultado: contar para a frente/trás,

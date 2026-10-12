@@ -80,6 +80,9 @@ static func next_lesson(area: String) -> Dictionary:
 		var samples := Stages.placement_samples(area)
 		if not samples.is_empty():
 			return {"lesson": str(samples[0]["id"]), "placement": samples}
+	var bt := LevelPlan.block_test(area)
+	if not bt.is_empty():
+		return {"lesson": str(bt["samples"][0]["id"]), "placement": bt["samples"], "block": bt["block"]}
 	var i := Stages.next_index(area)
 	var nd: Dictionary = ns[mini(i, ns.size() - 1)]
 	return {"lesson": str(nd["id"]), "stage": int(nd["stage"]), "review": i >= ns.size()}
