@@ -33,18 +33,40 @@ PY
 # válido do primeiro plano do ícone (ninguém o usa: o ícone adaptativo só tem fundo e primeiro plano).
 mm="$work/d/res/values-anydpi-v26/mipmaps.xml"
 [ -f "$mm" ] && sed -i 's#<item type="mipmap" name="themed_icon">false</item>#<item type="mipmap" name="themed_icon">@mipmap/icon_foreground</item>#' "$mm"
-# Vídeo (crash na TCL BeyondTV2, logcat 12/10: "createContext failed" no GLThread): o Godot 4.5 escolhe a
-# configuração EGL filtrando só por "suporta OpenGL ES 2" e depois pede um contexto ES 3.0 — em drivers de TV a
-# configuração escolhida pode não aceitar 3.0. Aqui o filtro passa a exigir ES 3 (EGL_OPENGL_ES3_BIT_KHR = 0x40).
-# Se a GPU só tiver ES 2, o erro vira "No configs match configSpec" (e aí o Godot 4 não roda nesse aparelho).
+# Vídeo (crash na TCL 50P735 / Realtek RT2851, Android 9; logcat 12/10: "createContext failed" no GLThread): o
+# Godot 4.5 usa a PRIMEIRA configuração EGL com as cores certas e depois pede um contexto OpenGL ES 3.0, que o driver
+# da TV recusou (também com o filtro ES 3). Agora o RegularConfigChooser chama org.vini.ViniEgl.pick (tools/tv/egl,
+# dex pronto em ViniEgl.dex): TESTA cada configuração criando um contexto ES 3.0 e usa a primeira que funciona;
+# cada tentativa vai para o logcat com a etiqueta ViniEGL.
 python3 - "$work/d" <<'PY'
-import glob, sys
+import glob, re, sys
 f = glob.glob(sys.argv[1] + "/smali*/org/godotengine/godot/xr/regular/RegularConfigChooser.smali")
 assert len(f) == 1, "RegularConfigChooser.smali não encontrado"
 s = open(f[0]).read()
-old = "        0x3040\n        0x4\n"
-assert s.count(old) == 1, "configSpec do EGL mudou no Godot: revisar o patch"
-open(f[0], "w").write(s.replace(old, "        0x3040\n        0x40\n"))
+cls = "Lorg/godotengine/godot/xr/regular/RegularConfigChooser;"
+sig = ("chooseConfig(Ljavax/microedition/khronos/egl/EGL10;Ljavax/microedition/khronos/egl/EGLDisplay;"
+       "[Ljavax/microedition/khronos/egl/EGLConfig;)Ljavax/microedition/khronos/egl/EGLConfig;")
+m = re.search(r"\.method public " + re.escape(sig) + r".*?\.end method", s, re.S)
+assert m, "chooseConfig(egl, display, configs) mudou no Godot: revisar o patch"
+body = "\n".join([
+    ".method public " + sig,
+    "    .locals 9",
+    "    move-object v0, p1",
+    "    move-object v1, p2",
+    "    move-object v2, p3",
+    "    iget v3, p0, " + cls + "->mRedSize:I",
+    "    iget v4, p0, " + cls + "->mGreenSize:I",
+    "    iget v5, p0, " + cls + "->mBlueSize:I",
+    "    iget v6, p0, " + cls + "->mAlphaSize:I",
+    "    iget v7, p0, " + cls + "->mDepthSize:I",
+    "    iget v8, p0, " + cls + "->mStencilSize:I",
+    "    invoke-static/range {v0 .. v8}, Lorg/vini/ViniEgl;->pick(Ljavax/microedition/khronos/egl/EGL10;"
+    "Ljavax/microedition/khronos/egl/EGLDisplay;[Ljavax/microedition/khronos/egl/EGLConfig;IIIIII)"
+    "Ljavax/microedition/khronos/egl/EGLConfig;",
+    "    move-result-object v0",
+    "    return-object v0",
+    ".end method"])
+open(f[0], "w").write(s[:m.start()] + body + s[m.end():])
 PY
 # Tela de abertura do Android: fundo azul-escuro do jogo (o modelo do Godot deixa branco) com a nave no centro.
 st="$work/d/res/values/styles.xml"
@@ -53,6 +75,10 @@ grep -q windowSplashScreenBackground "$st" || { echo "splash não ajustado"; exi
 mkdir -p "$work/d/res/drawable-xhdpi"
 cp "$here/tv_banner.png" "$work/d/res/drawable-xhdpi/tv_banner.png"
 java -jar "$APKTOOL" b "$work/d" -o "$work/u.apk" >/dev/null
+# o escolhedor de vídeo entra como mais um dex (Android 5+ carrega classes2.dex, classes3.dex... sozinho)
+n=$(unzip -l "$work/u.apk" | grep -cE ' classes[0-9]*\.dex$')
+cp "$here/egl/ViniEgl.dex" "$work/classes$((n + 1)).dex"
+(cd "$work" && zip -q -0 u.apk "classes$((n + 1)).dex")
 "$bt/zipalign" -f -p 4 "$work/u.apk" "$work/a.apk"
 "$bt/apksigner" sign --ks "$ks" --ks-key-alias vini --ks-pass pass:vinisideload --key-pass pass:vinisideload \
   --out "$out" "$work/a.apk" 2>/dev/null
