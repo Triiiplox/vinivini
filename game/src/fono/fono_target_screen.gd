@@ -76,8 +76,8 @@ func _train_card(pos: Vector2) -> void:
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	train.add_child(p)
 	var face := FonoFace.new()
-	face.scale = Vector2.ONE * 0.62
-	face.position = Vector2(0, -70)
+	face.scale = Vector2.ONE * 0.75
+	face.position = Vector2(0, -50)
 	face.set_pose(target)
 	train.add_child(face)
 	var lv := FonoData.level_open(target)

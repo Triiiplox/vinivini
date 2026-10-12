@@ -9,8 +9,8 @@ extends GameScreen
 
 const SPEED := 0.4  ## fração do caminho por segundo de som (≈ 2,5 s de CHHHH por gota)
 const P0 := Vector2(150, 640)
-const P1 := Vector2(110, 110)
-const P2 := Vector2(540, 130)
+const P1 := Vector2(110, 170)
+const P2 := Vector2(470, 200)
 const UMB := Vector2(640, 500)
 const UMB_R := 220.0
 

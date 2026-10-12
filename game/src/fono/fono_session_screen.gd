@@ -424,7 +424,10 @@ func _set_reps(n: int) -> void:
 func _model_then_turn() -> void:
 	_buttons("")
 	var d := _model_duration()
+	var cur := item
 	after(d + 0.3, func():
+		if step != "speak" or item != cur:
+			return  # a figura mudou (pausa, fim, saída) enquanto o modelo falava
 		if lv_id == "historia":
 			narrate(Lines.n("Agora conte você a história!"))
 		elif reps == 3 and reps_done == 0:
@@ -455,9 +458,9 @@ func _mic_gone() -> void:
 	if mic_warned:
 		return
 	mic_warned = true
-	var p := FonoPanels.box("MicNotice", Rect2(330, 420, 620, 130), 0.92)
+	var p := FonoPanels.box("MicNotice", Rect2(1050, 110, 225, 370), 0.92)
 	p.add_child(FonoPanels.adult_text("O microfone não está captando — continue com os botões CERTO/QUASE.",
-		Rect2(20, 10, 580, 110), 24, Color.WHITE))
+		Rect2(14, 14, 197, 342), 22, Color.WHITE))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.stage.add_child(p)
 	var tw := p.create_tween()
@@ -587,14 +590,14 @@ func _pause_star() -> void:
 	var st := ArtSprite.new("props", "star_token", 150.0)
 	st.position = Vector2(350, 210)
 	box.add_child(st)
-	var more := FonoPanels.button("FonoMore", "primary", "play", "MAIS UM", Vector2(370, 310), 280, 130)
+	var more := FonoPanels.button("FonoMore", "primary", "play", "MAIS UM", Vector2(360, 320), 320, 110)
 	more.pressed.connect(func():
 		box.queue_free()
 		block_no = 2
 		queue = FonoPlan.production_items(target, lv)
 		_next_speak())
 	box.add_child(more)
-	var stop := FonoPanels.button("FonoStop", "secondary", "check", "TERMINAR", Vector2(50, 310), 280, 130)
+	var stop := FonoPanels.button("FonoStop", "secondary", "check", "TERMINAR", Vector2(20, 320), 320, 110)
 	stop.pressed.connect(func():
 		box.queue_free()
 		_finish_session())
@@ -687,6 +690,8 @@ func _end(ok: int, of: int, up: bool) -> void:
 	nxt.pressed.connect(func():
 		if up:
 			Router.reset_to("fono_session", {"target": target, "lv": FonoData.level_open(target)})
+		elif FonoTargetScreen.activities_for(target).is_empty():
+			Router.reset_to("fono", {})
 		else:
 			Router.reset_to("fono_target", {"target": target}))
 	box.add_child(nxt)

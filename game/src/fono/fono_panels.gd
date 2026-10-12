@@ -94,14 +94,14 @@ static func conversa(target_id: String, rect: Rect2) -> Panel:
 	if words.size() < 3:
 		words = (t.get("inicio", []) as Array).slice(0, 6)
 	words = words.slice(0, 6)
-	var cell := Vector2(150, 150)
-	var x0 := (rect.size.x - words.size() * (cell.x + 12.0) + 12.0) / 2.0
+	var cell := Vector2(135, 150)
+	var x0 := (rect.size.x - words.size() * (cell.x + 10.0) + 10.0) / 2.0
 	for i in words.size():
 		var w := str(words[i])
 		var tex := FonoData.picture(w)
 		var holder := Panel.new()
 		holder.add_theme_stylebox_override("panel", UITheme.rounded(Color(1, 1, 1, 0.95), 24, 3, DS.STAR_GOLD))
-		holder.position = Vector2(x0 + i * (cell.x + 12.0), 86)
+		holder.position = Vector2(x0 + i * (cell.x + 10.0), 86)
 		holder.size = cell
 		holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		p.add_child(holder)
@@ -110,8 +110,8 @@ static func conversa(target_id: String, rect: Rect2) -> Panel:
 			r.texture = tex
 			r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			r.position = Vector2(10, 6)
-			r.size = Vector2(130, 106)
+			r.position = Vector2(8, 6)
+			r.size = Vector2(119, 104)
 			r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			holder.add_child(r)
 		var l := FonoText.rich_label(26 if tex else 30, INK)
@@ -127,5 +127,5 @@ static func conversa(target_id: String, rect: Rect2) -> Panel:
 	if ex != "":
 		tip = "Se ele trocar o som, repita certo, com naturalidade, sem pedir para repetir: \"%s\"" % ex
 	p.add_child(adult_text("Para o adulto: conversem sobre as figuras (o que é, cor, onde está). " + tip,
-		Rect2(30, 250, rect.size.x - 60, 120), 22))
+		Rect2(30, 252, rect.size.x - 60, 190), 24))
 	return p

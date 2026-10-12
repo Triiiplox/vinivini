@@ -44,8 +44,8 @@ func build() -> void:
 	UI.child_ok(title)  # nome do lugar
 	hud.stage.add_child(title)
 	face = FonoFace.new()
-	face.position = Vector2(370, 360)
-	face.scale = Vector2.ONE * 1.25
+	face.position = Vector2(370, 335)
+	face.scale = Vector2.ONE * 1.1  # o rosto novo tem gola: não encostar no nome do exercício
 	world.add_child(face)
 	mirror = FonoMirror.new()
 	mirror.size = Vector2(400, 300)

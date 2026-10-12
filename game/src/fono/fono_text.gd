@@ -130,7 +130,7 @@ static func _known_ch(w: String) -> bool:
 	return false
 
 
-## Rótulo pronto para a palavra com destaque (centralizado, fonte do título).
+## Rótulo pronto para a palavra com destaque (centralizado, fonte de alfabetização em negrito).
 static func rich_label(font_size: int, color: Color) -> RichTextLabel:
 	var r := RichTextLabel.new()
 	r.bbcode_enabled = true
@@ -140,7 +140,7 @@ static func rich_label(font_size: int, color: Color) -> RichTextLabel:
 	r.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	r.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	r.add_theme_font_override("normal_font", UITheme.title_font())
+	r.add_theme_font_override("normal_font", DS.font("learning"))  # Andika: letra de alfabetização
 	r.add_theme_font_size_override("normal_font_size", font_size)
 	r.add_theme_color_override("default_color", color)
 	UI.child_ok(r)  # a palavra (ele lê)
