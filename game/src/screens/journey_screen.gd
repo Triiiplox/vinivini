@@ -25,7 +25,8 @@ func build() -> void:
 		var ids: Array = wd["missions"]
 		var left := w % 2 == 0
 		var planet := ShaderPlanet.new(str(wd["planet"]), 58.0)
-		planet.position = Vector2(170.0 if left else 1110.0, ROWS[w])
+		# 20 px para dentro: o nome "Lua" (em cima do planeta) colava no botão casa em 1280×720 e na TV.
+		planet.position = Vector2(190.0 if left else 1090.0, ROWS[w])
 		planet.z_index = 2
 		world.add_child(planet)
 		_world_chip(wd, planet.position)
@@ -98,7 +99,7 @@ func _node(id: String, n: int, pos: Vector2) -> void:
 		it.add_child(face)
 		var play := DSButton.new("primary", "play", Vector2(64, 64))
 		play.name = "PlayJourney"
-		play.position = Vector2(22, 18)
+		play.position = Vector2(6, 34)  # mais para baixo: não encosta na bolinha da missão seguinte
 		play.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(play)
 		Fx.glow(it, Vector2.ZERO, 170.0, Color(0.4, 0.9, 1.0, 0.6), 1.0).z_index = -1

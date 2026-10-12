@@ -26,7 +26,7 @@ func build() -> void:
 	set_sky("moon")
 	AudioService.play_music("puzzle")
 	world.add_child(Scenery.new("moon"))
-	add_cosmo(Vector2(1150, 180), 120.0)
+	add_cosmo(Vector2(1150, 200), 120.0)  # abaixo do alto-falante
 	lvl = difficulty(SKILL)
 	hud.set_counter("props", "star_token", 0, rounds)
 	hint_fn = _hint

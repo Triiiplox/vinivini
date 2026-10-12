@@ -40,7 +40,7 @@ func build() -> void:
 			_build_planet()
 		_:
 			_build_drag()
-	add_cosmo(Vector2(1160, 150), 100.0)
+	add_cosmo(Vector2(1160, 190), 100.0)  # abaixo do alto-falante
 	hint_fn = _hint
 
 

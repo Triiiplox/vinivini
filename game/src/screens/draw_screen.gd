@@ -40,7 +40,8 @@ func build() -> void:
 		p.position = Vector2(-30, -30)
 		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(p)
-		it.position = Vector2(70, 130 + i * 56) if i < 8 else Vector2(1210, 130 + (i - 8) * 70)
+		# Abaixo dos botões casa/alto-falante (em 1280×720 e na TV o branco e o marrom ficavam embaixo deles).
+		it.position = Vector2(70, 166 + i * 54) if i < 8 else Vector2(1210, 166 + (i - 8) * 70)
 		it.scale = Vector2(0.85, 0.85)
 		world.add_child(it)
 		it.tapped.connect(_pick)
@@ -56,7 +57,7 @@ func build() -> void:
 		dot.position = -dot.size / 2
 		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(dot)
-		b.position = Vector2(1210, 300 + k * 80)
+		b.position = Vector2(1210, 316 + k * 80)
 		world.add_child(b)
 		b.tapped.connect(_pick)
 	for i in STAMPS.size():
@@ -73,7 +74,7 @@ func build() -> void:
 	ic.size = Vector2(70, 70)
 	ic.position = Vector2(-35, -35)
 	trash.add_child(ic)
-	trash.position = Vector2(1210, 470)
+	trash.position = Vector2(1210, 476)
 	trash.tapped.connect(func(_i): _clear())
 	world.add_child(trash)
 	var done := DSButton.new("primary", "check", Vector2(150, 110), "success")

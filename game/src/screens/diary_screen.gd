@@ -24,7 +24,7 @@ func build() -> void:
 	nxt.position = Vector2(1150, 610)
 	nxt.pressed.connect(_next_page)
 	hud.stage.add_child(nxt)
-	add_cosmo(Vector2(1180, 150), 100.0)
+	add_cosmo(Vector2(1180, 190), 100.0)  # abaixo do alto-falante
 	hint_fn = func(): hand.show_tap(Vector2(1200, 660))
 
 

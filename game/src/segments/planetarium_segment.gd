@@ -79,7 +79,7 @@ func build() -> void:
 	if play == "order":
 		exploring = false
 		quests = ORDER.size()
-	add_cosmo(Vector2(120, 140), 110.0)
+	add_cosmo(Vector2(215, 175), 110.0)  # fora do botão casa (em 1280×720 e na TV a cabeça ficava atrás dele)
 	hint_fn = _hint
 
 

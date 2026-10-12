@@ -61,14 +61,18 @@ func _world_node(w: int) -> void:
 	it.name = "Mundo_%d" % (w + 1)
 	it.payload = w
 	it.radius = 64.0
-	it.position = Vector2(240 + w * 160, 175)
+	# Planetas um pouco menores e mais altos: o nome do planeta escolhido (maior) não fica atrás do inimigo da fase 1
+	# nem da coroa do mestre (12/10).
+	it.position = Vector2(240 + w * 160, 165)
 	var open := ShmupLevels.is_open(w * 4)
-	var pl := ShaderPlanet.new(str(ShmupLevels.WORLDS[w]), 48.0)
+	var pl := ShaderPlanet.new(str(ShmupLevels.WORLDS[w]), 42.0)
 	pl.modulate = Color.WHITE if open else Color(0.4, 0.4, 0.5)
 	it.add_child(pl)
 	var nm := UI.label(str(ShmupLevels.WORLD_NAMES[w]), 24, Color.WHITE)
+	nm.add_theme_constant_override("outline_size", 8)  # lê em cima da nebulosa clara
+	nm.add_theme_color_override("font_outline_color", Color(0.05, 0.05, 0.2))
 	nm.size = Vector2(160, 34)
-	nm.position = Vector2(-80, 54)
+	nm.position = Vector2(-80, 46)
 	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	nm.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(nm)  # nome do planeta
@@ -110,10 +114,10 @@ func _show_world(w: int) -> void:
 	path.width = 10.0
 	path.default_color = Color(1, 1, 1, 0.25)
 	for k in 4:
-		path.add_point(Vector2(250 + k * 260, 400 - (60 if k == 3 else 0)))
+		path.add_point(Vector2(250 + k * 260, 400 - (30 if k == 3 else 0)))
 	_phase_layer.add_child(path)
 	for k in 4:
-		_phase_node(w * 4 + k, Vector2(250 + k * 260, 400 - (60 if k == 3 else 0)))
+		_phase_node(w * 4 + k, Vector2(250 + k * 260, 400 - (30 if k == 3 else 0)))
 
 
 func _phase_node(i: int, pos: Vector2) -> void:

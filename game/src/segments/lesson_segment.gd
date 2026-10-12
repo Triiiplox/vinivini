@@ -473,10 +473,11 @@ func _count_star() -> void:
 func _num() -> void:
 	typed = ""
 	if rd.has("show"):
-		var shown := _card(rd["show"], Vector2(640, 165), 0.85)
+		# Abaixo da HUD (antes em y 165 com 0.85: a conta larga passava por baixo do placar 0/10).
+		var shown := _card(rd["show"], Vector2(640, HUD_BOTTOM + CARD * 0.7 / 2.0), 0.7)
 		shown.name = "Shown"
 		shown.tappable = false
-	var disp := _card({"t": "text", "s": "?"}, Vector2(640, 368), 0.5)
+	var disp := _card({"t": "text", "s": "?"}, Vector2(640, 374), 0.5)
 	disp.name = "NumDisplay"
 	disp.tappable = false
 	for i in PAD_KEYS.size():

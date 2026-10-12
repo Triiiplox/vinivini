@@ -75,7 +75,7 @@ func build() -> void:
 	bell.add_child(ArtSprite.new("ui", "check", 110.0))
 	bell.tapped.connect(_serve)
 	world.add_child(bell)
-	add_cosmo(Vector2(1180, 170), 120.0)
+	add_cosmo(Vector2(1180, 200), 120.0)  # abaixo do alto-falante
 	_lvl = difficulty("math.addition.concrete")
 	hint_fn = _hint
 
