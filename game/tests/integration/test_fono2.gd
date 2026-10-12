@@ -208,13 +208,31 @@ func test_probes() -> void:
 	check(FonoLog.probe_due("ch"), "depois de 5 sessões: sonda de novo")
 
 
-# ------------------------------------------------------------------ microfone mudo e sessão curta
-func test_mic_silent_and_short_session() -> void:
-	eq(FonoPlan.silent_streak(0, 0.0), 1, "gravação muda conta")
-	eq(FonoPlan.silent_streak(1, 0.3), 0, "gravação com som zera")
-	check(not FonoPlan.mic_dead(true, 1), "uma muda ainda tenta")
-	check(FonoPlan.mic_dead(true, 2), "duas mudas seguidas: só botões do adulto")
-	check(FonoPlan.mic_dead(false, 0), "sem permissão: só botões do adulto")
+# ------------------------------------------------------------------ escuta sem pressa e sessão curta
+func _feed(l: FonoListen, sec: float, level: float) -> String:
+	var r := "listening"
+	var k := 0.0
+	while k < sec and r == "listening":
+		r = l.step(0.05, level)
+		k += 0.05
+	return r
+
+
+func test_listen_waits_and_mic_stays() -> void:
+	var l := FonoListen.new("inicio")
+	eq(_feed(l, 5.0, 0.005), "listening", "5 s quieto: ainda espera a criança começar")
+	eq(_feed(l, 0.8, 0.3), "listening", "falando: continua")
+	eq(_feed(l, 0.6, 0.005), "listening", "pausa curta no meio da fala: continua")
+	eq(_feed(l, 0.5, 0.3), "listening", "voltou a falar")
+	eq(_feed(l, 2.0, 0.005), "done", "calou: termina")
+	var q := FonoListen.new("inicio")
+	eq(_feed(q, 12.0, 0.005), "silence", "ninguém falou: 'não ouvi'")
+	var n := FonoListen.new("inicio")
+	_feed(n, 1.0, 0.08)
+	eq(_feed(n, 3.0, 0.08), "listening", "ruído constante da sala vira piso, não fala")
+	var h := FonoListen.new("historia")
+	_feed(h, 0.5, 0.3)
+	eq(_feed(h, 1.5, 0.005), "listening", "história: pausa de 1,5 s não encerra")
 	check(FonoMic.voicing_cue(0.004, 0.01), "chiado + grave = vibrando (J)")
 	check(not FonoMic.voicing_cue(0.05, 0.01), "grave dominando = vogal, não J")
 	check(not FonoMic.voicing_cue(0.0, 0.01), "só chiado = CH")
@@ -224,19 +242,24 @@ func test_mic_silent_and_short_session() -> void:
 	var s: Node = Router.current_screen
 	s.mic.granted = true
 	s.queue = ["CHHH", "CHHH", "CHHH"]
+	s._next_speak()
+	check(s.mic_btn.visible, "FALAR aparece já no modelo (não some)")
+	s._on_mic()
+	check(s.recording, "toque no meio do modelo: escuta")
 	for k in 2:
-		s._next_speak()
-		s.mic.peak = 0.0
-		s._stop_recording()
-	check(not s.use_mic, "2 gravações mudas: segue sem microfone")
+		s._no_voice()
+	check(s.use_mic, "silêncio não desliga o microfone")
+	check(s.mic_btn.visible and s.skip_btn.visible, "FALAR continua e o FALOU do adulto aparece")
 	await frames(1)
-	var notices := s.find_children("MicNotice", "", true, false).size()
-	eq(notices, 1, "aviso ao adulto uma vez")
+	eq(s.find_children("MicNotice", "", true, false).size(), 1, "aviso ao adulto uma vez")
+	s._on_mic()
+	s._on_mic()
+	check(not s.recording, "tocar escutando encerra")
+	s.mic.granted = false
 	s._next_speak()
 	s._turn_buttons()
-	check(s.ok_btn.visible and not s.mic_btn.visible, "só botões do adulto")
+	check(s.ok_btn.visible and not s.mic_btn.visible, "sem permissão: só botões do adulto")
 	eq(s.step, "adult", "adulto pode confirmar")
-	# Sessão curta: aviso para o adulto depois de ~12 min, uma vez.
 	FonoPlan.reset_session()
 	FonoPlan.mark_session(0)
 	check(not FonoPlan.should_warn(11 * 60000), "11 min: nada")

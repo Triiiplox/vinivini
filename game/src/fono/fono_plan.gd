@@ -14,8 +14,6 @@ const BLOCKS := [6, 9, 12]
 const REPS := [1, 3, 5]
 const REP_LEVELS := ["facil", "inicio", "meio"]
 const SHORT_SESSION_MIN := 12.0
-const SILENT_PEAK := 0.02
-const SILENT_IN_A_ROW := 2
 
 ## Começo da sessão de FALAR de hoje (ms do relógio do jogo), para o aviso de sessão curta.
 static var session_start_ms := -1
@@ -209,17 +207,6 @@ static func pair_items(id: String, n: int = 10) -> Array:
 		var first := (i / pares.size()) % 2 == 0
 		out.append({"want": str(p["a"]) if first else str(p["b"]), "other": str(p["b"]) if first else str(p["a"])})
 	return out
-
-
-# ------------------------------------------------------------------ microfone que não capta
-## Depois de cada gravação: o pico de volume. Devolve o novo número de gravações mudas seguidas.
-static func silent_streak(streak: int, peak: float) -> int:
-	return streak + 1 if peak < SILENT_PEAK else 0
-
-
-## Seguir só com os botões do adulto? (permissão negada, ou 2 gravações mudas seguidas)
-static func mic_dead(granted: bool, streak: int) -> bool:
-	return not granted or streak >= SILENT_IN_A_ROW
 
 
 # ------------------------------------------------------------------ sessão curta (P12)

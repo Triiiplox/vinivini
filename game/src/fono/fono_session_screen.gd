@@ -12,8 +12,12 @@ extends GameScreen
 ##     (P6). "Conversa com figura" no fim de frases/história (P10). Sair no meio guarda o bloco (P12).
 ## Regras da orientação familiar: sem cronômetro, no máximo 2 tentativas por figura, elogio sempre (até no erro),
 ## nada de repetir sem fim. Passa de nível com ≥ 80% em 2 sessões seguidas em dias diferentes (FonoData.record).
+## v3 (Andro, 12/10: "o botão some, não escuta, não espera você"): a vez da criança ESCUTA sozinha depois do modelo
+## (FonoListen: espera a voz começar e termina no silêncio, sem janela fixa); FALAR fica sempre na tela (toque no
+## meio do modelo já começa a escutar; toque escutando encerra). Silêncio não desliga mais o microfone: avisa, deixa
+## tentar de novo e, depois de 2 silêncios, mostra também o FALOU do adulto. Sem música de fundo na sessão (o
+## microfone ouviria). Botões do detetive aparecem apagados durante o áudio, em vez de sumir.
 
-const SAY_TIME := {"isolado": 2.5, "silabas": 2.0, "facil": 2.5, "inicio": 2.5, "meio": 2.5, "frases": 4.5, "historia": 16.0}
 const PROBE_LEVELS := ["inicio", "meio", "frases", "historia"]
 
 var target := "ch"
@@ -49,11 +53,13 @@ var reps := 1  ## falas pedidas para a figura atual
 var reps_done := 0
 var block_no := 1
 var use_mic := true
-var silent := 0  ## gravações seguidas sem som
+var no_voice := 0  ## escutas seguidas sem ouvir ninguém
 var mic_warned := false
+var skip_btn: DSButton  ## FALOU do adulto ao lado do FALAR (depois de 2 silêncios)
+var listen: FonoListen
 var det_err := false
 var recording := false
-var rec_left := 0.0
+var _turn := 0  ## muda a cada vez/figura: callbacks atrasados de uma vez antiga não fazem nada
 var _last_wav: AudioStreamWAV
 var _voice_player: AudioStreamPlayer
 var _rain: Array[Control] = []
@@ -67,7 +73,7 @@ func build() -> void:
 	lv_id = str(FonoData.levels()[lv]["id"])
 	FonoPlan.mark_session()
 	set_sky("space")
-	AudioService.play_music("hub", 0.4)
+	AudioService.stop_music()  # o microfone ouviria a música
 	mic = FonoMic.new()
 	add_child(mic)
 	mic.permission_result.connect(func(ok: bool):
@@ -178,7 +184,9 @@ func _build_buttons() -> void:
 	# palavra longa: botão mais largo
 	odd_btn = FonoPanels.button("DetOdd", "secondary", "close", "ESQUISITO", Vector2(640, 572), 330)
 	odd_btn.pressed.connect(_detective_answer.bind(true))
-	for b in [mic_btn, rep_btn, ok_btn, again_btn, yes_btn, odd_btn]:
+	skip_btn = FonoPanels.button("SkipMic", "secondary", "check", "FALOU", Vector2(890, 582), 230, 100)
+	skip_btn.pressed.connect(_on_rep)
+	for b in [mic_btn, rep_btn, ok_btn, again_btn, yes_btn, odd_btn, skip_btn]:
 		b.visible = false
 		hud.stage.add_child(b)
 	var adult := UI.label("o adulto confirma", 18, Color(1, 1, 1, 0.6))
@@ -192,14 +200,24 @@ func _build_buttons() -> void:
 	hud.stage.add_child(adult)
 
 
-func _buttons(which: String) -> void:
+## Mostra um grupo de botões; `live` = false deixa apagados (sem resposta) enquanto o áudio toca, em vez de sumir.
+func _buttons(which: String, live: bool = true) -> void:
 	mic_btn.visible = which == "mic"
 	rep_btn.visible = which == "rep"
 	ok_btn.visible = which == "adult"
 	again_btn.visible = which == "adult"
 	yes_btn.visible = which == "detective"
 	odd_btn.visible = which == "detective"
-	hud.stage.get_node("AdultNote").visible = which in ["adult", "rep"]
+	skip_btn.visible = which == "mic" and no_voice >= 2
+	for b in [yes_btn, odd_btn]:
+		b.disabled = not live
+	_mic_text("FALAR")
+	hud.stage.get_node("AdultNote").visible = which in ["adult", "rep"] or skip_btn.visible
+
+
+func _mic_text(txt: String) -> void:
+	if mic_btn.label:
+		mic_btn.label.text = txt
 
 
 # ------------------------------------------------------------------ roteiro
@@ -367,11 +385,13 @@ func _next_detective() -> void:
 	var w := str(det_queue.pop_front())
 	_show_item(w)
 	det_err = randf() < 0.5
-	_buttons("")
+	_buttons("detective", false)
 	var d := narrate(Lines.n("Ouvido de detetive! Escute:"))
 	after(d + 0.2, func():
 		var d2 := _say_detective(w)
 		after(d2 + 0.2, func():
+			if step != "detective" or item != w:
+				return
 			narrate(Lines.n("Falou certo ou esquisito?"))
 			_buttons("detective")))
 
@@ -384,7 +404,7 @@ func _say_detective(w: String) -> float:
 
 
 func _detective_answer(said_odd: bool) -> void:
-	if step != "detective":
+	if step != "detective" or yes_btn.disabled:
 		return
 	_buttons("")
 	var right := said_odd == det_err
@@ -426,45 +446,56 @@ func _set_reps(n: int) -> void:
 
 
 func _model_then_turn() -> void:
-	_buttons("")
+	_turn += 1
+	var turn := _turn
+	_turn_buttons(false)  # FALAR já aparece: tocar no meio do modelo começa a escutar
 	var d := _model_duration()
-	var cur := item
 	after(d + 0.3, func():
-		if step != "speak" or item != cur:
-			return  # a figura mudou (pausa, fim, saída) enquanto o modelo falava
+		if turn != _turn or step != "speak":
+			return  # a figura mudou (pausa, fim, saída) ou a criança já começou a falar
+		var cue := ""
 		if lv_id == "historia":
-			narrate(Lines.n("Agora conte você a história!"))
+			cue = Lines.n("Agora conte você a história!")
 		elif reps == 3 and reps_done == 0:
-			narrate(Lines.n("Fala três vezes! Um, dois, três!"))
+			cue = Lines.n("Fala três vezes! Um, dois, três!")
 		elif reps > 1 and reps_done == 0:
-			narrate(Lines.n("Fala várias vezes!"))
+			cue = Lines.n("Fala várias vezes!")
 		else:
-			narrate(Lines.n("Sua vez!"))
-		_turn_buttons())
+			cue = Lines.n("Sua vez!")
+		var d2 := narrate(cue)
+		after(d2 + 0.25, func():
+			if turn == _turn and step == "speak":
+				_turn_buttons(true)))
 
 
-func _turn_buttons() -> void:
-	if FonoPlan.mic_dead(mic.granted and use_mic, silent):
+## A vez da criança. Com microfone: FALAR (e, se `auto`, já começa a escutar sozinho). Sem permissão: botões do adulto.
+func _turn_buttons(auto: bool = false) -> void:
+	if not (mic.granted and use_mic):
 		if reps > 1:
 			_buttons("rep")
 		else:
 			step = "adult"
 			_buttons("adult")
-		if not mic_warned and (not mic.granted or silent > 0):
+		if not mic_warned and not mic.granted:
 			_mic_gone()
-	else:
-		_buttons("mic")
+		return
+	_buttons("mic")
+	if auto and not recording:
+		_start_listen()
 
 
-## O microfone não capta (ou não tem permissão): avisa o adulto UMA vez e segue só com os botões do adulto.
-func _mic_gone() -> void:
-	use_mic = false
+## Sem permissão (`off`): segue só com os botões do adulto. Silêncio (`off` = false): o microfone continua e o
+## adulto ganha o FALOU ao lado. Avisa o adulto UMA vez.
+func _mic_gone(off: bool = true) -> void:
+	if off:
+		use_mic = false
 	if mic_warned:
 		return
 	mic_warned = true
+	var msg := "Sem permissão do microfone — continue com os botões CERTO/QUASE." if off else \
+		"Não ouvi a voz. Fale pertinho do celular; se não der, toque FALOU quando ele falar."
 	var p := FonoPanels.box("MicNotice", Rect2(1050, 110, 225, 370), 0.92)
-	p.add_child(FonoPanels.adult_text("O microfone não está captando — continue com os botões CERTO/QUASE.",
-		Rect2(14, 14, 197, 342), 22, Color.WHITE))
+	p.add_child(FonoPanels.adult_text(msg, Rect2(14, 14, 197, 342), 22, Color.WHITE))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.stage.add_child(p)
 	var tw := p.create_tween()
@@ -473,15 +504,25 @@ func _mic_gone() -> void:
 	tw.tween_callback(p.queue_free)
 
 
+## Toque no FALAR: escutando = encerra (a criança terminou); senão começa a escutar já (cala o modelo).
 func _on_mic() -> void:
-	if recording or step != "speak":
+	if step != "speak":
 		return
+	if recording:
+		_stop_recording()
+		return
+	_start_listen()
+
+
+func _start_listen() -> void:
+	_turn += 1
 	Voice.stop()
 	recording = true
-	rec_left = float(SAY_TIME.get(lv_id, 2.5))
+	listen = FonoListen.new(lv_id)
 	meter.visible = str(t.get("meter", "")) != ""
 	level_bar.visible = true
-	mic_btn.modulate = Color(1, 0.5, 0.5)
+	mic_btn.modulate = Color(1, 0.6, 0.6)
+	_mic_text("OUVINDO")
 	mic.start_recording()
 
 
@@ -489,6 +530,8 @@ func _on_mic() -> void:
 func _on_rep() -> void:
 	if step != "speak":
 		return
+	if recording:
+		_end_listen()
 	_buttons("")
 	_one_rep_done()
 
@@ -498,18 +541,23 @@ func _one_rep_done() -> void:
 	dots.queue_redraw()
 	AudioService.play_sfx("pop", 1.0 + 0.1 * reps_done, -6.0)
 	if reps_done < reps:
+		_turn += 1
+		var turn := _turn
+		_turn_buttons(false)
 		var d := narrate(FonoPlan.rep_cue(reps_done))
-		after(d + 0.1, _turn_buttons)
+		after(d + 0.2, func():
+			if turn == _turn and step == "speak":
+				_turn_buttons(true))
 		return
 	step = "adult"
+	_buttons("adult")  # o adulto pode confirmar já, sem esperar a gravação tocar
 	if _last_wav != null and _last_wav.get_length() > 0.2 and use_mic:
 		_voice_player.stream = _last_wav
 		var d := narrate(Lines.n("Escute você!"))
+		var cur := item
 		after(d + 0.1, func():
-			_voice_player.play()
-			after(minf(_last_wav.get_length(), 16.0) + 0.3, func(): _buttons("adult")))
-	else:
-		_buttons("adult")
+			if step == "adult" and item == cur:
+				_voice_player.play())
 
 
 func _process(delta: float) -> void:
@@ -525,23 +573,41 @@ func _process(delta: float) -> void:
 			_short_session_notice()
 	if not recording:
 		return
-	rec_left -= delta
 	mic_btn.scale = Vector2.ONE * (1.0 + 0.06 * sin(Time.get_ticks_msec() / 80.0))
-	if rec_left <= 0.0:
-		_stop_recording()
+	match listen.step(delta, mic.level):
+		"done":
+			_stop_recording()
+		"silence":
+			_no_voice()
 
 
-func _stop_recording() -> void:
+## Desliga a escuta (sem decidir nada).
+func _end_listen() -> AudioStreamWAV:
 	recording = false
 	mic_btn.scale = Vector2.ONE
 	mic_btn.modulate = Color.WHITE
 	level_bar.visible = false
+	_mic_text("FALAR")
+	return mic.stop_recording()
+
+
+## A criança falou (ou o adulto tocou FALAR de novo): conta a fala.
+func _stop_recording() -> void:
+	_last_wav = _end_listen()
+	no_voice = 0
 	_buttons("")
-	_last_wav = mic.stop_recording()
-	silent = FonoPlan.silent_streak(silent, mic.peak)
-	if FonoPlan.mic_dead(true, silent):
-		_mic_gone()
 	_one_rep_done()
+
+
+## Ninguém falou: nada de pular — avisa, deixa o FALAR e, depois de 2 vezes, mostra o FALOU do adulto também.
+func _no_voice() -> void:
+	_end_listen()
+	no_voice += 1
+	if no_voice >= 2:
+		_mic_gone(false)
+	_turn += 1
+	_buttons("mic")
+	narrate(Lines.n("Não ouvi! Toca no microfone e fala bem alto."))
 
 
 func _adult(good: bool) -> void:
@@ -551,6 +617,7 @@ func _adult(good: bool) -> void:
 	if step != "adult":
 		return
 	_buttons("")
+	_voice_player.stop()
 	tries += 1
 	var hz := mic.last_centroid()
 	if good:
@@ -759,6 +826,8 @@ func _hint() -> void:
 
 
 func on_exit() -> void:
+	if recording:
+		_end_listen()
 	if step == "pause":
 		FonoData.record(target, lv, ok_count, done_count)  # o 1º bloco foi inteiro: conta como sessão
 		step = "end"
