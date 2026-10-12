@@ -48,11 +48,11 @@ func on_enter() -> void:
 	UI.full(shade)
 	add_child(shade)
 	build_frame("Painel dos responsáveis", "back", false, false)
-	var tabs := UI.hbox(10)
+	var tabs := UI.hbox(8)
 	tabs_box = tabs
 	content.add_child(tabs)
 	for t in TABS:
-		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(130, 66), false, 20)
+		var b := UI.button(t[1], Palette.PANEL_LIGHT, "", Vector2(124, 66), false, 18)  # 9 abas cabem em 1280
 		b.name = "Tab_%s" % t[0]
 		b.tapped.connect(_show.bind(t[0]))
 		tabs.add_child(b)
