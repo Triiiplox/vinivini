@@ -17,9 +17,12 @@ import re, sys
 p = sys.argv[1]; s = open(p, encoding="utf-8").read()
 s = re.sub(r'<uses-feature android:name="android.hardware.faketouch"[^>]*/>',
            '<uses-feature android:name="android.hardware.faketouch" android:required="false"/>', s)
+# Microfone (módulo FALAR): opcional — TV sem microfone ainda instala; o app cai nos botões do adulto.
+s = re.sub(r'<uses-feature android:name="android.hardware.microphone"[^>]*/>', '', s)
 extra = ('<uses-feature android:name="android.hardware.touchscreen" android:required="false"/>'
          '<uses-feature android:name="android.software.leanback" android:required="false"/>'
-         '<uses-feature android:name="android.hardware.gamepad" android:required="false"/>')
+         '<uses-feature android:name="android.hardware.gamepad" android:required="false"/>'
+         '<uses-feature android:name="android.hardware.microphone" android:required="false"/>')
 s = s.replace('<application ', extra + '<application android:banner="@drawable/tv_banner" ', 1)
 s = s.replace('<category android:name="android.intent.category.LAUNCHER"/>',
               '<category android:name="android.intent.category.LAUNCHER"/>'
