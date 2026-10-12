@@ -478,6 +478,8 @@ func _order_rows() -> void:
 		var spec: Dictionary = (items[i] as Dictionary).duplicate()
 		spec["wmax"] = 3.0
 		var c := _card(spec, Vector2(ROWS_LEFT, ROWS_TOP + j * ROWS_GAP), 0.47)
+		var cw := CARD * 0.47 * maxf(1.0, _wide(spec))
+		c.hit_rect = Rect2(-cw / 2.0, -CARD * 0.47 / 2.0, cw, CARD * 0.47)  # cartão largo: toque no retângulo
 		c.payload = i
 		c.name = "Ord_%d" % i
 		c.tapped.connect(_on_order)
@@ -489,7 +491,7 @@ func _order_rows() -> void:
 		world.add_child(slot)
 		slot.add_to_group("lesson_tmp")
 		var num := UI.label(str(j + 1), 40, DS.STAR_GOLD)
-		num.position = Vector2(-52, slot.size.y / 2.0 - 28)
+		num.position = Vector2(12, 6)
 		UI.child_ok(num)
 		slot.add_child(num)
 	_say_q()

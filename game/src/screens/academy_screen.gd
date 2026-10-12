@@ -102,7 +102,8 @@ func _node_pos(i: int) -> Vector2:
 	var j := i - _first
 	# A fase atual é 1,5x maior: as vizinhas abrem espaço para ela (antes encostavam).
 	var gap := (-40.0 if i < path_done else (60.0 if i > path_done else 0.0))
-	return Vector2(400 + j * 270 + gap, 330 + (50.0 if i % 2 == 0 else -45.0))
+	# A fase atual (1,5x) fica sempre na altura de baixo: em cima, o número dela encostava na barra de nível.
+	return Vector2(400 + j * 270 + gap, 330 + (50.0 if i % 2 == 0 or i == path_done else -45.0))
 
 
 func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:

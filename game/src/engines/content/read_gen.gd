@@ -209,9 +209,14 @@ static func _mirror(ctx: Dictionary) -> Dictionary:
 	var ok := LevelGen.txt(t)
 	var h := LevelGen.txt(t)
 	h["flip"] = "h"
-	var v := LevelGen.txt(t)
-	v["flip"] = "v"
-	return LevelGen.pick(Lines.n("Toque na letra que está escrita do jeito certo!"), ok, [h, v], ctx["rng"])
+	var wrong: Array = [h]
+	# Segunda errada (de ponta-cabeça) só nas letras em que ela fica diferente das outras duas: E, B, D, C, K
+	# de ponta-cabeça ficam iguais à certa ou à espelhada; S, Z e N também.
+	if t in ["F", "J", "R", "L", "P", "G"]:
+		var v := LevelGen.txt(t)
+		v["flip"] = "v"
+		wrong.append(v)
+	return LevelGen.pick(Lines.n("Toque na letra que está escrita do jeito certo!"), ok, wrong, ctx["rng"])
 
 
 static func _name_pic(ctx: Dictionary, key: String) -> Dictionary:

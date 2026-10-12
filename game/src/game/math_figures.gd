@@ -227,13 +227,14 @@ static func _vert(ci: CanvasItem, a: int, b: int, op: String, box: float, bw: fl
 
 # ------------------------------------------------------------------ régua
 static func _ruler(ci: CanvasItem, cm: int, box: float, bw: float) -> void:
-	var w := bw * 0.9
+	var w := bw * 0.84
 	var x0 := -w / 2.0
 	var unit := w / 15.0
 	var rh := box * 0.3
 	var ry := box * 0.02
-	ci.draw_rect(Rect2(x0, ry, w, rh), Color("#FDE68A"))
-	ci.draw_rect(Rect2(x0, ry, w, rh), INK, false, 3.0)
+	var body_r := Rect2(x0 - unit * 0.6, ry, w + unit * 1.2, rh)  # sobra nas pontas: o 0 e o 15 cabem
+	ci.draw_rect(body_r, Color("#FDE68A"))
+	ci.draw_rect(body_r, INK, false, 3.0)
 	var font := ThemeDB.fallback_font
 	var fs := int(minf(rh * 0.42, unit * 0.7))
 	for i in 16:

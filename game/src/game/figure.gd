@@ -106,7 +106,7 @@ func _ready() -> void:
 			if spec.has("flip"):
 				# Letra espelhada (exercício de letra virada): gira em volta do centro.
 				l.pivot_offset = l.size / 2.0
-				l.scale = Vector2(-1, 1) if str(spec["flip"]) == "h" else Vector2(1, -1)
+				l.scale = {"h": Vector2(-1, 1), "v": Vector2(1, -1), "r": Vector2(-1, -1)}.get(str(spec["flip"]), Vector2.ONE)
 			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			UI.child_ok(l)  # conteúdo de leitura (o que se aprende), não instrução
 			add_child(l)

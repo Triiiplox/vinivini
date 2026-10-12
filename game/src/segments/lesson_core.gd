@@ -325,11 +325,16 @@ func _pick() -> void:
 	for o in opts:
 		wmax = maxf(wmax, _wide(o))
 	var step := CARD * k * wmax + gap
-	if step * n > 1180.0:
-		k *= 1180.0 / (step * n)
-		step = CARD * k * wmax + gap
+	# Fileira larga (frases, palavras grandes): até 1000 px e puxada para a direita, longe do Vini (12/10 v4.4:
+	# "A ARANHA" ficava atrás da cabeça dele).
+	var cx := 640.0
+	if step * n > 900.0:
+		cx = 710.0
+		if step * n > 1000.0:
+			k *= 1000.0 / (step * n)
+			step = CARD * k * wmax + gap
 	for i in n:
-		var x := 640.0 + (i - (n - 1) / 2.0) * step
+		var x := cx + (i - (n - 1) / 2.0) * step
 		var c := _card(opts[i], Vector2(x, y), k)
 		c.payload = i
 		c.name = "Opt_%d" % i
@@ -490,10 +495,16 @@ func _sort() -> void:
 	var items: Array = rd.get("items", [])
 	var order := range(items.size())
 	order.shuffle()
+	# Palavras escritas são mais largas que figuras: o passo acompanha a mais larga (nada encosta).
+	var wmax := 1.0
+	for it in items:
+		wmax = maxf(wmax, _wide(it[0]))
+	var ks := minf(0.7, 1000.0 / maxf(1.0, items.size()) / (CARD * wmax + 20.0))
+	var sstep := CARD * ks * wmax + 20.0
 	for j in order.size():
 		var i: int = order[j]
-		var x := 640.0 + (j - (items.size() - 1) / 2.0) * 170.0
-		var c := _card(items[i][0], Vector2(x, 250), 0.7)
+		var x := 640.0 + (j - (items.size() - 1) / 2.0) * maxf(170.0, sstep)
+		var c := _card(items[i][0], Vector2(x, 250), ks)
 		c.payload = int(items[i][1])
 		c.name = "Sort_%d" % i
 		c.draggable = true

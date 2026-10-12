@@ -157,7 +157,35 @@ func _cases() -> Array:
 		["seg_english", "seg_english", {"unit": "colors"}, null, 2.0],
 		["seg_cutscene", "seg_cutscene", ContentService.repo.missions["m07"]["segments"][0], null, 1.5],
 	])
+	c.append_array(_level_cases())
 	return c
+
+
+## Níveis v4.4: uma fase de cada tipo de gerador (a 1ª rodada que não é explicação), e a trilha com o ponto de
+## partida do Vini.
+func _level_cases() -> Array:
+	var c: Array = [["nivel_trilha_leitura", "academy", {"area": "reading", "no_placement": true},
+		func(): LevelPlan.set_start("reading", "cf_rimas")]]
+	var seen := {}
+	for id in ContentService.repo.lesson_order:
+		var les: Dictionary = ContentService.repo.lessons[id]
+		var sts: Array = les.get("stages", [])
+		for i in sts.size():
+			var g := str(sts[i]["g"]) + str(sts[i].get("key", "")) + str(sts[i].get("cols", "")) + str(sts[i].get("vert", ""))
+			if seen.has(g):
+				continue
+			seen[g] = true
+			c.append(["nivel_%s_%d" % [id, i + 1], "seg_lesson", {"lesson": str(id), "stage": i + 1, "back": "academy"}, null, 1.2,
+				_skip_teach])
+	return c
+
+
+func _skip_teach() -> void:
+	var s: Node = Router.current_screen
+	for i in 6:
+		if str(s.rd.get("k", "teach")) != "teach":
+			return
+		s._advance()
 
 
 func _act(skill: String) -> Dictionary:

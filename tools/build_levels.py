@@ -338,7 +338,7 @@ def reading():
            data={
                "say": {x: say("Toque na letra %s!" % x.upper()) for x in "bdpqmnuftao"},
                "groups": [["b", "d", "p", "q"], ["m", "n", "u"], ["f", "t"], ["a", "o", "e"]],
-               "mirror": ["E", "F", "J", "N", "S", "Z", "R", "C", "L", "B", "D", "P", "G", "K"],
+               "mirror": ["E", "F", "J", "N", "S", "Z", "R", "C", "L", "B", "D", "P", "G", "K"],  # S, Z, N: só 2 opções
                "shape_words": [[PW(w.upper()), w, wr] for w, wr in [
                    ("bola", ["dola", "pola"]), ("dado", ["babo", "bado"]), ("pato", ["bato", "qato"]), ("dedo", ["bebo", "debo"]),
                    ("pipa", ["qiqa", "bipa"]), ("nave", ["mave", "uave"]), ("mala", ["nala", "mola"]), ("uva", ["nva", "ova"]),
