@@ -7,10 +7,12 @@ const Paint := preload("res://src/fono/fono_face_paint.gd")
 const R := 150.0
 const N := 24
 const INK := Color("#3D2216")
-const SKIN_LO := Color("#E5A47C")
-const LIP := Color("#EE8189")
-const LIP_HI := Color("#FFB9BB")
-const LIP_LO := Color("#D25F6E")
+const SKIN_LO := Color("#C98A5C")
+const UVULA := Color("#C9475F")
+const LIP := Color("#E8877F")
+const LIP_HI := Color("#F8B6A8")
+const LIP_LO := Color("#CB6A64")
+const LIP_INK := Color("#7E3A2E")  ## contorno dos lábios: mais macio que a tinta do rosto
 const MOUTH := Color("#6A1A2C")
 const MOUTH_DEEP := Color("#2E0812")
 const PALATE := Color("#A33A52")
@@ -31,9 +33,29 @@ const DEF := {"w": R * 0.2, "up": 0.0, "dn": 0.0, "curve": 0.0, "lu": R * 0.035,
 	"box": 2.0, "tu": 0.0, "td": 0.0, "bite": 0.0, "tk": -1.0, "tx": 0.0, "arch": 0.0, "palate": 0.0, "wave": 0.0, "wph": 0.0}
 
 
-## Vai, segura e volta (0 → 1 → 0) dentro da repetição.
+## Vai, segura e volta (0 → 1 → 0) dentro da repetição, com ease in/out.
 static func hold(ph: float) -> float:
-	return smoothstep(0.0, 0.28, ph) * (1.0 - smoothstep(0.78, 1.0, ph))
+	return smoothstep(0.0, 0.3, ph) * (1.0 - smoothstep(0.7, 1.0, ph))
+
+
+## A boca abre um pouco antes do movimento e fecha um pouco depois (0 → 1 → 0).
+static func opening(ph: float) -> float:
+	return smoothstep(0.0, 0.16, ph) * (1.0 - smoothstep(0.84, 1.0, ph))
+
+
+## O movimento em si (língua saindo/entrando), dentro da janela em que a boca está aberta.
+static func ext(ph: float) -> float:
+	return smoothstep(0.12, 0.38, ph) * (1.0 - smoothstep(0.62, 0.88, ph))
+
+
+## Boca de repouso (início e fim de todo ciclo).
+static func neutral_p() -> Dictionary:
+	return {"w": R * 0.2, "curve": R * 0.06, "lu": R * 0.036, "ld": R * 0.052}
+
+
+## Repouso → alvo.
+static func from_rest(target: Dictionary, a: float) -> Dictionary:
+	return mix(neutral_p(), target, a)
 
 
 ## Vai e volta suave (0 → 1 → 0).
@@ -47,7 +69,7 @@ static func un(p: Vector2) -> Vector2:
 
 
 static func open_p(w: float, up: float, dn: float) -> Dictionary:
-	return {"w": w, "up": up, "dn": dn, "curve": R * 0.025, "lu": R * 0.042, "ld": R * 0.056, "box": 2.3, "tu": 1.0}
+	return {"w": w, "up": up, "dn": dn, "curve": R * 0.025, "lu": R * 0.036, "ld": R * 0.05, "box": 2.3, "tu": 1.0}
 
 
 static func pucker_p(hole: float) -> Dictionary:
@@ -141,6 +163,7 @@ static func draw(ci: CanvasItem, m: Vector2, p: Dictionary) -> Dictionary:
 		var mid := m + Vector2(0, (q.dn - q.up) * 0.5 - q.curve * 0.3)
 		Paint.glow(ci, mid + Vector2(0, (q.up + q.dn) * 0.12), q.w * 0.62, (q.up + q.dn) * 0.36, MOUTH_DEEP,
 			Color(MOUTH_DEEP, 0.0))
+		_throat(ci, m, q, hole)
 		if q.palate > 0.01:
 			_palate(ci, m, q, hole)
 		if q.tk >= 0.0:
@@ -159,14 +182,32 @@ static func draw(ci: CanvasItem, m: Vector2, p: Dictionary) -> Dictionary:
 	if open:
 		Paint.stroke(ci, hole, Color(INK, 0.85), lip_w * 0.8)
 	else:
-		Paint.stroke(ci, iu, INK, lip_w, false)
-	Paint.stroke(ci, _ring(ou, od), INK, lip_w)
+		Paint.stroke(ci, iu, LIP_INK, lip_w, false)
+	Paint.stroke(ci, _ring(ou, od), LIP_INK, lip_w)
 	# brilhos
 	Paint.glow(ci, m + Vector2(-xo * 0.22, q.dn + q.ld * 0.5 - q.curve * 0.05), xo * 0.2, q.ld * 0.26,
 		Color(1, 1, 1, 0.6), Color(1, 1, 1, 0.0), 16)
 	Paint.glow(ci, m + Vector2(-xo * 0.3, -q.up - q.lu * 0.55 - q.curve * 0.09), xo * 0.1, q.lu * 0.2,
 		Color(1, 1, 1, 0.4), Color(1, 1, 1, 0.0), 12)
 	return {"iu": iu, "idn": idn, "ou": ou, "od": od, "xo": xo, "q": q}
+
+
+## Boca bem aberta: garganta mais escura lá no fundo e a úvula ("sininho") pendurada.
+static func _throat(ci: CanvasItem, m: Vector2, q: Dictionary, hole: PackedVector2Array) -> void:
+	var deep := smoothstep(R * 0.2, R * 0.36, float(q.up) + float(q.dn)) * (1.0 - smoothstep(0.3, 0.7, float(q.tk)))
+	if deep < 0.02:
+		return
+	var top_y: float = m.y - q.up + R * 0.085 * maxf(float(q.tu), 0.3)
+	var mid_y: float = m.y + (q.dn - q.up) * 0.25
+	Paint.glow(ci, Vector2(m.x, mid_y), q.w * 0.4, (q.up + q.dn) * 0.28, Color(MOUTH_DEEP.darkened(0.4), deep),
+		Color(MOUTH_DEEP, 0.0), 20)
+	var uv := Paint.bez(Vector2(m.x - R * 0.04, top_y - R * 0.02), Vector2(m.x - R * 0.025, top_y + R * 0.05),
+		Vector2(m.x, top_y + R * 0.075), 8)
+	uv.append_array(Paint.bez(Vector2(m.x, top_y + R * 0.075), Vector2(m.x + R * 0.025, top_y + R * 0.05),
+		Vector2(m.x + R * 0.04, top_y - R * 0.02), 8))
+	Paint.fill_clip(ci, uv, hole, Color(UVULA.darkened(0.25), deep), Color(UVULA, deep))
+	Paint.glow(ci, Vector2(m.x - R * 0.008, top_y + R * 0.055), R * 0.009, R * 0.012, Color(1, 1, 1, 0.45 * deep),
+		Color(1, 1, 1, 0.0), 8)
 
 
 ## Céu da boca: abóbada mais clara logo abaixo dos dentes de cima, com as "ruguinhas" (rugas palatinas).
@@ -209,8 +250,8 @@ static func _teeth(ci: CanvasItem, iu: PackedVector2Array, idn: PackedVector2Arr
 	var poly := a + b
 	var y_top := a[a.size() / 2].y
 	var y_bot := b[b.size() / 2].y
-	var c0 := TEETH if upper else TEETH_SH
-	var c1 := TEETH_SH if upper else TEETH
+	var c0 := TEETH_SH.darkened(0.06) if upper else TEETH
+	var c1 := TEETH if upper else TEETH_SH.darkened(0.06)
 	Paint.fill_clip(ci, poly, hole, c0, c1)
 	# separação entre dentes
 	for xf in [0.0, -0.25, 0.25, -0.5, 0.5]:
@@ -231,7 +272,7 @@ static func _teeth(ci: CanvasItem, iu: PackedVector2Array, idn: PackedVector2Arr
 ## Com a ponta levantada aparece a parte de baixo da língua (rosa mais escuro, com o "freio" no meio).
 ## arch: dorso da língua arqueado (ponta lá embaixo, atrás dos dentes de baixo).
 static func _tongue_in(ci: CanvasItem, m: Vector2, q: Dictionary, hole: PackedVector2Array) -> void:
-	var k: float = clampf(q.tk, 0.0, 1.0)
+	var k: float = clampf(q.tk, 0.0, 1.6)
 	var w: float = q.w
 	var floor_y: float = m.y + q.dn
 	var roof_y: float = m.y - q.up + R * 0.085 * maxf(q.tu, 0.5)
@@ -321,19 +362,23 @@ static func _wrinkles(ci: CanvasItem, m: Vector2, q: Dictionary) -> void:
 
 
 ## Ar saindo da boca: rajadas de vento curvas que saem para o lado (wavy = ondinhas de vibração do J).
-static func air(ci: CanvasItem, o: Vector2, dirs: Array, t: float, wavy: bool, width: float = 1.0) -> void:
+## ph = fase do ciclo (duas rajadas por ciclo, o GIF fecha sem emenda); amount = 0 sem ar, 1 cheio.
+static func air(ci: CanvasItem, o: Vector2, dirs: Array, ph: float, wavy: bool, width: float = 1.0, amount: float = 1.0) -> void:
+	if amount < 0.02:
+		return
 	for i in dirs.size():
 		var dv: Vector2 = (dirs[i] as Vector2).normalized()
 		var nn := dv.orthogonal()
 		for j in 2:
-			var k := fmod(t * 1.1 + i * 0.29 + j * 0.5, 1.0)
+			var k := fmod(ph * 2.0 + i * 0.29 + j * 0.5, 1.0)
 			var pts := PackedVector2Array()
-			for s in 11:
-				var u := k * 0.55 + s / 10.0 * 0.45
+			var steps := 22 if wavy else 10
+			for s in steps + 1:
+				var u := k * 0.55 + s / float(steps) * 0.45
 				var bend := nn * u * u * R * 0.12
-				var wig := nn * sin(u * 17.0 - t * 12.0) * R * 0.022 if wavy else Vector2.ZERO
+				var wig := nn * sin(u * 13.0 - ph * TAU * 4.0) * R * 0.02 if wavy else Vector2.ZERO
 				pts.append(o + dv * u * R * 0.55 + bend + wig)
-			var al := sin(k * PI)
+			var al := sin(k * PI) * amount
 			for seg in pts.size() - 1:
 				var taper := sin(PI * (seg + 0.5) / (pts.size() - 1))
 				var p0 := pts[seg]
@@ -341,4 +386,4 @@ static func air(ci: CanvasItem, o: Vector2, dirs: Array, t: float, wavy: bool, w
 				ci.draw_line(p0, p1, Color(AIR.darkened(0.4), 0.3 * al), R * 0.042 * width * taper, true)
 				ci.draw_line(p0, p1, Color(AIR, 0.95 * al), R * 0.026 * width * taper, true)
 				ci.draw_line(p0, p1, Color(1, 1, 1, 0.8 * al), R * 0.009 * width * taper, true)
-		Paint.glow(ci, o + dv * R * 0.08, R * 0.07 * width, R * 0.06 * width, Color(AIR, 0.45), Color(AIR, 0.0), 14)
+		Paint.glow(ci, o + dv * R * 0.08, R * 0.07 * width, R * 0.06 * width, Color(AIR, 0.45 * amount), Color(AIR, 0.0), 14)
