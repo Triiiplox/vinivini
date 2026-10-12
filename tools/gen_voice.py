@@ -399,6 +399,8 @@ def main():
         br = LANG.get(who, "pt-br") == "pt-br"
         stale = br and ((has_name(text) and int(old.get(k, {}).get("p", 0)) < PRON) or int(old.get(k, {}).get("a", 0)) < ACC)
         stale = stale or (k in old and old[k].get("eng", "kokoro") != engine(who))
+        # Voz gravada pelo Andro no ElevenLabs (tools/elevenlabs_fono.py importar): nunca regerar por cima.
+        stale = stale and not (k in old and old[k].get("eng") == "elevenlabs")
         if k in old and os.path.exists(os.path.join(OUT, f)) and not stale:
             manifest[k] = old[k]
         else:
