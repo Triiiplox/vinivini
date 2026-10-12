@@ -70,7 +70,7 @@ func _start_debug_tool() -> bool:
 		"--smoke2": "smoke_v2", "--smoke": "smoke_runner", "--film": "intro_film", "--playcheck=": "play_check",
 		"--touchcheck=": "touch_check", "--lessoncheck=": "lesson_check", "--uxcheck=": "ux_check",
 		"--padcheck=": "pad_check", "--playfilm=": "play_film",
-		"--shmupgallery=": "shmup_gallery", "--fonoshots=": "fono_shots"}
+		"--shmupgallery=": "shmup_gallery", "--fonoshots=": "fono_shots", "--overlapcheck=": "overlap_check"}
 	var args := OS.get_cmdline_user_args()
 	if args.has("--checkscripts"):
 		_check_scripts()

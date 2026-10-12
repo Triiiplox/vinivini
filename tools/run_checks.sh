@@ -27,6 +27,14 @@ grep -E "LESSON" "$LOG/lessons.txt" || { echo "LESSON sem resultado"; fail=1; };
 step "versão de TV: só controle de PS5 (setas, analógico, botões, OPTIONS segurado) em 1920x1080"
 xvfb-run -a -s "-screen 0 1920x1080x24" godot --path . --rendering-driver opengl3 --resolution 1920x1080 -- --tv --padcheck="$LOG/pad" >"$LOG/pad.txt" 2>&1 || fail=1
 grep -E "^PAD" "$LOG/pad.txt" || { echo "PAD sem resultado"; fail=1; }; bad "$LOG/pad.txt"
+step "botões cortando o outro: todas as telas em celular largo (2340x1080), 1280x720 e TV (1920x1080)"
+overlap() {  # $1 = resolução, $2 = nome, $3 = argumento extra (--tv)
+	xvfb-run -a -s "-screen 0 $1x24" godot --path . --rendering-driver opengl3 --resolution "$1" -- $3 \
+		--overlapcheck="$LOG/overlap_$2" >"$LOG/overlap_$2.txt" 2>&1 || fail=1
+	grep -E "^OVERLAP (PASS|FAIL)|ERRO" "$LOG/overlap_$2.txt" || { echo "OVERLAP $2 sem resultado"; fail=1; }
+	bad "$LOG/overlap_$2.txt"
+}
+overlap 2340x1080 celular ""; overlap 1280x720 1280 ""; overlap 1920x1080 tv --tv
 step "smoke (pacote exportado)"; mkdir -p ../build/linux
 godot --headless --path . --export-pack "Linux" ../build/linux/vini.pck >"$LOG/pack.txt" 2>&1 || fail=1
 (cd /tmp && godot --headless --main-pack "$OLDPWD/../build/linux/vini.pck" -- --smoke) >"$LOG/smoke_pck.txt" 2>&1 || fail=1
