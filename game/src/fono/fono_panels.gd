@@ -4,7 +4,8 @@ extends RefCounted
 ## cartão "Conversa com figura", recado para o adulto, bolinhas 1-2-3 e o medidor de volume do microfone.
 
 const INK := Color("#1E1B4B")
-const COLORS := {"ch": "#2563EB", "j": "#16A34A", "s": "#EA580C", "r": "#9333EA", "ti": "#DB2777", "nd": "#0891B2"}
+const COLORS := {"ch": "#2563EB", "j": "#16A34A", "s": "#EA580C", "r": "#9333EA", "ti": "#DB2777", "nd": "#0891B2", "lh": "#65A30D",
+	"encontros_r": "#C2410C", "encontros_l": "#0D9488", "r_final": "#7C3AED"}
 
 
 static func box(name: String, rect: Rect2, alpha: float = 0.95) -> Panel:

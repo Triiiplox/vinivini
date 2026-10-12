@@ -247,6 +247,8 @@ for _k, _t in _fono["targets"].items():
         add("narrator", _x, "fono")
     if _t["isolado"] in FONO_IPA:
         add("fonoipa", FONO_IPA[_t["isolado"]], "fono")
+    elif _t["isolado"]:
+        add("narrator", _t["isolado"], "fono")
     if _t["erro"]:
         for _x in _t["inicio"] + _t["meio"]:
             add("fonoerr", "%s|%s|%s" % (_t["erro"][0], _t["erro"][1], _x), "fono")

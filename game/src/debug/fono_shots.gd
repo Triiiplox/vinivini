@@ -72,6 +72,17 @@ func _run() -> void:
 	for i in 4:
 		g._process(1.6)
 	await shot("08_academia")
+	# Academia com a foto do Vini (só existe no APK da família: assets/private/fono_fotos)
+	FonoData.set_gym_list(["bico", "lingua_larga_segura"])
+	Router.reset_to("fono_gym", {})
+	await get_tree().create_timer(0.3).timeout
+	g = Router.current_screen
+	g._next()
+	await shot("08b_academia_foto_repouso", 0.3)
+	g.running = true
+	g._beat_t = 0.75
+	g._process(0.01)
+	await shot("08c_academia_foto_pose", 0.1)
 	Router.reset_to("parent", {"tab": "speech"})
 	await shot("09_area_dos_pais")
 	await _v2()

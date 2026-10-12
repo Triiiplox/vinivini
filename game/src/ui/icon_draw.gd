@@ -179,6 +179,12 @@ static func draw_icon(ci: CanvasItem, n: String, c: Color) -> void:
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(26, 12), Vector2(88, 50), Vector2(26, 88)]), c)
 		"check":
 			ci.draw_polyline(PackedVector2Array([Vector2(14, 52), Vector2(40, 78), Vector2(88, 22)]), c, 16, true)
+		"camera":
+			rrect(ci, Rect2(10, 30, 80, 54), c, 10)
+			rrect(ci, Rect2(32, 18, 30, 16), c, 5)
+			ci.draw_circle(Vector2(50, 57), 19, c.darkened(0.6) if c.v > 0.5 else Color.WHITE)
+			ci.draw_circle(Vector2(50, 57), 11, c)
+			ci.draw_circle(Vector2(76, 40), 4, c.darkened(0.6) if c.v > 0.5 else Color.WHITE)
 		"close":
 			ci.draw_line(Vector2(20, 20), Vector2(80, 80), c, 16, true)
 			ci.draw_line(Vector2(80, 20), Vector2(20, 80), c, 16, true)

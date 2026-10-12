@@ -42,12 +42,12 @@ for k in manuzita enzo aylinha; do
 done
 h=$(printf "res://assets/private/poder.ogg" | md5sum | cut -c1-32)
 song=$(unzip -l "$apk" | grep -c "$h" || true)
-for f in vini_joinha.png vini_head.png; do
+for f in vini_joinha.png vini_head.png fono_fotos/bico_1.png; do
   h=$(printf "res://assets/private/%s" "$f" | md5sum | cut -c1-32)
   song=$((song + $(unzip -l "$apk" | grep -c "$h" || true)))
 done
 say "fotos convidados" "$kids (rosto + nave)"
-say "particular (música + 2 fotos)" "$song"
+say "particular (música + fotos)" "$song"
 if [ "$kind" = publico ] && [ $((kids + song)) -gt 0 ]; then fail=1; echo "PRIVADO NO APK PÚBLICO"; fi
-if [ "$kind" = completo ] && { [ "$kids" != 6 ] || [ "$song" != 3 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
+if [ "$kind" = completo ] && { [ "$kids" != 6 ] || [ "$song" != 4 ]; }; then fail=1; echo "COMPLETO SEM O PARTICULAR"; fi
 [ $fail = 0 ] && echo "APK OK ($kind)" || { echo "APK COM PROBLEMA"; exit 1; }

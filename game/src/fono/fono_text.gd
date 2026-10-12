@@ -8,6 +8,7 @@ extends RefCounted
 ##   r:  R fraco: R sozinho entre vogais ou depois de consoante (cara, prato); não R inicial, RR, nem R no fim da sílaba.
 ##   ti: T/D antes de I, ou antes do E átono do fim (leite, verde): é onde vira "tchi/dji".
 ##   nd: N e D antes de vogal (menos os D que viram "dji").
+##   lh: LH. encontros_r / encontros_l: a consoante + R/L do encontro (pr, bl). r_final: R que fecha a sílaba.
 
 const RED := "#E11D48"
 const VOWELS := "aeiouáéíóúâêôãõà"
@@ -105,6 +106,18 @@ static func _word_mask(id: String, w: String) -> Array:
 				if c == "n" and nx != "" and VOWELS.contains(nx):
 					m[i] = true
 				elif c == "d" and nx != "" and VOWELS.contains(nx) and not nx in ["i", "í"] and not (nx == "e" and i + 2 == n):
+					m[i] = true
+			"lh":
+				if c == "l" and nx == "h":
+					m[i] = true
+					m[i + 1] = true
+			"encontros_r", "encontros_l":
+				var liq := "r" if id == "encontros_r" else "l"
+				if c == liq and i > 0 and "bcdfgkptv".contains(pv) and nx != "" and VOWELS.contains(nx):
+					m[i - 1] = true
+					m[i] = true
+			"r_final":
+				if c == "r" and pv != "" and VOWELS.contains(pv) and (nx == "" or not VOWELS.contains(nx)) and nx != "r":
 					m[i] = true
 	return m
 
