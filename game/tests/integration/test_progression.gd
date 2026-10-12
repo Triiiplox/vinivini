@@ -69,6 +69,8 @@ func test_every_lesson_is_valid_and_has_voice() -> void:
 	for id in ContentService.repo.lessons:
 		var les: Dictionary = ContentService.repo.lessons[id]
 		eq(ContentValidator.validate_lesson(les).size(), 0, "lição %s válida" % id)
+		if int(les.get("tier", 1)) >= 2:
+			continue  # níveis v4.4: falas novas listadas para o gerador de voz (test_levels confere a lista)
 		for r in (les["teach"] as Array) + (les["ask"] as Array):
 			if not Voice.has_line(str(r["say"])):
 				missing += 1

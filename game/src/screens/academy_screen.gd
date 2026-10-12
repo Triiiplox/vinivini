@@ -102,7 +102,8 @@ func _node_pos(i: int) -> Vector2:
 	var j := i - _first
 	# A fase atual é 1,5x maior: as vizinhas abrem espaço para ela (antes encostavam).
 	var gap := (-40.0 if i < path_done else (60.0 if i > path_done else 0.0))
-	return Vector2(400 + j * 270 + gap, 330 + (50.0 if i % 2 == 0 else -45.0))
+	# A fase atual (1,5x) fica sempre na altura de baixo: em cima, o número dela encostava na barra de nível.
+	return Vector2(400 + j * 270 + gap, 330 + (50.0 if i % 2 == 0 or i == path_done else -45.0))
 
 
 func _make_tile(nd: Dictionary, i: int, next_i: int) -> void:
@@ -222,6 +223,14 @@ func begin() -> void:
 		var samples := Stages.placement_samples(area)
 		after(d0 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(samples[0]["id"]), "placement": samples,
 			"back": "academy"}))
+		return
+	var bt := LevelPlan.block_test(area)
+	if not bt.is_empty() and not bool(params.get("no_placement", false)):
+		# Entrada de um bloco novo (sons das palavras, letras parecidas...): teste rápido; quem já sabe pula o bloco.
+		finished = true
+		var d1 := narrate(Lines.n("Teste rápido! Se você já souber, a gente pula essa parte!"))
+		after(d1 + 0.2, Router.go.bind("seg_lesson", {"lesson": str(bt["samples"][0]["id"]), "placement": bt["samples"],
+			"block": bt["block"], "back": "academy"}))
 		return
 	if not nodes_cache.is_empty() and next_index >= nodes_cache.size():
 		_area_done()

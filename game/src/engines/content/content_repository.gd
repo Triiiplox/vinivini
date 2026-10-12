@@ -133,6 +133,8 @@ func load_index(index_path: String) -> bool:
 					lesson_order.append(l["id"])
 				else:
 					errors.append("lesson %s: %s" % [str(l.get("id", "?")) if l is Dictionary else "?", ", ".join(le)])
+	if idx.has("levels"):
+		_load_levels(base.path_join(str(idx["levels"])))
 	if idx.has("speech"):
 		var sp: Variant = _read(base.path_join(str(idx["speech"])))
 		if sp is Dictionary and (sp.get("sounds", []) as Array).size() > 0 and (sp.get("screening", []) as Array).size() > 0:
@@ -150,6 +152,29 @@ func load_index(index_path: String) -> bool:
 				else:
 					errors.append("english %s: %s" % [str(u.get("id", "?")) if u is Dictionary else "?", ", ".join(ue)])
 	return errors.is_empty()
+
+
+## Níveis v4.4 (lessons/levels.json): lições com perguntas geradas por regra (LevelGen). O arquivo inteiro fica
+## em banks["levels"] (figuras, grupos de rima, sílabas faladas, marcos de partida, padrões por perfil); cada
+## lição ganha uma amostra fixa de perguntas em "ask" e entra no fim da trilha da sua matéria.
+func _load_levels(path: String) -> void:
+	var lv: Variant = _read(path)
+	if not lv is Dictionary:
+		return
+	banks["levels"] = lv
+	for lsk in lv.get("skills", []):
+		if lsk is Dictionary and lsk.get("id") is String and not skills.has(lsk["id"]):
+			skills[lsk["id"]] = lsk
+	for l in lv.get("lessons", []):
+		if not l is Dictionary:
+			continue
+		LevelGen.materialize(l, banks)
+		var le := ContentValidator.validate_lesson(l)
+		if le.is_empty() and not lessons.has(l["id"]):
+			lessons[l["id"]] = l
+			lesson_order.append(l["id"])
+		else:
+			errors.append("nível %s: %s" % [str(l.get("id", "?")), ", ".join(le) if not le.is_empty() else "id repetido"])
 
 
 func _read(path: String) -> Variant:

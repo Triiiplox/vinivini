@@ -6,6 +6,9 @@ extends RefCounted
 ##   money{v:[...]}   moedas e notas de real (valores em centavos; notas a partir de 200)
 ##   frac{n, d}       pizza dividida em d partes, n pintadas
 ##   numline{a, b, step, mark}  reta numérica de a até b; "mark" ganha uma seta e um "?"
+##   place{n, cols}   quadro de casas (M C D U) com os algarismos de n
+##   vert{a, b, op}   conta armada (um número embaixo do outro), resultado "?"
+##   ruler{cm}        régua de 0 a 15 cm com um lápis de cm centímetros em cima
 ## Origem = centro; tudo cabe em box × box.
 
 const INK := Color(0.03, 0.06, 0.15, 0.95)
@@ -15,10 +18,12 @@ const HUNDRED := Color("#F97316")
 ## Cores das cédulas do Real (2ª família).
 const NOTE := {200: Color("#5B8BB5"), 500: Color("#8E6BB0"), 1000: Color("#D9534F"), 2000: Color("#E8B33D"),
 	5000: Color("#C98B4B"), 10000: Color("#4D7FC9")}
+## Cores das casas do quadro de valor posicional.
+const PLACE_COLS := {"M": Color("#A855F7"), "C": Color("#F97316"), "D": Color("#3B82F6"), "U": Color("#22C55E")}
 
 
 static func handles(t: String) -> bool:
-	return t in ["tens", "clock", "money", "frac", "numline"]
+	return t in ["tens", "clock", "money", "frac", "numline", "place", "vert", "ruler"]
 
 
 static func draw(ci: CanvasItem, spec: Dictionary, box: float) -> void:
@@ -32,6 +37,12 @@ static func draw(ci: CanvasItem, spec: Dictionary, box: float) -> void:
 			_money(ci, spec.get("v", []), box, bw)
 		"frac":
 			_frac(ci, int(spec.get("n", 1)), int(spec.get("d", 2)), box)
+		"place":
+			_place(ci, int(spec.get("n", 0)), int(spec.get("cols", 3)), box, bw)
+		"vert":
+			_vert(ci, int(spec.get("a", 0)), int(spec.get("b", 0)), str(spec.get("op", "+")), box, bw)
+		"ruler":
+			_ruler(ci, int(spec.get("cm", 5)), box, bw)
 		"numline":
 			_numline(ci, int(spec.get("a", 0)), int(spec.get("b", 10)), int(spec.get("step", 1)), spec.get("mark", null), box, bw)
 
@@ -163,3 +174,83 @@ static func _numline(ci: CanvasItem, a: int, b: int, step: int, mark: Variant, b
 		if is_mark:
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(x, -16), Vector2(x - 14, -40), Vector2(x + 14, -40)]),
 				Color("#EF4444"))
+
+
+# ------------------------------------------------------------------ quadro de casas (M C D U)
+
+
+static func _place(ci: CanvasItem, n: int, cols: int, box: float, bw: float) -> void:
+	var names := ["M", "C", "D", "U"].slice(4 - cols)
+	var digits := str(n).lpad(cols, "0")
+	var cw := minf(bw * 0.92 / cols, box * 0.55)
+	var x0 := -cw * cols / 2.0
+	var hh := box * 0.26
+	var dh := box * 0.46
+	var y0 := -(hh + dh) / 2.0
+	var font := ThemeDB.fallback_font
+	for i in cols:
+		var col: Color = PLACE_COLS[names[i]]
+		var head := Rect2(x0 + i * cw, y0, cw, hh)
+		ci.draw_rect(head, col)
+		ci.draw_rect(Rect2(x0 + i * cw, y0 + hh, cw, dh), Color.WHITE)
+		ci.draw_rect(Rect2(x0 + i * cw, y0, cw, hh + dh), INK, false, 3.0)
+		var fs := int(hh * 0.7)
+		var w := font.get_string_size(names[i], HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		ci.draw_string(font, Vector2(head.get_center().x - w / 2.0, y0 + hh * 0.5 + fs * 0.36), names[i],
+			HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
+		var fd := int(minf(dh * 0.75, cw * 0.8))
+		var wd := font.get_string_size(digits[i], HORIZONTAL_ALIGNMENT_LEFT, -1, fd).x
+		ci.draw_string(font, Vector2(head.get_center().x - wd / 2.0, y0 + hh + dh * 0.5 + fd * 0.36), digits[i],
+			HORIZONTAL_ALIGNMENT_LEFT, -1, fd, INK)
+
+
+# ------------------------------------------------------------------ conta armada
+static func _vert(ci: CanvasItem, a: int, b: int, op: String, box: float, bw: float) -> void:
+	var font := ThemeDB.fallback_font
+	var nch := maxi(str(a).length(), str(b).length()) + 1
+	var fs := int(minf(box * 0.27, bw * 0.85 / (nch * 0.62)))
+	var right := fs * nch * 0.62 / 2.0
+	var lh := fs * 1.1
+	var top := -lh * 1.5
+	var rows := [str(a), str(b), "?"]
+	for r in 3:
+		var t: String = rows[r]
+		var w := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		var y := top + lh * r + fs * 0.8 + (fs * 0.25 if r == 2 else 0.0)
+		ci.draw_string(font, Vector2(right - w, y), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs,
+			Color("#FDE68A") if r == 2 else Color.WHITE)
+		if r == 1:
+			ci.draw_string(font, Vector2(-right, y), op, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color("#FDE68A"))
+	var ly := top + lh * 2 + fs * 0.05
+	ci.draw_line(Vector2(-right, ly), Vector2(right, ly), Color.WHITE, maxf(3.0, fs * 0.08))
+
+
+# ------------------------------------------------------------------ régua
+static func _ruler(ci: CanvasItem, cm: int, box: float, bw: float) -> void:
+	var w := bw * 0.84
+	var x0 := -w / 2.0
+	var unit := w / 15.0
+	var rh := box * 0.3
+	var ry := box * 0.02
+	var body_r := Rect2(x0 - unit * 0.6, ry, w + unit * 1.2, rh)  # sobra nas pontas: o 0 e o 15 cabem
+	ci.draw_rect(body_r, Color("#FDE68A"))
+	ci.draw_rect(body_r, INK, false, 3.0)
+	var font := ThemeDB.fallback_font
+	var fs := int(minf(rh * 0.42, unit * 0.7))
+	for i in 16:
+		var x := x0 + i * unit
+		ci.draw_line(Vector2(x, ry), Vector2(x, ry + rh * 0.4), INK, 2.5)
+		var t := str(i)
+		var tw := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		ci.draw_string(font, Vector2(x - tw / 2.0, ry + rh * 0.88), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, INK)
+		if i < 15:
+			ci.draw_line(Vector2(x + unit / 2.0, ry), Vector2(x + unit / 2.0, ry + rh * 0.22), INK, 1.5)
+	# lápis: corpo laranja de 0 até cm, ponta no fim
+	var ph := box * 0.16
+	var py := ry - ph - box * 0.04
+	var body := maxf(unit * 0.5, cm * unit - ph * 0.8)
+	ci.draw_rect(Rect2(x0, py, body, ph), Color("#F97316"))
+	ci.draw_rect(Rect2(x0, py, body, ph), INK, false, 2.5)
+	var tip := PackedVector2Array([Vector2(x0 + body, py), Vector2(x0 + cm * unit, py + ph / 2.0), Vector2(x0 + body, py + ph)])
+	ci.draw_colored_polygon(tip, Color("#FCD34D"))
+	ci.draw_polyline(tip, INK, 2.5)

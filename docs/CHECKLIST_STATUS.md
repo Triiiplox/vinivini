@@ -1,3 +1,17 @@
+# Checklist v4.4.0 — níveis acima do que o Vini já sabe
+
+| # | Item | Status | Evidência / o que falta |
+|---|---|---|---|
+| 1 | Diagnóstico | ✅ | Antes: 211 fases (leitura 43, matemática 79, lógica 18, astronomia 41, ciências 21, emoções 9; com "já conhece letras e números", leitura 37 e matemática 76), ~5 perguntas cada, perguntas fixas no JSON; o nivelamento e o teste para pular pulavam quase tudo para quem já lê e faz contas. |
+| 2 | Níveis gerados por regra | ✅ | `content/lessons/levels.json` (feito por `tools/build_levels.py`, que confere tudo) + `LevelGen` (ReadGen, PhonicsGen, MathGen 1–3, LogicGen): 45 lições, +215 fases (leitura 133, matemática 73, lógica 9), perguntas novas a cada partida, no mesmo formato das lições prontas. |
+| 3 | Leitura em ordem pedagógica | ✅ | Consciência fonológica (rima, começo/fim, contar e juntar sílabas, juntar letras, palavra dentro, tirar e trocar sílaba) → letras parecidas (b/d/p/q, m/n/u, f/t, a/o, espelhadas) → sons parecidos (p/b, t/d, f/v, c/g, s/z, ch/j) → C, G, S, R, X, H → NH, LH, CH/X, RR, SS, QU, GU, Ç → BR/CR/DR, FR/GR/PR/TR/VR, BL/CL/FL/GL/PL, travadas R/S/L/M-N, ÃO/ÃE/ÕE, ditongos → acentos e pontuação → palavras grandes, ler devagar (prato/parto), qual não combina, textos (quem/onde/o quê/por quê), ordem da história. |
+| 4 | Matemática e lógica | ✅ | Números até 1000 e 10.000 (casas, vizinhos, comparar, ordenar, reta), contar pulando, par/ímpar, somas e subtrações de 2–4 algarismos com e sem "vai um", tabuada até 12, divisão, quanto falta, 40 probleminhas narrados, dinheiro, relógio, régua, frações; padrões longos e sudoku 4×4. Treino sem fim e voo até o nível 16 (voo: 14). |
+| 5 | Dificuldade gerenciada | ✅ | Ponto de partida por matéria (aba "Níveis" dos pais, reversível, sem apagar nada); teste rápido na entrada dos blocos de consciência fonológica, letras parecidas, sons parecidos e letras com dois sons; fase de matemática/lógica com tudo certo de primeira pula a seguinte; teste para pular continua. |
+| 6 | Perfil do Vini | ✅ | Padrão aplicado uma vez (`levels_v`): matemática começa em "Números até 1000", leitura na consciência fonológica (com teste rápido), lógica nos padrões, contas do voo no nível 11. Convidados começam do básico. Save antigo: nada apagado, patente nunca cai (patente medida sobre o currículo básico). |
+| 7 | Validação | ✅ | `test_levels` (13 testes: toda conta/opção conferida em >3000 perguntas, variação, dígrafos, sudoku, migração, padrão do Vini, teste rápido, subida automática, aba dos pais, toda fase nova jogada). Auditoria de sobreposição das telas novas em 2340×1080 sem problemas. |
+| 8 | Voz | ⏳ | Falas novas listadas (Lines.n no código + `voice` no levels.json, que o `gen_voice.py` agora lê); áudio ainda não gerado. |
+| 9 | Figuras | ⏳ | Palavras novas sem pintura aparecem só escritas (ou com o alto-falante no montar); lista para o próximo lote de arte. |
+
 # Checklist v4.3.5 (10/10) — modo poderoso nas fases
 
 | # | Item | Status | Evidência / o que falta |

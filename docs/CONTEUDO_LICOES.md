@@ -69,3 +69,62 @@ Gerado de `game/content/lessons/lessons.json` (`tools/build_lessons.py`). Só co
 - **Como ele se sente?** (`emocoes`): 5 explicações, 8 perguntas. Vamos descobrir o que cada um está sentindo!
 - **Sentimentos difíceis** (`sentimentos_dificeis`): 4 explicações, 9 perguntas. Às vezes a gente sente coisas difíceis. Todo mundo sente! Vamos aprender o que ajuda.
 - **Respeito e convivência** (`convivencia`): 4 explicações, 9 perguntas. Vamos aprender a conviver bem com todo mundo!
+
+## Níveis v4.4 (gerados por regra)
+
+Gerado de `game/content/lessons/levels.json` (`tools/build_levels.py`). Cada fase sorteia perguntas novas pela regra do
+estágio (`game/src/engines/content/*_gen.gd`); as listas curadas (palavras, frases, textos, probleminhas) ficam no JSON.
+
+### Leitura
+
+- **Rimas** (`cf_rimas`): 3 fases — bloco `cf`. Geradores: rhyme, rhyme, rhyme_odd.
+- **Começo e fim das palavras** (`cf_sons`): 3 fases — bloco `cf`. Geradores: same_part, same_part, same_part.
+- **Pedacinhos das palavras** (`cf_silabas`): 4 fases — bloco `cf`. Geradores: count_syl, count_syl, synth, letters.
+- **Brincar com as palavras** (`cf_brincar`): 3 fases — bloco `cf`. Geradores: curated, curated, curated.
+- **Letras parecidas** (`letras_parecidas`): 4 fases — bloco `letras`. Geradores: letter_find, letter_find, mirror, name_pic.
+- **Sons parecidos** (`sons_parecidos`): 4 fases — bloco `sons`. Geradores: hear_word, hear_word, name_pic, fill_sentence.
+- **C e G: dois sons** (`regra_c_g`): 3 fases — bloco `regras`. Geradores: sort, sort, pic_read.
+- **S e R: forte e fraco** (`regra_s_r`): 3 fases — bloco `regras`. Geradores: sort, sort, hear_word.
+- **X e H** (`regra_x_h`): 2 fases — bloco `regras`. Geradores: curated_txt, hear_word.
+- **NH** (`fon_nh`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **LH** (`fon_lh`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **CH e X** (`fon_ch`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **RR** (`fon_rr`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **SS** (`fon_ss`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **QU** (`fon_qu`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **GU** (`fon_gu`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **Ç** (`fon_cc`): 5 fases — bloco `digrafos`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **BR, CR, DR** (`fon_br`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **FR, GR, PR, TR, VR** (`fon_tr`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **BL, CL, FL, GL, PL** (`fon_pl`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **AR, ER, IR, OR, UR** (`fon_ar`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **AS, ES, IS, OS, US** (`fon_as`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **AL, EL, IL, OL, UL** (`fon_al`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **AM, EM, AN, EN, IM, ON, UM** (`fon_mn`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **ÃO, ÃE, ÕE** (`fon_ao`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **AI, EI, OI, OU, AU** (`fon_ditongo`): 5 fases — bloco `complexas`. Geradores: ph_chunk, ph_word, ph_build, ph_fill, ph_sentence.
+- **Acentos e pontuação** (`acentos`): 3 fases — bloco `fluencia`. Geradores: hear_word, fill_sentence, punct.
+- **Palavras grandes** (`palavras_grandes`): 5 fases — bloco `fluencia`. Geradores: long_hear, long_count, long_build, long_fill, ph_sentence.
+- **Ler devagar e conferir** (`ler_devagar`): 2 fases — bloco `fluencia`. Geradores: hear_word, hear_word.
+- **Qual não combina?** (`intruso_palavras`): 2 fases — bloco `fluencia`. Geradores: odd_word, odd_word.
+- **Ler e responder** (`textos_perguntas`): 5 fases — bloco `fluencia`. Geradores: text_q, text_q, text_q, text_q, text_q.
+- **Monte a história** (`ordem_historia`): 2 fases — bloco `fluencia`. Geradores: story_order, story_order.
+
+### Matemática
+
+- **Números até 1000** (`numeros_1000`): 8 fases. Geradores: place_read, digit_value, neighbors, compare, order, skip, numline, place_read.
+- **Pular de 2, 5, 10 e 100** (`saltos_pares`): 6 fases. Geradores: skip, skip, skip, parity, skip, skip.
+- **Somas grandes** (`somar_grande`): 7 fases. Geradores: arith, arith, arith, arith, arith, arith3, arith.
+- **Subtrações grandes** (`subtrair_grande`): 7 fases. Geradores: arith, arith, arith, arith, arith, round_sub, arith.
+- **Tabuada** (`tabuada`): 9 fases. Geradores: mul_groups, mul, mul, mul, double_triple, mul, mul, mul_missing, mul_big.
+- **Quanto falta?** (`quanto_falta`): 6 fases. Geradores: missing, missing, missing, missing, missing, missing.
+- **Probleminhas** (`problemas_frase`): 5 fases. Geradores: problem, problem, problem, problem, problem.
+- **Dividir e repartir** (`divisao`): 5 fases. Geradores: share, half_third, div, div, div_missing.
+- **Números até 10.000** (`numeros_10000`): 7 fases. Geradores: place_read, digit_value, neighbors, compare, order, numline, place_read.
+- **Dinheiro, horas e medidas** (`dinheiro_tempo`): 9 fases. Geradores: money_notes, money_coins, money_change, clock_read, clock_later, clock_match, ruler, facts, facts.
+- **Frações** (`fracoes2`): 4 fases. Geradores: frac_name, frac_cmp, frac_of, frac_of.
+
+### Lógica
+
+- **Padrões difíceis** (`padroes`): 5 fases. Geradores: shape_pattern, shape_pattern, seq_num, seq_num, seq_num.
+- **Sudoku de figuras** (`sudoku`): 4 fases. Geradores: sudoku, sudoku, sudoku, sudoku.

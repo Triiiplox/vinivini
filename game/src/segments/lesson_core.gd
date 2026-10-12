@@ -50,6 +50,8 @@ const TRACE_CENTER := Vector2(640, 370)
 const TRACE_HIT := 48.0
 ## Dedo a mais que isso do desenho da letra = saiu da letra: o que acendeu nesse trecho apaga (rabisco não vale).
 const TRACE_OFF := 90.0
+## Largura fixa (em cartões) de figuras que precisam de espaço: reta, régua, conta armada, sudoku.
+const FIG_WIDE := {"numline": 3.4, "ruler": 3.2, "vert": 1.25, "sudoku": 1.45}
 const NUM_WORDS := ["um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez"]
 
 var lesson: Dictionary = {}
@@ -173,14 +175,13 @@ func _plan() -> void:
 		var pool: Array = []
 		for nd in params["jump"]:
 			var les2: Dictionary = ContentService.repo.lessons.get(str(nd["id"]), {})
-			var qs: Array = les2.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == int(nd["stage"]))
-			qs.shuffle()
-			pool += qs.slice(0, 2)
+			pool += stage_questions(les2, int(nd["stage"]), 2)
 		pool.shuffle()
 		pick = pool.slice(0, 5)
 	elif stage > 0:
-		var cur: Array = lesson.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == stage)
-		var prev: Array = lesson.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == stage - 1)
+		# Níveis gerados por regra: perguntas novas a cada vez (LevelGen); lições prontas: as do conteúdo.
+		var cur: Array = stage_questions(lesson, stage, n)
+		var prev: Array = stage_questions(lesson, stage - 1, n / 4) if stage > 1 else []
 		cur.shuffle()
 		prev.shuffle()
 		# ~1 de revisão do estágio anterior a cada 4 (revisão espaçada), o resto do estágio atual
@@ -206,6 +207,15 @@ func _plan() -> void:
 	queue += pick
 	asked = pick.size()
 	hud.set_counter("props", "star_token", 0, maxi(1, asked))
+
+
+## Perguntas de uma fase (lição × estágio), embaralhadas: geradas na hora nos níveis v4.4, do conteúdo nas outras.
+static func stage_questions(les: Dictionary, stage: int, n: int) -> Array:
+	if les.has("stages"):
+		return LevelGen.make(les, stage, n, ContentService.repo.banks)
+	var qs: Array = les.get("ask", []).filter(func(q): return int(q.get("lvl", 1)) == stage)
+	qs.shuffle()
+	return qs.slice(0, n)
 
 
 func begin() -> void:
@@ -315,17 +325,22 @@ func _pick() -> void:
 	for o in opts:
 		wmax = maxf(wmax, _wide(o))
 	var step := CARD * k * wmax + gap
-	if step * n > 1180.0:
-		k *= 1180.0 / (step * n)
-		step = CARD * k * wmax + gap
+	# Fileira larga (frases, palavras grandes): até 1000 px e puxada para a direita, longe do Vini (12/10 v4.4:
+	# "A ARANHA" ficava atrás da cabeça dele).
+	var cx := 640.0
+	if step * n > 900.0:
+		cx = 710.0
+		if step * n > 1000.0:
+			k *= 1000.0 / (step * n)
+			step = CARD * k * wmax + gap
 	for i in n:
-		var x := 640.0 + (i - (n - 1) / 2.0) * step
+		var x := cx + (i - (n - 1) / 2.0) * step
 		var c := _card(opts[i], Vector2(x, y), k)
 		c.payload = i
 		c.name = "Opt_%d" % i
 		c.tapped.connect(_on_pick)
 	var read: Array = rd.get("read", [])
-	var d := narrate(str(rd["say"]))
+	var d := _say_q()
 	if not read.is_empty():
 		# Lê as opções em voz alta, acendendo cada uma (a criança não precisa ler).
 		var t := d + 0.2
@@ -333,8 +348,15 @@ func _pick() -> void:
 			after(t, _glow_opt.bind(i))
 			after(t, Voice.say.bind(str(read[i])))
 			t += Voice.duration(str(read[i])) + 0.35
-		last_seq = [str(rd["say"])] + read
+		last_seq = (rd.get("seq", [str(rd["say"])]) as Array) + read
 		last_line = ""
+
+
+## Fala da pergunta: uma frase ou, nos níveis gerados, a sequência [instrução, palavra] (cada uma com o seu áudio).
+func _say_q() -> float:
+	if rd.has("seq") and not (rd["seq"] as Array).is_empty():
+		return narrate_seq(rd["seq"])
+	return narrate(str(rd.get("say", "")))
 
 
 func _glow_opt(i: int) -> void:
@@ -389,11 +411,14 @@ func _wrong(c: Interactable) -> void:
 		after(0.5, narrate.bind(str(rd["why"])))
 	else:
 		_idle_repeats = 1  # já repetiu a pergunta; parado mais 10 s depois do erro, aí sim a mão ajuda
-		after(0.5, func(): narrate(str(rd.get("say", ""))))
+		after(0.5, _say_q)
 
 
 # ------------------------------------------------------------------ ordenar
 func _order() -> void:
+	if bool(rd.get("rows", false)):
+		_order_rows()
+		return
 	var items: Array = rd.get("items", [])
 	var n := items.size()
 	var idx := range(n)
@@ -418,7 +443,7 @@ func _order() -> void:
 		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		world.add_child(slot)
 		slot.add_to_group("lesson_tmp")
-	narrate(str(rd["say"]))
+	_say_q()
 
 
 func _on_order(c: Interactable) -> void:
@@ -429,9 +454,13 @@ func _on_order(c: Interactable) -> void:
 		var k := 0.8 if n <= 4 else 0.62
 		c.enabled = false
 		var dest := Vector2(640.0 + (order_next - (n - 1) / 2.0) * (CARD * k + 22.0), 560)
+		var shrink := 0.7
+		if bool(rd.get("rows", false)):
+			dest = row_slot(order_next)  # frases da história: vão para a coluna da direita, na ordem
+			shrink = 1.0
 		var tw := c.create_tween()
 		tw.tween_property(c, "position", dest, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.parallel().tween_property(c, "scale", Vector2.ONE * 0.7, 0.3)
+		tw.parallel().tween_property(c, "scale", Vector2.ONE * shrink, 0.3)
 		AudioService.play_sfx("pop", 1.0 + order_next * 0.08)
 		order_next += 1
 		if order_next >= n:
@@ -466,17 +495,23 @@ func _sort() -> void:
 	var items: Array = rd.get("items", [])
 	var order := range(items.size())
 	order.shuffle()
+	# Palavras escritas são mais largas que figuras: o passo acompanha a mais larga (nada encosta).
+	var wmax := 1.0
+	for it in items:
+		wmax = maxf(wmax, _wide(it[0]))
+	var ks := minf(0.7, 1000.0 / maxf(1.0, items.size()) / (CARD * wmax + 20.0))
+	var sstep := CARD * ks * wmax + 20.0
 	for j in order.size():
 		var i: int = order[j]
-		var x := 640.0 + (j - (items.size() - 1) / 2.0) * 170.0
-		var c := _card(items[i][0], Vector2(x, 250), 0.7)
+		var x := 640.0 + (j - (items.size() - 1) / 2.0) * maxf(170.0, sstep)
+		var c := _card(items[i][0], Vector2(x, 250), ks)
 		c.payload = int(items[i][1])
 		c.name = "Sort_%d" % i
 		c.draggable = true
 		c.tappable = false
 		c.home_pos = c.position
 		c.dropped.connect(_on_drop)
-	narrate(str(rd["say"]))
+	_say_q()
 
 
 func _on_drop(c: Interactable, z: DropZone) -> void:
@@ -538,6 +573,11 @@ func _end() -> void:
 		line = Lines.c("Pronto! Agora eu sei onde começar com você!")
 	elif int(params.get("stage", 0)) > 0:
 		rk = Stages.record(Stages.key(str(lesson["id"]), int(params["stage"])), stars)
+		var nxt := LevelPlan.autoskip(lesson, int(params["stage"]), first_ok, asked)
+		if nxt != "":
+			# Nível sobe sozinho: acertou tudo de primeira, a fase seguinte (mais do mesmo) é pulada.
+			rk = _merge_rank(rk, Stages.record(nxt, 2))
+			line = Lines.c("Acertou tudo de primeira! A próxima fase ficou fácil para você: vamos pular!")
 	else:
 		rk = Stages.record(Stages.key(str(lesson["id"]), 1), stars)
 	vini.play("celebrate")
@@ -622,11 +662,17 @@ func _card(spec: Dictionary, pos: Vector2, k: float) -> Interactable:
 func _tall(spec: Dictionary) -> float:
 	if str(spec.get("t", "")) == "text" and str(spec.get("s", "")).length() > 50:
 		return 1.55
+	if str(spec.get("t", "")) == "sudoku":
+		return 1.45
 	return 1.0
 
 
 ## Largura do cartão (em cartões) para figuras que precisam de espaço.
 func _wide(spec: Dictionary) -> float:
+	return minf(_wide_raw(spec), float(spec.get("wmax", 99.0)))
+
+
+func _wide_raw(spec: Dictionary) -> float:
 	match str(spec.get("t", "")):
 		"text":
 			var t := str(spec.get("s", ""))
@@ -641,9 +687,9 @@ func _wide(spec: Dictionary) -> float:
 			for v in spec.get("v", []):
 				nn += 2 if int(v) >= 200 else 1
 			return clampf(nn * 0.55, 1.3, 3.4)
-		"numline":
-			return 3.4
-	return 1.0
+		"place":
+			return clampf(int(spec.get("cols", 3)) * 0.5, 1.3, 2.2)
+	return float(FIG_WIDE.get(str(spec.get("t", "")), 1.0))
 
 
 func _clear() -> void:
@@ -676,7 +722,7 @@ func _hint() -> void:
 	if not _hint_allowed():
 		var long_text := str((rd.get("show", {}) as Dictionary).get("s", "")).length() > 40
 		if _idle_repeats == 0 and not long_text and str(rd.get("say", "")) != "":
-			narrate(str(rd["say"]))
+			_say_q()
 		_idle_repeats += 1
 		return
 	_hint_round()
@@ -761,6 +807,14 @@ func _num_hint() -> void:
 
 func _gen_round() -> void:
 	pass
+
+
+func _order_rows() -> void:
+	pass
+
+
+func row_slot(_i: int) -> Vector2:
+	return Vector2.ZERO
 
 
 func _endless_end() -> String:

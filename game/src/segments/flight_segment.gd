@@ -603,7 +603,7 @@ func _hardness() -> float:
 
 
 func _calc_level() -> int:
-	return mini(Stages.math_level(), 9)
+	return mini(Stages.math_level(), EndlessGen.FLY_MAX)
 
 
 func _hint() -> void:

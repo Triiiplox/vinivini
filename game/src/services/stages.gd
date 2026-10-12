@@ -83,7 +83,21 @@ static func record(k: String, st: int) -> Dictionary:
 
 static func needs_placement(area: String) -> bool:
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
-	return area in PLACEMENT and not (pd.get("placed", {}) as Dictionary).has(area) and not nodes(area).is_empty()
+	return area in PLACEMENT and not (pd.get("placed", {}) as Dictionary).has(area) and not nodes(area).is_empty() \
+		and LevelPlan.start_id(area) == ""
+
+
+## Primeira fase da trilha que conta (0, ou a do ponto de partida escolhido pelos pais / padrão do perfil).
+## As fases antes dela ficam "passadas" sem ganhar estrelas (dá para voltar o ponto de partida sem perder nada).
+static func start_index(area: String) -> int:
+	var sid := LevelPlan.start_id(area)
+	if sid == "":
+		return 0
+	var ns := nodes(area)
+	for i in ns.size():
+		if str(ns[i]["id"]) == sid:
+			return i
+	return 0
 
 
 ## Amostra do nivelamento: 8 fases espalhadas pela trilha, só entre as que têm pergunta de resposta certa
@@ -91,7 +105,7 @@ static func needs_placement(area: String) -> bool:
 ## conta do resultado, e o acerto ia para a fase errada.
 static func placement_samples(area: String) -> Array:
 	var ok: Array = []
-	for nd in nodes(area):
+	for nd in nodes(area).slice(start_index(area)):
 		var les: Dictionary = ContentService.repo.lessons.get(str(nd["id"]), {})
 		for q in les.get("ask", []):
 			if int(q.get("lvl", 1)) == int(nd["stage"]) and str(q.get("k", "")) in ["pick", "num", "order"]:
@@ -113,7 +127,7 @@ static func math_level() -> int:
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
 	var e: Variant = pd.get("endless", {})
 	if e is Dictionary and (e as Dictionary).has("math"):
-		return clampi(int(e["math"]), 1, 10)
+		return clampi(int(e["math"]), 1, EndlessGen.MAX)
 	return clampi(1 + area_level("math").x / 8, 1, 8)
 
 
@@ -121,14 +135,14 @@ static func set_math_level(v: int) -> void:
 	var pd: Dictionary = SaveService.progress.data(SaveService.profile_id)
 	if not pd.get("endless") is Dictionary:
 		pd["endless"] = {}
-	pd["endless"]["math"] = clampi(v, 1, 10)
+	pd["endless"]["math"] = clampi(v, 1, EndlessGen.MAX)
 	SaveService.progress.persist(SaveService.profile_id)
 
 
 ## Índice da primeira fase não feita (= tamanho se todas feitas).
 static func next_index(area: String) -> int:
 	var ns := nodes(area)
-	for i in ns.size():
+	for i in range(start_index(area), ns.size()):
 		if not is_done(str(ns[i]["key"])):
 			return i
 	return ns.size()
@@ -137,9 +151,10 @@ static func next_index(area: String) -> int:
 ## Nível da matéria = fases feitas nela; total = quantas fases existem.
 static func area_level(area: String) -> Vector2i:
 	var ns := nodes(area)
+	var st := start_index(area)
 	var n := 0
-	for nd in ns:
-		if is_done(str(nd["key"])):
+	for i in ns.size():
+		if i < st or is_done(str(ns[i]["key"])):
 			n += 1
 	return Vector2i(n, ns.size())
 
@@ -155,11 +170,14 @@ static func total_done() -> int:
 	return n
 
 
-## Fases necessárias para a patente i (sobre o total de fases que existem hoje).
+## Fases necessárias para a patente i, sobre o total do currículo básico (sem os níveis extras v4.4, "tier" 2):
+## assim a patente de quem já jogou nunca cai quando entram níveis novos, e as fases novas também contam.
 static func threshold(i: int) -> int:
 	var total := 0
 	for a in AREAS:
-		total += nodes(a).size()
+		for nd in nodes(a):
+			if int(ContentService.repo.lessons[str(nd["id"])].get("tier", 1)) < 2:
+				total += 1
 	return int(round(float(RANKS[i][0]) * total))
 
 
