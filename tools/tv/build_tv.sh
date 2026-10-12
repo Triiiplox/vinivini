@@ -15,6 +15,7 @@ out="$ROOT/build/ViniComandanteTV-v${VERSION}-${kind}.apk"
 stash="$ROOT/build/tv_stash"
 mkdir -p "$ROOT/build"
 restore() {
+	[ -f "$ROOT/build/project.godot.tv_bak" ] && mv "$ROOT/build/project.godot.tv_bak" project.godot
 	for d in characters/kids private; do
 		[ -d "$stash/$d" ] && { mkdir -p "assets/$(dirname "$d")"; mv "$stash/$d" "assets/$d"; }
 	done
@@ -24,10 +25,16 @@ restore() {
 if [ "$kind" = publico ]; then
 	[ -e "$stash" ] && { echo "build/tv_stash já existe: confira antes (pode ter fotos guardadas)"; exit 1; }
 	mkdir -p "$stash/characters"
-	trap restore EXIT
 	[ -d assets/characters/kids ] && mv assets/characters/kids "$stash/characters/kids"
 	[ -d assets/private ] && mv assets/private "$stash/private"
 fi
+# TV sem entrada de áudio: com audio/driver/enable_input ligado o app da TV (4.6.0) fechava na tela branca; a 4.4,
+# sem microfone, abria. O override "enable_input.tv" não serve: o export não o resolve e a parte Java do Godot pode ler a
+# chave crua. Então o project.godot é ajustado só durante o export (e volta no fim, mesmo com erro).
+trap restore EXIT
+cp project.godot "$ROOT/build/project.godot.tv_bak"
+sed -i 's#^driver/enable_input=true$#driver/enable_input=false#' project.godot
+grep -q '^driver/enable_input=false$' project.godot || { echo "enable_input não desligado"; exit 1; }
 godot --headless --path . --import >/dev/null 2>&1
 rm -f "$raw"
 godot --headless --path . --export-release "Android TV" "$raw" 2>&1 | grep -E "ERROR" || true

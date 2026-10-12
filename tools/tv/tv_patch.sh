@@ -17,12 +17,11 @@ import re, sys
 p = sys.argv[1]; s = open(p, encoding="utf-8").read()
 s = re.sub(r'<uses-feature android:name="android.hardware.faketouch"[^>]*/>',
            '<uses-feature android:name="android.hardware.faketouch" android:required="false"/>', s)
-# Microfone (módulo FALAR): opcional — TV sem microfone ainda instala; o app cai nos botões do adulto.
+# Sem microfone na TV (4.6.0 crashava ao abrir; a 4.4 sem microfone abria): nada de microfone obrigatório.
 s = re.sub(r'<uses-feature android:name="android.hardware.microphone"[^>]*/>', '', s)
 extra = ('<uses-feature android:name="android.hardware.touchscreen" android:required="false"/>'
          '<uses-feature android:name="android.software.leanback" android:required="false"/>'
-         '<uses-feature android:name="android.hardware.gamepad" android:required="false"/>'
-         '<uses-feature android:name="android.hardware.microphone" android:required="false"/>')
+         '<uses-feature android:name="android.hardware.gamepad" android:required="false"/>')
 s = s.replace('<application ', extra + '<application android:banner="@drawable/tv_banner" ', 1)
 s = s.replace('<category android:name="android.intent.category.LAUNCHER"/>',
               '<category android:name="android.intent.category.LAUNCHER"/>'
@@ -34,6 +33,10 @@ PY
 # válido do primeiro plano do ícone (ninguém o usa: o ícone adaptativo só tem fundo e primeiro plano).
 mm="$work/d/res/values-anydpi-v26/mipmaps.xml"
 [ -f "$mm" ] && sed -i 's#<item type="mipmap" name="themed_icon">false</item>#<item type="mipmap" name="themed_icon">@mipmap/icon_foreground</item>#' "$mm"
+# Tela de abertura do Android: fundo azul-escuro do jogo (o modelo do Godot deixa branco) com a nave no centro.
+st="$work/d/res/values/styles.xml"
+sed -i 's#<item name="windowSplashScreenAnimatedIcon">@mipmap/icon_foreground</item>#&<item name="windowSplashScreenBackground">\#ff0b1340</item>#' "$st"
+grep -q windowSplashScreenBackground "$st" || { echo "splash não ajustado"; exit 1; }
 mkdir -p "$work/d/res/drawable-xhdpi"
 cp "$here/tv_banner.png" "$work/d/res/drawable-xhdpi/tv_banner.png"
 java -jar "$APKTOOL" b "$work/d" -o "$work/u.apk" >/dev/null
