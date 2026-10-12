@@ -151,13 +151,13 @@ func _build_buttons() -> void:
 	hud.stage.add_child(again_btn)
 	yes_btn = DSButton.new("primary", "check", Vector2(260, 120), "normal", "CERTO")
 	yes_btn.name = "DetYes"
-	yes_btn.position = Vector2(360, 572)
+	yes_btn.position = Vector2(350, 572)
 	yes_btn.pressed.connect(_detective_answer.bind(false))
 	yes_btn.visible = false
 	hud.stage.add_child(yes_btn)
-	odd_btn = DSButton.new("secondary", "close", Vector2(260, 120), "normal", "ESQUISITO")
+	odd_btn = DSButton.new("secondary", "close", Vector2(330, 120), "normal", "ESQUISITO")  # palavra longa: botão mais largo
 	odd_btn.name = "DetOdd"
-	odd_btn.position = Vector2(660, 572)
+	odd_btn.position = Vector2(640, 572)
 	odd_btn.pressed.connect(_detective_answer.bind(true))
 	odd_btn.visible = false
 	hud.stage.add_child(odd_btn)

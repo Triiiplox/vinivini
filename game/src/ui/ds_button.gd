@@ -70,8 +70,11 @@ func _layout() -> void:
 		icon.position = Vector2(x, (size.y - s) / 2.0)
 	if label:
 		var lx := 0.0 if icon == null else size.y * 0.25 + s
+		# Texto longo encolhe para caber (antes "ESQUISITO"/"QUASE" vazavam da borda do botão).
+		var room := size.x - lx - size.y * (0.18 if icon else 0.25)
+		UI.fit_font(label, int(size.y * 0.36), room, int(size.y * 0.2))
 		label.position = Vector2(lx, 0)
-		label.size = Vector2(size.x - lx, size.y)
+		label.size = Vector2(size.x - lx - (size.y * 0.06 if icon else 0.0), size.y)
 
 
 func _refresh() -> void:
