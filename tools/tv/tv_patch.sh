@@ -10,7 +10,7 @@ here="$(cd "$(dirname "$0")" && pwd)"
 bt=/opt/android-sdk/build-tools/35.0.0
 ks="$here/../../game/android/vini-sideload.keystore"
 work=$(mktemp -d)
-java -jar "${APKTOOL:?defina APKTOOL}" d -s -f "$in" -o "$work/d" >/dev/null
+java -jar "${APKTOOL:?defina APKTOOL}" d -f "$in" -o "$work/d" >/dev/null
 m="$work/d/AndroidManifest.xml"
 python3 - "$m" <<'PY'
 import re, sys
@@ -33,6 +33,19 @@ PY
 # válido do primeiro plano do ícone (ninguém o usa: o ícone adaptativo só tem fundo e primeiro plano).
 mm="$work/d/res/values-anydpi-v26/mipmaps.xml"
 [ -f "$mm" ] && sed -i 's#<item type="mipmap" name="themed_icon">false</item>#<item type="mipmap" name="themed_icon">@mipmap/icon_foreground</item>#' "$mm"
+# Vídeo (crash na TCL BeyondTV2, logcat 12/10: "createContext failed" no GLThread): o Godot 4.5 escolhe a
+# configuração EGL filtrando só por "suporta OpenGL ES 2" e depois pede um contexto ES 3.0 — em drivers de TV a
+# configuração escolhida pode não aceitar 3.0. Aqui o filtro passa a exigir ES 3 (EGL_OPENGL_ES3_BIT_KHR = 0x40).
+# Se a GPU só tiver ES 2, o erro vira "No configs match configSpec" (e aí o Godot 4 não roda nesse aparelho).
+python3 - "$work/d" <<'PY'
+import glob, sys
+f = glob.glob(sys.argv[1] + "/smali*/org/godotengine/godot/xr/regular/RegularConfigChooser.smali")
+assert len(f) == 1, "RegularConfigChooser.smali não encontrado"
+s = open(f[0]).read()
+old = "        0x3040\n        0x4\n"
+assert s.count(old) == 1, "configSpec do EGL mudou no Godot: revisar o patch"
+open(f[0], "w").write(s.replace(old, "        0x3040\n        0x40\n"))
+PY
 # Tela de abertura do Android: fundo azul-escuro do jogo (o modelo do Godot deixa branco) com a nave no centro.
 st="$work/d/res/values/styles.xml"
 sed -i 's#<item name="windowSplashScreenAnimatedIcon">@mipmap/icon_foreground</item>#&<item name="windowSplashScreenBackground">\#ff0b1340</item>#' "$st"
