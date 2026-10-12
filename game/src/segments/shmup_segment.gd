@@ -229,7 +229,7 @@ func _process(delta: float) -> void:
 		boss.tick(delta)
 		_boss_gate()
 	elif state == "boss" and mini != null:
-		_mini_tick(delta)
+		ShmupFx.mini_tick(self, delta)
 	ui.refresh()
 
 
@@ -247,7 +247,7 @@ func _regen(delta: float) -> void:
 func _hurt() -> void:
 	if invuln > 0.0 or power_t > 0.0 or over or state in ["intro", "won"]:
 		return
-	invuln = 1.6
+	invuln = 2.2  # crianças: ~2 s piscando depois de apanhar (pesquisa: 1–2,5 s)
 	AudioService.haptic(80)
 	shake_camera(12.0)
 	_regen_t = 0.0
@@ -643,6 +643,12 @@ func damage(f: Node2D, dmg: float) -> void:
 	if art is ShmupSprite:
 		(art as ShmupSprite).hit()
 	if f == mini:
+		# teto de dano do robô gigante (~18 s no mínimo): o modo poderoso não o derrete na hora
+		var cap := float(f.get_meta("cap", 0.0))
+		var d := minf(dmg, cap)
+		f.set_meta("cap", cap - d)
+		hp = float(f.get_meta("hp")) + dmg - d
+		f.set_meta("hp", hp)
 		if hp <= 0.0:
 			_mini_calm()
 		return
@@ -835,8 +841,19 @@ func _check_gate() -> void:
 	gate.clear()
 
 
+## Troca de fase do mestre (ShmupBoss chama): apaga os tiros dele (viram estrelas), pisca e avisa.
+func boss_phase(p: int) -> void:
+	ShmupFx.clear_enemy_fire(self)
+	cosmo_say(Lines.c("Ele mudou de jeito! Cuidado!") if p == 1 else Lines.c("Última parte! Você consegue!"))
+
+
+## O relógio da última fase acabou: o mestre cansou e fica amigo (a criança nunca fica presa).
+func boss_tired() -> void:
+	_boss_calm()
+
+
 func _boss_gate() -> void:
-	if not gate_done and boss.hp <= boss.max_hp * 0.5 and gate.is_empty():
+	if not gate_done and boss.phase >= 1 and boss.shield_t <= 0.0 and gate.is_empty():
 		gate_done = true
 		_spawn_gate("special")
 
@@ -847,7 +864,7 @@ func _special() -> void:
 	cosmo_say(Lines.c("Tiro especial! Com tudo!"))
 	if boss == null:
 		return
-	var dmg := boss.max_hp * 0.3
+	var dmg := boss.max_hp * 0.1  # o teto de dano por segundo do mestre vale aqui também
 	ShmupFx.special_beam(self, ship, _muzzle() - ship.position, boss.position, func():
 		if boss != null and not boss.calm and boss.hurt(dmg):
 			_boss_calm())
@@ -887,26 +904,6 @@ func _start_boss() -> void:
 	after(2.6, func():
 		if not over:
 			state = "boss")
-
-
-func _mini_tick(delta: float) -> void:
-	if not is_instance_valid(mini):
-		return
-	var ft := float(mini.get_meta("t")) + delta
-	mini.set_meta("t", ft)
-	var home := Vector2(vr().end.x - 220.0, 390.0 + sin(ft * 0.8) * 200.0)
-	mini.position = mini.position.lerp(home, minf(1.0, delta * 1.5))
-	(mini.get_child(0) as ShmupSprite).look = ship.position - mini.position
-	var fire := float(mini.get_meta("fire")) - delta
-	if fire <= 0.0 and can_attack():
-		fire = lerpf(2.4, 1.5, heat)
-		var aim := (ship.position - mini.position).normalized()
-		var bsp := 240.0 + 100.0 * heat
-		for a in [-20.0, 0.0, 20.0]:
-			enemy_bullet(mini.position + aim * 100.0, aim.rotated(deg_to_rad(a)) * bsp)
-		if randf() < 0.3:
-			spawn_foe("bolinha", mini.position + Vector2(-80, -120), "seno")
-	mini.set_meta("fire", fire)
 
 
 func _mini_calm() -> void:

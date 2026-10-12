@@ -135,3 +135,39 @@ static func special_beam(screen: GameScreen, from_node: Node2D, muzzle: Vector2,
 		AudioService.play_sfx("launch")
 		for i in 6:
 			Fx.sparkle(world, to + Vector2(randf_range(-80, 80), randf_range(-80, 80)), 20, RAINBOW[i]))
+
+
+## Troca de fase do mestre: os tiros dele viram estrelas, faixas de perigo somem, tela pisca.
+static func clear_enemy_fire(seg: Node) -> void:
+	for b in seg.ebullets.duplicate():
+		Fx.sparkle(seg.world, b.position, 4, DS.STAR_GOLD)
+		seg._drop(seg.ebullets, b)
+	for n in seg.bands.duplicate():
+		seg._drop(seg.bands, n)
+	flash(seg.hud.root, Color.WHITE, 0.5, 0.4)
+	seg.shake_camera(14.0)
+
+
+## Robô gigante (mini-mestre): sobe e desce na direita, olha para a nave e atira em leque de 3. O teto de dano
+## ("cap", ~18 s de luta no mínimo) enche aqui.
+static func mini_tick(seg: Node, delta: float) -> void:
+	var mini: Node2D = seg.mini
+	if not is_instance_valid(mini):
+		return
+	var ft := float(mini.get_meta("t")) + delta
+	mini.set_meta("t", ft)
+	var home := Vector2(seg.vr().end.x - 220.0, 390.0 + sin(ft * 0.8) * 200.0)
+	mini.position = mini.position.lerp(home, minf(1.0, delta * 1.5))
+	(mini.get_child(0) as ShmupSprite).look = seg.ship.position - mini.position
+	var rate := float(mini.get_meta("max")) / 18.0
+	mini.set_meta("cap", minf(float(mini.get_meta("cap", 0.0)) + rate * delta, rate))
+	var fire := float(mini.get_meta("fire")) - delta
+	if fire <= 0.0 and seg.can_attack():
+		fire = lerpf(2.4, 1.5, seg.heat)
+		var aim: Vector2 = (seg.ship.position - mini.position).normalized()
+		var bsp: float = 240.0 + 100.0 * seg.heat
+		for a in [-20.0, 0.0, 20.0]:
+			seg.enemy_bullet(mini.position + aim * 100.0, aim.rotated(deg_to_rad(a)) * bsp)
+		if randf() < 0.3:
+			seg.spawn_foe("bolinha", mini.position + Vector2(-80, -120), "seno")
+	mini.set_meta("fire", fire)

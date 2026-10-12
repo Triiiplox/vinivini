@@ -133,7 +133,7 @@ func test_shmup_boss_no_respawn() -> void:
 	eq(f.boss.kind, "cratera", "mestre da Lua: Rei Cratera")
 	await get_tree().create_timer(2.8).timeout
 	eq(f.state, "boss", "luta começou")
-	f.boss.hurt(f.boss.max_hp * 0.55)
+	f.boss.set_life(0.45)
 	f._boss_gate()
 	eq(f.gate.size(), 3, "metade da vida: portal do tiro especial")
 	for p in f.gate:
@@ -142,7 +142,7 @@ func test_shmup_boss_no_respawn() -> void:
 		p.queue_free()
 	f.gate.clear()
 	var b: ShmupBoss = f.boss
-	if b.hurt(b.max_hp):
+	if b.finish():
 		f._boss_calm()
 	eq(f.state, "won", "mestre vencido")
 	check(b.happy, "mestre ficou feliz")
@@ -188,3 +188,53 @@ func test_power_bolt_in_phases() -> void:
 	eq(f.bullets.size() - before, 7, "rajada de 7 tiros arco-íris")
 	eq(float(f.bullets[f.bullets.size() - 1].get_meta("dmg")), 2.0, "dano dobrado")
 	AudioService.stop_power()
+
+
+## O mestre não "some" (12/10, o Andro: "aparece e some como se eu tivesse vencido"): fogo máximo (modo poderoso,
+## ~140 de dano/s) não derruba antes de ~40 s; 3 fases com escudo na troca; o relógio nunca deixa a criança presa.
+func test_shmup_boss_lasts_and_has_phases() -> void:
+	SaveService.settings.set_value("nave_modo", "facil")
+	Router.reset_to("seg_fases", {"fase": 3})
+	await frames(3)
+	var f: Node = Router.current_screen
+	f.state = "waves"
+	f.t = f.wave_time
+	for e in f.foes.duplicate():
+		f._drop(f.foes, e)
+	f._spawn(0.1)
+	var b: ShmupBoss = f.boss
+	f.state = "boss"
+	check(not b.hurt(b.max_hp), "entrando com escudo: tiro não tira vida")
+	eq(b.hp, b.max_hp, "vida cheia na entrada")
+	var phases_seen := {}
+	var sec := 0.0
+	while not b.calm and sec < 120.0:
+		b.tick(0.1)
+		for i in 14:  # modo poderoso: 7 tiros de 2 a cada 0,1 s
+			if b.hurt(2.0):
+				break
+		phases_seen[b.phase] = true
+		sec += 0.1
+	check(b.calm, "vencido no fim")
+	check(sec >= 38.0, "fogo máximo: a luta durou %.0f s (antes: < 1 s)" % sec)
+	check(sec <= 85.0, "e não arrasta demais: %.0f s" % sec)
+	eq(phases_seen.size(), 3, "passou pelas 3 fases")
+	# relógio: sem dano nenhum, cada fase passa sozinha em 25 s
+	Router.reset_to("seg_fases", {"fase": 3})
+	await frames(3)
+	f = Router.current_screen
+	f.state = "waves"
+	f.t = f.wave_time
+	for e in f.foes.duplicate():
+		f._drop(f.foes, e)
+	f._spawn(0.1)
+	b = f.boss
+	f.state = "boss"
+	var idle := 0.0
+	while not b.calm and idle < 200.0:
+		b.tick(0.1)
+		idle += 0.1
+	check(b.calm, "sem acertar nada, o mestre cansa e vira amigo (%.0f s)" % idle)
+	check(idle <= 90.0, "no máximo ~1,5 min")
+	await frames(2)
+	eq(f.state, "won", "fase vencida pelo relógio")

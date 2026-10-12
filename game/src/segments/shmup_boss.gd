@@ -4,7 +4,13 @@ extends Node2D
 ## desenhado em código com rosto que reage (olha para a nave, fica bravo na metade da vida, sorri quando vence),
 ## partes animadas e ataques próprios. Todo ataque forte AVISA antes (faixa piscando ~1 s): dá para uma criança
 ## de 4 anos desviar. Não morre: quando a vida acaba ele "acalma", fica feliz, vira amigo e vai embora.
-## A tela que o usa (ShmupSegment) dá: enemy_bullet(), danger_band(), spawn_foe(), ship_pos(), vr().
+## A tela que o usa (ShmupSegment) dá: enemy_bullet(), danger_band(), spawn_foe(), ship_pos(), vr(), boss_phase().
+## v6 (12/10, o Andro: "o mestre aparece e some como se eu tivesse vencido"): o tiro especial + 8 s de arco-íris
+## (~140 de dano/s) derretiam o mestre em menos de 1 s. Agora, como nos shmups clássicos (Touhou, Shippu Mahou,
+## R-Type; pesquisa em docs/NAVE.md): luta de 3 FASES (troca em 66% e 33% da vida, cada uma com ataques próprios),
+## escudo de 2 s na entrada e em cada troca (tiro faz "tink", sem dano), dano nunca atravessa a fase, TETO de dano
+## por segundo (vida ÷ FIGHT_SEC: nem o modo poderoso derruba antes de ~40 s) e relógio de 25 s por fase (a criança
+## nunca fica presa: o mestre "cansa" e passa de fase).
 
 const R := 150.0
 const INK := Color("#1A1033")
@@ -14,8 +20,16 @@ const ATTACKS := {"cratera": ["leque", "olhar", "chuva", "filhotes"], "ferrugem"
 const BODY := {"cratera": Color("#A5A3C9"), "ferrugem": Color("#E8743B"), "tempestade": Color("#5EC8E5"),
 	"aneis": Color("#F2C879"), "gelo": Color("#9BE7FF"), "polvo": Color("#B07CF0")}
 
+const PHASES := [0.66, 0.33]  ## fração da vida onde a luta troca de fase
+const PHASE_TIME := 25.0  ## relógio de cada fase (passa sozinho)
+const FIGHT_SEC := 40.0  ## teto de dano: vida inteira em no mínimo ~40 s
+const SHIELD_SEC := 2.0
+
 var kind := "cratera"
 var max_hp := 60.0
+var phase := 0
+var shield_t := 0.0  ## escudo (entrada e troca de fase): tiro não tira vida
+var phase_t := 0.0
 var hp := 60.0
 var heat := 0.0
 var angry := false
@@ -23,6 +37,8 @@ var happy := false
 var calm := false
 var flash := 0.0
 var seg: Node
+var _bucket := 0.0  ## dano que ainda cabe agora (enche com max_hp/FIGHT_SEC por segundo)
+var _tink := 0.0
 var _t := 0.0
 var _cd := 2.0
 var _next := 0
@@ -49,23 +65,69 @@ func setup(k: String, life: float, h: float, s: Node) -> void:
 	heat = h
 	seg = s
 	z_index = 30
+	shield_t = 2.6  # entrando na tela
+	_bucket = 0.0
 
 
-## Dano; devolve true quando a vida acaba (ele acalma).
+## Vida onde a fase atual termina (0 na última).
+func floor_hp() -> float:
+	return max_hp * float(PHASES[phase]) if phase < PHASES.size() else 0.0
+
+
+## Dano; devolve true quando a vida acaba (ele acalma). Com escudo não tira vida; respeita o teto por segundo e
+## nunca atravessa o fim da fase (a fase seguinte só começa depois da troca).
 func hurt(dmg: float) -> bool:
 	if calm:
 		return false
-	hp = maxf(0.0, hp - dmg)
-	flash = 1.0
-	if not angry and hp <= max_hp * 0.5:
-		angry = true
-		_cd = minf(_cd, 0.8)
-		AudioService.play_sfx("bump", 0.6, 0.0)
-	if hp <= 0.0:
+	if shield_t > 0.0:
+		if _tink <= 0.0:
+			_tink = 0.12
+			AudioService.play_sfx("tap", 2.6, -10.0)
+		flash = maxf(flash, 0.3)
+		return false
+	var d := minf(dmg, _bucket)
+	_bucket -= d
+	hp = maxf(floor_hp(), hp - d)
+	flash = 1.0 if d > 0.0 else maxf(flash, 0.4)
+	if hp > floor_hp():
+		return false
+	return _end_phase()
+
+
+## Fase acabou (vida no limite ou relógio): passa para a próxima ou, na última, acalma (true).
+func _end_phase() -> bool:
+	hp = floor_hp()
+	if phase >= PHASES.size():
 		calm = true
 		happy = true
 		return true
+	phase += 1
+	phase_t = 0.0
+	shield_t = SHIELD_SEC
+	angry = true
+	_cd = SHIELD_SEC + 0.6
+	AudioService.play_sfx("bump", 0.6, 0.0)
+	if seg != null and seg.has_method("boss_phase"):
+		seg.boss_phase(phase)
 	return false
+
+
+## Testes e prévias: põe a vida numa fração (pula as fases que ficaram para trás), sem teto nem escudo.
+func set_life(frac: float) -> void:
+	hp = max_hp * clampf(frac, 0.0, 1.0)
+	while phase < PHASES.size() and hp <= floor_hp():
+		phase += 1
+	angry = phase > 0
+	shield_t = 0.0
+
+
+## Testes e prévias: vence na hora.
+func finish() -> bool:
+	phase = PHASES.size()
+	hp = 0.0
+	calm = true
+	happy = true
+	return true
 
 
 func radius() -> float:
@@ -80,6 +142,7 @@ func _process(delta: float) -> void:
 	if _blink < -0.12:
 		_blink = randf_range(1.5, 3.5)
 	flash = maxf(0.0, flash - delta * 5.0)
+	_tink -= delta
 	queue_redraw()
 
 
@@ -90,12 +153,32 @@ func tick(delta: float) -> void:
 	var vr: Rect2 = seg.vr()
 	_home = Vector2(vr.end.x - R - 170.0, lerpf(380.0, seg.ship_pos().y, 0.35))
 	position = position.lerp(_home + Vector2(sin(_t * 0.9) * 30.0, sin(_t * 1.7) * 60.0), minf(1.0, delta * 1.6))
+	var rate := max_hp / FIGHT_SEC
+	_bucket = minf(_bucket + rate * delta, rate)
+	if shield_t > 0.0:
+		shield_t -= delta
+		return
+	phase_t += delta
+	if phase_t >= PHASE_TIME and _end_phase():
+		seg.boss_tired()
+		return
 	_cd -= delta
 	if _cd <= 0.0 and seg.can_attack():
-		var list: Array = ATTACKS[kind]
+		var list := phase_attacks()
 		_attack(str(list[_next % list.size()]))
 		_next += 1
-		_cd = lerpf(3.0, 1.9, heat) * (0.72 if angry else 1.0)
+		_cd = lerpf(3.0, 1.9, heat) * [1.0, 0.8, 0.65][phase]
+
+
+## Cada fase com o seu jeito: 1ª = os 2 primeiros ataques; 2ª = os do meio; 3ª = todos (mais rápido).
+func phase_attacks() -> Array:
+	var all: Array = ATTACKS[kind]
+	match phase:
+		0:
+			return all.slice(0, 2)
+		1:
+			return all.slice(1, all.size())
+	return all
 
 
 # ------------------------------------------------------------------ ataques
@@ -157,7 +240,16 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, R * 1.25, Color(c, 0.12))
 	if not _tex.is_empty():
 		_draw_painted(bob)
-		return
+	else:
+		_draw_code(c, bob)
+	if shield_t > 0.0 and not calm:
+		# escudo: bolha que gira (tiro não tira vida enquanto ela está)
+		var a := 0.35 + 0.2 * sin(_t * 12.0)
+		draw_arc(Vector2(0, bob), R * 1.3, _t * 3.0, _t * 3.0 + TAU * 0.8, 40, Color(0.6, 0.9, 1.0, a + 0.3), 10.0, true)
+		draw_circle(Vector2(0, bob), R * 1.3, Color(0.6, 0.9, 1.0, a * 0.35))
+
+
+func _draw_code(c: Color, bob: float) -> void:
 	match kind:
 		"cratera":
 			for i in 3:

@@ -154,7 +154,13 @@ func _draw_boss_bar() -> void:
 	boss_bar.draw_rect(r.grow(5.0), Color("#1A1033"))
 	boss_bar.draw_rect(r, Color(0, 0, 0, 0.5))
 	boss_bar.draw_rect(Rect2(r.position, Vector2(r.size.x * f, r.size.y)), Color("#EF4444").lerp(Color("#FACC15"), 1.0 - f))
-	boss_bar.draw_line(Vector2(r.position.x + r.size.x * 0.5, 40), Vector2(r.position.x + r.size.x * 0.5, 70), Color.WHITE, 3.0)
+	# marcas das fases do mestre (66% e 33%); o mini-mestre tem uma fase só
+	if seg.boss != null:
+		for p in ShmupBoss.PHASES:
+			var x: float = r.position.x + r.size.x * float(p)
+			boss_bar.draw_line(Vector2(x, 36), Vector2(x, 74), Color.WHITE, 4.0)
+		if seg.boss.shield_t > 0.0 and not seg.boss.calm:
+			boss_bar.draw_rect(r, Color(0.6, 0.9, 1.0, 0.35 + 0.15 * sin(Time.get_ticks_msec() / 90.0)))
 	boss_bar.draw_rect(r, DS.STAR_GOLD, false, 3.0)
 
 

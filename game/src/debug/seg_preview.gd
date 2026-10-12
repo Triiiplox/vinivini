@@ -93,7 +93,7 @@ func _run() -> void:
 			f._drop(f.foes, e)
 		await shot("fases_alerta_mestre", 1.2)
 		await shot("fases_mestre", 3.0)
-		f.boss.hurt(f.boss.max_hp * 0.55)
+		f.boss.set_life(0.45)
 		await shot("fases_mestre_bravo", 1.2)
 		await shot("fases_portal_especial", 1.0)
 		for p in f.gate:
@@ -102,7 +102,7 @@ func _run() -> void:
 				f.target.y = p.position.y
 			p.position.x = f.ship.position.x - 1.0
 		await shot("fases_especial", 0.9)
-		if f.boss != null and f.boss.hurt(f.boss.max_hp):
+		if f.boss != null and f.boss.finish():
 			f._boss_calm()
 		await shot("fases_vitoria", 1.5)
 		await shot("fases_painel", 3.0)
