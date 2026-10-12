@@ -1,20 +1,34 @@
 class_name FonoFace
 extends Node2D
-## Rosto que mostra o movimento (academia da boca) e a posição da boca de cada som (pista visual). Desenhado em
-## código no estilo das cartelas da fono (macaquinho/gatinho): cabeça grande, boca grande e clara. Movimentos de
-## repetição se mexem sozinhos (bico ↔ sorriso, bochecha ↔ bochecha, língua girando) no ritmo da contagem.
+## Rosto-guia da fono (personagem genérico, não é o Vini): mostra o movimento da academia da boca e a posição da
+## boca de cada som. Desenhado em código, estilo livro infantil: cabeça com volume (degradê), cabelo em mechas com
+## presilha de estrela, olhos grandes com brilho que acompanham a língua, bochechas que enchem de verdade.
+## A boca (a protagonista) e as poses ficam em fono_face_mouth.gd / fono_face_poses.gd.
+## Movimentos de repetição seguem `beat` (0..1, a academia avança); sem beat, um relógio próprio (~1,6 s).
 
-const SKIN := Color("#F6C99B")
-const INK := Color("#3B2A1A")
-const LIP := Color("#E36A6A")
-const TONGUE := Color("#F48FA6")
-const MOUTH := Color("#5A1E28")
-const TEETH := Color("#FFFFFF")
+const Paint := preload("res://src/fono/fono_face_paint.gd")
+const Poses := preload("res://src/fono/fono_face_poses.gd")
 const R := 150.0
+const INK := Color("#3D2216")
+const SKIN := Color("#F6C49E")
+const SKIN_HI := Color("#FFE3CC")
+const SKIN_LO := Color("#E5A47C")
+const EAR_IN := Color("#E58F78")
+const HAIR := Color("#7B4424")
+const HAIR_HI := Color("#B4713F")
+const HAIR_LO := Color("#4F2814")
+const BLUSH := Color("#FF7E8C")
+const IRIS_TOP := Color("#2B160B")
+const IRIS_BOT := Color("#8C5631")
+const OUT_W := R * 0.047  # contorno da silhueta (fica nítido até em 0,26×)
+const LINE_W := R * 0.032
+const CYCLE := 1.6
 
 var pose := "neutro"
 var beat := 0.0  ## 0..1 dentro de uma repetição (a tela avança)
 var _t := 0.0
+var _last_beat := 0.0
+var _beat_live := 0.0  # > 0: a fase vem do beat; senão, do relógio próprio
 
 
 func set_pose(p: String) -> void:
@@ -24,169 +38,177 @@ func set_pose(p: String) -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	if not is_equal_approx(beat, _last_beat):
+		_last_beat = beat
+		_beat_live = 0.4
+	else:
+		_beat_live = maxf(0.0, _beat_live - delta)
 	queue_redraw()
 
 
+func _phase() -> float:
+	return clampf(beat, 0.0, 1.0) if _beat_live > 0.0 else fmod(_t / CYCLE, 1.0)
+
+
 func _draw() -> void:
-	# orelhas, cabeça, cabelo, olhos, nariz
+	var ph := _phase()
+	var lk: Dictionary = Poses.look(pose, ph, _t)
+	_ears()
+	_head(lk.puff_l, lk.puff_r)
+	_hair()
+	_blush(lk.puff_l, lk.puff_r)
+	_eyes(lk.gaze, lk.squint)
+	_brows(lk.brow_up, lk.brow_tilt)
+	_nose()
+	Poses.draw(self, pose, ph, _t)
+	if lk.effort > 0.0:
+		_sweat(lk.effort)
+
+
+func _ears() -> void:
 	for s in [-1.0, 1.0]:
-		draw_circle(Vector2(s * R * 0.98, -R * 0.05), R * 0.28, INK)
-		draw_circle(Vector2(s * R * 0.98, -R * 0.05), R * 0.24, SKIN.darkened(0.08))
-	draw_circle(Vector2.ZERO, R + 5.0, INK)
-	draw_circle(Vector2.ZERO, R, SKIN)
-	draw_arc(Vector2(0, -R * 0.15), R * 0.98, PI * 1.08, PI * 1.92, 24, Color("#E9A23B"), R * 0.32, true)
-	for s in [-1.0, 1.0]:
-		var e := Vector2(s * R * 0.34, -R * 0.2)
-		draw_circle(e, R * 0.14, Color.WHITE)
-		draw_circle(e + Vector2(0, R * 0.02), R * 0.08, INK)
-		draw_circle(e + Vector2(-R * 0.02, -R * 0.02), R * 0.03, Color.WHITE)
-		draw_arc(e + Vector2(0, -R * 0.05), R * 0.18, PI * 1.2, PI * 1.8, 10, INK, 5.0, true)
-	draw_arc(Vector2(0, R * 0.05), R * 0.08, 0.2, PI - 0.2, 10, INK, 5.0, true)
-	var swing := sin(_t * TAU * 0.9)  # vai e volta ~1 vez por segundo
-	var cheekl := 0.0
-	var cheekr := 0.0
-	var m := Vector2(0, R * 0.45)
-	match pose:
-		"lingua_cima", "ceu_boca", "estalo", "r":
-			_open(m, R * 0.34, R * 0.26)
-			if pose == "lingua_cima":
-				_tongue_out(m + Vector2(0, -R * 0.02), Vector2(0, -1), R * 0.32)
-			else:
-				_tongue_up_inside(m, R * 0.34, R * 0.26, 0.5 + 0.5 * swing if pose != "ceu_boca" else 1.0)
-		"lingua_baixo":
-			_open(m, R * 0.3, R * 0.22)
-			_tongue_out(m + Vector2(0, R * 0.05), Vector2(0, 1), R * 0.36)
-		"lingua_direita", "lingua_esquerda":
-			_open(m, R * 0.3, R * 0.18)
-			_tongue_out(m, Vector2(-1 if pose == "lingua_direita" else 1, 0.15).normalized(), R * 0.38)
-		"bochecha_dentro":
-			_smile(m, R * 0.28, false)
-			cheekr = 0.5 + 0.5 * swing
-		"bico", "ch", "j":
-			_pucker(m, R * 0.16 + (0.0 if pose == "bico" else R * 0.03), pose != "bico")
-			if pose != "bico":
-				_air(m + Vector2(0, R * 0.06), pose == "j")
-		"sorriso_fechado", "labios_fechados":
-			_smile(m, R * 0.36, false)
-		"sorriso_dentes", "s", "ti":
-			_smile(m, R * 0.38, true)
-			if pose == "s":
-				_air(m + Vector2(0, R * 0.08), false)
-		"bico_sorriso":
-			if swing > 0.0:
-				_pucker(m, R * 0.17, false)
-			else:
-				_smile(m, R * 0.36, false)
-		"bico_aberto":
-			_open(m, R * 0.18, R * 0.2)
-		"inflar":
-			_smile(m, R * 0.2, false)
-			cheekl = 1.0
-			cheekr = 1.0
-		"inflar_alterna":
-			_smile(m, R * 0.2, false)
-			cheekl = 0.5 + 0.5 * swing
-			cheekr = 0.5 - 0.5 * swing
-		"varrer":
-			_open(m, R * 0.34, R * 0.26)
-			_tongue_up_inside(m, R * 0.34, R * 0.26, 0.6 + 0.4 * swing)
-		"lamber_labios":
-			_open(m, R * 0.3, R * 0.2)
-			var a := _t * TAU * 0.6
-			_tongue_out(m + Vector2(cos(a), sin(a)) * R * 0.2, Vector2(cos(a), sin(a)), R * 0.22)
-		"vibrar_labios":
-			_smile(m, R * 0.26, false)
-			for i in 3:
-				var y := m.y - R * 0.12 + i * R * 0.12
-				draw_line(Vector2(R * 0.36, y), Vector2(R * 0.5 + 6.0 * sin(_t * 40.0 + i), y), INK, 4.0, true)
-		"morder_labio":
-			_smile(m, R * 0.3, false)
-			for i in 4:
-				draw_rect(Rect2(m + Vector2(-R * 0.16 + i * R * 0.08, -R * 0.08), Vector2(R * 0.07, R * 0.08)), TEETH)
-		"lingua_larga":
-			_open(m, R * 0.34, R * 0.2)
-			_tongue_out(m + Vector2(0, R * 0.04), Vector2(0, 1), R * 0.26, 1.6)
-		"lingua_fina":
-			_open(m, R * 0.26, R * 0.18)
-			_tongue_out(m + Vector2(0, R * 0.04), Vector2(0, 1), R * 0.3, 0.55)
-		"nd":
-			_open(m, R * 0.3, R * 0.2)
-			_tongue_up_inside(m, R * 0.3, R * 0.2, 1.0)
-		_:
-			_smile(m, R * 0.3, false)
-	for s in [-1.0, 1.0]:
-		var k := cheekl if s < 0 else cheekr
-		var c := Vector2(s * R * 0.55, R * 0.3)
-		if k > 0.05:
-			var cc := c + Vector2(s * R * 0.12 * k, 0)
-			var cr := R * (0.2 + 0.12 * k)
-			var a0 := -PI / 2.0 + (0.0 if s > 0 else PI)
-			draw_circle(cc, cr, SKIN.darkened(0.03))
-			draw_arc(cc, cr, a0, a0 + PI, 12, INK, 3.0, true)
-		draw_circle(c, R * 0.1, Color(1, 0.45, 0.45, 0.35))
+		var c := Vector2(s * R * 1.0, R * 0.07)
+		var e := Paint.ellipse(c, R * 0.19, R * 0.23, 28)
+		Paint.fill_lin(self, e, c + Vector2(0, -R * 0.2), SKIN, c + Vector2(0, R * 0.2), SKIN_LO)
+		Paint.stroke(self, e, INK, OUT_W * 0.85)
+		var ci := c + Vector2(s * R * 0.05, R * 0.01)
+		Paint.glow(self, ci, R * 0.09, R * 0.14, EAR_IN, Color(EAR_IN, 0.25), 20)
+		draw_arc(ci + Vector2(-s * R * 0.01, 0), R * 0.07, -PI / 2.0 if s > 0 else PI / 2.0,
+			PI / 2.0 if s > 0 else PI * 1.5, 10, Color(INK, 0.55), LINE_W * 0.7, true)
 
 
-func _smile(m: Vector2, w: float, teeth: bool) -> void:
-	if teeth:
-		var r := Rect2(m + Vector2(-w, -w * 0.25), Vector2(w * 2.0, w * 0.5))
-		draw_rect(r.grow(5.0), LIP)
-		draw_rect(r, TEETH)
-		for i in 6:
-			var x := r.position.x + (i + 1) * r.size.x / 7.0
-			draw_line(Vector2(x, r.position.y), Vector2(x, r.end.y), Color(0.7, 0.7, 0.75), 2.0)
-		draw_line(Vector2(r.position.x, r.get_center().y), Vector2(r.end.x, r.get_center().y), Color(0.7, 0.7, 0.75), 2.0)
-		return
-	draw_arc(m + Vector2(0, -w * 0.6), w, 0.35, PI - 0.35, 18, LIP, 10.0, true)
-
-
-func _open(m: Vector2, w: float, h: float) -> void:
+## Silhueta da cabeça; as bochechas estufam para fora quando cheias de ar.
+func _head_pts(pl: float, pr: float) -> PackedVector2Array:
 	var pts := PackedVector2Array()
-	for i in 24:
-		var a := TAU * i / 24.0
-		pts.append(m + Vector2(cos(a) * w, sin(a) * h))
-	draw_colored_polygon(pts, MOUTH)
-	pts.append(pts[0])
-	draw_polyline(pts, LIP, 8.0, true)
-	draw_rect(Rect2(m + Vector2(-w * 0.55, -h + 3.0), Vector2(w * 1.1, h * 0.25)), TEETH)
+	for i in 80:
+		var a := TAU * i / 80.0
+		var r := R * (1.0 + 0.04 * sin(a))
+		r += R * 0.2 * pr * exp(-pow(angle_difference(a, 0.55) / 0.45, 2.0))
+		r += R * 0.2 * pl * exp(-pow(angle_difference(a, PI - 0.55) / 0.45, 2.0))
+		pts.append(Vector2(cos(a) * r * 1.02, sin(a) * r * 0.97))
+	return pts
 
 
-func _pucker(m: Vector2, r: float, open_hole: bool) -> void:
-	draw_circle(m, r + 8.0, LIP.darkened(0.15))
-	draw_circle(m, r, LIP)
-	draw_circle(m, r * (0.45 if open_hole else 0.25), MOUTH)
-	for i in 6:
-		var a := TAU * i / 6.0
-		draw_line(m + Vector2(cos(a), sin(a)) * r * 0.5, m + Vector2(cos(a), sin(a)) * r * 0.95, LIP.darkened(0.3), 2.0, true)
+func _head(pl: float, pr: float) -> void:
+	var pts := _head_pts(pl, pr)
+	Paint.fill_lin(self, pts, Vector2(-R * 0.45, -R * 0.9), SKIN_HI, Vector2(R * 0.35, R * 1.0), SKIN_LO)
+	Paint.glow(self, Vector2(-R * 0.25, -R * 0.35), R * 0.6, R * 0.5, Color(1, 1, 1, 0.28), Color(1, 1, 1, 0.0))
+	Paint.stroke(self, pts, INK, OUT_W)
+	for s in [-1.0, 1.0]:
+		var k: float = pr if s > 0 else pl
+		if k > 0.05:
+			var c := Vector2(s * R * (0.72 + 0.12 * k), R * 0.36)
+			Paint.glow(self, c + Vector2(-s * R * 0.05, -R * 0.08), R * 0.13 * k, R * 0.09 * k, Color(1, 1, 1, 0.75 * k),
+				Color(1, 1, 1, 0.0), 16)
+			draw_arc(c, R * 0.24 * (0.6 + 0.4 * k), -0.4 if s > 0 else PI - 0.6, 0.6 if s > 0 else PI + 0.4, 10,
+				Color(SKIN_LO.darkened(0.1), 0.6 * k), LINE_W * 0.6, true)
 
 
-func _tongue_out(base: Vector2, dir: Vector2, length: float, width: float = 1.0) -> void:
-	var n := dir.orthogonal()
-	var w := R * 0.13 * width
-	var tip := base + dir * length
-	var pts := PackedVector2Array([base + n * w, tip + n * w * 0.9, tip + dir * w, tip - n * w * 0.9, base - n * w])
-	draw_colored_polygon(pts, TONGUE)
-	draw_polyline(pts, TONGUE.darkened(0.25), 3.0, true)
-	draw_line(base, tip, TONGUE.darkened(0.2), 2.0, true)
+func _hair() -> void:
+	# tufinho no alto (fica atrás do cabelo)
+	var tuft := Paint.bez(Vector2(-R * 0.18, -R * 0.86), Vector2(-R * 0.05, -R * 1.32), Vector2(R * 0.28, -R * 1.22), 10)
+	tuft.append_array(Paint.bez(Vector2(R * 0.28, -R * 1.22), Vector2(R * 0.05, -R * 1.12), Vector2(R * 0.12, -R * 0.86), 10))
+	Paint.blob(self, tuft, HAIR_HI, HAIR, OUT_W * 0.85)
+	var pts := PackedVector2Array()
+	for i in 41:
+		var a := lerpf(PI + 0.1, TAU - 0.1, i / 40.0)
+		var r := R * (1.08 + 0.025 * sin(i * 0.9))
+		pts.append(Vector2(cos(a) * r * 1.02, sin(a) * r * 0.98 - R * 0.02))
+	var x0 := pts[pts.size() - 1].x
+	var cusps := []
+	var locks := 6
+	for i in 73:
+		var u := i / 72.0
+		var x := lerpf(x0, -x0, u)
+		var xn := x / x0
+		var y_base := -R * 0.66 + R * 0.5 * xn * xn
+		var fr := fmod(u * locks, 1.0)
+		var depth := R * (0.15 - 0.03 * absf(xn))
+		pts.append(Vector2(x, y_base + depth * pow(sin(PI * pow(fr, 1.35)), 0.8)))
+		if i % 12 == 0 and i > 0 and i < 72:
+			cusps.append(Vector2(x, y_base))
+	Paint.fill_lin(self, pts, Vector2(0, -R * 1.1), HAIR_HI, Vector2(0, -R * 0.35), HAIR)
+	for c in cusps:
+		Paint.stroke(self, Paint.bez(c * Vector2(0.6, 1.0) + Vector2(0, -R * 0.3), c + Vector2(0, -R * 0.2), c + Vector2(0, -R * 0.02), 8),
+			Color(HAIR_LO, 0.7), LINE_W * 0.7, false)
+	# brilho em meia-lua (afina nas pontas)
+	var shine := PackedVector2Array()
+	for i in 15:
+		var a := lerpf(PI + 0.5, PI + 1.3, i / 14.0)
+		shine.append(Vector2(cos(a), sin(a) * 0.97) * R * (0.95 + 0.05 * sin(PI * i / 14.0)))
+	for i in range(14, -1, -1):
+		var a := lerpf(PI + 0.5, PI + 1.3, i / 14.0)
+		shine.append(Vector2(cos(a), sin(a) * 0.97) * R * 0.95)
+	Paint.fill(self, shine, Color(HAIR_HI.lightened(0.4), 0.8))
+	Paint.stroke(self, pts, INK, OUT_W)
+	Paint.star(self, Vector2(R * 0.6, -R * 0.66), R * 0.11, Color("#FFC93C"), LINE_W * 0.75, 0.2)
 
 
-## Língua dentro da boca: k = 0 deitada, 1 com a ponta lá em cima (atrás dos dentes / céu da boca).
-func _tongue_up_inside(m: Vector2, w: float, h: float, k: float) -> void:
-	var tip := m + Vector2(0, lerpf(h * 0.4, -h * 0.65, k))
-	var pts := PackedVector2Array([m + Vector2(-w * 0.75, h * 0.6), tip + Vector2(-w * 0.2, 0), tip, tip + Vector2(w * 0.2, 0),
-		m + Vector2(w * 0.75, h * 0.6)])
-	draw_colored_polygon(pts, TONGUE)
+func _blush(pl: float, pr: float) -> void:
+	for s in [-1.0, 1.0]:
+		var k: float = pr if s > 0 else pl
+		var c := Vector2(s * R * (0.58 + 0.14 * k), R * (0.25 + 0.05 * k))
+		Paint.glow(self, c, R * (0.15 + 0.04 * k), R * (0.1 + 0.03 * k), Color(BLUSH, 0.55), Color(BLUSH, 0.0), 20)
 
 
-## Linhas de ar saindo (o chiado); j = vibrando (ondinhas).
-func _air(m: Vector2, j: bool) -> void:
-	for i in 3:
-		var k := fmod(_t * 1.6 + i / 3.0, 1.0)
-		var y := m.y + R * 0.1 + k * R * 0.5
-		var x0 := (i - 1) * R * 0.12
-		if j:
-			var pts := PackedVector2Array()
-			for s in 8:
-				pts.append(Vector2(x0 + sin(s * 1.4 + _t * 12.0) * 6.0, y + s * 4.0))
-			draw_polyline(pts, Color(0.4, 0.75, 1.0, 1.0 - k), 4.0, true)
-		else:
-			draw_line(Vector2(x0, y), Vector2(x0, y + R * 0.15), Color(0.4, 0.75, 1.0, 1.0 - k), 5.0, true)
+func _eyes(gaze: Vector2, squint: float) -> void:
+	var blink := fmod(_t + 1.3, 4.3) > 4.16
+	for s in [-1.0, 1.0]:
+		var e := Vector2(s * R * 0.36, -R * 0.07)
+		var rx := R * 0.135
+		var ry := R * 0.16
+		if blink:
+			draw_arc(e + Vector2(0, -ry * 0.2), rx, PI * 0.15, PI * 0.85, 12, INK, LINE_W * 1.1, true)
+			continue
+		var sc := Paint.ellipse(e, rx, ry, 32)
+		Paint.fill_lin(self, sc, e + Vector2(0, -ry), Color.WHITE, e + Vector2(0, ry), Color("#DCE5F2"))
+		var ic := e + Vector2(gaze.x * R * 0.04, gaze.y * R * 0.05 + R * 0.015)
+		Paint.fill_clip(self, Paint.ellipse(ic, R * 0.098, R * 0.105, 28), sc, IRIS_TOP, IRIS_BOT)
+		Paint.fill_clip(self, Paint.ellipse(ic, R * 0.05, R * 0.054, 20), sc, Color("#120904"), Color("#2A170C"))
+		draw_circle(ic + Vector2(-R * 0.035, -R * 0.04), R * 0.036, Color.WHITE, true, -1.0, true)
+		draw_circle(ic + Vector2(R * 0.035, R * 0.035), R * 0.016, Color(1, 1, 1, 0.9), true, -1.0, true)
+		if squint > 0.01:
+			var cut := Paint.ellipse(e + Vector2(0, ry * (2.15 - squint * 1.1)), rx * 1.7, ry * 1.25, 32)
+			for poly in Geometry2D.intersect_polygons(cut, sc):
+				Paint.fill(self, poly, SKIN)
+			draw_arc(e + Vector2(0, ry * (2.15 - squint * 1.1)), ry * 1.25, -PI / 2.0 - 0.5, -PI / 2.0 + 0.5, 10,
+				Color(INK, 0.8), LINE_W * 0.7, true)
+		Paint.stroke(self, sc, INK, LINE_W * 0.8)
+		# pálpebra de cima mais grossa e cílios no canto de fora
+		var lid := PackedVector2Array()
+		for i in 13:
+			var a := lerpf(PI + 0.25, TAU - 0.25, i / 12.0)
+			lid.append(e + Vector2(cos(a) * rx * 1.02, sin(a) * ry * 1.02))
+		Paint.stroke(self, lid, INK, LINE_W * 1.3, false)
+		var corner := e + Vector2(s * rx * 0.9, -ry * 0.45)
+		for i in 2:
+			var d := Vector2(s * (0.8 - 0.35 * i), -0.6 - 0.5 * i).normalized()
+			Paint.stroke(self, Paint.bez(corner - Vector2(s * i * R * 0.03, i * R * 0.03), corner + d * R * 0.04 + Vector2(0, -R * 0.01),
+				corner + d * R * 0.075 + Vector2(s * R * 0.01, 0), 6), INK, LINE_W * 0.65, false)
+
+
+func _brows(up: float, tilt: float) -> void:
+	for s in [-1.0, 1.0]:
+		var c := Vector2(s * R * 0.36, -R * (0.36 + 0.07 * up))
+		var a := c + Vector2(-s * R * 0.13, R * 0.02 - tilt * R * 0.05)
+		var b := c + Vector2(s * R * 0.13, R * 0.025 + tilt * R * 0.01)
+		Paint.stroke(self, Paint.bez(a, c + Vector2(0, -R * 0.06), b, 10), HAIR_LO, R * 0.06, false)
+
+
+func _nose() -> void:
+	var c := Vector2(0, R * 0.17)
+	Paint.glow(self, c + Vector2(0, R * 0.01), R * 0.085, R * 0.06, Color(SKIN_LO.darkened(0.05), 0.9), Color(SKIN_LO, 0.0), 18)
+	draw_arc(c + Vector2(0, -R * 0.02), R * 0.055, 0.45, PI - 0.45, 10, Color(INK, 0.75), LINE_W * 0.8, true)
+	draw_circle(c + Vector2(-R * 0.025, -R * 0.03), R * 0.02, Color(1, 1, 1, 0.75), true, -1.0, true)
+
+
+## Gotinha de esforço (exercícios de "segurar firme").
+func _sweat(k: float) -> void:
+	var c := Vector2(R * 0.9, -R * 0.5 + sin(_t * 3.0) * R * 0.02)
+	var pts := PackedVector2Array()
+	for i in 21:
+		var a := lerpf(-0.6, PI + 0.6, i / 20.0)
+		pts.append(c + Vector2(cos(a), sin(a)) * R * 0.065)
+	pts.append(c + Vector2(0, -R * 0.15))
+	Paint.blob(self, pts, Color("#E8F7FF", k), Color("#7CCBFF", k), LINE_W * 0.7)
+	draw_circle(c + Vector2(-R * 0.02, -R * 0.0), R * 0.018, Color(1, 1, 1, 0.9 * k), true, -1.0, true)
