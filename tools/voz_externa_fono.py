@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Vozes do módulo FALAR no ElevenLabs (pedido do Andro: gerar ele mesmo, para a fonética ficar certa).
+"""Vozes do módulo FALAR por um serviço de voz externo (pedido do Andro: fonética certa; de graça = edge-tts).
+
+  edge:      python3 tools/voz_externa_fono.py edge LISTA.csv PASTA [VOZ]
+             -> gera de graça com a voz neural da Microsoft (edge-tts; padrão pt-BR-FranciscaNeural), usando a coluna
+                "digitar" (troca de propósito já escrita). Usa o proxy do ambiente se houver (HTTPS_PROXY).
 
   lista:     PIPER_DIR=x KOKORO_DIR=y python3 tools/elevenlabs_fono.py lista SAIDA.csv
              -> CSV com: n, arquivo (<chave>.mp3), tipo, texto do jogo, o que digitar no ElevenLabs, observação.
@@ -8,7 +12,7 @@
                 existe. Depois é só zipar a pasta e mandar.
   importar:  PIPER_DIR=x KOKORO_DIR=y python3 tools/elevenlabs_fono.py importar PASTA
              -> aceita <chave>.mp3, NNNN.mp3 (número da lista) ou qualquer nome que contenha a chave; normaliza volume,
-                grava em game/assets/voice, mede a duração, marca a boca (lip-sync) e trava como "elevenlabs" (o
+                grava em game/assets/voice, mede a duração, marca a boca (lip-sync) e trava ("lock") (o
                 gen_voice.py não regera essas falas).
 """
 import csv
@@ -21,7 +25,7 @@ import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "game", "assets", "voice")
-ENG = "elevenlabs"
+ENG = os.environ.get("VOZ_ENGINE", "externa")
 
 # Troca de fonema → como escrever a palavra "errada" para a voz falar a troca (o ElevenLabs não lê IPA em pt-BR).
 SPELL = {
@@ -112,6 +116,40 @@ def cmd_gerar(lista, pasta):
         print(r["n"], r["arquivo"], r["digitar_no_elevenlabs"], flush=True)
 
 
+def cmd_edge(lista, pasta, voice="pt-BR-FranciscaNeural"):
+    import asyncio
+    import edge_tts
+    os.makedirs(pasta, exist_ok=True)
+    proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or None
+    # Som sozinho (CHHHH) e ceceio ficam com a voz atual: a voz neural soletra as letras em vez de fazer o som.
+    rows = [r for r in csv.DictReader(open(lista, encoding="utf-8"))
+            if not r["digitar_no_elevenlabs"].startswith("(pular") and r["tipo"] != "som"]
+
+    async def one(r):
+        dst = os.path.join(pasta, r["arquivo"])
+        if os.path.exists(dst) and os.path.getsize(dst) > 1000:
+            return
+        for tent in range(4):
+            try:
+                await edge_tts.Communicate(r["digitar_no_elevenlabs"], voice, rate="-10%", proxy=proxy).save(dst)
+                if os.path.getsize(dst) > 1000:
+                    return
+            except Exception as ex:  # rede instável: tenta de novo
+                print("tentativa", tent + 1, r["n"], ex, flush=True)
+            await asyncio.sleep(2 ** tent)
+
+    async def run():
+        sem = asyncio.Semaphore(4)
+
+        async def lim(r):
+            async with sem:
+                await one(r)
+        for i in range(0, len(rows), 40):
+            await asyncio.gather(*(lim(r) for r in rows[i:i + 40]))
+            print("  %d/%d" % (min(i + 40, len(rows)), len(rows)), flush=True)
+    asyncio.run(run())
+
+
 def cmd_importar(pasta):
     gv = _gen()
     rows = fono_lines(gv)
@@ -140,7 +178,7 @@ def cmd_importar(pasta):
                             "-ar", "24000", "-c:a", "libmp3lame", "-b:a", "32k", out], check=True)
         d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
                                  capture_output=True, text=True).stdout.strip() or 1.0)
-        e = {"f": k + ".mp3", "d": round(d, 2), "t": text, "w": who, "eng": ENG, "a": gv.ACC}
+        e = {"f": k + ".mp3", "d": round(d, 2), "t": text, "w": who, "eng": ENG, "a": gv.ACC, "lock": 1}
         e["v"] = gv.markers_for(out, text if who == "narrator" else text.split("|")[-1], "pt-br")
         manifest[k] = e
         done += 1
@@ -154,6 +192,8 @@ if __name__ == "__main__":
         cmd_lista(sys.argv[2])
     elif cmd == "gerar":
         cmd_gerar(sys.argv[2], sys.argv[3])
+    elif cmd == "edge":
+        cmd_edge(sys.argv[2], sys.argv[3], *(sys.argv[4:5]))
     elif cmd == "importar":
         cmd_importar(sys.argv[2])
     else:
