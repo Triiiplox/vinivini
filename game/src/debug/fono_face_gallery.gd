@@ -1,6 +1,8 @@
 extends Node
 ## Galeria do rosto da fono (FonoFace): --facegallery=/dir → grade_1x.png (todas as poses na escala 1.0),
 ## grade_036.png (escala 0.36, como nos cartões), grade_026.png (botão) e animacao.png (quadros das poses que se mexem).
+## --facegif=/dir → quadro_00..23.png (todas as poses lado a lado, células de 360 px, 1 ciclo) + poses.txt, para
+## montar os GIFs com Python/PIL.
 
 const BG := Color("#1e1b4b")
 const ANIM := ["lingua_cima", "lingua_direita", "bochecha_dentro", "bochecha_alterna", "bico_sorriso", "inflar_alterna",
@@ -8,6 +10,9 @@ const ANIM := ["lingua_cima", "lingua_direita", "bochecha_dentro", "bochecha_alt
 	"limpar_dentes_baixo", "lamber_labio_cima", "lamber_labio_baixo", "ponta_ceu_soltar", "ponta_chao_soltar", "cantinhos",
 	"lingua_dentro_fora", "apertar_labios", "vibrar_lingua", "s"]
 const FRAMES := [0.0, 0.25, 0.5, 0.75]
+const GIF_FRAMES := 24
+const GIF_CELL := 360.0
+const GIF_COLS := 8
 ## Poses que a fono prescreveu e que podem ainda não estar no fono.json (entram na grade de qualquer jeito).
 const EXTRA := ["limpar_dentes_cima", "limpar_dentes_baixo", "lamber_labio_cima", "lamber_labio_baixo", "ponta_ceu_soltar",
 	"ponta_chao_soltar", "cantinhos", "lingua_dentro_fora", "lingua_fina_segura", "lingua_larga_segura", "bico_segura",
@@ -18,11 +23,19 @@ var out := ""
 
 
 func _ready() -> void:
+	var gif := false
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--facegallery="):
 			out = a.substr(14)
+		elif a.begins_with("--facegif="):
+			out = a.substr(10)
+			gif = true
 	DirAccess.make_dir_recursive_absolute(out)
 	var poses := _poses()
+	if gif:
+		await _gif_frames(poses)
+		get_tree().quit(0)
+		return
 	await _grid(poses, 1.0, Vector2(400, 450), 7, "grade_1x.png")
 	await _grid(poses, 0.36, Vector2(170, 190), 7, "grade_036.png")
 	await _grid(poses, 0.26, Vector2(130, 150), 7, "grade_026.png")
@@ -105,6 +118,36 @@ func _anim(sc: float, cell: Vector2, file: String) -> void:
 			_face(vp, ANIM[i], sc, center, FRAMES[k])
 			_label(vp, "%s %.2f" % [ANIM[i], FRAMES[k]], Vector2(center.x, cell.y * (c.y + 1) - 28), cell.x, 16)
 	await _save(vp, file)
+
+
+## Um quadro por fase: cada pose numa célula de 360 px (escala 0,8), na ordem de poses.txt.
+func _gif_frames(poses: Array) -> void:
+	var rows := ceili(poses.size() / float(GIF_COLS))
+	var vp := _viewport(Vector2(GIF_CELL * GIF_COLS, GIF_CELL * rows))
+	var faces := []
+	for i in poses.size():
+		var c := Vector2(i % GIF_COLS, i / GIF_COLS)
+		var face := FonoFace.new()
+		face.set_pose(poses[i])
+		face.scale = Vector2.ONE * 0.8
+		face.position = Vector2(GIF_CELL * (c.x + 0.5), GIF_CELL * (c.y + 0.5) + 2.0)
+		face.set_process(false)
+		vp.add_child(face)
+		faces.append(face)
+	var f := FileAccess.open(out.path_join("poses.txt"), FileAccess.WRITE)
+	f.store_string("\n".join(PackedStringArray(poses)))
+	f.close()
+	for k in GIF_FRAMES:
+		var ph := k / float(GIF_FRAMES)
+		for face in faces:
+			face.set("_t", ph * 1.6)
+			face.set("beat", ph)
+			face.set("_beat_live", 1.0)
+			face.queue_redraw()
+		for i in 2:
+			await RenderingServer.frame_post_draw
+		vp.get_texture().get_image().save_png(out.path_join("quadro_%02d.png" % k))
+	print("FACEGIF ", GIF_FRAMES, " quadros")
 
 
 func _save(vp: SubViewport, file: String) -> void:
