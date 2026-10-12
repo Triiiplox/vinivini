@@ -15,7 +15,8 @@ static func defaults() -> Dictionary:
 	return {"music": true, "sfx": true, "voice": true, "haptics": true, "reduced_effects": false, "break_reminder_min": 0,
 		"daily_limit_min": 0, "vol_music": 0.8, "vol_sfx": 0.9, "vol_voice": 1.0, "disabled_areas": [], "difficulty": "auto",
 		"intro_video_seen": false, "hello_day": "", "knows_basics": true, "last_profile": "vini",
-		"nave_modo": "facil", "fono_targets": [], "fono_reps": 10, "fono_gym": []}
+		"nave_modo": "facil", "fono_targets": [], "fono_reps": 10, "fono_gym": [], "fono_gym_reps": {}, "fono_gym_date": "",
+		"fono_block": 12, "fono_rep": 3, "fono_pairs": false}
 
 
 func get_value(key: String) -> Variant:

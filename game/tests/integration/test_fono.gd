@@ -1,6 +1,6 @@
 extends TestNodeCase
-## Módulo FALAR (fono): dados dos 6 sons, níveis (8 de 10 passa), escutar abre o nível 1, medidor CH × S,
-## telas (início, sessão, academia) e a parte da área dos pais.
+## Módulo FALAR (fono): dados dos 6 sons, níveis (≥ 80% em 2 sessões em dias diferentes passa), escutar abre o
+## nível 1, medidor CH × S, telas (início, sessão, academia) e a parte da área dos pais. Mecânicas da v2: test_fono2.
 
 var host: Control
 
@@ -38,22 +38,23 @@ func test_fono_data_and_levels() -> void:
 		eq((t["frases"] as Array).size(), 10, "%s: 10 frases" % id)
 		check(str(t.get("historia", "")) != "", "%s: tem história" % id)
 	eq(ids, ["ch", "j", "s", "r", "ti", "nd"], "6 sons")
-	eq(FonoData.levels().size(), 7, "7 níveis")
+	eq(FonoData.levels().size(), 8, "8 níveis (com Palavras fáceis)")
 	eq(FonoData.active_targets(), ids, "padrão: todos os sons")
 	FonoData.set_active_targets(["s", "ch"])
 	eq(FonoData.active_targets(), ["s", "ch"], "pais escolhem quais e a ordem")
 	eq(FonoData.level_open("ch"), 0, "começa no escutar")
 	check(FonoData.listened("ch"), "escutar abre o nível 1")
 	eq(FonoData.level_open("ch"), 1, "nível 1 aberto")
-	check(not FonoData.record("ch", 1, 7, 10), "7 de 10 não passa")
-	check(FonoData.record("ch", 1, 8, 10), "8 de 10 passa")
+	check(not FonoData.record("ch", 1, 7, 10, "2026-01-01"), "7 de 10 não passa")
+	check(not FonoData.record("ch", 1, 8, 10, "2026-01-02"), "8 de 10 numa sessão só ainda não passa")
+	check(FonoData.record("ch", 1, 8, 10, "2026-01-03"), "8 de 10 em 2 sessões seguidas, dias diferentes: passa")
 	eq(FonoData.level_open("ch"), 2, "subiu para sílabas")
 	check(not FonoData.record("ch", 1, 10, 10), "repetir nível antigo não pula nível")
-	eq(FonoData.history("ch").size(), 3, "histórico guarda as 3 sessões")
+	eq(FonoData.history("ch").size(), 4, "histórico guarda as 4 sessões")
 	FonoData.set_gym_reps(100)
 	eq(FonoData.gym_reps(), 30, "repetições no máximo 30")
 	eq(FonoData.count_word(23), "vinte e três", "conta até 30 falando")
-	for lv in range(1, 7):
+	for lv in range(1, 8):
 		check(not FonoData.items("s", lv).is_empty(), "s: nível %d tem itens" % lv)
 
 
@@ -80,8 +81,9 @@ func test_fono_screens() -> void:
 	check(home.find_child("Fono_ch", true, false) != null, "cartão do CH")
 	check(home.find_child("Fono_j", true, false) == null, "som desligado não aparece")
 	check(home.find_child("FonoGym", true, false) != null, "academia da boca")
-	# Sessão no nível 1 (som sozinho): adulto confirma 8 de 10 → nível novo.
+	# Sessão no nível 1 (som sozinho): já teve uma sessão boa ontem; hoje 8 de 10 → nível novo.
 	FonoData.listened("s")
+	FonoData.record("s", 1, 9, 10, "2026-01-01")
 	Router.reset_to("fono_session", {"target": "s", "lv": 1})
 	await frames(3)
 	var s: Node = Router.current_screen

@@ -6,7 +6,10 @@ extends Node
 ## mais grave, S/Z (s/z) mais agudo (Zharkova, Hardcastle & Gibbon 2018: crianças separam /s/ e /ʃ/ pelo
 ## centroide). É PISTA, não nota: quem confirma o acerto é o adulto. Fronteira começa em 6 kHz (criança fala mais
 ## agudo que adulto) e se ajusta às falas que o adulto confirmou (FonoData.meter_samples).
-## Permissão RECORD_AUDIO só é pedida ao entrar no módulo (Android pergunta uma vez).
+## Permissão RECORD_AUDIO só é pedida ao entrar no módulo (Android pergunta uma vez). Vale também na TV (microfone do
+## controle/TV): `peak` guarda o maior volume da última gravação, para avisar o adulto se o microfone não capta.
+## VIBRAÇÃO (P8, J × CH): /ʒ/ e /ʃ/ têm o mesmo chiado; o J tem também energia grave (< 500 Hz) da voz. `voiced`
+## liga quando há chiado E energia grave sem ser vogal (voicing_cue). É PISTA opcional ("mão no pescoço"), não nota.
 
 signal permission_result(granted: bool)
 
@@ -15,11 +18,15 @@ const DEFAULT_SPLIT := 6000.0
 const BANDS_FROM := 1500.0
 const BANDS_TO := 11000.0
 const BAND := 500.0
+const HISS_MIN := 0.004
+const VOICE_MIN := 0.002
 
 var granted := false
 var level := 0.0  ## volume da voz agora (0..1)
 var centroid := 0.0  ## Hz do chiado agora (0 = sem chiado)
 var hiss := false  ## tem chiado agora (fricativa)
+var voiced := false  ## chiado com a garganta vibrando agora (J, Z): pista
+var peak := 0.0  ## maior volume (0..1) da gravação atual/última
 var _player: AudioStreamPlayer
 var _rec: AudioEffectRecord
 var _spec: AudioEffectSpectrumAnalyzerInstance
@@ -95,10 +102,13 @@ func _process(_delta: float) -> void:
 		f += BAND
 	level = clampf(sqrt(low + total) * 6.0, 0.0, 1.0)
 	# Fricativa: muita energia acima de 1,5 kHz e pouca voz grave (vogal); limiar baixo de propósito (criança).
-	hiss = total > 0.004 and total > low * 1.2
-	centroid = wsum / total if hiss and total > 0.0 else 0.0
-	if _recording and hiss:
-		_samples.append(centroid)
+	hiss = total > HISS_MIN and total > low * 1.2
+	voiced = voicing_cue(_mag(80.0, 500.0), total)
+	centroid = wsum / total if (hiss or voiced) and total > 0.0 else 0.0
+	if _recording:
+		peak = maxf(peak, level)
+		if hiss or voiced:
+			_samples.append(centroid)
 
 
 func _mag(a: float, b: float) -> float:
@@ -109,6 +119,7 @@ func _mag(a: float, b: float) -> float:
 # ------------------------------------------------------------------ gravar e ouvir de volta
 func start_recording() -> void:
 	_samples.clear()
+	peak = 0.0
 	_recording = true
 	if _rec:
 		_rec.set_recording_active(true)
@@ -133,6 +144,12 @@ func last_centroid() -> float:
 
 
 # ------------------------------------------------------------------ medidor
+## "Garganta vibrando" (P8): chiado (energia acima de 1,5 kHz) junto com energia abaixo de 500 Hz, mas sem a
+## energia grave dominar (aí é vogal, não fricativa). Pista para J × CH; precisa ser calibrada no aparelho.
+static func voicing_cue(low500: float, high: float) -> bool:
+	return high > HISS_MIN and low500 > VOICE_MIN and low500 < high * 3.0
+
+
 ## Fronteira entre o chiado "grosso" (CH/J) e o "fino" (S/Z): meio das médias confirmadas, ou o padrão.
 static func split_hz() -> float:
 	var m := FonoData.meter_samples()

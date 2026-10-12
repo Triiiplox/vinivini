@@ -4,8 +4,13 @@ extends GameScreen
 ## mostra a criança, e a narradora conta no ritmo (~1,5 s por vez, sem pressa). Toque em PRÓXIMO pula; no fim,
 ## estrela e registro do dia para a fono ver. A evidência destes exercícios para a FALA é fraca; estão aqui porque a
 ## fono os prescreveu (tônus e selamento labial) — a parte de fala de verdade fica nas sessões de som.
+## v2 (P9): exercícios de SUSTENTAÇÃO (hold_s no JSON: "segura: um, dois, três"): em cada repetição a narradora conta
+## devagar até hold_s e diz "solta!" — é contagem falada, não cronômetro; o adulto pode pular (PRÓXIMO). A lista e
+## as repetições (10/15/20 por exercício) são a "lista do dia" que os pais montam igual à folha da fono.
+## Pose desconhecida no FonoFace (exercício novo) só mostra o rosto neutro.
 
 const BEAT := 1.5
+const HOLD_BEAT := 1.2
 
 var list: Array = []
 var reps := 10
@@ -18,6 +23,8 @@ var name_label: Label
 var count_label: Label
 var bar: Control
 var next_btn: DSButton
+var hold_s := 0  ## segundos de sustentação do exercício atual (0 = movimento repetido)
+var hold_k := 0  ## contagem dentro da sustentação
 var _beat_t := 0.0
 var _by_id: Dictionary = {}
 
@@ -37,8 +44,8 @@ func build() -> void:
 	UI.child_ok(title)  # nome do lugar
 	hud.stage.add_child(title)
 	face = FonoFace.new()
-	face.position = Vector2(370, 360)
-	face.scale = Vector2.ONE * 1.25
+	face.position = Vector2(370, 335)
+	face.scale = Vector2.ONE * 1.1  # o rosto novo tem gola: não encostar no nome do exercício
 	world.add_child(face)
 	mirror = FonoMirror.new()
 	mirror.size = Vector2(400, 300)
@@ -90,14 +97,18 @@ func _next() -> void:
 	var g: Dictionary = _by_id.get(str(list[idx]), {})
 	face.set_pose(str(g.get("id", "neutro")))
 	name_label.text = str(g.get("name", ""))
+	reps = FonoData.gym_reps_for(str(g.get("id", "")))
+	hold_s = int(g.get("hold_s", 0))
+	hold_k = 0
 	count = 0
+	count_label.modulate = Color.WHITE
 	count_label.text = ""
 	bar.queue_redraw()
 	AudioService.play_sfx("whoosh")
 	var d := narrate(str(g.get("say", "")))
 	after(d + 0.4, func():
 		if idx < list.size() and str(list[idx]) == str(g.get("id", "")):
-			_beat_t = BEAT
+			_beat_t = HOLD_BEAT if hold_s > 0 else BEAT
 			running = true)
 
 
@@ -105,11 +116,14 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if not running:
 		return
-	face.beat = 1.0 - _beat_t / BEAT
+	var beat := HOLD_BEAT if hold_s > 0 else BEAT
+	face.beat = 1.0 - _beat_t / beat if hold_s == 0 else 0.5
 	_beat_t -= delta
 	if _beat_t > 0.0:
 		return
-	_beat_t = BEAT
+	_beat_t = beat
+	if hold_s > 0 and _hold_beat():
+		return
 	count += 1
 	count_label.text = str(count)
 	count_label.pivot_offset = count_label.size / 2.0
@@ -124,6 +138,21 @@ func _process(delta: float) -> void:
 		after(1.0, func():
 			var d := narrate(Lines.n("Muito bem! Próximo exercício!") if idx < list.size() - 1 else Lines.n("Ufa! Acabou!"))
 			after(d + 0.3, _next))
+
+
+## Sustentação: conta "um, dois, três" devagar (devolve true enquanto ainda está segurando) e no fim "solta!".
+func _hold_beat() -> bool:
+	if hold_k < hold_s:
+		hold_k += 1
+		count_label.text = str(hold_k)
+		count_label.modulate = Color("#7DD3FC")
+		Voice.say(FonoData.count_word(hold_k))
+		AudioService.play_sfx("tap", 0.8, -14.0)
+		return true
+	hold_k = 0
+	count_label.modulate = Color.WHITE
+	Voice.say(Lines.n("Solta!"))
+	return false
 
 
 func _draw_bar() -> void:

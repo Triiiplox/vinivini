@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "about": "Módulo FALA (fono). Alvos genéricos; quais estão ligados, a ordem e as repetições se escolhem na área dos pais (no aparelho). Níveis seguem a hierarquia som → sílaba → palavra (início) → palavra (meio/fim) → frase → história. 'erro' = troca a reproduzir no 'Ouvido de detetive' (fonema IPA do Piper): o certo e o errado da MESMA palavra (treino de percepção do tipo SAILS).",
  "targets": {
   "ch": {
@@ -15,16 +15,16 @@
    "pista_adulto": "Visual: boca entreaberta, lábios para frente e arredondados. Tátil: as bordas da língua encostam nos dentes de trás de cima; o ar sai no meio, chiando.",
    "isolado": "CHHH",
    "silabas": [
+    "chu",
+    "chô",
+    "chi",
     "chá",
     "ché",
-    "chi",
-    "chô",
-    "chu",
-    "xa",
-    "xe",
-    "xi",
+    "xu",
     "xo",
-    "xu"
+    "xi",
+    "xa",
+    "xe"
    ],
    "inicio": [
     "chave",
@@ -34,26 +34,25 @@
     "chinelo",
     "chuveiro",
     "chupeta",
-    "churrasco",
     "chaleira",
     "xícara",
-    "xadrez",
     "xerife",
     "chuteira",
-    "chafariz",
     "chiclete",
     "chocalho",
     "chifre",
     "chá",
     "chão",
-    "chuchu"
+    "chuchu",
+    "chulé",
+    "chaveiro",
+    "chaminé"
    ],
    "meio": [
     "bolacha",
     "mochila",
     "machado",
     "cachorro",
-    "bicho",
     "lixo",
     "peixe",
     "caixa",
@@ -61,28 +60,128 @@
     "flecha",
     "concha",
     "colchão",
-    "fechadura",
     "lancha",
     "ameixa",
     "salsicha",
     "bochecha",
     "cachoeira",
-    "mexerica",
-    "coxinha"
+    "coxinha",
+    "cochilo",
+    "cachimbo",
+    "cachecol"
    ],
    "frases": [
     "O cachorro pegou a chave.",
-    "A chuva molhou o chapéu.",
     "Eu bebo chá na xícara.",
-    "O bicho comeu a bolacha.",
     "A mochila é do Chico.",
-    "O peixe nadou na caixa.",
     "A bruxa achou o chinelo.",
-    "Choveu no chafariz.",
     "Eu achei o chocolate.",
-    "O xerife jogou xadrez."
+    "O Chico achou a chave.",
+    "A chuva caiu no chapéu.",
+    "O peixe pulou da caixa.",
+    "Eu deixei a mochila no chão.",
+    "O cachorro tirou um cochilo."
    ],
-   "historia": "Choveu muito. O cachorro Chico achou uma chave no chão. Ele chacoalhou a chave e abriu uma caixa. Dentro tinha chocolate, bolacha e um chapéu de xerife!"
+   "historia": "Choveu muito. O cachorro Chico achou uma chave no chão. Ele chacoalhou a chave e abriu uma caixa. Dentro tinha chocolate, bolacha e um chapéu de xerife!",
+   "facil": [
+    "chuva",
+    "chuchu",
+    "chupeta",
+    "chuveiro",
+    "chuteira",
+    "chulé",
+    "chocolate",
+    "chocalho",
+    "peixe",
+    "caixa",
+    "ameixa",
+    "queixo",
+    "faixa"
+   ],
+   "facil_re": "(ch|x)[uoô]|i(ch|x)",
+   "pares": [
+    {
+     "a": "xis",
+     "b": "giz",
+     "contraste": "ʃ-ʒ",
+     "figura": true
+    },
+    {
+     "a": "chá",
+     "b": "já",
+     "contraste": "ʃ-ʒ",
+     "figura": false
+    },
+    {
+     "a": "chato",
+     "b": "jato",
+     "contraste": "ʃ-ʒ",
+     "figura": false
+    },
+    {
+     "a": "chão",
+     "b": "são",
+     "contraste": "ʃ-s",
+     "figura": false
+    },
+    {
+     "a": "rocha",
+     "b": "roça",
+     "contraste": "ʃ-s",
+     "figura": false
+    },
+    {
+     "a": "tacha",
+     "b": "taça",
+     "contraste": "ʃ-s",
+     "figura": false
+    },
+    {
+     "a": "cacho",
+     "b": "caço",
+     "contraste": "ʃ-s",
+     "figura": false
+    },
+    {
+     "a": "chocar",
+     "b": "socar",
+     "contraste": "ʃ-s",
+     "figura": false
+    }
+   ],
+   "sondas": [
+    "chicote",
+    "chiqueiro",
+    "charrete",
+    "boliche",
+    "broche",
+    "ducha",
+    "colcha",
+    "mexilhão",
+    "tacho",
+    "rachadura"
+   ],
+   "bolsas": [
+    {
+     "vs": "s",
+     "erro": [
+      "ʃ",
+      "s"
+     ],
+     "letra": "S",
+     "pose": "s"
+    },
+    {
+     "vs": "j",
+     "erro": [
+      "ʃ",
+      "ʒ"
+     ],
+     "letra": "J",
+     "pose": "j"
+    }
+   ],
+   "conversa": "Ah, o CHAPÉU! O chapéu é azul."
   },
   "j": {
    "name": "J / G",
@@ -97,35 +196,35 @@
    "pista_adulto": "Visual: boca entreaberta, lábios arredondados, pequena abertura entre os dentes. Tátil: bordas da língua nos dentes de trás de cima; ponha a mão no pescoço para sentir vibrar.",
    "isolado": "JJJJ",
    "silabas": [
+    "ju",
+    "jô",
+    "ji",
     "já",
     "jé",
-    "ji",
-    "jô",
-    "ju",
-    "gê",
-    "gi"
+    "gi",
+    "gê"
    ],
    "inicio": [
     "jacaré",
     "janela",
     "jabuti",
     "jaca",
-    "jarra",
     "joia",
     "jogo",
     "judô",
     "jipe",
     "jiboia",
-    "javali",
-    "jaula",
     "joaninha",
     "joelho",
-    "juiz",
     "jato",
     "girafa",
     "gelo",
     "gelatina",
-    "girassol"
+    "girassol",
+    "jiló",
+    "jumento",
+    "jabuticaba",
+    "jogador"
    ],
    "meio": [
     "caju",
@@ -134,34 +233,106 @@
     "laranja",
     "cajado",
     "queijo",
-    "hoje",
     "igreja",
     "tijolo",
     "jujuba",
     "berinjela",
-    "gorjeta",
     "relógio",
     "anjo",
-    "monja",
     "loja",
-    "sujeira",
     "geladeira",
     "mágico",
-    "página"
+    "pijama",
+    "coruja",
+    "cereja",
+    "tigela",
+    "abajur"
    ],
    "frases": [
     "O jabuti come a jaca.",
     "O jacaré abriu a janela.",
-    "Eu ganhei uma joia.",
-    "A girafa joga bola.",
-    "O gelo está na jarra.",
-    "Hoje tem feijão.",
     "A joaninha voou.",
-    "O juiz apitou o jogo.",
     "Eu dei um beijo na vovó.",
-    "O caju é amarelo."
+    "O caju é amarelo.",
+    "O jacaré come jiló.",
+    "A coruja usa pijama.",
+    "O queijo caiu na tigela.",
+    "A joaninha pousou na janela.",
+    "O jogador ganhou o jogo."
    ],
-   "historia": "O jacaré e o jabuti foram jogar. A joaninha era o juiz. No fim do jogo, todos comeram caju, jaca e gelatina de laranja!"
+   "historia": "O jacaré e o jabuti foram jogar. A joaninha era o juiz. No fim do jogo, todos comeram caju, jaca e gelatina de laranja!",
+   "facil": [
+    "judô",
+    "jujuba",
+    "joia",
+    "jogo",
+    "joelho",
+    "joaninha",
+    "beijo",
+    "queijo",
+    "feijão",
+    "beija-flor"
+   ],
+   "facil_re": "j[uoô]|ij|ig[eéêií]",
+   "pares": [
+    {
+     "a": "giz",
+     "b": "xis",
+     "contraste": "ʒ-ʃ",
+     "figura": true
+    },
+    {
+     "a": "jato",
+     "b": "chato",
+     "contraste": "ʒ-ʃ",
+     "figura": false
+    },
+    {
+     "a": "já",
+     "b": "chá",
+     "contraste": "ʒ-ʃ",
+     "figura": false
+    },
+    {
+     "a": "gelo",
+     "b": "zelo",
+     "contraste": "ʒ-z",
+     "figura": false
+    }
+   ],
+   "sondas": [
+    "jangada",
+    "jardim",
+    "jornal",
+    "gigante",
+    "gengiva",
+    "garagem",
+    "vagem",
+    "canjica",
+    "pajé",
+    "gibi"
+   ],
+   "bolsas": [
+    {
+     "vs": "z",
+     "erro": [
+      "ʒ",
+      "z"
+     ],
+     "letra": "Z",
+     "pose": "s"
+    },
+    {
+     "vs": "ch",
+     "erro": [
+      "ʒ",
+      "ʃ"
+     ],
+     "letra": "CH",
+     "pose": "ch"
+    }
+   ],
+   "conversa": "Ah, a JANELA! A janela é azul."
   },
   "s": {
    "name": "S / Z",
@@ -243,7 +414,8 @@
     "Seis sapos dormem.",
     "A cobra faz sss."
    ],
-   "historia": "O sapo Sapeca morava numa casa azul. Um dia, o sol saiu e ele foi tomar sorvete com a zebra. Os dois sentaram no sofá e riram muito!"
+   "historia": "O sapo Sapeca morava numa casa azul. Um dia, o sol saiu e ele foi tomar sorvete com a zebra. Os dois sentaram no sofá e riram muito!",
+   "conversa": ""
   },
   "r": {
    "name": "R fraquinho (cara, barata)",
@@ -325,7 +497,8 @@
     "A cadeira é amarela.",
     "O jacaré tem cara feia."
    ],
-   "historia": "Era uma vez um pirata que tinha uma arara. A arara adorava pera e cereja. Um dia, ela achou um baú de ouro atrás do muro!"
+   "historia": "Era uma vez um pirata que tinha uma arara. A arara adorava pera e cereja. Um dia, ela achou um baú de ouro atrás do muro!",
+   "conversa": ""
   },
   "ti": {
    "name": "TI / DI (tia, dia)",
@@ -400,7 +573,8 @@
     "O tigre dormiu de dia.",
     "Eu ganhei um pente."
    ],
-   "historia": "O tigre e o dinossauro foram à cidade. A tia deles deu leite, abacate e chocolate. De noite, os dois dormiram no jardim."
+   "historia": "O tigre e o dinossauro foram à cidade. A tia deles deu leite, abacate e chocolate. De noite, os dois dormiram no jardim.",
+   "conversa": ""
   },
   "nd": {
    "name": "N / D (língua escondida)",
@@ -477,7 +651,8 @@
     "O dragão dormiu no ninho.",
     "Doce de banana!"
    ],
-   "historia": "Um menino tinha um navio de madeira. No navio tinha uma boneca, um dado e um cacho de banana. Ele navegou até uma nuvem de neve!"
+   "historia": "Um menino tinha um navio de madeira. No navio tinha uma boneca, um dado e um cacho de banana. Ele navegou até uma nuvem de neve!",
+   "conversa": ""
   }
  },
  "levels": [
@@ -495,6 +670,11 @@
    "id": "silabas",
    "name": "Sílabas",
    "say": "Agora com as vogais."
+  },
+  {
+   "id": "facil",
+   "name": "Palavras fáceis",
+   "say": "Palavras com bico: o som fica mais fácil!"
   },
   {
    "id": "inicio",
@@ -522,7 +702,34 @@
   "pass_of": 10,
   "max_tries_per_item": 2,
   "no_timer": true,
-  "note": "Sem cronômetro (fala sem pressa). No máximo 2 tentativas por palavra e segue, sempre elogiando a tentativa (orientação: evitar pedir repetição demais)."
+  "note": "Sem cronômetro (fala sem pressa). No máximo 2 tentativas por palavra e segue, sempre elogiando a tentativa (orientação: evitar pedir repetição demais). Repetição tipo prancha da fono (3x cada figura). Sem relógio, sem placar de velocidade. Se a criança cansar, para e guarda o progresso.",
+  "reps_per_picture": 3,
+  "reps_per_picture_options": [
+   1,
+   3,
+   5
+  ],
+  "pictures_per_block": 12,
+  "blocks_per_session": [
+   1,
+   2
+  ],
+  "target_trials_per_session": [
+   36,
+   72
+  ],
+  "pass_sessions_in_a_row": 2,
+  "pass_on_different_days": true,
+  "feedback": {
+   "early_levels": [
+    "isolado",
+    "silabas",
+    "facil"
+   ],
+   "early": "adulto confirma toda figura (CERTO/QUASE) com a pista da boca",
+   "later": "adulto confirma 1 de cada 3 figuras; resumo no fim (menos feedback ajuda a reter)"
+  },
+  "probe_every_sessions": 5
  },
  "mouth_gym": [
   {
@@ -629,6 +836,296 @@
    "id": "labios_fechados",
    "name": "Lábios fechadinhos",
    "say": "Feche os lábios e respire pelo nariz!"
+  },
+  {
+   "id": "limpar_dentes_cima",
+   "name": "Limpar os dentes de cima",
+   "say": "Limpe os dentes de cima com a pontinha da língua!"
+  },
+  {
+   "id": "limpar_dentes_baixo",
+   "name": "Limpar os dentes de baixo",
+   "say": "Agora limpe os dentes de baixo!"
+  },
+  {
+   "id": "lamber_labio_cima",
+   "name": "Lamber o lábio de cima",
+   "say": "Lamba o lábio de cima, devagar!"
+  },
+  {
+   "id": "lamber_labio_baixo",
+   "name": "Lamber o lábio de baixo",
+   "say": "Lamba o lábio de baixo!"
+  },
+  {
+   "id": "ponta_ceu_soltar",
+   "name": "Ponta no céu da boca",
+   "say": "Aperte a pontinha da língua no céu da boca... e solte!"
+  },
+  {
+   "id": "ponta_chao_soltar",
+   "name": "Ponta no chão da boca",
+   "say": "Aperte a pontinha da língua no chão da boca... e solte!"
+  },
+  {
+   "id": "cantinhos",
+   "name": "Cantinhos da boca",
+   "say": "Língua no cantinho da direita... agora no da esquerda!"
+  },
+  {
+   "id": "lingua_dentro_fora",
+   "name": "Língua dentro e fora",
+   "say": "Língua para fora... e para dentro!"
+  },
+  {
+   "id": "lingua_fina_segura",
+   "name": "Língua fina (segura)",
+   "say": "Língua fininha para fora. Segura: um, dois, três!",
+   "hold_s": 3
+  },
+  {
+   "id": "lingua_larga_segura",
+   "name": "Língua larga (segura)",
+   "say": "Língua larga para fora. Segura: um, dois, três!",
+   "hold_s": 3
+  },
+  {
+   "id": "bico_segura",
+   "name": "Bico (segura)",
+   "say": "Faça um bico. Segura: um, dois, três!",
+   "hold_s": 3
+  },
+  {
+   "id": "sorriso_segura",
+   "name": "Sorriso sem dentes (segura)",
+   "say": "Sorriso sem mostrar os dentes. Segura: um, dois, três!",
+   "hold_s": 3
+  },
+  {
+   "id": "apertar_labios",
+   "name": "Apertar os lábios",
+   "say": "Aperte um lábio contra o outro... e solte!"
+  },
+  {
+   "id": "bico_dentes_travados",
+   "name": "Bico com dentes fechados",
+   "say": "Dentes fechadinhos, faça um bico... e solte!"
+  },
+  {
+   "id": "chupar_bochechas",
+   "name": "Chupar as bochechas",
+   "say": "Chupe as bochechas para dentro, cara de peixe!"
+  },
+  {
+   "id": "morder_labio_cima",
+   "name": "Morder o lábio de cima",
+   "say": "Morda o lábio de cima, devagar!"
+  },
+  {
+   "id": "bochecha_alterna",
+   "name": "Língua nas bochechas, alternando",
+   "say": "Empurre uma bochecha... agora a outra!"
+  },
+  {
+   "id": "vibrar_lingua",
+   "name": "Vibrar a língua",
+   "say": "Faça a língua tremer, igual telefone tocando!"
+  },
+  {
+   "id": "boca_de_a",
+   "name": "Boca de A",
+   "say": "Abra a boca bem grande: AAA!"
   }
+ ],
+ "session": {
+  "order": [
+   "escutar_curto",
+   "detetive",
+   "bloco_producao",
+   "pausa_estrela",
+   "bloco_producao_opcional",
+   "fim_frase_ou_conversa"
+  ],
+  "escutar_curto_words": 10,
+  "detetive_items": 6,
+  "suggested_minutes": [
+   10,
+   15
+  ],
+  "suggested_days_per_week": 5
+ },
+ "activities": [
+  {
+   "id": "chuva_guarda_chuva",
+   "name": "Chuva no guarda-chuva",
+   "levels": [
+    "isolado",
+    "silabas"
+   ],
+   "targets": [
+    "ch",
+    "j"
+   ],
+   "rounds": 5,
+   "say": "Faça o barulho da chuva e leve a gota até a nuvem!",
+   "mecanica": "Parte 1: arrastar a gota pela linha pontilhada enquanto sustenta CHHH (ou JJJ); a gota só anda enquanto o medidor detecta o som; sem tempo-limite. Parte 2: a chuva cai numa vogal do guarda-chuva (A, E, I, O, U) e a criança diz som + vogal; adulto confirma.",
+   "vowels_order": [
+    "u",
+    "o",
+    "i",
+    "a",
+    "e"
+   ]
+  },
+  {
+   "id": "sacolas_do_som",
+   "name": "Sacolas do som",
+   "levels": [
+    "escutar",
+    "isolado",
+    "silabas"
+   ],
+   "targets": [
+    "ch",
+    "j",
+    "s"
+   ],
+   "items": 10,
+   "say": "Em qual sacola vai essa palavra?",
+   "mecanica": "Narradora diz a palavra certa ou com a troca (fonoerr). Criança arrasta a figura para a sacola da boca certa (bico chiando = CH; sorriso de cobra = S; bico vibrando = J). Metade certa, metade trocada. Feedback imediato com a boca animada."
+  },
+  {
+   "id": "me_faz_pegar",
+   "name": "Me faz pegar!",
+   "levels": [
+    "inicio",
+    "meio"
+   ],
+   "targets": [
+    "ch",
+    "j"
+   ],
+   "items": 10,
+   "requires_fono_ok": true,
+   "say": "Fala o nome e eu pego o que eu ouvi!",
+   "mecanica": "Duas figuras de um par mínimo. A criança fala uma; o adulto toca a que OUVIU (honesto). Se ouviu a outra, o boneco pega a errada e brinca: 'Opa! Faz o vento: xis!'."
+  },
+  {
+   "id": "rodada_de_3",
+   "name": "Fala 3 vezes",
+   "levels": [
+    "facil",
+    "inicio",
+    "meio"
+   ],
+   "targets": [
+    "ch",
+    "j",
+    "s",
+    "r",
+    "ti",
+    "nd"
+   ],
+   "reps_per_picture": 3,
+   "say": "Fala três vezes! Um, dois, três!",
+   "mecanica": "Cada figura acende 3 bolinhas, uma por fala; o adulto julga uma vez por figura. 12 figuras = 36 produções."
+  },
+  {
+   "id": "trilha_de_leitura",
+   "name": "Trilha de leitura",
+   "levels": [
+    "inicio",
+    "meio",
+    "frases"
+   ],
+   "targets": [
+    "ch",
+    "j"
+   ],
+   "items": 12,
+   "highlight_grapheme": true,
+   "no_timer": true,
+   "say": "Leia a palavra e o foguete anda um passo!",
+   "mecanica": "Palavra escrita com o grafema-alvo em vermelho. Cada leitura = um passo na trilha. Sem relógio, sem contagem de velocidade."
+  },
+  {
+   "id": "sonda",
+   "name": "Palavras novas",
+   "levels": [
+    "inicio",
+    "meio",
+    "frases",
+    "historia"
+   ],
+   "targets": [
+    "ch",
+    "j"
+   ],
+   "items": 10,
+   "no_model": true,
+   "no_feedback": true,
+   "say": "Agora umas palavras novas! Só fala o nome.",
+   "mecanica": "A cada 5 sessões: 10 palavras nunca treinadas, sem modelo e sem pista. Adulto marca CERTO/QUASE. Gera o gráfico '% certo em palavras novas' para mostrar à fono."
+  },
+  {
+   "id": "conversa_com_figura",
+   "name": "Conversa com figura",
+   "levels": [
+    "frases",
+    "historia"
+   ],
+   "targets": [
+    "ch",
+    "j"
+   ],
+   "say": "Vamos conversar sobre a figura!",
+   "dica_adulto": "Se ele trocar, repita certo com naturalidade, sem pedir para repetir: 'Ah, o CHAPÉU! O chapéu é azul.'"
+  }
+ ],
+ "parent_tips": [
+  "Escolha um momento tranquilo do dia; sessão curta (10 a 15 minutos).",
+  "Sem pressa e sem relógio: deixe ele terminar de falar.",
+  "Elogie a tentativa, não só o acerto.",
+  "Se ele trocar o som, repita a palavra certa com naturalidade, sem pedir para repetir.",
+  "Evite comparar com outras crianças.",
+  "Siga a folha da semana da fono; este app é complemento.",
+  "Anote no diário o que você notar (acertos espontâneos, cansaço, tropeços na fala) para mostrar à fono."
+ ],
+ "diary": [
+  {
+   "id": "espontaneo",
+   "name": "Usou o som certo sozinho, sem treino"
+  },
+  {
+   "id": "tropecos",
+   "name": "Notei tropeços ou repetições na fala"
+  },
+  {
+   "id": "cansado",
+   "name": "Estava cansado hoje"
+  }
+ ],
+ "mouth_gym_default": [
+  "lingua_cima",
+  "lingua_baixo",
+  "lingua_direita",
+  "lingua_esquerda",
+  "bochecha_dentro",
+  "bico",
+  "sorriso_fechado",
+  "sorriso_dentes",
+  "bico_sorriso",
+  "bico_aberto",
+  "inflar",
+  "inflar_alterna",
+  "estalo",
+  "ceu_boca",
+  "varrer",
+  "lamber_labios",
+  "vibrar_labios",
+  "morder_labio",
+  "lingua_larga",
+  "lingua_fina",
+  "labios_fechados"
  ]
 }

@@ -1,10 +1,11 @@
 extends GameScreen
 ## FALAR (módulo de fono): um cartão por som que a criança está treinando (CH, J, S, R, TI, N/D — os pais escolhem
-## quais e em que ordem na área dos pais), cada um com a trilha de 7 níveis (escutar → som → sílabas → palavras →
-## palavras 2 → frases → história). Tocar no cartão continua do nível aberto. Embaixo: ACADEMIA DA BOCA.
+## quais e em que ordem na área dos pais), cada um com a trilha de 8 níveis (escutar → som → sílabas → palavras
+## fáceis → palavras → palavras 2 → frases → história). Tocar no cartão abre a casa do som (treino + jogos; som sem
+## jogos vai direto ao treino). Embaixo: ACADEMIA DA BOCA.
 
 const CARD := Vector2(250, 230)
-const COLORS := {"ch": "#2563EB", "j": "#16A34A", "s": "#EA580C", "r": "#9333EA", "ti": "#DB2777", "nd": "#0891B2"}
+const COLORS := FonoPanels.COLORS
 
 var cards: Array[Interactable] = []
 var gym_card: Interactable
@@ -12,6 +13,7 @@ var _picked := false
 
 
 func build() -> void:
+	FonoPlan.mark_session()
 	set_sky("space")
 	AudioService.play_music("hub", 0.5)
 	var title := UI.label("FALAR", 52, Color.WHITE, true)
@@ -72,13 +74,14 @@ func _card(id: String, pos: Vector2) -> void:
 	big.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.child_ok(big)  # a letra do som (ele lê)
 	it.add_child(big)
-	# trilha: 7 bolinhas (feito = dourado, aberto = pulsando, trancado = apagado)
+	# trilha: uma bolinha por nível (feito = dourado, aberto = branco, trancado = apagado)
 	var lv := FonoData.level_open(id)
 	var n := FonoData.levels().size()
+	var stp := (CARD.x - 44.0 - 20.0) / maxf(1.0, n - 1)
 	for k in n:
 		var dot := ColorRect.new()
-		dot.size = Vector2(22, 22)
-		dot.position = Vector2(-CARD.x / 2.0 + 22 + k * 31, 52)
+		dot.size = Vector2(20, 20)
+		dot.position = Vector2(-CARD.x / 2.0 + 22 + k * stp, 52)
 		dot.color = DS.STAR_GOLD if k < lv else (Color.WHITE if k == lv else Color(1, 1, 1, 0.22))
 		dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		it.add_child(dot)
@@ -90,7 +93,11 @@ func _card(id: String, pos: Vector2) -> void:
 	UI.child_ok(lvn)  # nome do nível
 	it.add_child(lvn)
 	it.tapped.connect(func(i: Interactable):
-		_go("fono_session", {"target": str(i.payload), "lv": FonoData.level_open(str(i.payload))}))
+		var tid := str(i.payload)
+		if FonoTargetScreen.activities_for(tid).is_empty():
+			_go("fono_session", {"target": tid, "lv": FonoData.level_open(tid)})
+		else:
+			_go("fono_target", {"target": tid}))
 	world.add_child(it)
 	cards.append(it)
 

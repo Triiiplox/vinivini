@@ -74,3 +74,115 @@ func _run() -> void:
 	await shot("08_academia")
 	Router.reset_to("parent", {"tab": "speech"})
 	await shot("09_area_dos_pais")
+	await _v2()
+
+
+## Telas da v2 (P1–P12).
+func _v2() -> void:
+	FonoPlan.set_pairs_enabled(true)
+	Router.reset_to("fono_target", {"target": "ch"})
+	await shot("10_casa_do_som")
+	FonoData._entry("ch")["lv"] = 4
+	FonoData._entry("ch")["probes"] = [{"d": "2026-09-01", "ok": 4, "of": 10}]
+	Router.reset_to("fono_session", {"target": "ch", "lv": 4})
+	await get_tree().create_timer(0.3).timeout
+	var s: Node = Router.current_screen
+	s.queue = ["chuva", "peixe", "chulé"]
+	s._next_speak()
+	s.reps_done = 2
+	s.dots.queue_redraw()
+	s._buttons("mic")
+	s.level_bar.visible = true
+	s.mic.level = 0.35
+	s.mic.peak = 0.5
+	await shot("11_fala_3_vezes")
+	s.level_bar.visible = false
+	s.use_mic = false
+	s._next_speak()
+	s.reps_done = 1
+	s.dots.queue_redraw()
+	s._buttons("rep")
+	s._mic_gone()
+	await shot("12_sem_microfone_falou", 0.5)
+	s.queue.clear()
+	s._next_speak()
+	await shot("13_pausa_entre_blocos")
+	Router.reset_to("fono_session", {"target": "ch", "lv": 4})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s.probe_queue = ["chicote"]
+	s._next_probe()
+	await shot("14_sonda_palavra_nova")
+	s._short_session_notice()
+	await shot("15_aviso_sessao_curta")
+	Router.reset_to("fono_bags", {"target": "ch", "vs": "s"})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s._next()
+	await shot("16_sacolas_do_som")
+	Router.reset_to("fono_rain", {"target": "ch"})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s._next_cloud()
+	s.push(1.4)
+	await shot("17_chuva_gota")
+	s.idx = 1
+	s.progress = 1.0
+	s._show_part(2)
+	s._rain_t = 0.3
+	s.ok_btn.visible = true
+	s.again_btn.visible = true
+	await shot("18_chuva_silaba")
+	Router.reset_to("fono_read", {"target": "j"})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s._next()
+	s._mark(true)
+	s._next()
+	s._mark(false)
+	s._next()
+	await shot("19_trilha_de_leitura")
+	Router.reset_to("fono_pairs", {"target": "ch"})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s._next()
+	await shot("20_me_faz_pegar")
+	FonoData._entry("ch")["lv"] = 6
+	Router.reset_to("fono_session", {"target": "ch", "lv": 6})
+	await get_tree().create_timer(0.3).timeout
+	s = Router.current_screen
+	s._conversa(false)
+	await shot("21_conversa_com_figura")
+	FonoData.set_gym_list(["bico_segura", "limpar_dentes_cima"])
+	Router.reset_to("fono_gym", {})
+	await get_tree().create_timer(0.3).timeout
+	var g: Node = Router.current_screen
+	g._next()
+	g.running = true
+	for i in 2:
+		g._process(1.3)
+	await shot("22_academia_segura")
+	Router.reset_to("fono", {})
+	await shot("23_fono_inicio_8_niveis")
+	FonoLog.record_probe("ch", 3, 10, "2026-09-01")
+	FonoLog.record_probe("ch", 5, 10, "2026-09-08")
+	FonoLog.record_probe("ch", 7, 10, "2026-09-15")
+	FonoLog.add_note("cansado")
+	FonoLog.add_note("espontaneo")
+	Router.reset_to("parent", {"tab": "speech"})
+	await shot("24_pais_topo", 1.0)
+	var sc := _scroll(Router.current_screen)
+	for k in 6:
+		if sc:
+			sc.scroll_vertical = 500 * (k + 1)
+		await shot("25_pais_rolar_%d" % (k + 1), 0.5)
+
+
+func _scroll(n: Node) -> ScrollContainer:
+	if n is ScrollContainer:
+		return n
+	for c in n.get_children():
+		var r := _scroll(c)
+		if r:
+			return r
+	return null
