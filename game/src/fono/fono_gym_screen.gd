@@ -18,6 +18,7 @@ var idx := -1
 var count := 0
 var running := false
 var face: FonoFace
+var photo: FonoPhoto  ## foto do Vini (APK da família) quando existe para o exercício
 var mirror: FonoMirror
 var name_label: Label
 var count_label: Label
@@ -47,6 +48,11 @@ func build() -> void:
 	face.position = Vector2(370, 335)
 	face.scale = Vector2.ONE * 1.1  # o rosto novo tem gola: não encostar no nome do exercício
 	world.add_child(face)
+	photo = FonoPhoto.new()
+	photo.name = "GymPhoto"
+	photo.position = Vector2(370, 330) - FonoPhoto.SIZE / 2.0
+	photo.visible = false
+	hud.stage.add_child(photo)
 	mirror = FonoMirror.new()
 	mirror.size = Vector2(400, 300)
 	mirror.position = Vector2(720, 140)
@@ -96,6 +102,7 @@ func _next() -> void:
 		return
 	var g: Dictionary = _by_id.get(str(list[idx]), {})
 	face.set_pose(str(g.get("id", "neutro")))
+	face.visible = not photo.show_pose(str(g.get("id", "")))
 	name_label.text = str(g.get("name", ""))
 	reps = FonoData.gym_reps_for(str(g.get("id", "")))
 	hold_s = int(g.get("hold_s", 0))
@@ -118,6 +125,8 @@ func _process(delta: float) -> void:
 		return
 	var beat := HOLD_BEAT if hold_s > 0 else BEAT
 	face.beat = 1.0 - _beat_t / beat if hold_s == 0 else 0.5
+	# foto: a boca vai para a posição e volta a cada repetição (na sustentação fica parada na posição)
+	photo.weight = 1.0 if hold_s > 0 else clampf(sin(PI * face.beat) * 1.6, 0.0, 1.0)
 	_beat_t -= delta
 	if _beat_t > 0.0:
 		return
@@ -172,6 +181,7 @@ func _finish() -> void:
 	name_label.text = "Academia completa!"
 	count_label.text = ""
 	face.set_pose("sorriso_dentes")
+	face.visible = not photo.show_pose("sorriso_dentes")
 	var st := ArtSprite.new("props", "star_token", 180.0)
 	st.position = Vector2(920, 520)
 	st.name = "GymStar"
