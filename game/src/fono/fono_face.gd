@@ -32,17 +32,44 @@ const OUT_W := R * 0.047  # contorno da silhueta (fica nítido até em 0,26×)
 const LINE_W := R * 0.032
 ## Sons novos usam a boca mais parecida: LH (meio da língua no céu da boca), encontros e R final (toque do R).
 const ALIAS := {"lh": "ceu_boca", "encontros_r": "r", "r_final": "r", "encontros_l": "lingua_cima"}
+## Foto do Vini (APK da família) para a boca de cada som: a mais parecida entre as fotos dos exercícios.
+const PHOTO_ALIAS := {"ch": "bico", "j": "bico", "s": "sorriso_dentes", "ti": "sorriso_dentes", "r": "ponta_ceu_soltar",
+	"nd": "ceu_boca", "lh": "ceu_boca", "encontros_r": "ponta_ceu_soltar", "encontros_l": "ponta_ceu_soltar",
+	"r_final": "ponta_ceu_soltar", "neutro": "sorriso_fechado"}
 
 var pose := "neutro"
 var beat := 0.0  ## 0..1 dentro de uma repetição (a tela avança)
 var _t := 0.0
 var _last_beat := 0.0
 var _beat_live := 0.0  # > 0: a fase vem do beat; senão, do relógio próprio
+var _photo: Sprite2D  ## foto do Vini fazendo a boca (quando existe); senão, o desenho
 
 
 func set_pose(p: String) -> void:
 	pose = str(ALIAS.get(p, p))
+	_set_photo(str(PHOTO_ALIAS.get(p, p)))
 	queue_redraw()
+
+
+## Pedido do Andro (12/10): o rosto que ensina é o Vini de verdade. Foto em medalhão oval; o desenho fica só
+## para o que não tem foto (e no APK público, que não leva as fotos).
+func _set_photo(id: String) -> void:
+	if not FonoPhoto.has(id):
+		if _photo:
+			_photo.visible = false
+		return
+	if _photo == null:
+		_photo = Sprite2D.new()
+		add_child(_photo)
+	var tex: Texture2D = load(FonoPhoto.DIR % [id, 1])
+	_photo.texture = tex
+	_photo.scale = Vector2.ONE * (R * 2.55 / tex.get_height())
+	_photo.position = Vector2(0, R * 0.12)
+	_photo.visible = true
+
+
+func has_photo() -> bool:
+	return _photo != null and _photo.visible
 
 
 func _process(delta: float) -> void:
@@ -60,6 +87,8 @@ func _phase() -> float:
 
 
 func _draw() -> void:
+	if has_photo():
+		return
 	var ph := _phase()
 	var lk: Dictionary = Poses.look(pose, ph)
 	_collar(lk.dots)
