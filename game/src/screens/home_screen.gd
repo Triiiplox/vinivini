@@ -66,7 +66,7 @@ func _who_button() -> void:
 			Router.reset_to("who"))
 	hud.root.add_child(b)
 	var face := TextureRect.new()
-	face.texture = load(Kids.head_path("big_smile"))
+	face.texture = load(Kids.pick_face(SaveService.profile_id))
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	face.size = Vector2(96, 96)

@@ -46,7 +46,7 @@ func _card(k: Array, pos: Vector2, w: float) -> void:
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	it.add_child(card)
 	var face := Sprite2D.new()
-	face.texture = load(Kids.head_path("big_smile", str(k[0])))
+	face.texture = load(Kids.pick_face(str(k[0])))
 	var s := w * 0.82 / maxf(face.texture.get_width(), face.texture.get_height())
 	face.scale = Vector2(s, s)
 	face.position = Vector2(0, -w * 0.12)

@@ -10,6 +10,9 @@ const KID_HEAD := "res://assets/characters/kids/%s/head.png"
 ## Nave pintada de cada criança, com ela na cabine (arte do Andro, 10/10). Convidados: pasta fora do git.
 const VINI_SHIP := "res://assets/art/ships/vini.png"
 const KID_SHIP := "res://assets/characters/kids/%s/ship.png"
+## Rosto do Vini na escolha de quem joga: recorte da foto de astronauta (pedido do Andro, 12/10: "mais parecido com
+## ele"). Fica em assets/private (só no APK da família); no público, a cabeça pintada.
+const VINI_PHOTO := "res://assets/private/vini_head.png"
 
 ## Testes de fluxo desligam os convidados (a cabeça deles pode ou não estar no pacote).
 static var guests_enabled := true
@@ -32,6 +35,13 @@ static func name_of(id: String) -> String:
 
 static func is_guest() -> bool:
 	return SaveService.profile_id != "vini"
+
+
+## Rosto para escolher/trocar de jogador.
+static func pick_face(id: String) -> String:
+	if id == "vini" and ResourceLoader.exists(VINI_PHOTO):
+		return VINI_PHOTO
+	return head_path("big_smile", id)
 
 
 ## Rosto de quem está jogando (humor só vale para o Vini, que tem 12 cabeças pintadas).
