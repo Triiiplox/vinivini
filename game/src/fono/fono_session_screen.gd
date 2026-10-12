@@ -1,15 +1,20 @@
 extends GameScreen
-## Sessão de FALA de um som (params.target) num nível (params.lv). Segue o que a fono pede e o que tem evidência:
+## Sessão de FALAR de um som (params.target) num nível (params.lv). Segue o que a fono pede e o que tem evidência:
 ##   ESCUTAR (nível 0): CHUVA DE PALAVRAS (bombardeio auditivo: 15 palavras com o som, só ouvir) + OUVIDO DE
 ##     DETETIVE: a mesma palavra dita certa ou com a troca típica (chave/save, sapo/θapo, cara/cala) — treino de
 ##     percepção do próprio erro (no estilo do SAILS, Rvachew) e discriminação auditiva do programa da fono.
-##   NÍVEIS 1–6 (som sozinho → sílabas → palavras → palavras 2 → frases → história): "COMO FAZER" (rosto + espelho
-##     + pista para o adulto), 4 rodadas de detetive e 10 de FALA COMIGO: o modelo fala, a criança fala no
-##     microfone, ouve a própria voz (automonitorização), vê o medidor de chiado (CH × S) e o ADULTO confirma.
-## Regras da orientação familiar: sem cronômetro, no máximo 2 tentativas por palavra, elogio sempre (até no erro),
-## nada de repetir sem fim. Passa de nível com 8 de 10 confirmados (FonoData.record).
+##   NÍVEIS 1–7 (som sozinho → sílabas → palavras fáceis → palavras → palavras 2 → frases → história): "COMO FAZER"
+##     (rosto + espelho + pista para o adulto), 4 rodadas de detetive e um BLOCO de FALA COMIGO: o modelo fala, a
+##     criança fala no microfone, ouve a própria voz, vê o medidor de chiado (CH × S) e o ADULTO confirma.
+##   v2 (docs/FONO.md): "FALA 3 VEZES" (P1) — nas palavras, cada figura é falada 3× (bolinhas 1-2-3, "de novo!",
+##     "mais uma!") e o adulto julga UMA vez por figura; bloco de 6/9/12 figuras, pausa com estrela e um 2º bloco
+##     opcional. SONDA (P7): a cada 5 sessões, 10 palavras novas sem modelo e sem retorno. Letra-alvo em vermelho
+##     (P6). "Conversa com figura" no fim de frases/história (P10). Sair no meio guarda o bloco (P12).
+## Regras da orientação familiar: sem cronômetro, no máximo 2 tentativas por figura, elogio sempre (até no erro),
+## nada de repetir sem fim. Passa de nível com ≥ 80% em 2 sessões seguidas em dias diferentes (FonoData.record).
 
-const SAY_TIME := {"isolado": 2.5, "silabas": 2.0, "inicio": 2.5, "meio": 2.5, "frases": 4.5, "historia": 16.0}
+const SAY_TIME := {"isolado": 2.5, "silabas": 2.0, "facil": 2.5, "inicio": 2.5, "meio": 2.5, "frases": 4.5, "historia": 16.0}
+const PROBE_LEVELS := ["inicio", "meio", "frases", "historia"]
 
 var target := "ch"
 var lv := 1
@@ -20,25 +25,39 @@ var face: FonoFace
 var mirror: FonoMirror
 var card: Control
 var pic: TextureRect
-var word_label: Label
+var word_label: RichTextLabel
 var meter: Control
+var dots: Control
+var level_bar: Control
 var mic_btn: DSButton
+var rep_btn: DSButton
 var ok_btn: DSButton
 var again_btn: DSButton
 var yes_btn: DSButton
 var odd_btn: DSButton
 var queue: Array = []
 var det_queue: Array = []
+var probe_queue: Array = []
 var step := "intro"
 var item := ""
 var tries := 0
 var ok_count := 0
 var done_count := 0
+var probe_ok := 0
+var probe_of := 0
+var reps := 1  ## falas pedidas para a figura atual
+var reps_done := 0
+var block_no := 1
+var use_mic := true
+var silent := 0  ## gravações seguidas sem som
+var mic_warned := false
 var det_err := false
 var recording := false
 var rec_left := 0.0
+var _last_wav: AudioStreamWAV
 var _voice_player: AudioStreamPlayer
 var _rain: Array[Control] = []
+var _warn_t := 0.0
 
 
 func build() -> void:
@@ -46,10 +65,14 @@ func build() -> void:
 	t = FonoData.target(target)
 	lv = clampi(int(params.get("lv", 0)), 0, FonoData.levels().size() - 1)
 	lv_id = str(FonoData.levels()[lv]["id"])
+	FonoPlan.mark_session()
 	set_sky("space")
 	AudioService.play_music("hub", 0.4)
 	mic = FonoMic.new()
 	add_child(mic)
+	mic.permission_result.connect(func(ok: bool):
+		if not ok:
+			_mic_gone())
 	_voice_player = AudioStreamPlayer.new()
 	_voice_player.bus = "Character"
 	add_child(_voice_player)
@@ -111,14 +134,10 @@ func _build_card() -> void:
 	pic.size = Vector2(300, 260)
 	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(pic)
-	word_label = UI.label("", 56, Color("#1E1B4B"), true)
+	word_label = FonoText.rich_label(56, FonoPanels.INK)
+	word_label.name = "WordLabel"
 	word_label.position = Vector2(10, 280)
 	word_label.size = Vector2(540, 110)
-	word_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	word_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	word_label.autowrap_mode = TextServer.AUTOWRAP_WORD
-	word_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.child_ok(word_label)  # a palavra (ele lê)
 	card.add_child(word_label)
 	meter = Control.new()
 	meter.name = "Meter"
@@ -128,39 +147,39 @@ func _build_card() -> void:
 	meter.draw.connect(_draw_meter)
 	meter.visible = false
 	hud.stage.add_child(meter)
+	dots = Control.new()
+	dots.name = "RepDots"
+	dots.position = Vector2(950, 110)
+	dots.size = Vector2(90, 360)
+	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dots.draw.connect(func(): FonoPanels.draw_dots(dots, reps, reps_done))
+	hud.stage.add_child(dots)
+	level_bar = Control.new()
+	level_bar.name = "MicLevel"
+	level_bar.position = Vector2(830, 600)
+	level_bar.size = Vector2(40, 92)
+	level_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	level_bar.draw.connect(func(): FonoPanels.draw_level(level_bar, mic.level, mic.peak))
+	level_bar.visible = false
+	hud.stage.add_child(level_bar)
 
 
 func _build_buttons() -> void:
-	mic_btn = DSButton.new("primary", "voice", Vector2(320, 120), "normal", "FALAR")
-	mic_btn.name = "MicButton"
-	mic_btn.position = Vector2(480, 572)
+	mic_btn = FonoPanels.button("MicButton", "primary", "voice", "FALAR", Vector2(480, 572), 320)
 	mic_btn.pressed.connect(_on_mic)
-	mic_btn.visible = false
-	hud.stage.add_child(mic_btn)
-	ok_btn = DSButton.new("primary", "check", Vector2(260, 120), "normal", "CERTO!")
-	ok_btn.name = "AdultOk"
-	ok_btn.position = Vector2(360, 572)
+	rep_btn = FonoPanels.button("RepButton", "primary", "check", "FALOU!", Vector2(480, 572), 320)
+	rep_btn.pressed.connect(_on_rep)
+	ok_btn = FonoPanels.button("AdultOk", "primary", "check", "CERTO!", Vector2(360, 572), 260)
 	ok_btn.pressed.connect(_adult.bind(true))
-	ok_btn.visible = false
-	hud.stage.add_child(ok_btn)
-	again_btn = DSButton.new("secondary", "refresh", Vector2(260, 120), "normal", "QUASE")
-	again_btn.name = "AdultAgain"
-	again_btn.position = Vector2(660, 572)
+	again_btn = FonoPanels.button("AdultAgain", "secondary", "refresh", "QUASE", Vector2(660, 572), 260)
 	again_btn.pressed.connect(_adult.bind(false))
-	again_btn.visible = false
-	hud.stage.add_child(again_btn)
-	yes_btn = DSButton.new("primary", "check", Vector2(260, 120), "normal", "CERTO")
-	yes_btn.name = "DetYes"
-	yes_btn.position = Vector2(360, 572)
+	yes_btn = FonoPanels.button("DetYes", "primary", "check", "CERTO", Vector2(360, 572), 260)
 	yes_btn.pressed.connect(_detective_answer.bind(false))
-	yes_btn.visible = false
-	hud.stage.add_child(yes_btn)
-	odd_btn = DSButton.new("secondary", "close", Vector2(260, 120), "normal", "ESQUISITO")
-	odd_btn.name = "DetOdd"
-	odd_btn.position = Vector2(660, 572)
+	odd_btn = FonoPanels.button("DetOdd", "secondary", "close", "ESQUISITO", Vector2(660, 572), 260)
 	odd_btn.pressed.connect(_detective_answer.bind(true))
-	odd_btn.visible = false
-	hud.stage.add_child(odd_btn)
+	for b in [mic_btn, rep_btn, ok_btn, again_btn, yes_btn, odd_btn]:
+		b.visible = false
+		hud.stage.add_child(b)
 	var adult := UI.label("o adulto confirma", 18, Color(1, 1, 1, 0.6))
 	adult.name = "AdultNote"
 	adult.position = Vector2(360, 694)
@@ -174,11 +193,12 @@ func _build_buttons() -> void:
 
 func _buttons(which: String) -> void:
 	mic_btn.visible = which == "mic"
+	rep_btn.visible = which == "rep"
 	ok_btn.visible = which == "adult"
 	again_btn.visible = which == "adult"
 	yes_btn.visible = which == "detective"
 	odd_btn.visible = which == "detective"
-	hud.stage.get_node("AdultNote").visible = which == "adult"
+	hud.stage.get_node("AdultNote").visible = which in ["adult", "rep"]
 
 
 # ------------------------------------------------------------------ roteiro
@@ -189,23 +209,20 @@ func _start() -> void:
 		card.visible = false
 		_rain_next()
 		return
+	var saved := FonoLog.resume_for(target, lv)
+	if not saved.is_empty():
+		queue = (saved["queue"] as Array).duplicate()
+		ok_count = int(saved.get("ok", 0))
+		done_count = int(saved.get("done", 0))
+		var d := narrate(Lines.n("Vamos continuar de onde paramos!"))
+		after(d + 0.2, _next_speak)
+		return
 	det_queue = _detective_items(4)
-	queue = _production_items()
-	_next_detective()
-
-
-func _production_items() -> Array:
-	var src: Array = FonoData.items(target, lv).duplicate()
-	src.shuffle()
-	var n := 10
-	if lv_id == "historia":
-		n = 1
-	elif lv_id == "isolado":
-		n = 6
-	var out: Array = []
-	while out.size() < n and not src.is_empty():
-		out.append(src[out.size() % src.size()])
-	return out
+	queue = FonoPlan.production_items(target, lv)
+	if PROBE_LEVELS.has(lv_id) and FonoLog.probe_due(target):
+		_start_probe()
+	else:
+		_next_detective()
 
 
 func _detective_items(n: int) -> Array:
@@ -216,7 +233,7 @@ func _detective_items(n: int) -> Array:
 	return words.slice(0, n)
 
 
-func _show_item(text: String) -> void:
+func _show_item(text: String, mark: bool = true) -> void:
 	item = text
 	card.visible = true
 	var tex := FonoData.picture(text)
@@ -224,8 +241,8 @@ func _show_item(text: String) -> void:
 	pic.visible = tex != null
 	word_label.position.y = 280.0 if tex != null else 60.0
 	word_label.size.y = 110.0 if tex != null else 320.0
-	word_label.add_theme_font_size_override("font_size", 56 if text.length() < 14 else (34 if text.length() < 60 else 22))
-	word_label.text = text if text != str(t.get("isolado", "")) else str(t.get("isolado", ""))
+	word_label.add_theme_font_size_override("normal_font_size", 56 if text.length() < 14 else (34 if text.length() < 60 else 22))
+	word_label.text = FonoText.highlight(target, text) if mark else text
 	card.pivot_offset = card.size / 2.0
 	card.scale = Vector2.ONE * 0.85
 	card.create_tween().tween_property(card, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -234,6 +251,12 @@ func _show_item(text: String) -> void:
 func _model_duration() -> float:
 	if item == str(t.get("isolado", "")):
 		return _play_sound()
+	# Palavras fáceis: o som do começo sai prolongado ("chhhuva"), como na modelagem da fono.
+	var ipa := str(t.get("ipa", ""))
+	if lv_id == "facil" and ipa in ["ʃ", "ʒ"]:
+		var long := "%s|%sːː|%s" % [ipa, ipa, item]
+		if Voice.has_line(long, "fonoerr"):
+			return Voice.say(long, "fonoerr")
 	return narrate(item)
 
 
@@ -276,15 +299,12 @@ func _rain_next() -> void:
 			narrate(w))
 	hud.stage.add_child(r)
 	var has_pic := r.texture != null
-	var l := UI.label(w, 24 if has_pic else (32 if w.length() <= 6 else 24), Color.WHITE, true)
+	var l := FonoText.rich_label(24 if has_pic else (32 if w.length() <= 6 else 24), Color.WHITE)
+	l.text = FonoText.highlight(target, w)
 	l.position = Vector2(-10, 150) if has_pic else Vector2(-10, 40)
-	l.size = Vector2(170, 44)
+	l.size = Vector2(170, 48)
 	l.add_theme_constant_override("outline_size", 8)
-	l.add_theme_color_override("font_outline_color", Color("#1E1B4B"))
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.clip_text = true
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.child_ok(l)  # palavra (ele lê)
+	l.add_theme_color_override("font_outline_color", FonoPanels.INK)
 	r.add_child(l)
 	_rain.append(r)
 	r.create_tween().tween_property(r, "position", goal, 0.5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
@@ -295,6 +315,40 @@ func _rain_next() -> void:
 
 func _finish_listen() -> void:
 	_end(0, 0, FonoData.listened(target))
+
+
+# ------------------------------------------------------------------ sonda: palavras novas (P7)
+func _start_probe() -> void:
+	step = "probe_intro"
+	probe_queue = FonoLog.probe_words(target).duplicate()
+	probe_ok = 0
+	probe_of = 0
+	_buttons("")
+	var say := Lines.n("Agora umas palavras novas! Só fala o nome.")
+	var d := narrate(say)
+	after(d + 0.3, _next_probe)
+
+
+func _next_probe() -> void:
+	if probe_queue.is_empty():
+		FonoLog.record_probe(target, probe_ok, probe_of)
+		step = "probe_done"
+		_buttons("")
+		var d := narrate(Lines.n("Obrigada! Agora vamos treinar."))
+		after(d + 0.3, _next_detective)
+		return
+	step = "probe"
+	_show_item(str(probe_queue.pop_front()), false)  # sem modelo, sem letra destacada, sem retorno
+	_buttons("adult")
+
+
+func _probe_mark(good: bool) -> void:
+	_buttons("")
+	probe_of += 1
+	if good:
+		probe_ok += 1
+	AudioService.play_sfx("pop", 1.0, -8.0)
+	after(0.3, _next_probe)
 
 
 # ------------------------------------------------------------------ ouvido de detetive
@@ -349,16 +403,22 @@ func _detective_answer(said_odd: bool) -> void:
 					after(d4 + 0.5, _next_detective))))
 
 
-# ------------------------------------------------------------------ fala comigo
+# ------------------------------------------------------------------ fala comigo (com "fala 3 vezes")
 func _next_speak() -> void:
 	if queue.is_empty():
-		var up := FonoData.record(target, lv, ok_count, done_count)
-		_end(ok_count, done_count, up)
+		_block_done()
 		return
 	step = "speak"
 	tries = 0
+	_set_reps(FonoPlan.reps_for(lv_id))
 	_show_item(str(queue.pop_front()))
 	_model_then_turn()
+
+
+func _set_reps(n: int) -> void:
+	reps = n
+	reps_done = 0
+	dots.queue_redraw()
 
 
 func _model_then_turn() -> void:
@@ -367,12 +427,43 @@ func _model_then_turn() -> void:
 	after(d + 0.3, func():
 		if lv_id == "historia":
 			narrate(Lines.n("Agora conte você a história!"))
+		elif reps == 3 and reps_done == 0:
+			narrate(Lines.n("Fala três vezes! Um, dois, três!"))
+		elif reps > 1 and reps_done == 0:
+			narrate(Lines.n("Fala várias vezes!"))
 		else:
 			narrate(Lines.n("Sua vez!"))
-		if mic.granted:
-			_buttons("mic")
+		_turn_buttons())
+
+
+func _turn_buttons() -> void:
+	if FonoPlan.mic_dead(mic.granted and use_mic, silent):
+		if reps > 1:
+			_buttons("rep")
 		else:
-			_buttons("adult"))
+			step = "adult"
+			_buttons("adult")
+		if not mic_warned and (not mic.granted or silent > 0):
+			_mic_gone()
+	else:
+		_buttons("mic")
+
+
+## O microfone não capta (ou não tem permissão): avisa o adulto UMA vez e segue só com os botões do adulto.
+func _mic_gone() -> void:
+	use_mic = false
+	if mic_warned:
+		return
+	mic_warned = true
+	var p := FonoPanels.box("MicNotice", Rect2(330, 420, 620, 130), 0.92)
+	p.add_child(FonoPanels.adult_text("O microfone não está captando — continue com os botões CERTO/QUASE.",
+		Rect2(20, 10, 580, 110), 24, Color.WHITE))
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.stage.add_child(p)
+	var tw := p.create_tween()
+	tw.tween_interval(5.0)
+	tw.tween_property(p, "modulate:a", 0.0, 0.6)
+	tw.tween_callback(p.queue_free)
 
 
 func _on_mic() -> void:
@@ -382,14 +473,49 @@ func _on_mic() -> void:
 	recording = true
 	rec_left = float(SAY_TIME.get(lv_id, 2.5))
 	meter.visible = str(t.get("meter", "")) != ""
+	level_bar.visible = true
 	mic_btn.modulate = Color(1, 0.5, 0.5)
 	mic.start_recording()
+
+
+## Sem microfone: o adulto (ou a criança) toca FALOU a cada fala; as bolinhas acendem.
+func _on_rep() -> void:
+	if step != "speak":
+		return
+	_buttons("")
+	_one_rep_done()
+
+
+func _one_rep_done() -> void:
+	reps_done += 1
+	dots.queue_redraw()
+	AudioService.play_sfx("pop", 1.0 + 0.1 * reps_done, -6.0)
+	if reps_done < reps:
+		var d := narrate(FonoPlan.rep_cue(reps_done))
+		after(d + 0.1, _turn_buttons)
+		return
+	step = "adult"
+	if _last_wav != null and _last_wav.get_length() > 0.2 and use_mic:
+		_voice_player.stream = _last_wav
+		var d := narrate(Lines.n("Escute você!"))
+		after(d + 0.1, func():
+			_voice_player.play()
+			after(minf(_last_wav.get_length(), 16.0) + 0.3, func(): _buttons("adult")))
+	else:
+		_buttons("adult")
 
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	if meter and meter.visible:
 		meter.queue_redraw()
+	if level_bar and level_bar.visible:
+		level_bar.queue_redraw()
+	_warn_t += delta
+	if _warn_t > 1.0:
+		_warn_t = 0.0
+		if step != "end" and FonoPlan.should_warn():
+			_short_session_notice()
 	if not recording:
 		return
 	rec_left -= delta
@@ -402,20 +528,19 @@ func _stop_recording() -> void:
 	recording = false
 	mic_btn.scale = Vector2.ONE
 	mic_btn.modulate = Color.WHITE
+	level_bar.visible = false
 	_buttons("")
-	var wav := mic.stop_recording()
-	step = "adult"
-	if wav != null and wav.get_length() > 0.2:
-		_voice_player.stream = wav
-		var d := narrate(Lines.n("Escute você!"))
-		after(d + 0.1, func():
-			_voice_player.play()
-			after(minf(wav.get_length(), 16.0) + 0.3, func(): _buttons("adult")))
-	else:
-		_buttons("adult")
+	_last_wav = mic.stop_recording()
+	silent = FonoPlan.silent_streak(silent, mic.peak)
+	if FonoPlan.mic_dead(true, silent):
+		_mic_gone()
+	_one_rep_done()
 
 
 func _adult(good: bool) -> void:
+	if step == "probe":
+		_probe_mark(good)
+		return
 	if step != "adult":
 		return
 	_buttons("")
@@ -434,6 +559,7 @@ func _adult(good: bool) -> void:
 	if tries < int(FonoData.rules().get("max_tries_per_item", 2)):
 		var d := narrate(Lines.n("Quase! Escute de novo e tente mais uma vez."))
 		step = "speak"
+		_set_reps(1)  # a segunda tentativa é uma fala só (sem repetir sem fim)
 		after(d + 0.2, _model_then_turn)
 		return
 	done_count += 1
@@ -441,48 +567,102 @@ func _adult(good: bool) -> void:
 	after(d2 + 0.2, _next_speak)
 
 
-# ------------------------------------------------------------------ medidor de chiado
-func _draw_meter() -> void:
-	var w := meter.size.x
-	var lo := 2500.0
-	var hi := 10000.0
-	var split := (FonoMic.split_hz() - lo) / (hi - lo)
-	var r := Rect2(0, 20, w, 34)
-	meter.draw_rect(Rect2(r.position, Vector2(w * split, r.size.y)), Color("#3B82F6"))
-	meter.draw_rect(Rect2(r.position + Vector2(w * split, 0), Vector2(w * (1.0 - split), r.size.y)), Color("#F97316"))
-	meter.draw_rect(r, Color.WHITE, false, 3.0)
-	var font := ThemeDB.fallback_font
-	var left := "J" if target == "j" else "CH"
-	meter.draw_string(font, Vector2(10, 16), left + " (bico)", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color.WHITE)
-	meter.draw_string(font, Vector2(w - 150, 16), "S/Z (sorriso)", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color.WHITE)
-	var hz := mic.centroid if recording else mic.last_centroid()
-	if hz > 0.0:
-		var x := clampf((hz - lo) / (hi - lo), 0.0, 1.0) * w
-		meter.draw_line(Vector2(x, 10), Vector2(x, 64), Color.WHITE, 8.0)
-		meter.draw_circle(Vector2(x, 37), 14.0, Color("#FACC15"))
+# ------------------------------------------------------------------ blocos, pausa e fim
+func _block_done() -> void:
+	if block_no == 1 and FonoPlan.REP_LEVELS.has(lv_id):
+		_pause_star()
+		return
+	_finish_session()
 
 
-# ------------------------------------------------------------------ fim
+## Pausa entre blocos: uma estrela (sem tempo) e a escolha de fazer mais um bloco ou terminar.
+func _pause_star() -> void:
+	step = "pause"
+	_buttons("")
+	card.visible = false
+	_set_reps(1)
+	var box := FonoPanels.box("FonoPause", Rect2(290, 110, 700, 470))
+	hud.stage.add_child(box)
+	box.add_child(FonoPanels.title("Uma estrela!", 700, 24, 60))
+	var st := ArtSprite.new("props", "star_token", 150.0)
+	st.position = Vector2(350, 210)
+	box.add_child(st)
+	var more := FonoPanels.button("FonoMore", "primary", "play", "MAIS UM", Vector2(370, 310), 280, 130)
+	more.pressed.connect(func():
+		box.queue_free()
+		block_no = 2
+		queue = FonoPlan.production_items(target, lv)
+		_next_speak())
+	box.add_child(more)
+	var stop := FonoPanels.button("FonoStop", "secondary", "check", "TERMINAR", Vector2(50, 310), 280, 130)
+	stop.pressed.connect(func():
+		box.queue_free()
+		_finish_session())
+	box.add_child(stop)
+	AudioService.play_sfx("unlock")
+	Fx.sparkle(world, Vector2(640, 320), 50, DS.STAR_GOLD)
+	narrate(Lines.n("Uma estrela! Quer fazer mais um pouco?"))
+
+
+func _finish_session() -> void:
+	step = "end"
+	FonoLog.clear_resume(target)
+	var up := FonoData.record(target, lv, ok_count, done_count)
+	if lv_id in ["frases", "historia"] and str(t.get("conversa", "")) != "":
+		_conversa(up)
+	else:
+		_end(ok_count, done_count, up)
+
+
+## "Conversa com figura" (P10): o adulto conversa sobre as figuras e reformula o que sair trocado.
+func _conversa(up: bool) -> void:
+	_buttons("")
+	card.visible = false
+	var p := FonoPanels.conversa(target, Rect2(190, 100, 900, 470))
+	hud.stage.add_child(p)
+	var b := FonoPanels.button("ConversaDone", "primary", "check", "PRONTO", Vector2(480, 572), 320)
+	b.pressed.connect(func():
+		p.queue_free()
+		b.queue_free()
+		_end(ok_count, done_count, up))
+	hud.stage.add_child(b)
+	narrate(Lines.n("Vamos conversar sobre a figura!"))
+
+
+## Aviso de sessão curta (P12), para o adulto: ~12 min; parar guarda o progresso.
+func _short_session_notice() -> void:
+	if hud.stage.get_node_or_null("ShortSession") != null:
+		return
+	var p := FonoPanels.box("ShortSession", Rect2(240, 150, 800, 380), 0.97)
+	hud.stage.add_child(p)
+	p.add_child(FonoPanels.adult_text("Para o adulto: já são uns 12 minutos de treino. Sessões curtas (10 a 15 min) " +
+		"funcionam melhor. Pode parar quando quiser: o que ele fez fica guardado.", Rect2(30, 20, 740, 200), 26, Color.WHITE))
+	var stop := FonoPanels.button("ShortStop", "secondary", "home", "PARAR", Vector2(80, 230), 280, 120)
+	stop.pressed.connect(func():
+		_save_partial()
+		Router.reset_to("fono", {}))
+	p.add_child(stop)
+	var go := FonoPanels.button("ShortGo", "primary", "play", "SEGUIR", Vector2(440, 230), 280, 120)
+	go.pressed.connect(p.queue_free)
+	p.add_child(go)
+
+
+## Saiu no meio do bloco: guarda o que falta (com a figura atual) para continuar na próxima vez.
+func _save_partial() -> void:
+	if step in ["speak", "adult"] and lv_id != "escutar":
+		var rest: Array = [item] + queue if item != "" else queue.duplicate()
+		FonoLog.save_resume(target, lv, rest, ok_count, done_count)
+
+
 func _end(ok: int, of: int, up: bool) -> void:
 	step = "end"
 	_buttons("")
 	card.visible = false
 	meter.visible = false
-	var box := Panel.new()
-	box.name = "FonoEnd"
-	box.add_theme_stylebox_override("panel", UITheme.rounded(Color(0.05, 0.06, 0.2, 0.95), 44, 8, DS.STAR_GOLD))
-	box.size = Vector2(700, 470)
-	box.position = Vector2(290, 120)
+	_set_reps(1)
+	var box := FonoPanels.box("FonoEnd", Rect2(290, 120, 700, 470))
 	hud.stage.add_child(box)
-	var msg := "Muito bem!"
-	if up:
-		msg = "Nível novo!"
-	var title := UI.label(msg, 60, DS.STAR_GOLD, true)
-	title.size = Vector2(700, 90)
-	title.position = Vector2(0, 24)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI.child_ok(title)
-	box.add_child(title)
+	box.add_child(FonoPanels.title("Nível novo!" if up else "Muito bem!", 700, 24, 60))
 	var stars := 3 if of == 0 or ok >= of * 0.8 else (2 if ok >= of * 0.5 else 1)
 	for s in 3:
 		var st := ArtSprite.new("props", "star_token", 100.0)
@@ -494,7 +674,7 @@ func _end(ok: int, of: int, up: bool) -> void:
 		sc.size = Vector2(700, 50)
 		sc.position = Vector2(0, 250)
 		sc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		UI.child_ok(sc)  # placar (ele lê números)
+		UI.child_ok(sc)  # quantas figuras (ele lê números); não é placar de velocidade
 		box.add_child(sc)
 	var again := DSButton.new("secondary", "refresh", Vector2(280, 130))
 	again.name = "FonoAgain"
@@ -508,7 +688,7 @@ func _end(ok: int, of: int, up: bool) -> void:
 		if up:
 			Router.reset_to("fono_session", {"target": target, "lv": FonoData.level_open(target)})
 		else:
-			Router.reset_to("fono", {}))
+			Router.reset_to("fono_target", {"target": target}))
 	box.add_child(nxt)
 	AudioService.play_sfx("fanfare" if up else "unlock")
 	if up:
@@ -538,13 +718,41 @@ func _thumbs_up() -> void:
 	v.create_tween().tween_property(v, "position:y", 250.0, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
+# ------------------------------------------------------------------ medidor de chiado
+func _draw_meter() -> void:
+	var w := meter.size.x
+	var lo := 2500.0
+	var hi := 10000.0
+	var split := (FonoMic.split_hz() - lo) / (hi - lo)
+	var r := Rect2(0, 20, w, 34)
+	meter.draw_rect(Rect2(r.position, Vector2(w * split, r.size.y)), Color("#3B82F6"))
+	meter.draw_rect(Rect2(r.position + Vector2(w * split, 0), Vector2(w * (1.0 - split), r.size.y)), Color("#F97316"))
+	meter.draw_rect(r, Color.WHITE, false, 3.0)
+	var font := ThemeDB.fallback_font
+	var left := "J" if target == "j" else "CH"
+	meter.draw_string(font, Vector2(10, 16), left + " (bico)", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color.WHITE)
+	meter.draw_string(font, Vector2(w - 150, 16), "S/Z (sorriso)", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color.WHITE)
+	if target == "j" and recording and mic.voiced:
+		# Pista de vibração (P8): ondinhas "garganta vibrando" (não é nota; mão no pescoço).
+		meter.draw_string(font, Vector2(w / 2.0 - 60, 16), "vibrando ~~~", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, DS.LIFE_GREEN)
+	var hz := mic.centroid if recording else mic.last_centroid()
+	if hz > 0.0:
+		var x := clampf((hz - lo) / (hi - lo), 0.0, 1.0) * w
+		meter.draw_line(Vector2(x, 10), Vector2(x, 64), Color.WHITE, 8.0)
+		meter.draw_circle(Vector2(x, 37), 14.0, Color("#FACC15"))
+
+
 func _hint() -> void:
-	for b in [mic_btn, yes_btn, ok_btn]:
+	for b in [mic_btn, rep_btn, yes_btn, ok_btn]:
 		if b.visible:
 			hand.show_tap(world.get_canvas_transform().affine_inverse() * (b.get_global_transform_with_canvas() * (b.size / 2.0)))
 			return
 
 
 func on_exit() -> void:
+	if step == "pause":
+		FonoData.record(target, lv, ok_count, done_count)  # o 1º bloco foi inteiro: conta como sessão
+		step = "end"
+	_save_partial()
 	Voice.stop()
 	super.on_exit()

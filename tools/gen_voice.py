@@ -245,6 +245,22 @@ for _k, _t in _fono["targets"].items():
     if _t["erro"]:
         for _x in _t["inicio"] + _t["meio"]:
             add("fonoerr", "%s|%s|%s" % (_t["erro"][0], _t["erro"][1], _x), "fono")
+    # v2: palavras fáceis (com o som do começo prolongado, "chhhuva", via troca ʃ -> ʃːː), sondas, pares mínimos
+    # e as trocas das Sacolas do som (CH x S, CH x J, J x Z, J x CH) nas palavras de início.
+    for _x in _t.get("facil", []) + _t.get("sondas", []):
+        add("narrator", _x, "fono")
+    if _t["ipa"] in ("ʃ", "ʒ"):
+        for _x in _t.get("facil", []):
+            add("fonoerr", "%s|%sːː|%s" % (_t["ipa"], _t["ipa"], _x), "fono")
+    for _p in _t.get("pares", []):
+        add("narrator", _p["a"], "fono")
+        add("narrator", _p["b"], "fono")
+    for _b in _t.get("bolsas", []):
+        for _x in _t["inicio"]:
+            add("fonoerr", "%s|%s|%s" % (_b["erro"][0], _b["erro"][1], _x), "fono")
+for _a in _fono.get("activities", []):
+    add("narrator", _a["name"], "fono")
+    add("narrator", _a["say"], "fono")
 
 # ---------------------------------------------------------------- síntese
 def key_for(who, text, kid=""):

@@ -2,18 +2,24 @@ class_name FonoParentPanel
 extends RefCounted
 ## Parte do módulo FALAR na área dos pais (aba Fala): quais sons treinar e em que ordem, a academia da boca
 ## (exercícios e repetições, como a fono passou) e o histórico para mostrar à fono. Nada sai do aparelho.
-## As escolhas ficam nos ajustes (fono_targets, fono_gym, fono_reps); o progresso no perfil (FonoData).
+## As escolhas ficam nos ajustes (fono_targets, fono_gym, fono_reps, fono_gym_reps); o progresso no perfil (FonoData).
+## v2: dose do treino, pares mínimos, sondas, diário e dicas ficam em FonoParentExtra.
 
-const REPS := [5, 10, 15, 20, 30]
+const REPS := [10, 15, 20]
 
 
 static func build(body: VBoxContainer, refresh: Callable) -> void:
 	body.add_child(_txt("FALAR — treino de fala em casa", 30, Palette.YELLOW))
 	body.add_child(_txt("Siga o que a fonoaudióloga pediu. O adulto confirma cada fala (botões CERTO / QUASE); o " +
 		"microfone e a câmera só funcionam na hora, nada é gravado em arquivo nem enviado.", 20, Palette.TEXT_SOFT))
+	FonoParentExtra.tips(body)
 	_targets(body, refresh)
+	FonoParentExtra.dose(body, refresh)
 	_gym(body, refresh)
 	_report(body)
+	FonoParentExtra.probes(body)
+	FonoParentExtra.activities(body)
+	FonoParentExtra.diary(body, refresh)
 
 
 static func _txt(s: String, fs: int = 24, c: Color = Palette.WHITE) -> Label:
@@ -54,8 +60,29 @@ static func _targets(body: VBoxContainer, refresh: Callable) -> void:
 	body.add_child(h)
 
 
+## Lista do dia da academia, igual à folha da fono: cada toque num exercício passa por 10 → 15 → 20 → fora.
+static func cycle_gym(id: String) -> void:
+	var now := FonoData.gym_list().duplicate()
+	if not now.has(id):
+		now.append(id)
+		FonoData.set_gym_list(now)
+		FonoData.set_gym_reps_for(id, 10)
+		return
+	var r := FonoData.gym_reps_for(id)
+	if r < 15:
+		FonoData.set_gym_reps_for(id, 15)
+	elif r < 20:
+		FonoData.set_gym_reps_for(id, 20)
+	elif now.size() > 1:
+		now.erase(id)
+		FonoData.set_gym_list(now)
+
+
 static func _gym(body: VBoxContainer, refresh: Callable) -> void:
-	body.add_child(_txt("Academia da boca — repetições de cada exercício:", 24, Palette.TEAL))
+	var day := FonoData.gym_date()
+	body.add_child(_txt("Academia da boca — lista do dia (como a folha da fono)%s:" % (
+		" · montada em " + day if day != "" else ""), 24, Palette.TEAL))
+	body.add_child(_txt("Repetições para todos:", 20, Palette.TEXT_SOFT))
 	var hr := _flow()
 	for n in REPS:
 		var b := UI.button(str(n), Palette.TEAL if n == FonoData.gym_reps() else Palette.PANEL_LIGHT, "", Vector2(90, 60), false, 22)
@@ -65,21 +92,17 @@ static func _gym(body: VBoxContainer, refresh: Callable) -> void:
 			refresh.call())
 		hr.add_child(b)
 	body.add_child(hr)
-	body.add_child(_txt("Exercícios (toque para tirar ou pôr):", 22, Palette.TEXT_SOFT))
+	body.add_child(_txt("Exercícios (cada toque: 10 → 15 → 20 → fora; os com \"segura\" contam um, dois, três):", 22,
+		Palette.TEXT_SOFT))
 	var on := FonoData.gym_list()
 	var h := _flow()
 	for g in FonoData.gym():
 		var id := str(g["id"])
-		var b := UI.button(str(g["name"]), Palette.GREEN if on.has(id) else Palette.PANEL_LIGHT, "", Vector2(250, 56), false, 18)
+		var label := str(g["name"]) + (" · %d" % FonoData.gym_reps_for(id) if on.has(id) else "")
+		var b := UI.button(label, Palette.GREEN if on.has(id) else Palette.PANEL_LIGHT, "", Vector2(250, 56), false, 18)
 		b.name = "FonoGym_%s" % id
 		b.tapped.connect(func():
-			var now := FonoData.gym_list().duplicate()
-			if now.has(id):
-				if now.size() > 1:
-					now.erase(id)
-			else:
-				now.append(id)
-			FonoData.set_gym_list(now)
+			cycle_gym(id)
 			refresh.call())
 		h.add_child(b)
 	body.add_child(h)
