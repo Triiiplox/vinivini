@@ -150,6 +150,83 @@ def cmd_edge(lista, pasta, voice="pt-BR-FranciscaNeural"):
     asyncio.run(run())
 
 
+def cmd_narradora(pasta, voice="pt-BR-FranciscaNeural"):
+    """Toda a narradora do app (pedido do Andro, 12/10: "Francisca perfeita para todo o app"): gera e importa.
+    Inclui as versões com o nome de cada criança convidada; pula o que já está travado e o "rrrr" do motor
+    (só sai certo em fonemas, na voz anterior)."""
+    import asyncio
+    import edge_tts
+    gv = _gen()
+    mpath = os.path.join(OUT, "manifest.json")
+    manifest = json.load(open(mpath, encoding="utf-8"))
+    jobs = []
+    for (who, text) in gv.lines:
+        if who != "narrator" or re.search(r"\b[Rr]{3,}\b", text):
+            continue
+        kids = [""] + (list(gv.KIDS) if gv.has_name(text) else [])
+        for kid in kids:
+            k = gv.key_for(who, text, kid)
+            if manifest.get(k, {}).get("lock"):
+                continue
+            say = gv.spoken(text, name=gv.KIDS[kid]) if kid else gv.spoken(text)
+            jobs.append((k, who, text, kid, say))
+    os.makedirs(pasta, exist_ok=True)
+    proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or None
+    print("narradora: %d falas" % len(jobs), flush=True)
+
+    async def one(j):
+        dst = os.path.join(pasta, j[0] + ".mp3")
+        for tent in range(5):
+            if os.path.exists(dst) and os.path.getsize(dst) > 1000:
+                return
+            try:
+                await edge_tts.Communicate(j[4], voice, rate="-10%", proxy=proxy).save(dst)
+            except Exception as ex:  # rede instável: tenta de novo
+                print("tentativa", tent + 1, j[0], ex, flush=True)
+                await asyncio.sleep(2 ** tent)
+
+    async def run():
+        sem = asyncio.Semaphore(4)
+
+        async def lim(j):
+            async with sem:
+                await one(j)
+        for i in range(0, len(jobs), 40):
+            await asyncio.gather(*(lim(j) for j in jobs[i:i + 40]))
+            print("  %d/%d" % (min(i + 40, len(jobs)), len(jobs)), flush=True)
+    asyncio.run(run())
+    done = 0
+    for k, who, text, kid, _say in jobs:
+        src = os.path.join(pasta, k + ".mp3")
+        if not os.path.exists(src) or os.path.getsize(src) < 1000:
+            print("faltou:", k, text)
+            continue
+        e = _import_one(gv, src, k, who, text)
+        if kid:
+            e["kid"] = kid
+        elif gv.has_name(text):
+            e["p"] = gv.PRON
+        manifest[k] = e
+        done += 1
+        if done % 200 == 0:
+            json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False)
+    print("importadas: %d" % done)
+
+
+def _import_one(gv, src, k, who, text):
+    out = os.path.join(OUT, k + ".mp3")
+    af = "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.03,areverse," \
+         "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08,areverse,loudnorm=I=-17:TP=-1.5:LRA=11"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-af", af, "-ac", "1", "-ar", "24000",
+                    "-c:a", "libmp3lame", "-b:a", "32k", out], check=True)
+    d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
+                             capture_output=True, text=True).stdout.strip() or 1.0)
+    e = {"f": k + ".mp3", "d": round(d, 2), "t": text, "w": who, "eng": ENG, "a": gv.ACC, "lock": 1}
+    e["v"] = gv.markers_for(out, text if who == "narrator" else text.split("|")[-1], "pt-br")
+    return e
+
+
 def cmd_importar(pasta):
     gv = _gen()
     rows = fono_lines(gv)
@@ -192,6 +269,8 @@ if __name__ == "__main__":
         cmd_lista(sys.argv[2])
     elif cmd == "gerar":
         cmd_gerar(sys.argv[2], sys.argv[3])
+    elif cmd == "narradora":
+        cmd_narradora(sys.argv[2], *(sys.argv[3:4]))
     elif cmd == "edge":
         cmd_edge(sys.argv[2], sys.argv[3], *(sys.argv[4:5]))
     elif cmd == "importar":

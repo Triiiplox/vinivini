@@ -408,8 +408,8 @@ def main():
         if LANG.get(who, "pt-br") == "pt-br" and has_name(text):
             for kid in KIDS:
                 kk = key_for(who, text, kid)
-                if kk in old and os.path.exists(os.path.join(OUT, kk + ".mp3")) and int(old[kk].get("a", 0)) >= ACC \
-                        and old[kk].get("eng", "kokoro") == engine(who):
+                if kk in old and os.path.exists(os.path.join(OUT, kk + ".mp3")) and (old[kk].get("lock") or (
+                        int(old[kk].get("a", 0)) >= ACC and old[kk].get("eng", "kokoro") == engine(who))):
                     manifest[kk] = old[kk]
                 else:
                     todo.append((kk, who, text, kid))
