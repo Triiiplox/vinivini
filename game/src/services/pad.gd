@@ -12,6 +12,10 @@ extends CanvasLayer
 ## Nos jogos de nave a estrela some: com pad_lanes() (voo livre) cima/baixo trocam de faixa; com pad_free() (fases)
 ## o analógico e as setas pilotam a nave livre (pad_move(vetor) a cada quadro). Botão = pad_action().
 ## Os toques viram eventos de mouse (Input.parse_input_event): o jogo inteiro funciona sem mudar cada tela.
+## CELULAR + CONTROLE (13/10: a TCL 50P735 só tem OpenGL ES 2 e o Godot 4 não roda nela; o Vini joga no celular
+## espelhado na TV com o DualSense pareado no celular): no celular o modo controle LIGA SOZINHO quando um controle
+## conecta (ou quando um botão dele chega) e desliga quando ele sai. Tocar na tela continua valendo; a estrela some
+## até o controle mexer de novo.
 
 const DEAD := 0.22
 const SPEED := 1100.0
@@ -33,23 +37,49 @@ var _back_armed := -10.0
 var _help: Control
 var _joy_ms := -100000
 var _dpad := Vector2.ZERO
+var _tv := false  ## APK de TV (ou --tv): sempre ligado
+var _touched := false  ## celular: tocou na tela depois do controle (estrela escondida)
 
 
 func _ready() -> void:
 	layer = 120
-	enabled = OS.has_feature("tv") or OS.get_cmdline_user_args().has("--tv")
-	set_process(enabled)
-	set_process_input(enabled)
-	if not enabled:
-		return
+	_tv = OS.has_feature("tv") or OS.get_cmdline_user_args().has("--tv")
 	_star = Node2D.new()
 	_star.draw.connect(_draw_star)
+	_star.visible = false
 	add_child(_star)
-	Router.screen_changed.connect(func(_id): call_deferred("_snap_start"))
+	Router.screen_changed.connect(func(_id):
+		if enabled:
+			call_deferred("_snap_start"))
+	Input.joy_connection_changed.connect(func(_dev: int, _on: bool): _set_enabled(_tv or not Input.get_connected_joypads().is_empty()))
+	_set_enabled(_tv or not Input.get_connected_joypads().is_empty())
+
+
+## Liga/desliga o modo controle (no celular segue o controle conectado).
+func _set_enabled(on: bool) -> void:
+	if on == enabled and is_processing() == on:
+		return
+	enabled = on
+	set_process(on)
+	_star.visible = false
+	stick = Vector2.ZERO
+	_dpad = Vector2.ZERO
+	_back_t = -1.0
+	if on and Router.current_screen != null:
+		call_deferred("_snap_start")
 
 
 # ------------------------------------------------------------------ entrada
 func _input(e: InputEvent) -> void:
+	if not _tv and (e is InputEventJoypadButton or (e is InputEventJoypadMotion and absf(e.axis_value) > 0.5)):
+		_touched = false
+		if not enabled:
+			_set_enabled(true)  # controle que já estava pareado antes de abrir o jogo
+	if not enabled:
+		return
+	if not _tv and e is InputEventScreenTouch and e.pressed:
+		_touched = true  # dedo na tela: a estrela sai do caminho (o toque vale normalmente)
+		return
 	if e is InputEventJoypadMotion:
 		if e.axis == JOY_AXIS_LEFT_X:
 			stick.x = e.axis_value
@@ -103,7 +133,7 @@ func _button(b: int, down: bool) -> void:
 func _process(delta: float) -> void:
 	var free := _free()
 	var lanes := _lanes()
-	_star.visible = (not (lanes or free) or _back_t >= 0.0) and not is_instance_valid(_help)
+	_star.visible = (not (lanes or free) or _back_t >= 0.0) and not is_instance_valid(_help) and not _touched
 	if (lanes or free) and _back_t >= 0.0:
 		_on_home_button()  # na nave a estrela some; segurando OPTIONS ela aparece na casinha, com o anel enchendo
 	if free:
